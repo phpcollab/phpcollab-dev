@@ -1,4 +1,10 @@
 <?php
+$lang['status_notstarted'] = 'Not started';
+$lang['status_active'] = 'Active';
+$lang['status_completed'] = 'Completed';
+$lang['status_approved'] = 'Approved';
+$lang['status_overdue'] = 'Overdue';
+
 $lang['pro_id'] = 'Project ID';
 $lang['pro_name'] = 'Project name';
 
