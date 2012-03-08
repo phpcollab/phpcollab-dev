@@ -19,6 +19,7 @@
 <?php echo form_open(current_url()); ?>
 
 <div class="column1">
+<p><?php echo form_label($this->lang->line('project').' *', 'project'); ?><?php echo form_dropdown('project', $select_project, set_value('', $this->uri->segment(3)), 'id="project" class="select"'); ?></p>
 <p><?php echo form_label($this->lang->line('name').' *', 'name'); ?><?php echo form_input('name', set_value('name'), 'id="name" class="inputtext"'); ?></p>
 <p><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
 </div>

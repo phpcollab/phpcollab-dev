@@ -7,16 +7,22 @@ if(!defined('BASEPATH')) {
 class projects extends CI_Controller {
 	public function index() {
 		$filters = array();
-		$filters['home_projects_pro_name'] = array('pro.pro_name', 'like');
+		$filters['projects_name'] = array('pro.name', 'like');
 		$flt = build_filters($filters);
+
+		$columns = array();
+		$columns[] = 'pro.id';
+		$columns[] = 'pro.name';
+		$col = build_columns('projects', $columns, 'pro.id', 'DESC');
 
 		$results = $this->phpcollab_model->get_projects_count($flt);
 		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 30);
 
 		$data = array();
+		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
-		$data['results'] = $this->phpcollab_model->get_projects_limit($flt, $build_pagination['limit'], $build_pagination['start']);
+		$data['results'] = $this->phpcollab_model->get_projects_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'projects');
 		$this->zones['content'] = $this->load->view('projects_index', $data, true);
 	}
 }
