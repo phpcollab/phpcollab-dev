@@ -5,10 +5,11 @@ if(!defined('BASEPATH')) {
 }
 
 class task extends CI_Controller {
-	public function create() {
+	public function create($id) {
 		$this->load->library('form_validation');
 
 		$data = array();
+		$data['pro'] = $this->phpcollab_model->get_project($id);
 		$data['select_project'] = $this->phpcollab_model->select_project();
 		$data['select_status'] = $this->phpcollab_model->select_status();
 		$data['select_priority'] = $this->phpcollab_model->select_priority();

@@ -3,13 +3,15 @@
 <ul>
 <li class="first"><a href="<?php echo base_url(); ?>home"><?php echo $this->lang->line('home'); ?></a></li>
 <li><a href="<?php echo base_url(); ?>projects"><?php echo $this->lang->line('projects'); ?></a></li>
+<li><a href="<?php echo base_url(); ?>project/read/<?php echo $pro->id; ?>"><?php echo $pro->name; ?></a></li>
+<li><a href="<?php echo base_url(); ?>tasks/index/<?php echo $pro->id; ?>"><?php echo $this->lang->line('tasks'); ?></a></li>
 <li><?php echo $this->lang->line('create'); ?></li>
 </ul>
 </div>
 </div>
 
 <div class="box1">
-<h1><?php echo $this->lang->line('project'); ?></h1>
+<h1><?php echo $this->lang->line('task'); ?></h1>
 <div class="display">
 
 <h2><?php echo $this->lang->line('create'); ?></h2>
