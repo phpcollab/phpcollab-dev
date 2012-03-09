@@ -5,11 +5,20 @@ $dayNameArray = array(1 =>'Monday', 2 =>'Tuesday', 3 =>'Wednesday', 4 =>'Thursda
 
 $monthNameArray = array(1=> 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 
-$status = array(0 => 'Client Completed', 1 => 'Completed', 2 => 'Not Started', 3 => 'Open', 4 => 'Suspended');
+$lang['status_0'] = 'Client Completed';
+$lang['status_1'] = 'Completed';
+$lang['status_2'] = 'Not Started';
+$lang['status_3'] = 'Open';
+$lang['status_4'] = 'Suspended';
 
 $profil = array(0 => 'Administrator', 1 => 'Project Manager', 2 => 'User', 3 => 'Client User', 4 => 'Disabled', 5 => 'Project Manager Administrator');
 
-$priority = array(0 => 'None', 1 => 'Very low', 2 => 'Low', 3 => 'Medium', 4 => 'High', 5 => 'Very high');
+$lang['priority_0'] = 'None';
+$lang['priority_1'] = 'Very low';
+$lang['priority_2'] = 'Low';
+$lang['priority_3'] = 'Medium';
+$lang['priority_4'] = 'High';
+$lang['priority_5'] = 'Very high';
 
 $statusTopic = array(0 => 'Closed', 1 => 'Open');
 $statusTopicBis = array(0 => 'Yes', 1 => 'No');

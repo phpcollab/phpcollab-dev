@@ -13,6 +13,9 @@ class projects extends CI_Controller {
 		$columns = array();
 		$columns[] = 'pro.id';
 		$columns[] = 'pro.name';
+		$columns[] = 'pro.priority';
+		$columns[] = 'pro.organization';
+		$columns[] = 'pro.status';
 		$col = build_columns('projects', $columns, 'pro.id', 'DESC');
 
 		$results = $this->phpcollab_model->get_projects_count($flt);

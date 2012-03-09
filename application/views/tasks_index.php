@@ -36,6 +36,9 @@
 <tr>
 <th><?php display_column('tasks', $columns[0], $this->lang->line('id')); ?></th>
 <th><?php display_column('tasks', $columns[1], $this->lang->line('task')); ?></th>
+<th><?php display_column('tasks', $columns[2], $this->lang->line('priority')); ?></th>
+<th><?php display_column('tasks', $columns[3], $this->lang->line('status')); ?></th>
+<th><?php display_column('tasks', $columns[4], $this->lang->line('completion')); ?></th>
 <th>&nbsp;</th>
 </tr>
 </thead>
@@ -43,10 +46,13 @@
 
 <?php foreach($results as $result) { ?>
 <tr>
-<td><a href="<?php echo base_url(); ?>task/read/<?php echo $result->id;?>"><?php echo $result->id;?></a></td>
-<td><a href="<?php echo base_url(); ?>task/read/<?php echo $result->id;?>"><?php echo $result->name;?></a></td>
+<td><a href="<?php echo base_url(); ?>task/read/<?php echo $result->id; ?>"><?php echo $result->id; ?></a></td>
+<td><a href="<?php echo base_url(); ?>task/read/<?php echo $result->id; ?>"><?php echo $result->name; ?></a></td>
+<td><img src="<?php echo base_url(); ?>assets/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
+<td><?php echo $this->lang->line('status_'.$result->status); ?></td>
+<td><?php echo $result->completion_percent; ?> %</td>
 <th>
-<a href="<?php echo base_url(); ?>task/update/<?php echo $result->id;?>"><?php echo $this->lang->line('update'); ?></a>
+<a href="<?php echo base_url(); ?>task/update/<?php echo $result->id; ?>"><?php echo $this->lang->line('update'); ?></a>
 </th>
 </tr>
 <?php } ?>

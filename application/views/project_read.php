@@ -22,9 +22,11 @@ if($pro) {
 <div class="column1">
 <h2><?php echo $this->lang->line('details'); ?></h2>
 <p><span class="label"><?php echo $this->lang->line('name'); ?></span><?php echo $pro->name; ?></p>
+<p><span class="label"><?php echo $this->lang->line('priority'); ?></span><img src="<?php echo base_url(); ?>assets/<?php echo $pro->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$pro->priority); ?></p>
 <p><span class="label"><?php echo $this->lang->line('url_dev'); ?></span><?php echo $pro->url_dev; ?></p>
 <p><span class="label"><?php echo $this->lang->line('url_prod'); ?></span><?php echo $pro->url_prod; ?></p>
 <p><span class="label"><?php echo $this->lang->line('organization'); ?></span><a href="<?php echo base_url(); ?>organization/read/<?php echo $org->id; ?>"><?php echo $org->name; ?></a></p>
+<p><span class="label"><?php echo $this->lang->line('status'); ?></span><?php echo $this->lang->line('status_'.$pro->status); ?></p>
 </div>
 
 <div class="column1 columnlast">

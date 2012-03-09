@@ -13,7 +13,7 @@ class phpcollab_model extends CI_Model {
         return $query->row();
     }
     function get_projects_limit($flt, $num, $offset, $column) {
-        $query = $this->db->query('SELECT pro.id, pro.name FROM '.$this->db->dbprefix('projects').' AS pro WHERE '.implode(' AND ', $flt).' GROUP BY pro.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+        $query = $this->db->query('SELECT pro.id, pro.name, pro.priority, pro.organization, pro.status FROM '.$this->db->dbprefix('projects').' AS pro WHERE '.implode(' AND ', $flt).' GROUP BY pro.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
         return $query->result();
     }
     function get_project($id) {
@@ -37,12 +37,34 @@ class phpcollab_model extends CI_Model {
         return $query->row();
     }
     function get_tasks_limit($flt, $num, $offset, $column) {
-        $query = $this->db->query('SELECT tsk.id, tsk.name FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE '.implode(' AND ', $flt).' GROUP BY tsk.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+        $query = $this->db->query('SELECT tsk.id, tsk.name, tsk.priority, tsk.status, tsk.completion * 10 AS completion_percent FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE '.implode(' AND ', $flt).' GROUP BY tsk.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
         return $query->result();
     }
     function get_task($id) {
-        $query = $this->db->query('SELECT tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.id = ? GROUP BY tsk.id', array($id));
+        $query = $this->db->query('SELECT tsk.*, tsk.completion * 10 AS completion_percent FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.id = ? GROUP BY tsk.id', array($id));
         return $query->row();
+    }
+    function select_priority() {
+		$select_priority = array();
+		for($i=0;$i<=5;$i++) {
+			$select_priority[$i] = $this->lang->line('priority_'.$i);
+		}
+        return $select_priority;
+    }
+    function select_status() {
+		$select_status = array();
+		for($i=0;$i<=4;$i++) {
+			$select_status[$i] = $this->lang->line('status_'.$i);
+		}
+        return $select_status;
+    }
+    function select_completion() {
+		$select_completion = array();
+		for($i=0;$i<=10;$i++) {
+			$percent = $i * 10;
+			$select_completion[$i] = $percent.' %';
+		}
+        return $select_completion;
     }
     function select_organization() {
 		$select_organization = array();

@@ -10,6 +10,9 @@ class task extends CI_Controller {
 
 		$data = array();
 		$data['select_project'] = $this->phpcollab_model->select_project();
+		$data['select_status'] = $this->phpcollab_model->select_status();
+		$data['select_priority'] = $this->phpcollab_model->select_priority();
+		$data['select_completion'] = $this->phpcollab_model->select_completion();
 
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
 
@@ -18,6 +21,8 @@ class task extends CI_Controller {
 		} else {
 			$this->db->set('project', $this->input->post('project'));
 			$this->db->set('name', $this->input->post('name'));
+			$this->db->set('status', $this->input->post('status'));
+			$this->db->set('priority', $this->input->post('priority'));
 			$this->db->insert('tasks');
 			$id = $this->db->insert_id();
 			$this->read($id);
@@ -37,6 +42,9 @@ class task extends CI_Controller {
 		$data['tsk'] = $this->phpcollab_model->get_task($id);
 		$data['pro'] = $this->phpcollab_model->get_project($data['tsk']->project);
 		$data['select_project'] = $this->phpcollab_model->select_project();
+		$data['select_status'] = $this->phpcollab_model->select_status();
+		$data['select_priority'] = $this->phpcollab_model->select_priority();
+		$data['select_completion'] = $this->phpcollab_model->select_completion();
 
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
 
@@ -45,6 +53,9 @@ class task extends CI_Controller {
 		} else {
 			$this->db->set('project', $this->input->post('project'));
 			$this->db->set('name', $this->input->post('name'));
+			$this->db->set('status', $this->input->post('status'));
+			$this->db->set('priority', $this->input->post('priority'));
+			$this->db->set('completion', $this->input->post('completion'));
 			$this->db->set('description', $this->input->post('description'));
 			$this->db->where('id', $id);
 			$this->db->update('tasks');

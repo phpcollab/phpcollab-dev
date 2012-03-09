@@ -14,6 +14,9 @@ class tasks extends CI_Controller {
 		$columns = array();
 		$columns[] = 'tsk.id';
 		$columns[] = 'tsk.name';
+		$columns[] = 'tsk.priority';
+		$columns[] = 'tsk.status';
+		$columns[] = 'tsk.completion';
 		$col = build_columns('tasks', $columns, 'tsk.id', 'DESC');
 
 		$results = $this->phpcollab_model->get_tasks_count($flt);

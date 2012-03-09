@@ -30,6 +30,9 @@ if($tsk) {
 <div class="column1 columnlast">
 <h2><?php echo $this->lang->line('details'); ?></h2>
 <p><span class="label"><?php echo $this->lang->line('name'); ?></span><?php echo $tsk->name; ?></p>
+<p><span class="label"><?php echo $this->lang->line('status'); ?></span><?php echo $this->lang->line('status_'.$pro->status); ?></p>
+<p><span class="label"><?php echo $this->lang->line('completion'); ?></span><?php echo $tsk->completion_percent; ?> %</p>
+<p><span class="label"><?php echo $this->lang->line('priority'); ?></span><img src="<?php echo base_url(); ?>assets/<?php echo $tsk->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$tsk->priority); ?></p>
 <p><span class="label"><?php echo $this->lang->line('description'); ?></span><?php echo $tsk->description; ?></p>
 </div>
 

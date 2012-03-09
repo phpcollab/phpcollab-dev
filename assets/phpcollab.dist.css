@@ -45,7 +45,7 @@ table tbody tr:hover th, table tbody tr:hover td{background-color:#E7E7E7;}
 #box-pagefooter{clear:both;position:relative;}
 .box1, .box2{clear:both;margin-bottom:10px;overflow:hidden;position:relative;}
 .column1, .column2{background-color:#F5F5F5;position:relative;}
-.column1, .column2{padding:10px;}
+.column1, .column2{padding:0px;}
 #box-pageheader .box-menu{height:30px;}
 #box-pageheader .box-menu h1{display:none;}
 #box-pageheader .box-menu ul{margin:5px 0px 0px 0px;padding:0px;}
