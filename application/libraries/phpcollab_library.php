@@ -98,7 +98,7 @@ class phpcollab_library {
 		$head = array();
 		if($this->CI->lay->lay_type == 'text/html') {
 			$titles = array();
-			$titles[] = 'phpcollab';
+			$titles[] = 'phpCollab';
 			$head[] = '<title>'.implode(' | ', $titles).'</title>';
 
 			$head[] = '<meta charset="UTF-8">';

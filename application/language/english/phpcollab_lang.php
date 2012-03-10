@@ -11,7 +11,12 @@ $lang['status_2'] = 'Not Started';
 $lang['status_3'] = 'Open';
 $lang['status_4'] = 'Suspended';
 
-$profil = array(0 => 'Administrator', 1 => 'Project Manager', 2 => 'User', 3 => 'Client User', 4 => 'Disabled', 5 => 'Project Manager Administrator');
+$lang['profile_0'] = 'Administrator';
+$lang['profile_1'] = 'Project Manager';
+$lang['profile_2'] = 'User';
+$lang['profile_3'] = 'Client User';
+$lang['profile_4'] = 'Disabled';
+$lang['profile_5'] = 'Project Manager Administrator';
 
 $lang['priority_0'] = 'None';
 $lang['priority_1'] = 'Very low';

@@ -14,26 +14,9 @@ class phpcollab_model extends CI_Model {
         $query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.login = ? GROUP BY mbr.id', array($user_name));
 		if($query->num_rows() > 0) {
 			$mbr = $query->row();
-			if($this->config->item('phpcollab_password') == 'MD5') {
-				if(md5($password) == $mbr->password) {
-					$this->session->set_userdata('id', $mbr->id);
-					$login = true;
-				}
-			}
-			if($this->config->item('phpcollab_password') == 'CRYPT') {
-				$salt = substr($mbr->password, 0, 2);
-				if(crypt($password, $salt) == $mbr->password) {
-					$this->session->set_userdata('id', $mbr->id);
-					$login = true;
-				}
-			}
-			if($this->config->item('phpcollab_password') == 'PLAIN') {
-				if($password == $mbr->password) {
-					$this->session->set_userdata('id', $mbr->id);
-					$login = true;
-				}
-			}
+			$login = $this->password_check($password, $mbr->password);
 			if($login == true) {
+				$this->session->set_userdata('id', $mbr->id);
 				$salt = substr($password, 0, 2); 
 				$password = crypt($password, $salt);
 
@@ -56,6 +39,37 @@ class phpcollab_model extends CI_Model {
 			}
 		}
 		return $login;
+	}
+    function password_check($input, $saved) {
+		if($this->config->item('phpcollab_password') == 'MD5') {
+			if(md5($input) == $saved) {
+				return true;
+			}
+		}
+		if($this->config->item('phpcollab_password') == 'CRYPT') {
+			$salt = substr($saved, 0, 2);
+			if(crypt($input, $salt) == $saved) {
+				return true;
+			}
+		}
+		if($this->config->item('phpcollab_password') == 'PLAIN') {
+			if($input == $saved) {
+				return true;
+			}
+		}
+		return false;
+	}
+    function password_save($input) {
+		if($this->config->item('phpcollab_password') == 'MD5') {
+			return md5($input);
+		}
+		if($this->config->item('phpcollab_password') == 'CRYPT') {
+			$salt = substr($input, 0, 2);
+			return crypt($input, $salt);
+		}
+		if($this->config->item('phpcollab_password') == 'PLAIN') {
+			return $input;
+		}
 	}
     function get_member($id) {
         $query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.id = ? GROUP BY mbr.id', array($id));
