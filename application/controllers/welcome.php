@@ -6,6 +6,10 @@ if(!defined('BASEPATH')) {
 
 class welcome extends CI_Controller {
 	public function index() {
-		redirect('home');
+		if($this->session->userdata('id')) {
+			redirect('home');
+		} else {
+			redirect('login');
+		}
 	}
 }

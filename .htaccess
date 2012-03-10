@@ -1,4 +1,4 @@
-Options -Indexes -MultiViews +FollowSymLinks
+Options -Indexes -MultiViews
 DirectoryIndex index.php
 FileETag None
 

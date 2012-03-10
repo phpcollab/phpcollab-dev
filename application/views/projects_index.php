@@ -1,11 +1,9 @@
 <?php if($this->uri->segment(1) == 'projects') { ?>
-<div class="box-breadcrumbs box1">
-<div class="display">
+<div id="box-breadcrumbs">
 <ul>
 <li class="first"><a href="<?php echo base_url(); ?>home"><?php echo $this->lang->line('home'); ?></a></li>
 <li><?php echo $this->lang->line('projects'); ?></li>
 </ul>
-</div>
 </div>
 <?php } ?>
 
@@ -46,7 +44,7 @@
 <tr>
 <td><a href="<?php echo base_url(); ?>project/read/<?php echo $result->id; ?>"><?php echo $result->id; ?></a></td>
 <td><a href="<?php echo base_url(); ?>project/read/<?php echo $result->id; ?>"><?php echo $result->name; ?></a></td>
-<td><img src="<?php echo base_url(); ?>assets/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
+<td><img src="<?php echo base_url(); ?>themes/<?php echo $this->config->item('phpcollab_theme'); ?>/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
 <td><?php echo $result->organization; ?></td>
 <td><?php echo $this->lang->line('status_'.$result->status); ?></td>
 <th>

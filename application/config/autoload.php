@@ -80,7 +80,7 @@ $autoload['helper'] = array('form', 'phpcollab_helper', 'url');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('phpcollab');
 
 
 /*

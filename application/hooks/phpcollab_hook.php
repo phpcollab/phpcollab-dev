@@ -16,6 +16,6 @@ class phpcollab_hook {
 		$this->CI =& get_instance();
 		$output = array();
 		$output['zones'] = $this->CI->zones;
-		$this->CI->load->view('phpcollab_post_controller', $output, 'true');
+		$this->CI->load->view('_template', $output, 'true');
 	}
 }

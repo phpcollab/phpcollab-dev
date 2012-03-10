@@ -1,10 +1,8 @@
-<div class="box-breadcrumbs box1">
-<div class="display">
+<div id="box-breadcrumbs">
 <ul>
 <li class="first"><a href="<?php echo base_url(); ?>home"><?php echo $this->lang->line('home'); ?></a></li>
 <li><?php echo $this->lang->line('organizations'); ?></li>
 </ul>
-</div>
 </div>
 
 <div class="box1">

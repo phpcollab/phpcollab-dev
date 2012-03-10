@@ -2,15 +2,13 @@
 if($pro) {
 ?>
 
-<div class="box-breadcrumbs box1">
-<div class="display">
+<div id="box-breadcrumbs">
 <ul>
 <li class="first"><a href="<?php echo base_url(); ?>home"><?php echo $this->lang->line('home'); ?></a></li>
 <li><a href="<?php echo base_url(); ?>projects"><?php echo $this->lang->line('projects'); ?></a></li>
 <li><a href="<?php echo base_url(); ?>project/read/<?php echo $pro->id; ?>"><?php echo $pro->name; ?></a></li>
 <li><?php echo $this->lang->line('update'); ?></li>
 </ul>
-</div>
 </div>
 
 <div class="box1">
@@ -20,13 +18,12 @@ if($pro) {
 </ul>
 <div class="display">
 
-<h2><?php echo $this->lang->line('update'); ?></h2>
-
 <?php echo validation_errors(); ?>
 
 <?php echo form_open(current_url()); ?>
 
-<div class="column1">
+<h2><?php echo $this->lang->line('update'); ?></h2>
+<div class="box2">
 <p><?php echo form_label($this->lang->line('name').' *', 'name'); ?><?php echo form_input('name', set_value('name', $pro->name), 'id="name" class="inputtext"'); ?></p>
 <p><?php echo form_label($this->lang->line('priority').' *', 'priority'); ?><?php echo form_dropdown('priority', $select_priority, set_value('', $pro->priority), 'id="priority" class="select"'); ?></p>
 <p><?php echo form_label($this->lang->line('description'), 'description'); ?><?php echo form_textarea('description', set_value('description', $pro->description), 'id="description" class="textarea"'); ?></p>

@@ -2,14 +2,12 @@
 if($org) {
 ?>
 
-<div class="box-breadcrumbs box1">
-<div class="display">
+<div id="box-breadcrumbs">
 <ul>
 <li class="first"><a href="<?php echo base_url(); ?>home"><?php echo $this->lang->line('home'); ?></a></li>
 <li><a href="<?php echo base_url(); ?>organizations"><?php echo $this->lang->line('organizations'); ?></a></li>
 <li><?php echo $org->name; ?></li>
 </ul>
-</div>
 </div>
 
 <div class="box1">
@@ -19,14 +17,10 @@ if($org) {
 </ul>
 <div class="display">
 
-<div class="column1">
+<h2><?php echo $this->lang->line('details'); ?></h2>
+<div class="box2">
 <p><span class="label"><?php echo $this->lang->line('name'); ?></span><?php echo $org->name; ?></p>
 </div>
-
-<div class="column1 columnlast">
-</div>
-
-</form>
 
 </div>
 </div>

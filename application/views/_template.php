@@ -10,6 +10,28 @@
 
 <div id="box-pageheader">
 <div id="display-pageheader">
+<h1>phpCollab</h1>
+
+<?php if($this->session->userdata('id')) { ?>
+<div id="box-account">
+<p>User:Administrator <a href="<?php echo base_url(); ?>logout"><?php echo $this->lang->line('logout'); ?></a> <a href="#"><?php echo $this->lang->line('preferences'); ?></a> <a href="#" target="_blank"><?php echo $this->lang->line('go_projects_site'); ?></a></p>
+</div>
+<?php } ?>
+
+<div id="box-menu">
+<ul>
+<?php if($this->session->userdata('id')) { ?>
+<li><a href="<?php echo base_url(); ?>home"><?php echo $this->lang->line('home'); ?></a></li>
+<li><a href="<?php echo base_url(); ?>projects"><?php echo $this->lang->line('projects'); ?></a></li>
+<li><a href="<?php echo base_url(); ?>organizations"><?php echo $this->lang->line('clients'); ?></a></li>
+<li><a href="<?php echo base_url(); ?>administration"><?php echo $this->lang->line('administration'); ?></a></li>
+<?php } else { ?>
+<li><a href="<?php echo base_url(); ?>login"><?php echo $this->lang->line('login'); ?></a></li>
+<li><a href="<?php echo base_url(); ?>license"><?php echo $this->lang->line('license'); ?></a></li>
+<?php } ?>
+</ul>
+</div>
+
 <?php if(isset($zones['pageheader']) == 1) { echo $zones['pageheader']; } ?>
 </div>
 </div>
@@ -35,12 +57,6 @@
 	</div>
 	</div>
 
-</div>
-</div>
-
-<div id="box-pagesidebar">
-<div id="display-pagesidebar">
-<?php if(isset($zones['pagesidebar']) == 1) { echo $zones['pagesidebar']; } ?>
 </div>
 </div>
 

@@ -102,11 +102,7 @@ class phpcollab_library {
 			$head[] = '<title>'.implode(' | ', $titles).'</title>';
 
 			$head[] = '<meta charset="UTF-8">';
-			if(file_exists('styles/sct_code/phpcollab.css')) {
-				$head[] = '<link href="'.$this->base_url.'assets/phpcollab.css" rel="stylesheet" type="text/css">';
-			} elseif(file_exists('assets/phpcollab.dist.css')) {
-				$head[] = '<link href="'.$this->base_url.'assets/phpcollab.dist.css" rel="stylesheet" type="text/css">';
-			}
+			$head[] = '<link href="'.$this->base_url.'themes/'.$this->CI->config->item('phpcollab_theme').'/phpcollab.css" rel="stylesheet" type="text/css">';
 		}
 		$head = array_merge($head, $this->CI->head);
 		return implode("\r\n", $head)."\r\n";
@@ -139,31 +135,7 @@ class phpcollab_library {
 	function get_debug() {
 		$debug = '';
 		if($this->CI->lay->lay_type == 'text/html') {
-			function loop_v($data) {
-				if(is_array($data)) {
-				} else {
-					$data = get_object_vars($data);
-				}
-				ksort($data);
-				$output = '<ul>';
-				foreach($data as $k => $v) {
-					if(is_array($v)) {
-						if(count($v) != 0) {
-							$output .= '<li>'.$k.':';
-							$output .= loop_v($v);
-							$output .= '</li>';
-						}
-					} elseif(strval($v) != '') {
-						$output .= '<li>'.$k.':';
-						$output .= ' '.$v;
-						$output .= '</li>';
-					}
-				}
-				$output .= '</ul>';
-				return $output;
-			}
-
-			//if($this->CI->hst->hst_debug == 1) {
+			if($this->CI->config->item('phpcollab_debug')) {
 				$debug = '<div id="box-debug">';
 				$debug .= '<h1>Debug</h1>';
 				$debug .= '<div class="display">';
@@ -177,23 +149,19 @@ class phpcollab_library {
 				}
 	
 				if(count($this->debug) != 0) {
-					$debug .= '<ul>';
 					foreach($this->debug as $item) {
-						$debug .= '<li>'.$item.'</li>';
+						$debug .= '<p>'.$item.'</p>';
 					}
-					$debug .= '</ul>';
 				}
 
 				$debug .= '<h2>queries ('.count($this->CI->db->queries).')</h2>';
-				$debug .= '<ul>';
 				foreach($this->CI->db->queries as $query) {
-					$debug .= '<li>'.$query.'</li>';
+					$debug .= '<p>'.$query.'</p>';
 				}
-				$debug .= '</ul>';
 			
 				$debug .= '</div>';
 				$debug .= '</div>';
-			//}
+			}
 		}
 		return $debug."\r\n";
 	}

@@ -1,13 +1,11 @@
 <?php if($this->uri->segment(1) == 'tasks') { ?>
-<div class="box-breadcrumbs box1">
-<div class="display">
+<div id="box-breadcrumbs">
 <ul>
 <li class="first"><a href="<?php echo base_url(); ?>home"><?php echo $this->lang->line('home'); ?></a></li>
 <li><a href="<?php echo base_url(); ?>projects"><?php echo $this->lang->line('projects'); ?></a></li>
 <li><a href="<?php echo base_url(); ?>project/read/<?php echo $pro->id; ?>"><?php echo $pro->name; ?></a></li>
 <li><?php echo $this->lang->line('tasks'); ?></li>
 </ul>
-</div>
 </div>
 <?php } ?>
 
@@ -48,7 +46,7 @@
 <tr>
 <td><a href="<?php echo base_url(); ?>task/read/<?php echo $result->id; ?>"><?php echo $result->id; ?></a></td>
 <td><a href="<?php echo base_url(); ?>task/read/<?php echo $result->id; ?>"><?php echo $result->name; ?></a></td>
-<td><img src="<?php echo base_url(); ?>assets/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
+<td><img src="<?php echo base_url(); ?>themes/<?php echo $this->config->item('phpcollab_theme'); ?>/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
 <td><?php echo $this->lang->line('status_'.$result->status); ?></td>
 <td><?php echo $result->completion_percent; ?> %</td>
 <th>

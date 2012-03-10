@@ -8,6 +8,33 @@ class phpcollab_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
+	function login($user_name, $password) {
+		$this->session->unset_userdata('id');
+        $query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.login = ? GROUP BY mbr.id', array($user_name));
+		if($query->num_rows() > 0) {
+			$mbr = $query->row();
+			if($this->config->item('phpcollab_password') == 'MD5') {
+				if(md5($password) == $mbr->password) {
+					$this->session->set_userdata('id', $mbr->id);
+					return true;
+				}
+			}
+			if($this->config->item('phpcollab_password') == 'CRYPT') {
+				$salt = substr($mbr->password, 0, 2);
+				if(crypt($password, $salt) == $mbr->password) {
+					$this->session->set_userdata('id', $mbr->id);
+					return true;
+				}
+			}
+			if($this->config->item('phpcollab_password') == 'PLAIN') {
+				if($password == $mbr->password) {
+					$this->session->set_userdata('id', $mbr->id);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
     function get_projects_count($flt) {
         $query = $this->db->query('SELECT COUNT(pro.id) AS count FROM '.$this->db->dbprefix('projects').' AS pro WHERE '.implode(' AND ', $flt));
         return $query->row();
