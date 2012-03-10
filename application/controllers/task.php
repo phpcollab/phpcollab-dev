@@ -18,7 +18,7 @@ class task extends CI_Controller {
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('task_create', $data, true);
+			$this->zones['content'] = $this->load->view('tasks/task_create', $data, true);
 		} else {
 			$this->db->set('project', $this->input->post('project'));
 			$this->db->set('name', $this->input->post('name'));
@@ -34,7 +34,7 @@ class task extends CI_Controller {
 		$data['tsk'] = $this->phpcollab_model->get_task($id);
 		$data['pro'] = $this->phpcollab_model->get_project($data['tsk']->project);
 		$data['org'] = $this->phpcollab_model->get_organization($data['pro']->organization);
-		$this->zones['content'] = $this->load->view('task_read', $data, true);
+		$this->zones['content'] = $this->load->view('tasks/task_read', $data, true);
 	}
 	public function update($id) {
 		$this->load->library('form_validation');
@@ -50,7 +50,7 @@ class task extends CI_Controller {
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('task_update', $data, true);
+			$this->zones['content'] = $this->load->view('tasks/task_update', $data, true);
 		} else {
 			$this->db->set('project', $this->input->post('project'));
 			$this->db->set('name', $this->input->post('name'));

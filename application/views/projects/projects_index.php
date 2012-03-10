@@ -45,7 +45,7 @@
 <td><a href="<?php echo base_url(); ?>project/read/<?php echo $result->id; ?>"><?php echo $result->id; ?></a></td>
 <td><a href="<?php echo base_url(); ?>project/read/<?php echo $result->id; ?>"><?php echo $result->name; ?></a></td>
 <td><img src="<?php echo base_url(); ?>themes/<?php echo $this->config->item('phpcollab_theme'); ?>/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
-<td><?php echo $result->organization; ?></td>
+<td><a href="<?php echo base_url(); ?>organization/read/<?php echo $result->org_id; ?>"><?php echo $result->org_name; ?></a></td>
 <td><?php echo $this->lang->line('status_'.$result->status); ?></td>
 <th>
 <a href="<?php echo base_url(); ?>project/update/<?php echo $result->id; ?>"><?php echo $this->lang->line('update'); ?></a>

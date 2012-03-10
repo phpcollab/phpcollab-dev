@@ -10,41 +10,71 @@ class phpcollab_model extends CI_Model {
     }
 	function login($user_name, $password) {
 		$this->session->unset_userdata('id');
+		$login = false;
         $query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.login = ? GROUP BY mbr.id', array($user_name));
 		if($query->num_rows() > 0) {
 			$mbr = $query->row();
 			if($this->config->item('phpcollab_password') == 'MD5') {
 				if(md5($password) == $mbr->password) {
 					$this->session->set_userdata('id', $mbr->id);
-					return true;
+					$login = true;
 				}
 			}
 			if($this->config->item('phpcollab_password') == 'CRYPT') {
 				$salt = substr($mbr->password, 0, 2);
 				if(crypt($password, $salt) == $mbr->password) {
 					$this->session->set_userdata('id', $mbr->id);
-					return true;
+					$login = true;
 				}
 			}
 			if($this->config->item('phpcollab_password') == 'PLAIN') {
 				if($password == $mbr->password) {
 					$this->session->set_userdata('id', $mbr->id);
-					return true;
+					$login = true;
 				}
 			}
+			if($login == true) {
+				$salt = substr($password, 0, 2); 
+				$password = crypt($password, $salt);
+
+				$this->db->set('login', $user_name);
+				$this->db->set('password', $password);
+				$this->db->set('ip', filter_var($_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP));
+				$this->db->set('session', $this->session->userdata('session_id'));
+				$this->db->set('last_visite', date('Y-m-d H:i'));
+
+				$query = $this->db->query('SELECT log.* FROM '.$this->db->dbprefix('logs').' AS log WHERE log.login = ? GROUP BY log.id', array($user_name));
+				if($query->num_rows() > 0) {
+					$this->db->set('compt', 'compt + 1', false);
+					$this->db->where('login', $user_name);
+					$this->db->update('logs');
+
+				} else {
+					$this->db->set('compt', 1);
+					$this->db->insert('logs');
+				} 
+			}
 		}
-		return false;
+		return $login;
 	}
     function get_member($id) {
         $query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.id = ? GROUP BY mbr.id', array($id));
         return $query->row();
+    }
+    function get_logs_count($flt) {
+        $query = $this->db->query('SELECT COUNT(log.id) AS count FROM '.$this->db->dbprefix('logs').' AS log WHERE '.implode(' AND ', $flt));
+        return $query->row();
+    }
+    function get_logs_limit($flt, $num, $offset, $column) {
+        $query = $this->db->query('SELECT log.* FROM '.$this->db->dbprefix('logs').' AS log WHERE '.implode(' AND ', $flt).' GROUP BY log.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+        return $query->result();
     }
     function get_projects_count($flt) {
         $query = $this->db->query('SELECT COUNT(pro.id) AS count FROM '.$this->db->dbprefix('projects').' AS pro WHERE '.implode(' AND ', $flt));
         return $query->row();
     }
     function get_projects_limit($flt, $num, $offset, $column) {
-        $query = $this->db->query('SELECT pro.id, pro.name, pro.priority, pro.organization, pro.status FROM '.$this->db->dbprefix('projects').' AS pro WHERE '.implode(' AND ', $flt).' GROUP BY pro.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+        $query = $this->db->query('SELECT pro.id, pro.name, pro.priority, pro.organization, pro.status, org.id AS org_id, org.name AS org_name FROM '.$this->db->dbprefix('projects').' AS pro LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.id = pro.organization WHERE '.implode(' AND ', $flt).' GROUP BY pro.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
         return $query->result();
     }
     function get_project($id) {

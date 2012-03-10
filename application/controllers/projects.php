@@ -14,7 +14,7 @@ class projects extends CI_Controller {
 		$columns[] = 'pro.id';
 		$columns[] = 'pro.name';
 		$columns[] = 'pro.priority';
-		$columns[] = 'pro.organization';
+		$columns[] = 'org_name';
 		$columns[] = 'pro.status';
 		$col = build_columns('projects', $columns, 'pro.id', 'DESC');
 
@@ -26,6 +26,6 @@ class projects extends CI_Controller {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['results'] = $this->phpcollab_model->get_projects_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'projects');
-		$this->zones['content'] = $this->load->view('projects_index', $data, true);
+		$this->zones['content'] = $this->load->view('projects/projects_index', $data, true);
 	}
 }

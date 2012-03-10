@@ -13,7 +13,7 @@ class organization extends CI_Controller {
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('organization_create', $data, true);
+			$this->zones['content'] = $this->load->view('organizations/organization_create', $data, true);
 		} else {
 			$this->db->set('name', $this->input->post('name'));
 			$this->db->insert('organizations');
@@ -24,7 +24,7 @@ class organization extends CI_Controller {
 	public function read($id) {
 		$data = array();
 		$data['org'] = $this->phpcollab_model->get_organization($id);
-		$this->zones['content'] = $this->load->view('organization_read', $data, true);
+		$this->zones['content'] = $this->load->view('organizations/organization_read', $data, true);
 
 		$filters = array();
 		$filters['tasks_name'] = array('tsk.name', 'like');
@@ -35,7 +35,7 @@ class organization extends CI_Controller {
 		$columns[] = 'pro.id';
 		$columns[] = 'pro.name';
 		$columns[] = 'pro.priority';
-		$columns[] = 'pro.organization';
+		$columns[] = 'org_name';
 		$columns[] = 'pro.status';
 		$col = build_columns('projects', $columns, 'pro.id', 'DESC');
 
@@ -47,7 +47,7 @@ class organization extends CI_Controller {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['results'] = $this->phpcollab_model->get_projects_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'projects');
-		$this->zones['content'] .= $this->load->view('projects_index', $data, true);
+		$this->zones['content'] .= $this->load->view('projects/projects_index', $data, true);
 	}
 	public function update($id) {
 		$this->load->library('form_validation');
@@ -59,7 +59,7 @@ class organization extends CI_Controller {
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('organization_update', $data, true);
+			$this->zones['content'] = $this->load->view('organizations/organization_update', $data, true);
 		} else {
 			$this->db->set('name', $this->input->post('name'));
 			$this->db->where('id', $id);

@@ -29,6 +29,6 @@ class tasks extends CI_Controller {
 		$data['position'] = $build_pagination['position'];
 		$data['results'] = $this->phpcollab_model->get_tasks_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'tasks');
 		$data['pro'] = $this->phpcollab_model->get_project($id);
-		$this->zones['content'] = $this->load->view('tasks_index', $data, true);
+		$this->zones['content'] = $this->load->view('tasks/tasks_index', $data, true);
 	}
 }

@@ -18,7 +18,7 @@ class topic extends CI_Controller {
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('topic_create', $data, true);
+			$this->zones['content'] = $this->load->view('topics/topic_create', $data, true);
 		} else {
 			$this->db->set('project', $this->input->post('project'));
 			$this->db->set('subject', $this->input->post('subject'));
@@ -33,7 +33,7 @@ class topic extends CI_Controller {
 		$data['tpc'] = $this->phpcollab_model->get_topic($id);
 		$data['pro'] = $this->phpcollab_model->get_project($data['tpc']->project);
 		$data['org'] = $this->phpcollab_model->get_organization($data['pro']->organization);
-		$this->zones['content'] = $this->load->view('topic_read', $data, true);
+		$this->zones['content'] = $this->load->view('topics/topic_read', $data, true);
 	}
 	public function update($id) {
 		$this->load->library('form_validation');
@@ -49,7 +49,7 @@ class topic extends CI_Controller {
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('topic_update', $data, true);
+			$this->zones['content'] = $this->load->view('topics/topic_update', $data, true);
 		} else {
 			$this->db->set('project', $this->input->post('project'));
 			$this->db->set('subject', $this->input->post('subject'));

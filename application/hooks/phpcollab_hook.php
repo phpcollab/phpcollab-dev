@@ -14,6 +14,9 @@ class phpcollab_hook {
 
 		if($this->CI->session->userdata('id')) {
 			$this->CI->member = $this->CI->phpcollab_model->get_member($this->CI->session->userdata('id'));
+			$this->CI->db->set('connected', date('U'));
+			$this->CI->db->where('login', $this->CI->member->login);
+			$this->CI->db->update('logs');
 		} else {
 			if($this->CI->uri->segment(1) != 'login' && $this->CI->uri->segment(1) != 'license') {
 				redirect('login');

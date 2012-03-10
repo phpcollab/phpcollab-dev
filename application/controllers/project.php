@@ -29,7 +29,7 @@ class project extends CI_Controller {
 		$data = array();
 		$data['pro'] = $this->phpcollab_model->get_project($id);
 		$data['org'] = $this->phpcollab_model->get_organization($data['pro']->organization);
-		$this->zones['content'] = $this->load->view('project_read', $data, true);
+		$this->zones['content'] = $this->load->view('projects/project_read', $data, true);
 
 		$filters = array();
 		$filters['tasks_name'] = array('tsk.name', 'like');
@@ -53,7 +53,7 @@ class project extends CI_Controller {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['results'] = $this->phpcollab_model->get_tasks_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'tasks');
-		$this->zones['content'] .= $this->load->view('tasks_index', $data, true);
+		$this->zones['content'] .= $this->load->view('tasks/tasks_index', $data, true);
 
 		$filters = array();
 		$filters['topics_name'] = array('tpc.name', 'like');
@@ -76,7 +76,7 @@ class project extends CI_Controller {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['results'] = $this->phpcollab_model->get_topics_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'topics');
-		$this->zones['content'] .= $this->load->view('topics_index', $data, true);
+		$this->zones['content'] .= $this->load->view('topics/topics_index', $data, true);
 	}
 	public function update($id) {
 		$this->load->library('form_validation');
@@ -91,7 +91,7 @@ class project extends CI_Controller {
 		$this->form_validation->set_rules('priority', 'lang:priority', 'required|numeric');
 
 		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('project_update', $data, true);
+			$this->zones['content'] = $this->load->view('projects/project_update', $data, true);
 		} else {
 			$this->db->set('name', $this->input->post('name'));
 			$this->db->set('status', $this->input->post('status'));
