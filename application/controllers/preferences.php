@@ -35,6 +35,7 @@ class preferences extends CI_Controller {
 			$this->db->set('fax', $this->input->post('fax'));
 			$this->db->where('id', $this->session->userdata('id'));
 			$this->db->update('members');
+			$this->member = $this->phpcollab_model->get_member($this->session->userdata('id'));
 			$this->index();
 		}
 	}
@@ -58,6 +59,7 @@ class preferences extends CI_Controller {
 			$this->db->set('password', $this->phpcollab_model->password_save($this->input->post('new_password')));
 			$this->db->where('id', $this->session->userdata('id'));
 			$this->db->update('members');
+			$this->member = $this->phpcollab_model->get_member($this->session->userdata('id'));
 			$this->index();
 		}
 	}
