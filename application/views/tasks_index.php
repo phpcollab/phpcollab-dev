@@ -32,11 +32,11 @@
 <table>
 <thead>
 <tr>
-<th><?php display_column('tasks', $columns[0], $this->lang->line('id')); ?></th>
-<th><?php display_column('tasks', $columns[1], $this->lang->line('task')); ?></th>
-<th><?php display_column('tasks', $columns[2], $this->lang->line('priority')); ?></th>
-<th><?php display_column('tasks', $columns[3], $this->lang->line('status')); ?></th>
-<th><?php display_column('tasks', $columns[4], $this->lang->line('completion')); ?></th>
+<?php display_column('tasks', $columns[0], $this->lang->line('id')); ?>
+<?php display_column('tasks', $columns[1], $this->lang->line('task')); ?>
+<?php display_column('tasks', $columns[2], $this->lang->line('priority')); ?>
+<?php display_column('tasks', $columns[3], $this->lang->line('status')); ?>
+<?php display_column('tasks', $columns[4], $this->lang->line('completion')); ?>
 <th>&nbsp;</th>
 </tr>
 </thead>

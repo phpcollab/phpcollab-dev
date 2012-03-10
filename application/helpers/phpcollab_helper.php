@@ -81,20 +81,20 @@ if( ! function_exists('build_columns')) {
 if( ! function_exists('display_column')) {
 	function display_column($reference, $column, $lang) {
 		$CI =& get_instance();
-		$link = '<a';
+		$class = '';
 		list($display_order, $display_direction) = explode(' ', $column);
 		if($CI->session->userdata($reference.'_col') && preg_match('/^[a-zA-Z0-9._]{1,}[ ](ASC|DESC)$/', $CI->session->userdata($reference.'_col'))) {
 			list($defined_order, $defined_direction) = explode(' ', $CI->session->userdata($reference.'_col'));
 			if($display_order == $defined_order) {
 				if($display_direction == 'ASC') {
-					$link .= ' class="sort_desc"';
+					$class = ' class="sort_desc"';
 				}
 				if($display_direction == 'DESC') {
-					$link .= ' class="sort_asc"';
+					$class = ' class="sort_asc"';
 				}
 			}
 		}
-		$link .= ' href="'.current_url().'?'.$reference.'_col='.urlencode($column).'">'.$lang.'</a>';
+		$link = '<th'.$class.'><a href="'.current_url().'?'.$reference.'_col='.urlencode($column).'">'.$lang.'</a></th>';
 		echo $link;
 	}
 }
