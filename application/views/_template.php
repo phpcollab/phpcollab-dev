@@ -14,7 +14,7 @@
 
 <?php if($this->session->userdata('id')) { ?>
 <div id="box-account">
-<p>User:Administrator <a href="<?php echo base_url(); ?>logout"><?php echo $this->lang->line('logout'); ?></a> <a href="#"><?php echo $this->lang->line('preferences'); ?></a> <a href="#" target="_blank"><?php echo $this->lang->line('go_projects_site'); ?></a></p>
+<p><?php echo $this->lang->line('user'); ?>: <?php echo $this->member->name; ?> <a href="<?php echo base_url(); ?>logout"><?php echo $this->lang->line('logout'); ?></a> <a href="#"><?php echo $this->lang->line('preferences'); ?></a> <a href="#" target="_blank"><?php echo $this->lang->line('go_projects_site'); ?></a></p>
 </div>
 <?php } ?>
 

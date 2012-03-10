@@ -11,6 +11,14 @@ class phpcollab_hook {
 		$this->CI->lng->lng_code = 'en';
 		$this->CI->lay = new stdClass();
 		$this->CI->lay->lay_type = 'text/html';
+
+		if($this->CI->session->userdata('id')) {
+			$this->CI->member = $this->CI->phpcollab_model->get_member($this->CI->session->userdata('id'));
+		} else {
+			if($this->CI->uri->segment(1) != 'login' && $this->CI->uri->segment(1) != 'license') {
+				redirect('login');
+			}
+		}
 	}
 	public function post_controller() {
 		$this->CI =& get_instance();

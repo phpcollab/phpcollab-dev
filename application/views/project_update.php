@@ -31,7 +31,7 @@ if($pro) {
 <p><?php echo form_label($this->lang->line('url_prod'), 'url_prod'); ?><?php echo form_input('url_prod', set_value('url_prod', $pro->url_prod), 'id="url_prod" class="inputtext"'); ?></p>
 <p><?php echo form_label($this->lang->line('organization').' *', 'organization'); ?><?php echo form_dropdown('organization', $select_organization, set_value('', $pro->organization), 'id="organization" class="select"'); ?></p>
 <p><?php echo form_label($this->lang->line('status').' *', 'status'); ?><?php echo form_dropdown('status', $select_status, set_value('', $pro->status), 'id="status" class="select"'); ?></p>
-<p><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
+<p><span class="label">&nbsp;</span><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
 </div>
 
 </form>

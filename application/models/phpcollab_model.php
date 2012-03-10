@@ -35,6 +35,10 @@ class phpcollab_model extends CI_Model {
 		}
 		return false;
 	}
+    function get_member($id) {
+        $query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.id = ? GROUP BY mbr.id', array($id));
+        return $query->row();
+    }
     function get_projects_count($flt) {
         $query = $this->db->query('SELECT COUNT(pro.id) AS count FROM '.$this->db->dbprefix('projects').' AS pro WHERE '.implode(' AND ', $flt));
         return $query->row();

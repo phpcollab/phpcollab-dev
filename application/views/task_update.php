@@ -32,7 +32,7 @@ if($tsk) {
 <p><?php echo form_label($this->lang->line('status').' *', 'status'); ?><?php echo form_dropdown('status', $select_status, set_value('', $tsk->status), 'id="status" class="select"'); ?></p>
 <p><?php echo form_label($this->lang->line('completion').' *', 'completion'); ?><?php echo form_dropdown('completion', $select_completion, set_value('', $tsk->completion), 'id="completion" class="select"'); ?></p>
 <p><?php echo form_label($this->lang->line('priority').' *', 'priority'); ?><?php echo form_dropdown('priority', $select_priority, set_value('', $tsk->priority), 'id="priority" class="select"'); ?></p>
-<p><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
+<p><span class="label">&nbsp;</span><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
 </div>
 
 </form>

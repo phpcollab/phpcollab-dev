@@ -17,7 +17,7 @@
 <div class="box2">
 <p><?php echo form_label($this->lang->line('name').' *', 'name'); ?><?php echo form_input('name', set_value('name', $org->name), 'id="name" class="inputtext"'); ?></p>
 <p><?php echo form_label($this->lang->line('address'), 'address1'); ?><?php echo form_input('address1', set_value('address1', $org->address1), 'id="address1" class="inputtext"'); ?></p>
-<p><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
+<p><span class="label">&nbsp;</span><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
 </div>
 
 </form>

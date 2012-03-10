@@ -22,7 +22,7 @@
 <p><span class="label">Loaded extensions</span><?php echo implode(', ', get_loaded_extensions()); ?></p>
 <p><span class="label">include_path</span><?php echo ini_get('include_path'); ?></p>
 <p><span class="label">upload_max_filesize</span><?php echo ini_get('upload_max_filesize'); ?></p>
-<p><span class="label">session.id</span><?php echo $this->session->userdata('session_id'); ?></p>
+<p><span class="label">session_id</span><?php echo $this->session->userdata('session_id'); ?></p>
 <p><span class="label">HTTP_HOST</span><?php echo $_SERVER['HTTP_HOST']; ?></p>
 <p><span class="label">PATH_TRANSLATED</span><?php echo $_SERVER['PATH_TRANSLATED']; ?></p>
 <p><span class="label">SERVER_NAME</span><?php echo $_SERVER['SERVER_NAME']; ?></p>
