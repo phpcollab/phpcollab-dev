@@ -68,14 +68,26 @@ class phpcollab_model extends CI_Model {
         return $query->row();
     }
     function get_tasks_limit($flt, $num, $offset, $column) {
-        $query = $this->db->query('SELECT tsk.id, tsk.name, tsk.priority, tsk.status, tsk.completion * 10 AS completion_percent FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE '.implode(' AND ', $flt).' GROUP BY tsk.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+        $query = $this->db->query('SELECT tsk.id, tsk.name, tsk.priority, tsk.status, tsk.published, tsk.completion * 10 AS completion_percent FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE '.implode(' AND ', $flt).' GROUP BY tsk.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
         return $query->result();
     }
     function get_task($id) {
         $query = $this->db->query('SELECT tsk.*, tsk.completion * 10 AS completion_percent FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.id = ? GROUP BY tsk.id', array($id));
         return $query->row();
     }
-    function select_priority() {
+    function get_topics_count($flt) {
+        $query = $this->db->query('SELECT COUNT(tpc.id) AS count FROM '.$this->db->dbprefix('topics').' AS tpc WHERE '.implode(' AND ', $flt));
+        return $query->row();
+    }
+    function get_topics_limit($flt, $num, $offset, $column) {
+        $query = $this->db->query('SELECT tpc.id, tpc.subject, tpc.status, tpc.posts, tpc.last_post FROM '.$this->db->dbprefix('topics').' AS tpc WHERE '.implode(' AND ', $flt).' GROUP BY tpc.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+        return $query->result();
+    }
+    function get_topic($id) {
+        $query = $this->db->query('SELECT tpc.* FROM '.$this->db->dbprefix('topics').' AS tpc WHERE tpc.id = ? GROUP BY tpc.id', array($id));
+        return $query->row();
+    }
+	function select_priority() {
 		$select_priority = array();
 		for($i=0;$i<=5;$i++) {
 			$select_priority[$i] = $this->lang->line('priority_'.$i);

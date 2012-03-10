@@ -15,7 +15,9 @@ if($tsk) {
 <div class="box1">
 <h1><?php echo $this->lang->line('task'); ?> : <?php echo $tsk->name; ?></h1>
 <ul>
-<li><a class="update" href="<?php echo base_url(); ?>task/update/<?php echo $tsk->id; ?>"><?php echo $this->lang->line('update'); ?></a></li>
+<li><a class="publish" href="<?php echo base_url(); ?>task/publish/<?php echo $tsk->id; ?>"><?php echo $this->lang->line('add_project_site'); ?></a></li>
+<li><a class="unpublish" href="<?php echo base_url(); ?>task/unpublish/<?php echo $tsk->id; ?>"><?php echo $this->lang->line('remove_project_site'); ?></a></li>
+<li><a class="update" href="<?php echo base_url(); ?>task/update/<?php echo $tsk->id; ?>"><?php echo $this->lang->line('edit'); ?></a></li>
 </ul>
 <div class="display">
 
@@ -28,10 +30,11 @@ if($tsk) {
 <h2><?php echo $this->lang->line('details'); ?></h2>
 <div class="box2">
 <p><span class="label"><?php echo $this->lang->line('name'); ?></span><?php echo $tsk->name; ?></p>
-<p><span class="label"><?php echo $this->lang->line('status'); ?></span><?php echo $this->lang->line('status_'.$pro->status); ?></p>
+<p><span class="label"><?php echo $this->lang->line('status'); ?></span><?php echo $this->lang->line('status_'.$tsk->status); ?></p>
 <p><span class="label"><?php echo $this->lang->line('completion'); ?></span><?php echo $tsk->completion_percent; ?> %</p>
 <p><span class="label"><?php echo $this->lang->line('priority'); ?></span><img src="<?php echo base_url(); ?>themes/<?php echo $this->config->item('phpcollab_theme'); ?>/<?php echo $tsk->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$tsk->priority); ?></p>
 <p><span class="label"><?php echo $this->lang->line('description'); ?></span><?php echo $tsk->description; ?></p>
+<p><span class="label"><?php echo $this->lang->line('published'); ?></span><?php echo $this->lang->line('status_published_'.$tsk->published); ?></p>
 </div>
 
 </form>

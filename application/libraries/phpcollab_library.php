@@ -51,7 +51,7 @@ class phpcollab_library {
 	function debug($data) {
 		$this->debug[] = '<p><textarea>'.print_r($data, 1).'</textarea></p>';
 	}
-	function build_pagination($total, $per_page) {
+	function build_pagination($total, $per_page, $ref = 'default') {
 		$this->CI->load->library('pagination');
 
 		$config = array();
@@ -61,29 +61,29 @@ class phpcollab_library {
 		$config['per_page'] = $per_page;
 		$config['page_query_string'] = TRUE;
 		$config['use_page_numbers'] = TRUE;
-		$config['first_url'] = '?page=1';
-		$config['query_string_segment'] = 'page';
+		$config['query_string_segment'] = $ref.'_pg';
+		$config['first_url'] = '?'.$config['query_string_segment'].'=1';
 
 		$pages = ceil($total/$config['per_page']);
 
-		$key = 'per_page_'.$this->CI->uri->uri_string();
-		if($this->CI->input->get('page') && is_numeric($this->CI->input->get('page'))) {
-			$page = $this->CI->input->get('page');
+		$key = 'per_page_'.$config['query_string_segment'];
+		if($this->CI->input->get($config['query_string_segment']) && is_numeric($this->CI->input->get($config['query_string_segment']))) {
+			$page = $this->CI->input->get($config['query_string_segment']);
 			$this->CI->session->set_userdata($key, $page);
 		} elseif($this->CI->session->userdata($key) && is_numeric($this->CI->session->userdata($key))) {
-			$_GET['page'] = $this->CI->session->userdata($key);
+			$_GET[$config['query_string_segment']] = $this->CI->session->userdata($key);
 		} else {
-			$_GET['page'] = 0;
+			$_GET[$config['query_string_segment']] = 0;
 		}
-		$start = ($this->CI->input->get('page') * $config['per_page']) - $config['per_page'];
-		if($start < 0) {
+		$start = ($this->CI->input->get($config['query_string_segment']) * $config['per_page']) - $config['per_page'];
+		if($start < 0 || $this->CI->input->get($config['query_string_segment']) > $pages) {
 			$start = 0;
-			$_GET['page'] = 1;
+			$_GET[$config['query_string_segment']] = 1;
 		}
 
 		if($pages == 1) {
 			$position = $total;
-		} elseif($_GET['page'] == $pages && $pages != 0) {
+		} elseif($_GET[$config['query_string_segment']] == $pages && $pages != 0) {
 			$position = ($start+1).'-'.$total.'/'.$total;
 		} elseif($pages != 0) {
 			$position = ($start+1).'-'.($start+$config['per_page']).'/'.$total;

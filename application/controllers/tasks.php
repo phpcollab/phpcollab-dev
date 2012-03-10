@@ -17,10 +17,11 @@ class tasks extends CI_Controller {
 		$columns[] = 'tsk.priority';
 		$columns[] = 'tsk.status';
 		$columns[] = 'tsk.completion';
+		$columns[] = 'tsk.published';
 		$col = build_columns('tasks', $columns, 'tsk.id', 'DESC');
 
 		$results = $this->phpcollab_model->get_tasks_count($flt);
-		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 30);
+		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 20, 'tasks');
 
 		$data = array();
 		$data['columns'] = $col;

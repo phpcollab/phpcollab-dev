@@ -42,10 +42,11 @@ class project extends CI_Controller {
 		$columns[] = 'tsk.priority';
 		$columns[] = 'tsk.status';
 		$columns[] = 'tsk.completion';
+		$columns[] = 'tsk.published';
 		$col = build_columns('tasks', $columns, 'tsk.id', 'DESC');
 
 		$results = $this->phpcollab_model->get_tasks_count($flt);
-		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 30);
+		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 5, 'tasks_'.$id);
 
 		$data = array();
 		$data['columns'] = $col;
@@ -53,6 +54,29 @@ class project extends CI_Controller {
 		$data['position'] = $build_pagination['position'];
 		$data['results'] = $this->phpcollab_model->get_tasks_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'tasks');
 		$this->zones['content'] .= $this->load->view('tasks_index', $data, true);
+
+		$filters = array();
+		$filters['topics_name'] = array('tpc.name', 'like');
+		$flt = build_filters($filters);
+		$flt[] = 'tpc.project = \''.intval($id).'\'';
+
+		$columns = array();
+		$columns[] = 'tpc.id';
+		$columns[] = 'tpc.subject';
+		$columns[] = 'tpc.posts';
+		$columns[] = 'tpc.last_post';
+		$columns[] = 'tpc.status';
+		$col = build_columns('topics', $columns, 'tpc.id', 'DESC');
+
+		$results = $this->phpcollab_model->get_topics_count($flt);
+		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 5, 'topics_'.$id);
+
+		$data = array();
+		$data['columns'] = $col;
+		$data['pagination'] = $build_pagination['output'];
+		$data['position'] = $build_pagination['position'];
+		$data['results'] = $this->phpcollab_model->get_topics_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'topics');
+		$this->zones['content'] .= $this->load->view('topics_index', $data, true);
 	}
 	public function update($id) {
 		$this->load->library('form_validation');

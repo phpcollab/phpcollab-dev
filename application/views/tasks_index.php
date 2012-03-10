@@ -37,6 +37,7 @@
 <?php display_column('tasks', $columns[2], $this->lang->line('priority')); ?>
 <?php display_column('tasks', $columns[3], $this->lang->line('status')); ?>
 <?php display_column('tasks', $columns[4], $this->lang->line('completion')); ?>
+<?php display_column('tasks', $columns[5], $this->lang->line('published')); ?>
 <th>&nbsp;</th>
 </tr>
 </thead>
@@ -49,6 +50,7 @@
 <td><img src="<?php echo base_url(); ?>themes/<?php echo $this->config->item('phpcollab_theme'); ?>/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
 <td><?php echo $this->lang->line('status_'.$result->status); ?></td>
 <td><?php echo $result->completion_percent; ?> %</td>
+<td><?php echo $this->lang->line('status_published_'.$result->published); ?></td>
 <th>
 <a href="<?php echo base_url(); ?>task/update/<?php echo $result->id; ?>"><?php echo $this->lang->line('update'); ?></a>
 </th>

@@ -20,10 +20,13 @@ $lang['priority_3'] = 'Medium';
 $lang['priority_4'] = 'High';
 $lang['priority_5'] = 'Very high';
 
-$statusTopic = array(0 => 'Closed', 1 => 'Open');
+$lang['status_topic_0'] = 'Closed';
+$lang['status_topic_1'] = 'Open';
+
 $statusTopicBis = array(0 => 'Yes', 1 => 'No');
 
-$statusPublish = array(0 => 'Yes', 1 => 'No');
+$lang['status_published_0'] = 'Yes';
+$lang['status_published_1'] = 'No';
 
 $statusFile = array(0 => 'Approved', 1 => 'Approved With Changes', 2 => 'Needs Approval', 3 => 'No Approvals Needed', 4 => 'Not Approved');
 

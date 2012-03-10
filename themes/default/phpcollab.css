@@ -54,7 +54,7 @@ table tbody tr:hover th, table tbody tr:hover td{background-color:#DEE7EB;}
 #box-pagecontent h2{background-color:#C4D3DB;border-bottom:1px solid #999999;border-top:1px solid #999999;color:#777E82;font-size:11px;font-weight:bold;margin:0px;padding:4px 0px 4px 2px;text-align:left;}
 
 .box1 > ul{height:25px;list-style-type:none;margin:0px;padding:0px;width:auto;}
-.box1 > ul li{display:inline;margin:0px;padding:0px;}
+.box1 > ul li{display:inline;float:left;height:23px;padding:0px;width:23px;}
 .box1 > ul a:link, .box1 > ul a:visited{background-repeat:no-repeat;display:block;height:23px;margin-left:5px;text-indent:-1000px;width:23px;}
 .box1 > ul a.create:link, .box1 > ul a.create:visited{background-image:url(btn_add_norm.gif)}
 .box1 > ul a.create:hover{background-image:url(btn_add_over.gif)}
@@ -62,6 +62,10 @@ table tbody tr:hover th, table tbody tr:hover td{background-color:#DEE7EB;}
 .box1 > ul a.read:hover{background-image:url(btn_info_over.gif)}
 .box1 > ul a.update:link, .box1 > ul a.update:visited{background-image:url(btn_edit_norm.gif)}
 .box1 > ul a.update:hover{background-image:url(btn_edit_over.gif)}
+.box1 > ul a.publish:link, .box1 > ul a.publish:visited{background-image:url(btn_add_projectsite_norm.gif)}
+.box1 > ul a.publish:hover{background-image:url(btn_add_projectsite_over.gif)}
+.box1 > ul a.unpublish:link, .box1 > ul a.unpublish:visited{background-image:url(btn_remove_projectsite_norm.gif)}
+.box1 > ul a.unpublish:hover{background-image:url(btn_remove_projectsite_over.gif)}
 
 tbody th a:link, tbody th a:visited{background-color:#777777;border-radius:2px;color:#FFFFFF;display:inline;font-size:10px;line-height:10px;margin:0px;padding:1px 3px 1px 3px;position:relative;text-decoration:none;vertical-align:top;}
 tbody th a:link, tbody th a:visited{margin-right:3px;}
