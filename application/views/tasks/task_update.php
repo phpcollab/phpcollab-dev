@@ -26,12 +26,14 @@ if($tsk) {
 
 <h2><?php echo $this->lang->line('update'); ?></h2>
 <div class="box2">
-<p><?php echo form_label($this->lang->line('project').' *', 'project'); ?><?php echo form_dropdown('project', $select_project, set_value('', $tsk->project), 'id="project" class="select"'); ?></p>
+<p><?php echo form_label($this->lang->line('project').' *', 'project'); ?><?php echo form_dropdown('project', $select_project, set_value('project', $tsk->project), 'id="project" class="select"'); ?></p>
 <p><?php echo form_label($this->lang->line('name').' *', 'name'); ?><?php echo form_input('name', set_value('name', $tsk->name), 'id="name" class="inputtext"'); ?></p>
 <p><?php echo form_label($this->lang->line('description'), 'description'); ?><?php echo form_textarea('description', set_value('description', $tsk->description), 'id="description" class="textarea"'); ?></p>
-<p><?php echo form_label($this->lang->line('status').' *', 'status'); ?><?php echo form_dropdown('status', $select_status, set_value('', $tsk->status), 'id="status" class="select"'); ?></p>
-<p><?php echo form_label($this->lang->line('completion').' *', 'completion'); ?><?php echo form_dropdown('completion', $select_completion, set_value('', $tsk->completion), 'id="completion" class="select"'); ?></p>
-<p><?php echo form_label($this->lang->line('priority').' *', 'priority'); ?><?php echo form_dropdown('priority', $select_priority, set_value('', $tsk->priority), 'id="priority" class="select"'); ?></p>
+<p><?php echo form_label($this->lang->line('status').' *', 'status'); ?><?php echo form_dropdown('status', $select_status, set_value('status', $tsk->status), 'id="status" class="select"'); ?></p>
+<p><?php echo form_label($this->lang->line('completion').' *', 'completion'); ?><?php echo form_dropdown('completion', $select_completion, set_value('completion', $tsk->completion), 'id="completion" class="select"'); ?></p>
+<p><?php echo form_label($this->lang->line('priority').' *', 'priority'); ?><?php echo form_dropdown('priority', $select_priority, set_value('priority', $tsk->priority), 'id="priority" class="select"'); ?></p>
+<p><?php echo form_label($this->lang->line('start_date').' *', 'start_date'); ?><?php echo form_input('start_date', set_value('start_date', $tsk->start_date), 'id="start_date" class="inputtext datefield"'); ?></p>
+<p><?php echo form_label($this->lang->line('due_date'), 'due_date'); ?><?php echo form_input('due_date', set_value('due_date', $tsk->due_date), 'id="due_date" class="inputtext datefield"'); ?></p>
 <p><span class="label">&nbsp;</span><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
 </div>
 

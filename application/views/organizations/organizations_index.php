@@ -21,10 +21,6 @@
 
 <?php if($results) { ?>
 
-<div class="paging">
-<?php echo $pagination; ?>
-</div>
-
 <table>
 <thead>
 <tr>

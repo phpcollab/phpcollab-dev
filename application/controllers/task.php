@@ -15,7 +15,14 @@ class task extends CI_Controller {
 		$data['select_priority'] = $this->phpcollab_model->select_priority();
 		$data['select_completion'] = $this->phpcollab_model->select_completion();
 
+		$this->form_validation->set_rules('project', 'lang:project', 'required|numeric');
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
+		$this->form_validation->set_rules('description', 'lang:description');
+		$this->form_validation->set_rules('status', 'lang:status', 'required|numeric');
+		$this->form_validation->set_rules('completion', 'lang:completion', 'required|numeric');
+		$this->form_validation->set_rules('priority', 'lang:priority', 'required|numeric');
+		$this->form_validation->set_rules('start_date', 'lang:start_date', 'required');
+		$this->form_validation->set_rules('due_date', 'lang:due_date');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->zones['content'] = $this->load->view('tasks/task_create', $data, true);
@@ -24,6 +31,11 @@ class task extends CI_Controller {
 			$this->db->set('name', $this->input->post('name'));
 			$this->db->set('status', $this->input->post('status'));
 			$this->db->set('priority', $this->input->post('priority'));
+			$this->db->set('completion', $this->input->post('completion'));
+			$this->db->set('description', $this->input->post('description'));
+			$this->db->set('start_date', $this->input->post('start_date'));
+			$this->db->set('due_date', $this->input->post('due_date'));
+			$this->db->set('created', date('Y-m-d H:i:s'));
 			$this->db->insert('tasks');
 			$id = $this->db->insert_id();
 			$this->read($id);
@@ -47,7 +59,14 @@ class task extends CI_Controller {
 		$data['select_priority'] = $this->phpcollab_model->select_priority();
 		$data['select_completion'] = $this->phpcollab_model->select_completion();
 
+		$this->form_validation->set_rules('project', 'lang:project', 'required|numeric');
 		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
+		$this->form_validation->set_rules('description', 'lang:description');
+		$this->form_validation->set_rules('status', 'lang:status', 'required|numeric');
+		$this->form_validation->set_rules('completion', 'lang:completion', 'required|numeric');
+		$this->form_validation->set_rules('priority', 'lang:priority', 'required|numeric');
+		$this->form_validation->set_rules('start_date', 'lang:start_date', 'required');
+		$this->form_validation->set_rules('due_date', 'lang:due_date');
 
 		if($this->form_validation->run() == FALSE) {
 			$this->zones['content'] = $this->load->view('tasks/task_update', $data, true);
@@ -58,6 +77,9 @@ class task extends CI_Controller {
 			$this->db->set('priority', $this->input->post('priority'));
 			$this->db->set('completion', $this->input->post('completion'));
 			$this->db->set('description', $this->input->post('description'));
+			$this->db->set('start_date', $this->input->post('start_date'));
+			$this->db->set('due_date', $this->input->post('due_date'));
+			$this->db->set('modified', date('Y-m-d H:i:s'));
 			$this->db->where('id', $id);
 			$this->db->update('tasks');
 			$this->read($id);

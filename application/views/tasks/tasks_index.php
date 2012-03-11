@@ -25,10 +25,6 @@
 
 <?php if($results) { ?>
 
-<div class="paging">
-<?php echo $pagination; ?>
-</div>
-
 <table>
 <thead>
 <tr>
@@ -37,7 +33,8 @@
 <?php display_column('tasks', $columns[2], $this->lang->line('priority')); ?>
 <?php display_column('tasks', $columns[3], $this->lang->line('status')); ?>
 <?php display_column('tasks', $columns[4], $this->lang->line('completion')); ?>
-<?php display_column('tasks', $columns[5], $this->lang->line('published')); ?>
+<?php display_column('tasks', $columns[5], $this->lang->line('due_date')); ?>
+<?php display_column('tasks', $columns[6], $this->lang->line('published')); ?>
 <th>&nbsp;</th>
 </tr>
 </thead>
@@ -50,6 +47,7 @@
 <td><img src="<?php echo base_url(); ?>themes/<?php echo $this->config->item('phpcollab_theme'); ?>/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
 <td><?php echo $this->lang->line('status_'.$result->status); ?></td>
 <td><?php echo $result->completion_percent; ?> %</td>
+<td><?php echo $result->due_date; ?></td>
 <td><?php echo $this->lang->line('status_published_'.$result->published); ?></td>
 <th>
 <a href="<?php echo base_url(); ?>task/update/<?php echo $result->id; ?>"><?php echo $this->lang->line('update'); ?></a>
@@ -61,8 +59,14 @@
 </table>
 
 <div class="paging">
-<?php echo $pagination; ?>
+<?php echo $pagination; ?> <?php if($this->uri->segment(1) != 'tasks') { ?><a href="<?php echo base_url(); ?>tasks/index/<?php echo $pro->id; ?>"><?php echo $this->lang->line('show_all'); ?></a><?php } ?>
 </div>
+
+<?php if($this->config->item('jpgraph')) { ?>
+<div>
+<img src="<?php echo base_url(); ?>tasks/gantt/<?php echo $pro->id; ?>" alt="">
+</div>
+<?php } ?>
 
 <?php } ?>
 

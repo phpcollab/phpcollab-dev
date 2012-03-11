@@ -25,15 +25,20 @@ if($tsk) {
 <div class="box2">
 <p><span class="label"><?php echo $this->lang->line('project'); ?></span><a href="<?php echo base_url(); ?>project/read/<?php echo $pro->id; ?>"><?php echo $pro->name; ?></a></p>
 <p><span class="label"><?php echo $this->lang->line('organization'); ?></span><a href="<?php echo base_url(); ?>organization/read/<?php echo $org->id; ?>"><?php echo $org->name; ?></a></p>
+<p><span class="label"><?php echo $this->lang->line('created'); ?></span><?php echo $tsk->created; ?></p>
+<p><span class="label"><?php echo $this->lang->line('assigned'); ?></span><?php echo $tsk->assigned; ?>&nbsp;</p>
+<p><span class="label"><?php echo $this->lang->line('modified'); ?></span><?php echo $tsk->modified; ?>&nbsp;</p>
 </div>
 
 <h2><?php echo $this->lang->line('details'); ?></h2>
 <div class="box2">
 <p><span class="label"><?php echo $this->lang->line('name'); ?></span><?php echo $tsk->name; ?></p>
+<p><span class="label"><?php echo $this->lang->line('description'); ?></span><?php echo $tsk->description; ?>&nbsp;</p>
 <p><span class="label"><?php echo $this->lang->line('status'); ?></span><?php echo $this->lang->line('status_'.$tsk->status); ?></p>
 <p><span class="label"><?php echo $this->lang->line('completion'); ?></span><?php echo $tsk->completion_percent; ?> %</p>
 <p><span class="label"><?php echo $this->lang->line('priority'); ?></span><img src="<?php echo base_url(); ?>themes/<?php echo $this->config->item('phpcollab_theme'); ?>/<?php echo $tsk->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$tsk->priority); ?></p>
-<p><span class="label"><?php echo $this->lang->line('description'); ?></span><?php echo $tsk->description; ?></p>
+<p><span class="label"><?php echo $this->lang->line('start_date'); ?></span><?php echo $tsk->start_date; ?></p>
+<p><span class="label"><?php echo $this->lang->line('due_date'); ?></span><?php echo $tsk->due_date; ?>&nbsp;</p>
 <p><span class="label"><?php echo $this->lang->line('published'); ?></span><?php echo $this->lang->line('status_published_'.$tsk->published); ?></p>
 </div>
 

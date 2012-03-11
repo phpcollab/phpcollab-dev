@@ -25,10 +25,6 @@
 
 <?php if($results) { ?>
 
-<div class="paging">
-<?php echo $pagination; ?>
-</div>
-
 <table>
 <thead>
 <tr>
@@ -59,7 +55,7 @@
 </table>
 
 <div class="paging">
-<?php echo $pagination; ?>
+<?php echo $pagination; ?> <?php if($this->uri->segment(1) != 'topics') { ?><a href="<?php echo base_url(); ?>topics/index/<?php echo $pro->id; ?>"><?php echo $this->lang->line('show_all'); ?></a><?php } ?>
 </div>
 
 <?php } ?>

@@ -4,6 +4,8 @@ if(!defined('BASEPATH')) {
 	exit(0);
 }
 
+$config['jpgraph'] = true;//true or false
+
 $config['ldap'] = false;//true or false
 $config['ldap_server'] = 'ldap://localhost';
 $config['ldap_port'] = 389;

@@ -19,6 +19,9 @@ class phpcollab_library {
 		$this->debug = array();
 		$this->jquery = array();
 		$this->base_url = base_url();
+		$this->jquery_load('jquery');
+		$this->jquery_load('jquery.ui.core');
+		$this->jquery_load('jquery.ui.datepicker');
 	}
 	function error_handler($e_type, $e_message, $e_file, $e_line) {
 		$e_type_values = array(1=>'E_ERROR', 2=>'E_WARNING', 4=>'E_PARSE', 8=>'E_NOTICE', 16=>'E_CORE_ERROR', 32=>'E_CORE_WARNING', 64=>'E_COMPILE_ERROR', 128=>'E_COMPILE_WARNING', 256=>'E_USER_ERROR', 512=>'E_USER_WARNING', 1024=>'E_USER_NOTICE', 2048=>'E_STRICT', 4096=>'E_RECOVERABLE_ERROR', 8192=>'E_DEPRECATED', 16384=>'E_USER_DEPRECATED', 30719=>'E_ALL');
@@ -102,6 +105,7 @@ class phpcollab_library {
 			$head[] = '<title>'.implode(' | ', $titles).'</title>';
 
 			$head[] = '<meta charset="UTF-8">';
+			$head[] = '<link href="'.$this->base_url.'thirdparty/jquery/styles/jquery.ui.datepicker.css" rel="stylesheet" type="text/css">';
 			$head[] = '<link href="'.$this->base_url.'themes/'.$this->CI->config->item('phpcollab_theme').'/phpcollab.css" rel="stylesheet" type="text/css">';
 		}
 		$head = array_merge($head, $this->CI->head);
@@ -119,11 +123,7 @@ class phpcollab_library {
 						$foot[] = '<script type="text/javascript" src="'.$this->base_url.'thirdparty/jquery/scripts/'.$v.'.js" charset="UTF-8"></script>';
 					}
 				}
-				if(file_exists('assets/phpcollab.js')) {
-					$foot[] = '<script src="'.$this->base_url.'assets/phpcollab.js" type="text/javascript"></script>';
-				} elseif(file_exists('assets/phpcollab.dist.js')) {
-					$foot[] = '<script src="'.$this->base_url.'assets/phpcollab.dist.js" type="text/javascript"></script>';
-				}
+				$foot[] = '<script src="'.$this->base_url.'themes/'.$this->CI->config->item('phpcollab_theme').'/phpcollab.js" type="text/javascript"></script>';
 			}
 		}
 		$foot = array_merge($foot, $this->CI->foot);

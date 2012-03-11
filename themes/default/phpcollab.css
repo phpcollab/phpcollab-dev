@@ -50,7 +50,7 @@ table tbody tr:hover th, table tbody tr:hover td{background-color:#DEE7EB;}
 #box-breadcrumbs li.first:before{content:"";}
 
 #box-pageheader h1{background-color:#FFFFFF;font-size:20px;margin:0px 0px 20px 0px;}
-#box-pagecontent h1{background-color:#FFFFFF;border-bottom:1px solid #999999;color:#821400;font-family:Georgia;font-size:15px;font-weight:bold;margin:15px 0px 4px 0px;padding:0px 0px 2px 0px;}
+#box-pagecontent h1{background-color:#FFFFFF;border-bottom:1px solid #999999;color:#821400;font-family:Georgia;font-size:15px;font-weight:bold;margin:15px 0px 4px 0px;padding:0px 0px 5px 0px;}
 #box-pagecontent h2{background-color:#C4D3DB;border-bottom:1px solid #999999;border-top:1px solid #999999;color:#777E82;font-size:11px;font-weight:bold;margin:0px;padding:4px 0px 4px 2px;text-align:left;}
 
 .box1 > ul{height:25px;list-style-type:none;margin:0px;padding:0px;width:auto;}
@@ -77,23 +77,19 @@ optgroup, option{padding-left:2px;}
 optgroup{border-top:1px solid #999999;font-weight:bold;padding:2px 0px 5px 0px;}
 option{padding-right:5px;}
 optgroup option{margin-left:5px;}
-fieldset, textarea, input, select, button{border:1px solid #999999;}
+textarea, input, select, button{border:1px solid #999999;}
 input:focus, select:focus, textarea:focus{background-color:#E7E7E7;}
-fieldset{border-radius:3px;clear:both;margin:7px 0px;padding:5px;position:relative;}
-fieldset legend{padding:0px 3px;}
 .inputcheckbox, .inputradio{background-color:transparent;}
 .inputradio{vertical-align:middle;}
 .inputtext, .inputpassword, .textarea{padding:2px;}
 .inputsubmit, button{cursor:pointer;padding:1px 2px;}
-.inputtext, .inputpassword{width:300px;}
-fieldset .inputtext, fieldset .inputpassword{width:300px;}
+.inputtext, .inputpassword{width:400px;}
 .select{padding:1px 1px;}
 option.selected{font-weight:bold;}
 .datefield{width:80px!important;}
 .timefield{width:60px!important;}
 .numericfield{width:50px!important;}
-.textarea{height:100px;resize:vertical;width:300px;}
-.textareabigger{height:200px;width:97%;}
+.textarea{height:160px;width:400px;}
 label, .label{cursor:text;display:block;float:left;margin-bottom:2px;margin-right:10px;position:relative;text-align:right;width:300px;}
 a.label:link, a.label:visited{cursor:pointer;}
 form .error{color:#FF0000;}
@@ -104,9 +100,6 @@ form .error{color:#FF0000;}
 .filters .inputtext{width:100px;}
 
 .paging{clear:both;font-size:11px;padding:5px 5px 5px 0px;}
-.paging strong, .paging a:link, .paging a:visited{border:1px solid #999999;border-radius:3px;margin:0px 2px 0px 0px;padding:0px 3px 0px 4px;text-decoration:none;}
-.paging strong{background-color:#777777;color:#FFFFFF;font-weight:normal;text-decoration:none;}
-.paging a:hover{background-color:#E7E7E7;}
 
 #box-debug{background-color:#F6EBD4;clear:both;margin:10px auto;overflow:hidden;position:relative;width:100%;}
 #box-debug h1{background-color:#C9BCAA;color:#111111;font-size:13px;margin:0px;padding:3px 0px 2px 5px;}

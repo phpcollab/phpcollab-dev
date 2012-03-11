@@ -112,7 +112,7 @@ class phpcollab_model extends CI_Model {
         return $query->row();
     }
     function get_tasks_limit($flt, $num, $offset, $column) {
-        $query = $this->db->query('SELECT tsk.id, tsk.name, tsk.priority, tsk.status, tsk.published, tsk.completion * 10 AS completion_percent FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE '.implode(' AND ', $flt).' GROUP BY tsk.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+        $query = $this->db->query('SELECT tsk.id, tsk.name, tsk.priority, tsk.status, tsk.due_date, tsk.published, tsk.completion * 10 AS completion_percent FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE '.implode(' AND ', $flt).' GROUP BY tsk.id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
         return $query->result();
     }
     function get_task($id) {

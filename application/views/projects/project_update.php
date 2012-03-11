@@ -25,12 +25,12 @@ if($pro) {
 <h2><?php echo $this->lang->line('update'); ?></h2>
 <div class="box2">
 <p><?php echo form_label($this->lang->line('name').' *', 'name'); ?><?php echo form_input('name', set_value('name', $pro->name), 'id="name" class="inputtext"'); ?></p>
-<p><?php echo form_label($this->lang->line('priority').' *', 'priority'); ?><?php echo form_dropdown('priority', $select_priority, set_value('', $pro->priority), 'id="priority" class="select"'); ?></p>
+<p><?php echo form_label($this->lang->line('priority').' *', 'priority'); ?><?php echo form_dropdown('priority', $select_priority, set_value('priority', $pro->priority), 'id="priority" class="select"'); ?></p>
 <p><?php echo form_label($this->lang->line('description'), 'description'); ?><?php echo form_textarea('description', set_value('description', $pro->description), 'id="description" class="textarea"'); ?></p>
 <p><?php echo form_label($this->lang->line('url_dev'), 'url_dev'); ?><?php echo form_input('url_dev', set_value('url_dev', $pro->url_dev), 'id="url_dev" class="inputtext"'); ?></p>
 <p><?php echo form_label($this->lang->line('url_prod'), 'url_prod'); ?><?php echo form_input('url_prod', set_value('url_prod', $pro->url_prod), 'id="url_prod" class="inputtext"'); ?></p>
-<p><?php echo form_label($this->lang->line('organization').' *', 'organization'); ?><?php echo form_dropdown('organization', $select_organization, set_value('', $pro->organization), 'id="organization" class="select"'); ?></p>
-<p><?php echo form_label($this->lang->line('status').' *', 'status'); ?><?php echo form_dropdown('status', $select_status, set_value('', $pro->status), 'id="status" class="select"'); ?></p>
+<p><?php echo form_label($this->lang->line('organization').' *', 'organization'); ?><?php echo form_dropdown('organization', $select_organization, set_value('organization', $pro->organization), 'id="organization" class="select"'); ?></p>
+<p><?php echo form_label($this->lang->line('status').' *', 'status'); ?><?php echo form_dropdown('status', $select_status, set_value('status', $pro->status), 'id="status" class="select"'); ?></p>
 <p><span class="label">&nbsp;</span><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('save'); ?>"></p>
 </div>
 
