@@ -13,7 +13,7 @@ if($pro) {
 <div class="box1">
 <h1><?php echo $this->lang->line('project'); ?> : <?php echo $pro->name; ?></h1>
 <ul>
-<li><a class="update" href="<?php echo base_url(); ?>project/update/<?php echo $pro->id; ?>"><?php echo $this->lang->line('update'); ?></a></li>
+<?php if($this->permissions['project_update_all'] == 1 || ($this->permissions['project_update_owned'] == 1 && $pro->owner == $this->member->id)) { ?><li><a class="update" href="<?php echo base_url(); ?>project/update/<?php echo $pro->id; ?>"><?php echo $this->lang->line('update'); ?></a></li><?php } ?>
 </ul>
 <div class="display">
 

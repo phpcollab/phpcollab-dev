@@ -6,35 +6,37 @@ if(!defined('BASEPATH')) {
 
 class project extends CI_Controller {
 	public function create() {
-		$this->load->library('form_validation');
-
-		$data = array();
-		$data['select_status'] = $this->phpcollab_model->select_status();
-		$data['select_priority'] = $this->phpcollab_model->select_priority();
-		$data['select_organization'] = $this->phpcollab_model->select_organization();
-
-		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
-		$this->form_validation->set_rules('priority', 'lang:priority', 'required|numeric');
-		$this->form_validation->set_rules('description', 'lang:description');
-		$this->form_validation->set_rules('url_dev', 'lang:url_dev');
-		$this->form_validation->set_rules('url_prod', 'lang:url_prod');
-		$this->form_validation->set_rules('organization', 'lang:organization', 'required|numeric');
-		$this->form_validation->set_rules('status', 'lang:status', 'required|numeric');
-
-		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('projects/project_create', $data, true);
-		} else {
-			$this->db->set('name', $this->input->post('name'));
-			$this->db->set('status', $this->input->post('status'));
-			$this->db->set('priority', $this->input->post('priority'));
-			$this->db->set('description', $this->input->post('description'));
-			$this->db->set('url_dev', $this->input->post('url_dev'));
-			$this->db->set('url_prod', $this->input->post('url_prod'));
-			$this->db->set('organization', $this->input->post('organization'));
-			$this->db->set('created', date('Y-m-d H:i:s'));
-			$this->db->insert('projects');
-			$id = $this->db->insert_id();
-			$this->read($id);
+		if($this->permissions['project_create'] == 1) {
+			$this->load->library('form_validation');
+	
+			$data = array();
+			$data['select_status'] = $this->phpcollab_model->select_status();
+			$data['select_priority'] = $this->phpcollab_model->select_priority();
+			$data['select_organization'] = $this->phpcollab_model->select_organization();
+	
+			$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
+			$this->form_validation->set_rules('priority', 'lang:priority', 'required|numeric');
+			$this->form_validation->set_rules('description', 'lang:description');
+			$this->form_validation->set_rules('url_dev', 'lang:url_dev');
+			$this->form_validation->set_rules('url_prod', 'lang:url_prod');
+			$this->form_validation->set_rules('organization', 'lang:organization', 'required|numeric');
+			$this->form_validation->set_rules('status', 'lang:status', 'required|numeric');
+	
+			if($this->form_validation->run() == FALSE) {
+				$this->zones['content'] = $this->load->view('projects/project_create', $data, true);
+			} else {
+				$this->db->set('name', $this->input->post('name'));
+				$this->db->set('status', $this->input->post('status'));
+				$this->db->set('priority', $this->input->post('priority'));
+				$this->db->set('description', $this->input->post('description'));
+				$this->db->set('url_dev', $this->input->post('url_dev'));
+				$this->db->set('url_prod', $this->input->post('url_prod'));
+				$this->db->set('organization', $this->input->post('organization'));
+				$this->db->set('created', date('Y-m-d H:i:s'));
+				$this->db->insert('projects');
+				$id = $this->db->insert_id();
+				$this->read($id);
+			}
 		}
 	}
 	public function read($id) {
@@ -92,36 +94,38 @@ class project extends CI_Controller {
 		$this->zones['content'] .= $this->load->view('topics/topics_index', $data, true);
 	}
 	public function update($id) {
-		$this->load->library('form_validation');
-
 		$data = array();
 		$data['pro'] = $this->phpcollab_model->get_project($id);
-		$data['select_status'] = $this->phpcollab_model->select_status();
-		$data['select_priority'] = $this->phpcollab_model->select_priority();
-		$data['select_organization'] = $this->phpcollab_model->select_organization();
+		if($this->permissions['project_update_all'] == 1 || ($this->permissions['project_update_owned'] == 1 && $data['pro']->owner == $this->member->id)) {
+			$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
-		$this->form_validation->set_rules('priority', 'lang:priority', 'required|numeric');
-		$this->form_validation->set_rules('description', 'lang:description');
-		$this->form_validation->set_rules('url_dev', 'lang:url_dev');
-		$this->form_validation->set_rules('url_prod', 'lang:url_prod');
-		$this->form_validation->set_rules('organization', 'lang:organization', 'required|numeric');
-		$this->form_validation->set_rules('status', 'lang:status', 'required|numeric');
-
-		if($this->form_validation->run() == FALSE) {
-			$this->zones['content'] = $this->load->view('projects/project_update', $data, true);
-		} else {
-			$this->db->set('name', $this->input->post('name'));
-			$this->db->set('status', $this->input->post('status'));
-			$this->db->set('priority', $this->input->post('priority'));
-			$this->db->set('description', $this->input->post('description'));
-			$this->db->set('url_dev', $this->input->post('url_dev'));
-			$this->db->set('url_prod', $this->input->post('url_prod'));
-			$this->db->set('organization', $this->input->post('organization'));
-			$this->db->set('modified', date('Y-m-d H:i:s'));
-			$this->db->where('id', $id);
-			$this->db->update('projects');
-			$this->read($id);
+			$data['select_status'] = $this->phpcollab_model->select_status();
+			$data['select_priority'] = $this->phpcollab_model->select_priority();
+			$data['select_organization'] = $this->phpcollab_model->select_organization();
+	
+			$this->form_validation->set_rules('name', 'lang:name', 'required|max_length[255]');
+			$this->form_validation->set_rules('priority', 'lang:priority', 'required|numeric');
+			$this->form_validation->set_rules('description', 'lang:description');
+			$this->form_validation->set_rules('url_dev', 'lang:url_dev');
+			$this->form_validation->set_rules('url_prod', 'lang:url_prod');
+			$this->form_validation->set_rules('organization', 'lang:organization', 'required|numeric');
+			$this->form_validation->set_rules('status', 'lang:status', 'required|numeric');
+	
+			if($this->form_validation->run() == FALSE) {
+				$this->zones['content'] = $this->load->view('projects/project_update', $data, true);
+			} else {
+				$this->db->set('name', $this->input->post('name'));
+				$this->db->set('status', $this->input->post('status'));
+				$this->db->set('priority', $this->input->post('priority'));
+				$this->db->set('description', $this->input->post('description'));
+				$this->db->set('url_dev', $this->input->post('url_dev'));
+				$this->db->set('url_prod', $this->input->post('url_prod'));
+				$this->db->set('organization', $this->input->post('organization'));
+				$this->db->set('modified', date('Y-m-d H:i:s'));
+				$this->db->where('id', $id);
+				$this->db->update('projects');
+				$this->read($id);
+			}
 		}
 	}
 }

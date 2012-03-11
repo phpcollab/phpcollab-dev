@@ -10,7 +10,7 @@
 <div class="box1">
 <h1><?php echo $this->lang->line('projects'); ?> (<?php echo $position; ?>)</h1>
 <ul>
-<li><a class="create" href="<?php echo base_url(); ?>project/create"><?php echo $this->lang->line('create'); ?></a></li>
+<?php if($this->permissions['project_create'] == 1) { ?><li><a class="create" href="<?php echo base_url(); ?>project/create"><?php echo $this->lang->line('create'); ?></a></li><?php } ?>
 </ul>
 <div class="display">
 
@@ -44,7 +44,7 @@
 <td><?php if($result->org_id) { ?><a href="<?php echo base_url(); ?>organization/read/<?php echo $result->org_id; ?>"><?php echo $result->org_name; ?></a><?php } ?></td>
 <td><?php echo $this->lang->line('status_'.$result->status); ?></td>
 <th>
-<a href="<?php echo base_url(); ?>project/update/<?php echo $result->id; ?>"><?php echo $this->lang->line('update'); ?></a>
+<?php if($this->permissions['project_update_all'] == 1 || ($this->permissions['project_update_owned'] == 1 && $result->owner == $this->member->id)) { ?><a href="<?php echo base_url(); ?>project/update/<?php echo $result->id; ?>"><?php echo $this->lang->line('update'); ?></a><?php } ?>
 </th>
 </tr>
 <?php } ?>

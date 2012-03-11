@@ -40,7 +40,7 @@ class organization extends CI_Controller {
 		$col = build_columns('projects', $columns, 'pro.id', 'DESC');
 
 		$results = $this->phpcollab_model->get_projects_count($flt);
-		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 30);
+		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 5, 'projects_'.$id);
 
 		$data = array();
 		$data['columns'] = $col;

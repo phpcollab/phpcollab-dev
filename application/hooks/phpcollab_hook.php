@@ -14,6 +14,7 @@ class phpcollab_hook {
 
 		if($this->CI->session->userdata('id')) {
 			$this->CI->member = $this->CI->phpcollab_model->get_member($this->CI->session->userdata('id'));
+			$this->CI->permissions = $this->CI->phpcollab_model->get_permissions($this->CI->member->profil);
 			$this->CI->db->set('connected', date('U'));
 			$this->CI->db->where('login', $this->CI->member->login);
 			$this->CI->db->update('logs');

@@ -18,7 +18,7 @@ class organizations extends CI_Controller {
 		$col = build_columns('organizations', $columns, 'org.id', 'DESC');
 
 		$results = $this->phpcollab_model->get_organizations_count($flt);
-		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 30);
+		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 20, 'organizations');
 
 		$data = array();
 		$data['columns'] = $col;

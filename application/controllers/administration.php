@@ -9,6 +9,49 @@ class administration extends CI_Controller {
 		$data = array();
 		$this->zones['content'] = $this->load->view('administration/administration_index', $data, true);
 	}
+	public function permissions() {
+		$this->load->helper(array('form'));
+
+		$filters = array();
+		$filters['permissions_per_code'] = array('per.per_code', 'like');
+		$flt = build_filters($filters);
+
+		$columns = array();
+		$columns[] = 'per.per_id';
+		$columns[] = 'per.per_code';
+		$col = build_columns('permissions', $columns, 'per.per_code', 'ASC');
+
+		$results = $this->phpcollab_model->get_permissions_count($flt);
+		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 20, 'permissions');
+
+		$data = array();
+		$data['columns'] = $col;
+		$data['pagination'] = $build_pagination['output'];
+		$data['position'] = $build_pagination['position'];
+		$data['results'] = $this->phpcollab_model->get_permissions_limit($flt, $build_pagination['limit'], $build_pagination['start'], 'permissions');
+		$data['permissions_roles'] = $this->phpcollab_model->get_permissions_roles($flt);
+		$data['roles'] = $this->phpcollab_model->get_roles();
+
+		if($this->input->post('submit_roles')) {
+			foreach($data['results'] as $result) {
+				foreach($data['roles'] as $rol_id => $rol_title) {
+					if(isset($data['permissions_roles'][$result->per_id][$rol_id]) == 1 && !$this->input->post($result->per_id.$rol_id)) {
+						$this->db->where('per_id', $result->per_id);
+						$this->db->where('rol_id', $rol_id);
+						$this->db->delete('permissions_roles');
+						unset($data['permissions_roles'][$result->per_id][$rol_id]);
+					} else if(isset($data['permissions_roles'][$result->per_id][$rol_id]) == 0 && $this->input->post($result->per_id.$rol_id)) {
+						$this->db->set('per_id', $result->per_id);
+						$this->db->set('rol_id', $rol_id);
+						$this->db->insert('permissions_roles');
+						$data['permissions_roles'][$result->per_id][$rol_id] = 1;
+					}
+				}
+			}
+		}
+
+		$this->zones['content'] = $this->load->view('administration/administration_permissions', $data, true);
+	}
 	public function system_information() {
 		$data = array();
 		$this->zones['content'] = $this->load->view('administration/administration_sysinfo', $data, true);
@@ -47,7 +90,7 @@ class administration extends CI_Controller {
 		$col = build_columns('logs', $columns, 'log.id', 'DESC');
 
 		$results = $this->phpcollab_model->get_logs_count($flt);
-		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 30, 'logs');
+		$build_pagination = $this->phpcollab_library->build_pagination($results->count, 20, 'logs');
 
 		$data = array();
 		$data['columns'] = $col;

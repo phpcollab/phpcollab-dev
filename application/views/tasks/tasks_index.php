@@ -12,7 +12,7 @@
 <div class="box1">
 <h1><?php echo $this->lang->line('tasks'); ?> (<?php echo $position; ?>)</h1>
 <ul>
-<li><a class="create" href="<?php echo base_url(); ?>task/create/<?php echo $this->uri->segment(3); ?>"><?php echo $this->lang->line('create'); ?></a></li>
+<?php if($this->permissions['task_create'] == 1) { ?><li><a class="create" href="<?php echo base_url(); ?>task/create/<?php echo $this->uri->segment(3); ?>"><?php echo $this->lang->line('create'); ?></a></li><?php } ?>
 </ul>
 <div class="display">
 

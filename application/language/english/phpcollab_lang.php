@@ -630,3 +630,6 @@ $lang['alert_weekly_subtask'] = 'The following subtasks are due this week.';
 $lang['alert_pastdue_task'] = 'The following tasks are past due.';
 $lang['alert_pastdue_subtask'] = 'The following subtasks are past due.';
 $lang['link'] = 'Link';
+
+//3.0
+$lang['per_code'] = 'Permission';

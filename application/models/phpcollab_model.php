@@ -75,6 +75,45 @@ class phpcollab_model extends CI_Model {
         $query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.id = ? GROUP BY mbr.id', array($id));
         return $query->row();
     }
+    function get_permissions($rol_id) {
+		$permissions = array();
+        $query = $this->db->query('SELECT per.per_code, per_rol.per_rol_id FROM '.$this->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->db->dbprefix('permissions_roles').' per_rol ON per_rol.per_id = per.per_id AND per_rol.rol_id = ? GROUP BY per.per_id', array($rol_id));
+		if($query->num_rows() > 0) {
+			foreach($query->result() as $row) {
+				if($row->per_rol_id) {
+					$permissions[$row->per_code] = 1;
+				} else {
+					$permissions[$row->per_code] = 0;
+				}
+			}
+		}
+        return $permissions;
+    }
+	function get_roles() {
+		$roles = array();
+		for($i=0;$i<=5;$i++) {
+			$roles[$i] = $this->lang->line('profile_'.$i);
+		}
+        return $roles;
+    }
+    function get_permissions_roles($flt) {
+		$permissions_roles = array();
+        $query = $this->db->query('SELECT per_rol.rol_id, per_rol.per_id FROM '.$this->db->dbprefix('permissions_roles').' AS per_rol LEFT JOIN '.$this->db->dbprefix('permissions').' per ON per.per_id = per_rol.per_id WHERE '.implode(' AND ', $flt).' GROUP BY per_rol.per_rol_id');
+		if($query->num_rows() > 0) {
+			foreach($query->result() as $row) {
+				$permissions_roles[$row->per_id][$row->rol_id] = 1;
+			}
+		}
+        return $permissions_roles;
+    }
+    function get_permissions_count($flt) {
+        $query = $this->db->query('SELECT COUNT(per.per_id) AS count FROM '.$this->db->dbprefix('permissions').' AS per WHERE '.implode(' AND ', $flt));
+        return $query->row();
+    }
+    function get_permissions_limit($flt, $num, $offset, $column) {
+        $query = $this->db->query('SELECT per.* FROM '.$this->db->dbprefix('permissions').' AS per WHERE '.implode(' AND ', $flt).' GROUP BY per.per_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+        return $query->result();
+    }
     function get_logs_count($flt) {
         $query = $this->db->query('SELECT COUNT(log.id) AS count FROM '.$this->db->dbprefix('logs').' AS log WHERE '.implode(' AND ', $flt));
         return $query->row();
