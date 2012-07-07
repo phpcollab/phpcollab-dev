@@ -6,11 +6,11 @@ if(!defined('BASEPATH')) {
 
 class phpcollab_library {
 	public function __construct($params = array()) {
+		$this->CI =& get_instance();
 		if(function_exists('date_default_timezone_set')) {
-			date_default_timezone_set('Etc/UCT');
+			date_default_timezone_set($this->CI->config->item('date_timezone'));
 		}
 		set_error_handler(array($this, 'error_handler'));
-		$this->CI =& get_instance();
 		$this->CI->err = array();
 		$this->CI->hlp = array();
 		$this->CI->msg = array();
@@ -155,9 +155,12 @@ class phpcollab_library {
 				}
 
 				$debug .= '<h2>queries ('.count($this->CI->db->queries).')</h2>';
-				foreach($this->CI->db->queries as $query) {
-					$debug .= '<p>'.$query.'</p>';
+				$debug .= '<ul>';
+				foreach($this->CI->db->queries as $k => $query) {
+					$query_time = number_format($this->CI->db->query_times[$k], 20, '.', '');
+					$debug .= '<li>'.str_replace(array('<', '>'), array('&lt;', '&gt;'), $query).'<br>'.$query_time.'</li>';
 				}
+				$debug .= '</ul>';
 			
 				$debug .= '</div>';
 				$debug .= '</div>';

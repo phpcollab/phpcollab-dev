@@ -4,6 +4,8 @@ if(!defined('BASEPATH')) {
 	exit(0);
 }
 
+$config['date_timezone'] = 'UTC';
+
 $config['jpgraph'] = true;//true or false
 
 $config['ldap'] = false;//true or false
