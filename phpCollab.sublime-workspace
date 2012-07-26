@@ -1,0 +1,340 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"task",
+				"taskId"
+			],
+			[
+				"invo",
+				"invoices"
+			],
+			[
+				"upd",
+				"updates"
+			],
+			[
+				"suppo",
+				"support_requests"
+			],
+			[
+				"supp",
+				"support_posts"
+			],
+			[
+				"sort",
+				"sorting"
+			],
+			[
+				"pos",
+				"posts"
+			],
+			[
+				"noti",
+				"notifications"
+			],
+			[
+				"not",
+				"notes"
+			],
+			[
+				"new",
+				"newsdeskposts"
+			],
+			[
+				"invoi",
+				"invoices_items"
+			],
+			[
+				"bookm",
+				"bookmarks_categories"
+			],
+			[
+				"boo",
+				"bookmarks"
+			],
+			[
+				"tea",
+				"teams"
+			],
+			[
+				"tas",
+				"tasks"
+			],
+			[
+				"sub",
+				"subtasks"
+			],
+			[
+				"sor",
+				"sorting"
+			],
+			[
+				"ser",
+				"services"
+			],
+			[
+				"rep",
+				"reports"
+			],
+			[
+				"po",
+				"posts"
+			],
+			[
+				"pha",
+				"phases"
+			],
+			[
+				"org",
+				"organizations"
+			],
+			[
+				"news",
+				"newsdeskposts"
+			],
+			[
+				"ne",
+				"newsdeskcomments"
+			],
+			[
+				"member",
+				"members"
+			],
+			[
+				"cal",
+				"calendar"
+			],
+			[
+				"book",
+				"bookmarks_categories"
+			],
+			[
+				"ass",
+				"assignments"
+			],
+			[
+				"top",
+				"topics"
+			],
+			[
+				"proj",
+				"projects"
+			],
+			[
+				"php-",
+				"php-getset	Create getter and setter methods"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "Package Control Messages\n========================\n\nSublimeLinter:\n-------------\n\n  SublimeLinter 1.6.5 changelog\n  \n  NEW FEATURES\n  \n  - Added a (Ruby) Haml linter based on `haml -c`. For more information about\n    Haml, please see http://haml.info.\n  \n  - Added a simple Git commit message linter. This linter follows the rules as\n    defined by http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html\n  \n  \n  CHANGES/FIXES\n  \n  - Updated several links to point to the SublimeLinter's new Github location.\n  \n  - \"Ruby on Rails\" syntax maps to \"ruby\" as part of the default settings.\n  \n  - Linter arguments are now consistently defined as arrays (instead of tuples).\n  \n  - Syntax map settings are no longer (sometimes) case-sensitive.\n  \n",
+			"settings":
+			{
+				"buffer_size": 755,
+				"line_ending": "Unix",
+				"name": "Package Control Messages",
+				"scratch": true
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"js",
+				"Set Syntax: JSON"
+			]
+		],
+		"width": 435.0
+	},
+	"console":
+	{
+		"height": 176.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/mindblender/Sites/phpcollab/.gitignore",
+		"/Users/mindblender/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/mindblender/Sites/project29k-phpcollab/application/config/database.php",
+		"/Users/mindblender/Sites/myprojectportal.net/email.php",
+		"/Users/mindblender/Sites/myprojectportal.net/includes/library.php",
+		"/Users/mindblender/Sites/myprojectportal.net/includes/settings.php",
+		"/Users/mindblender/Sites/myprojectportal.net/sftp-config.json",
+		"/Users/mindblender/Sites/myprojectportal.net/email2.php",
+		"/Users/mindblender/Library/Application Support/Sublime Text 2/Packages/User/SFTP.sublime-settings",
+		"/Users/mindblender/Library/Application Support/Sublime Text 2/Packages/SFTP/SFTP.sublime-settings"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"phpcollab",
+			"\".$tableCollab[\"",
+			"\"].\"",
+			"\".$tableCollab[\"",
+			"organiza",
+			"'",
+			"`",
+			"\"] =",
+			"$initrequest[\"",
+			"date"
+		],
+		"highlight": true,
+		"in_selection": true,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"'",
+			"="
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"settings":
+					{
+						"buffer_size": 755,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								755,
+								755
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.sftp":
+	{
+		"height": 457.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 305.0,
+	"status_bar_visible": true
+}
