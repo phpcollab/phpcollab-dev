@@ -1,0 +1,19 @@
+{
+    "hash": "1b32db57a1e4e830bd4354297b2bc4dd",
+    "packages": [
+        {
+            "package": "kriswallsmith/buzz",
+            "version": "dev-master",
+            "source-reference": "2ba5da13b1b03590f0164b3fb61578078d671fcc",
+            "commit-date": "1341070218"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "kriswallsmith/buzz": 20
+    }
+}

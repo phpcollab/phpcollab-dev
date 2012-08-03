@@ -1,0 +1,5 @@
+{
+	"require": {
+		"kriswallsmith/buzz" : "dev-master"
+	}
+}
