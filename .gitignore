@@ -2,3 +2,5 @@
 .DS_Store
 *.sublime*
 .*.swp
+composer.phar
+vendor
