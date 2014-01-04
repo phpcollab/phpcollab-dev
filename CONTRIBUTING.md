@@ -39,4 +39,4 @@ appreciated btw), please use rebasing rather than merging.  Merging creates
 ## Submit
 * Push your changes to a topic branch in your fork of the repository.
 * Initiate a [pull request](http://help.github.com/send-pull-requests/)
-* Update the phpCollab issue, adding a comment inclusing a link to the created pull request
+* Update the phpCollab issue, adding a comment including a link to the created pull request.
