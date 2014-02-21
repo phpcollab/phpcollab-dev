@@ -11,3 +11,18 @@ Default member
 example@example.com
 example
 ```
+
+###Started
+* Members
+* Organizations
+* Projects
+* Teams
+* Tasks
+* Milestones
+* Trackers
+
+###Todo
+* Permissions / Roles
+* Files
+* Topics / Posts
+* Notes
