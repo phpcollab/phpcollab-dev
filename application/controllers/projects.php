@@ -22,7 +22,7 @@ class projects extends CI_Controller {
 		$data = array();
 		$data['dropdown_org_id'] = $this->projects_model->dropdown_org_id();
 		$data['dropdown_prj_owner'] = $this->projects_model->dropdown_prj_owner();
-		$this->form_validation->set_rules('org_id', 'lang:org_id', 'required|numeric');
+		$this->form_validation->set_rules('org_id', 'lang:organization', 'required|numeric');
 		$this->form_validation->set_rules('prj_owner', 'lang:prj_owner', 'required|numeric');
 		$this->form_validation->set_rules('prj_name', 'lang:prj_name', 'required|max_length[255]');
 		$this->form_validation->set_rules('prj_description', 'lang:prj_description', '');
@@ -89,7 +89,7 @@ class projects extends CI_Controller {
 			$this->my_library->set_title($this->lang->line('projects').' / '.$data['row']->prj_name);
 			$data['dropdown_org_id'] = $this->projects_model->dropdown_org_id();
 			$data['dropdown_prj_owner'] = $this->projects_model->dropdown_prj_owner();
-			$this->form_validation->set_rules('org_id', 'lang:org_id', 'required|numeric');
+			$this->form_validation->set_rules('org_id', 'lang:organization', 'required|numeric');
 			$this->form_validation->set_rules('prj_owner', 'lang:prj_owner', 'required|numeric');
 			$this->form_validation->set_rules('prj_name', 'lang:prj_name', 'required|max_length[255]');
 			$this->form_validation->set_rules('prj_description', 'lang:prj_description', '');

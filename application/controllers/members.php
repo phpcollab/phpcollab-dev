@@ -31,7 +31,7 @@ class members extends CI_Controller {
 		foreach($data['roles'] as $rol) {
 			$this->form_validation->set_rules('rol_'.$rol->rol_id, $rol->rol_code);
 		}
-		$this->form_validation->set_rules('org_id', 'lang:org_id', 'required|numeric');
+		$this->form_validation->set_rules('org_id', 'lang:organization', 'required|numeric');
 		$this->form_validation->set_rules('mbr_name', 'lang:mbr_name', 'required|max_length[255]');
 		$this->form_validation->set_rules('mbr_description', 'lang:mbr_description', '');
 		$this->form_validation->set_rules('mbr_email', 'lang:mbr_email', 'required|valid_email|max_length[255]|callback_email');
@@ -114,7 +114,7 @@ class members extends CI_Controller {
 			foreach($data['roles'] as $rol) {
 				$this->form_validation->set_rules('rol_'.$rol->rol_id, $rol->rol_code);
 			}
-			$this->form_validation->set_rules('org_id', 'lang:org_id', 'required|numeric');
+			$this->form_validation->set_rules('org_id', 'lang:organization', 'required|numeric');
 			$this->form_validation->set_rules('mbr_name', 'lang:mbr_name', 'required|max_length[255]');
 			$this->form_validation->set_rules('mbr_description', 'lang:mbr_description', '');
 			$this->form_validation->set_rules('mbr_email', 'lang:mbr_email', 'required|valid_email|max_length[255]|callback_email');
