@@ -1,74 +1,76 @@
-<?php if($this->uri->segment(1) == 'tasks') { ?>
-<div id="box-breadcrumbs">
-<ul>
-<li class="first"><a href="<?php echo base_url(); ?>home"><?php echo $this->lang->line('home'); ?></a></li>
-<li><a href="<?php echo base_url(); ?>projects"><?php echo $this->lang->line('projects'); ?></a></li>
-<li><a href="<?php echo base_url(); ?>project/read/<?php echo $pro->id; ?>"><?php echo $pro->name; ?></a></li>
-<li><?php echo $this->lang->line('tasks'); ?></li>
-</ul>
-</div>
-<?php } ?>
-
-<div class="box1">
-<h1><?php echo $this->lang->line('tasks'); ?> (<?php echo $position; ?>)</h1>
-<ul>
-<?php if($this->permissions['task_create'] == 1) { ?><li><a class="create" href="<?php echo base_url(); ?>task/create/<?php echo $this->uri->segment(3); ?>"><?php echo $this->lang->line('create'); ?></a></li><?php } ?>
-</ul>
-<div class="display">
-
-<?php echo form_open(current_url()); ?>
-<div class="filters">
-<div><?php echo form_label($this->lang->line('name'), 'tasks_name'); ?><?php echo form_input('tasks_name', set_value('tasks_name', $this->session->userdata('tasks_name')), 'id="tasks_name" class="inputtext"'); ?></div>
-<div><input class="inputsubmit" type="submit" name="submit" id="submit" value="<?php echo $this->lang->line('submit'); ?>"></div>
-</div>
-</form>
-
-<?php if($results) { ?>
-
-<table>
-<thead>
-<tr>
-<?php display_column('tasks', $columns[0], $this->lang->line('id')); ?>
-<?php display_column('tasks', $columns[1], $this->lang->line('task')); ?>
-<?php display_column('tasks', $columns[2], $this->lang->line('priority')); ?>
-<?php display_column('tasks', $columns[3], $this->lang->line('status')); ?>
-<?php display_column('tasks', $columns[4], $this->lang->line('completion')); ?>
-<?php display_column('tasks', $columns[5], $this->lang->line('due_date')); ?>
-<?php display_column('tasks', $columns[6], $this->lang->line('published')); ?>
-<th>&nbsp;</th>
-</tr>
-</thead>
-<tbody>
-
-<?php foreach($results as $result) { ?>
-<tr>
-<td><a href="<?php echo base_url(); ?>task/read/<?php echo $result->id; ?>"><?php echo $result->id; ?></a></td>
-<td><a href="<?php echo base_url(); ?>task/read/<?php echo $result->id; ?>"><?php echo $result->name; ?></a></td>
-<td><img src="<?php echo base_url(); ?>themes/<?php echo $this->config->item('phpcollab_theme'); ?>/<?php echo $result->priority; ?>.gif" alt=""> <?php echo $this->lang->line('priority_'.$result->priority); ?></td>
-<td><?php echo $this->lang->line('status_'.$result->status); ?></td>
-<td><?php echo $result->completion_percent; ?> %</td>
-<td><?php echo $result->due_date; ?></td>
-<td><?php echo $this->lang->line('status_published_'.$result->published); ?></td>
-<th>
-<a href="<?php echo base_url(); ?>task/update/<?php echo $result->id; ?>"><?php echo $this->lang->line('update'); ?></a>
-</th>
-</tr>
-<?php } ?>
-
-</tbody>
-</table>
-
-<div class="paging">
-<?php echo $pagination; ?> <?php if($this->uri->segment(1) != 'tasks') { ?><a href="<?php echo base_url(); ?>tasks/index/<?php echo $pro->id; ?>"><?php echo $this->lang->line('show_all'); ?></a><?php } ?>
-</div>
-
-<?php if($this->config->item('jpgraph')) { ?>
-<div>
-<img src="<?php echo base_url(); ?>tasks/gantt/<?php echo $pro->id; ?>" alt="">
-</div>
-<?php } ?>
-
-<?php } ?>
-
-</div>
-</div>
+<article class="title">
+	<?php if($this->router->class == 'tasks') { ?>
+		<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-leaf"></i><?php echo $this->lang->line('projects'); ?></a> / <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-leaf"></i><?php echo $prj->prj_name; ?></a> / <i class="fa fa-tasks"></i><?php echo $this->lang->line('tasks'); ?> (<?php echo $position; ?>)</h2>
+	<?php } else { ?>
+		<h2><a href="<?php echo $this->my_url; ?>tasks/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-tasks"></i><?php echo $this->lang->line('tasks'); ?></a> (<?php echo $position; ?>)</h2>
+	<?php } ?>
+	<ul>
+	<li><a href="<?php echo $this->my_url; ?>tasks/create/<?php echo $prj->prj_id; ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<?php if($this->router->class != 'tasks') { ?>
+		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-tasks') || $this->input->cookie($this->router->class.'-tasks') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-tasks-collapse"><a href="#<?php echo $this->router->class; ?>-tasks"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
+		<li class="expand<?php if($this->input->cookie($this->router->class.'-tasks') == 'collapse') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-tasks-expand"><a href="#<?php echo $this->router->class; ?>-tasks"><i class="fa fa-caret-square-o-down"></i><?php echo $this->lang->line('expand'); ?></a></li>
+	<?php } ?>
+	</ul>
+</article>
+<article id="<?php echo $this->router->class; ?>-tasks"<?php if($this->input->cookie($this->router->class.'-tasks') == 'collapse') { ?> style="display:none;"<?php } ?>>
+	<?php echo form_open(current_url()); ?>
+	<div class="filters">
+		<div>
+			<?php echo form_label($this->lang->line('trk_id'), 'tasks_trk_id'); ?>
+			<?php echo form_dropdown($this->router->class.'_tasks_trk_id', $dropdown_trk_id, set_value($this->router->class.'_tasks_trk_id', $this->session->userdata($this->router->class.'_tasks_trk_id')), 'id="tasks_trk_id" class="select"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('mln_id'), 'tasks_mln_id'); ?>
+			<?php echo form_input($this->router->class.'_tasks_mln_id', set_value($this->router->class.'_tasks_mln_id', $this->session->userdata($this->router->class.'_tasks_mln_id')), 'id="tasks_mln_id" class="inputtext"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('tsk_assigned'), 'tasks_tsk_assigned'); ?>
+			<?php echo form_dropdown($this->router->class.'_tasks_tsk_assigned', $dropdown_tsk_assigned, set_value($this->router->class.'_tasks_tsk_assigned', $this->session->userdata($this->router->class.'_tasks_tsk_assigned')), 'id="tasks_tsk_assigned" class="select"'); ?>
+		</div>
+		<div>
+			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
+		</div>
+	</div>
+	<?php echo form_close(); ?>
+	<?php if($rows) { ?>
+	<table>
+		<thead>
+		<tr>
+		<?php $i = 0; ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_id')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('trk_id')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('mln_id')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_assigned')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_name')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_date_start')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_status')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_priority')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_completion')); ?>
+			<th>&nbsp;</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach($rows as $row) { ?>
+		<tr>
+			<td><?php echo $row->tsk_id; ?></td>
+			<td><?php echo $row->trk_name; ?></td>
+			<td><?php echo $row->mln_name; ?></td>
+			<td><?php echo $row->mbr_name; ?></td>
+			<td><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_id; ?>"><?php echo $row->tsk_name; ?></a></td>
+			<td><?php echo $row->tsk_date_start; ?></td>
+			<td><?php echo $row->tsk_status; ?></td>
+			<td><?php echo $row->tsk_priority; ?></td>
+			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
+			<th>
+			<a href="<?php echo $this->my_url; ?>tasks/update/<?php echo $row->tsk_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+			<a href="<?php echo $this->my_url; ?>tasks/delete/<?php echo $row->tsk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			</th>
+		</tr>
+		<?php } ?>
+		</tbody>
+	</table>
+	<div class="paging">
+		<?php echo $pagination; ?>
+	</div>
+	<?php } ?>
+</article>

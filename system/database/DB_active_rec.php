@@ -925,7 +925,11 @@ class CI_DB_active_record extends CI_DB_driver {
 			}
 			else
 			{
-				$this->ar_set[$this->_protect_identifiers($k, FALSE, TRUE)] = $this->escape($v);
+				if($v == '') {
+					$this->ar_set[$this->_protect_identifiers($k, FALSE, TRUE)] = 'NULL';
+				} else {
+					$this->ar_set[$this->_protect_identifiers($k, FALSE, TRUE)] = $this->escape($v);
+				}
 			}
 		}
 
@@ -1404,7 +1408,7 @@ class CI_DB_active_record extends CI_DB_driver {
 				}
 				else
 				{
-					$not[] = $k.'-'.$v;
+					$not[] = $k2.'-'.$v2;
 				}
 
 				if ($escape === FALSE)

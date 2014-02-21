@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'phpcollab_library', 'session');
+$autoload['libraries'] = array('database', 'session', 'my_library');
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('database', 'phpcollab_library', 'session');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('form', 'phpcollab_helper', 'url');
+$autoload['helper'] = array('url', 'form', 'my_helper');
 
 
 /*
@@ -80,7 +80,7 @@ $autoload['helper'] = array('form', 'phpcollab_helper', 'url');
 |
 */
 
-$autoload['config'] = array('phpcollab_config');
+$autoload['config'] = array();
 
 
 /*
@@ -96,7 +96,7 @@ $autoload['config'] = array('phpcollab_config');
 |
 */
 
-$autoload['language'] = array('phpcollab');
+$autoload['language'] = array();
 
 
 /*
@@ -109,7 +109,7 @@ $autoload['language'] = array('phpcollab');
 |
 */
 
-$autoload['model'] = array('phpcollab_model');
+$autoload['model'] = array('my_model');
 
 
 /* End of file autoload.php */

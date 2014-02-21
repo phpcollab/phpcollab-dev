@@ -1,15 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class logout extends CI_Controller {
+class Logout extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 	}
 	public function index() {
-		$this->db->set('connected', '');
-		$this->db->where('login', $this->member->login);
-		$this->db->update('logs');
+		$this->auth_library->logout();
 
-		$this->session->sess_destroy();
-		redirect('login');
+		redirect($this->my_url.'login');
 	}
 }

@@ -1,12 +1,9 @@
-<?php
-if(!defined('BASEPATH')) {
-	header('HTTP/1.1 403 Forbidden');
-	exit(0);
-}
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class home extends CI_Controller {
+class Home extends CI_Controller {
 	public function index() {
 		$data = array();
-		$this->zones['content'] = $this->load->view('home_index', $data, true);
+		$content = $this->load->view('home/home_index', $data, TRUE);
+		$this->my_library->set_zone('content', $content);
 	}
 }

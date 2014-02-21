@@ -10,18 +10,26 @@
 |
 */
 
+$hook['pre_controller'][] = array(
+'class'    => 'my_hook',
+'function' => 'pre_controller',
+'filename' => 'my_hook.php',
+'filepath' => 'hooks',
+'params'   => array()
+);
+
 $hook['post_controller_constructor'][] = array(
-'class'    => 'phpcollab_hook',
+'class'    => 'my_hook',
 'function' => 'post_controller_constructor',
-'filename' => 'phpcollab_hook.php',
+'filename' => 'my_hook.php',
 'filepath' => 'hooks',
 'params'   => array()
 );
 
 $hook['post_controller'][] = array(
-'class'    => 'phpcollab_hook',
+'class'    => 'my_hook',
 'function' => 'post_controller',
-'filename' => 'phpcollab_hook.php',
+'filename' => 'my_hook.php',
 'filepath' => 'hooks',
 'params'   => array()
 );

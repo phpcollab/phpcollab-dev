@@ -1,6 +1,13 @@
-phpCollab 3.0
-===
+New experimental phpCollab, not for production
 
-This is the future home of the next iteration of phpCollab. This repo's master branch is intentionally left empty to prevent people from trying to install non-working code.
+![Screenshot](screenshot.png)
 
-If you'd like to keep tabs on the development, or better yet help out, all work is currently being done in the [develop branch](https://github.com/phpcollab/phpcollab/tree/develop).
+Edit [/application/config/database.php](/application/config/database.php) to define "username", "password" and "database" ("hostname" if necessary)
+
+Load SQL commands from [/INSTALL.sql](/INSTALL.sql) in your database
+
+Default member
+```text
+example@example.com
+example
+```
