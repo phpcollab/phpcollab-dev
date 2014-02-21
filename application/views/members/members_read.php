@@ -34,6 +34,10 @@
 		<?php echo $this->lang->line('reply_'.$row->mbr_authorized); ?>
 		</p>
 		<p>
+		<span class="label"><?php echo $this->lang->line('roles'); ?></span>
+		<?php if($row->roles) { ?><?php echo $row->roles; ?><?php } else { ?>-<?php } ?>
+		</p>
+		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_comments'); ?></span>
 		<?php if($row->mbr_comments) { ?><?php echo $row->mbr_comments; ?><?php } else { ?>-<?php } ?>
 		</p>

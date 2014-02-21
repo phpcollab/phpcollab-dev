@@ -46,6 +46,12 @@
 		<?php echo form_label($this->lang->line('mbr_comments'), 'mbr_comments'); ?>
 		<?php echo form_textarea('mbr_comments', set_value('mbr_comments', $row->mbr_comments), 'id="mbr_comments" class="textarea"'); ?>
 		</p>
+		<?php foreach($roles as $rol) { ?>
+		<p>
+		<?php echo form_label($rol->rol_code, 'rol_'.$rol->rol_id); ?>
+		<?php echo form_checkbox('rol_'.$rol->rol_id, '1', set_checkbox('rol_'.$rol->rol_id, '1', value2boolean($rol->rol_saved, '1')), 'id="rol_'.$rol->rol_id.'" class="inputcheckbox"'); ?>
+		</p>
+		<?php } ?>
 		<p>
 		<span class="label">&nbsp;</span>
 		<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>

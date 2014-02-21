@@ -22,6 +22,7 @@ class members_model extends CI_Model {
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'mbr.mbr_email';
 		$columns[] = 'mbr.mbr_authorized';
+		$columns[] = 'roles';
 		$columns[] = 'mbr.mbr_datecreated';
 		$col = $this->my_library->build_columns($this->router->class.'_members', $columns, 'mbr.mbr_name', 'ASC');
 		$results = $this->get_total($flt);
@@ -39,11 +40,11 @@ class members_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT org.org_name, mbr.* FROM '.$this->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id WHERE '.implode(' AND ', $flt).' GROUP BY mbr.mbr_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT org.org_name, mbr.*, GROUP_CONCAT(DISTINCT rol.rol_code ORDER BY rol.rol_code ASC SEPARATOR \', \') AS roles FROM '.$this->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id LEFT JOIN '.$this->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.mbr_id = mbr.mbr_id LEFT JOIN '.$this->db->dbprefix('roles').' AS rol ON rol.rol_id = mbr_rol.rol_id WHERE '.implode(' AND ', $flt).' GROUP BY mbr.mbr_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($mbr_id) {
-		$query = $this->db->query('SELECT org.org_name, mbr.* FROM '.$this->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id WHERE mbr.mbr_id = ? GROUP BY mbr.mbr_id', array($mbr_id));
+		$query = $this->db->query('SELECT org.org_name, mbr.*, GROUP_CONCAT(DISTINCT rol.rol_code ORDER BY rol.rol_code ASC SEPARATOR \', \') AS roles FROM '.$this->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id LEFT JOIN '.$this->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.mbr_id = mbr.mbr_id LEFT JOIN '.$this->db->dbprefix('roles').' AS rol ON rol.rol_id = mbr_rol.rol_id WHERE mbr.mbr_id = ? GROUP BY mbr.mbr_id', array($mbr_id));
 		return $query->row();
 	}
 	function dropdown_org_id() {

@@ -26,6 +26,11 @@ class members extends CI_Controller {
 		$this->load->library('form_validation');
 		$data = array();
 		$data['dropdown_org_id'] = $this->members_model->dropdown_org_id();
+		$query = $this->db->query('SELECT rol.* FROM '.$this->db->dbprefix('roles').' AS rol GROUP BY rol.rol_id ORDER BY rol.rol_code ASC');
+		$data['roles'] = $query->result();
+		foreach($data['roles'] as $rol) {
+			$this->form_validation->set_rules('rol_'.$rol->rol_id, $rol->rol_code);
+		}
 		$this->form_validation->set_rules('org_id', 'lang:org_id', 'required|numeric');
 		$this->form_validation->set_rules('mbr_name', 'lang:mbr_name', 'required|max_length[255]');
 		$this->form_validation->set_rules('mbr_description', 'lang:mbr_description', '');
@@ -61,6 +66,16 @@ class members extends CI_Controller {
 			$this->db->set('mbr_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('members');
 			$mbr_id = $this->db->insert_id();
+
+			foreach($data['roles'] as $rol) {
+				if($this->input->post('rol_'.$rol->rol_id)) {
+					$this->db->set('rol_id', $rol->rol_id);
+					$this->db->set('mbr_id', $mbr_id);
+					$this->db->set('mbr_rol_datecreated', date('Y-m-d H:i:s'));
+					$this->db->insert('members_roles');
+				}
+			}
+
 			$this->read($mbr_id);
 		}
 	}
@@ -90,6 +105,15 @@ class members extends CI_Controller {
 		if($data['row']) {
 			$this->my_library->set_title($this->lang->line('members').' / '.$data['row']->mbr_name);
 			$data['dropdown_org_id'] = $this->members_model->dropdown_org_id();
+			if($data['row']->mbr_id != $this->phpcollab_member->mbr_id) {
+				$query = $this->db->query('SELECT rol.*, IF(mbr_rol.mbr_rol_id IS NOT NULL, 1, 0) AS rol_saved FROM '.$this->db->dbprefix('roles').' AS rol LEFT JOIN '.$this->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.rol_id = rol.rol_id AND mbr_rol.mbr_id = ? GROUP BY rol.rol_id ORDER BY rol.rol_code ASC', array($mbr_id));
+			} else {
+				$query = $this->db->query('SELECT rol.*, IF(mbr_rol.mbr_rol_id IS NOT NULL, 1, 0) AS rol_saved FROM '.$this->db->dbprefix('roles').' AS rol LEFT JOIN '.$this->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.rol_id = rol.rol_id AND mbr_rol.mbr_id = ? WHERE rol.rol_id != ? GROUP BY rol.rol_id ORDER BY rol.rol_code ASC', array($mbr_id, 1));
+			}
+			$data['roles'] = $query->result();
+			foreach($data['roles'] as $rol) {
+				$this->form_validation->set_rules('rol_'.$rol->rol_id, $rol->rol_code);
+			}
 			$this->form_validation->set_rules('org_id', 'lang:org_id', 'required|numeric');
 			$this->form_validation->set_rules('mbr_name', 'lang:mbr_name', 'required|max_length[255]');
 			$this->form_validation->set_rules('mbr_description', 'lang:mbr_description', '');
@@ -132,6 +156,21 @@ class members extends CI_Controller {
 				$this->db->set('mbr_datemodified', date('Y-m-d H:i:s'));
 				$this->db->where('mbr_id', $mbr_id);
 				$this->db->update('members');
+
+				foreach($data['roles'] as $rol) {
+					if($rol->rol_saved == 0 && $this->input->post('rol_'.$rol->rol_id)) {
+						$this->db->set('rol_id', $rol->rol_id);
+						$this->db->set('mbr_id', $mbr_id);
+						$this->db->set('mbr_rol_datecreated', date('Y-m-d H:i:s'));
+						$this->db->insert('members_roles');
+					}
+					if($rol->rol_saved == 1 && !$this->input->post('rol_'.$rol->rol_id)) {
+						$this->db->where('rol_id', $rol->rol_id);
+						$this->db->where('mbr_id', $mbr_id);
+						$this->db->delete('members_roles');
+					}
+				}
+
 				$this->read($mbr_id);
 			}
 		} else {

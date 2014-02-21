@@ -46,6 +46,7 @@
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_email')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_authorized')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('roles')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_datecreated')); ?>
 			<th>&nbsp;</th>
 		</tr>
@@ -60,6 +61,7 @@
 			<td><a href="<?php echo $this->my_url; ?>members/read/<?php echo $row->mbr_id; ?>"><?php echo $row->mbr_name; ?></a></td>
 			<td><?php echo $row->mbr_email; ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->mbr_authorized); ?></td>
+			<td><?php echo $row->roles; ?></td>
 			<td><?php echo $row->mbr_datecreated; ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>members/update/<?php echo $row->mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
