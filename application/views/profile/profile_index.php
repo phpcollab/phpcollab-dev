@@ -25,6 +25,10 @@
 		<?php if($this->phpcollab_member->mbr_email) { ?><?php echo $this->phpcollab_member->mbr_email; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
+		<span class="label"><?php echo $this->lang->line('roles'); ?></span>
+		<?php if($this->phpcollab_member->roles) { ?><?php echo $this->phpcollab_member->roles; ?><?php } else { ?>-<?php } ?>
+		</p>
+		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_datecreated'); ?></span>
 		<?php if($this->phpcollab_member->mbr_datecreated) { ?><?php echo $this->phpcollab_member->mbr_datecreated; ?><?php } else { ?>-<?php } ?>
 		</p>

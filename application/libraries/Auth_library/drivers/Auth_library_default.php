@@ -7,7 +7,7 @@ class Auth_library_default extends CI_Driver {
 	}
 	function login($email, $password) {
 		$this->CI->session->unset_userdata('phpcollab_member');
-		$query = $this->CI->db->query('SELECT mbr.* FROM '.$this->CI->db->dbprefix('members').' AS mbr WHERE mbr.mbr_email = ? GROUP BY mbr.mbr_id', array($email));
+		$query = $this->CI->db->query('SELECT mbr.* FROM '.$this->CI->db->dbprefix('members').' AS mbr WHERE mbr.mbr_email = ? AND mbr.mbr_authorized = ? GROUP BY mbr.mbr_id', array($email, 1));
 		if($query->num_rows() > 0) {
 			$member = $query->row();
 			if($this->salt_password($password) == $member->mbr_password) {
@@ -55,7 +55,7 @@ class Auth_library_default extends CI_Driver {
 		$member = FALSE;
 		$query = $this->CI->db->query('SELECT cnt.* FROM '.$this->CI->db->dbprefix('_connections').' AS cnt WHERE cnt.mbr_id = ? AND cnt.token_connection = ? GROUP BY cnt.cnt_id', array($this->CI->session->userdata('phpcollab_member'), $this->CI->input->cookie('phpcollab_member')));
 		if($query->num_rows() > 0) {
-			$query = $this->CI->db->query('SELECT mbr.*, org.org_name FROM '.$this->CI->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->CI->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id WHERE mbr.mbr_id = ? GROUP BY mbr.mbr_id', array($this->CI->session->userdata('phpcollab_member')));
+			$query = $this->CI->db->query('SELECT mbr.*, org.org_name, GROUP_CONCAT(DISTINCT rol.rol_code ORDER BY rol.rol_code ASC SEPARATOR \', \') AS roles FROM '.$this->CI->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->CI->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id LEFT JOIN '.$this->CI->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.mbr_id = mbr.mbr_id LEFT JOIN '.$this->CI->db->dbprefix('roles').' AS rol ON rol.rol_id = mbr_rol.rol_id WHERE mbr.mbr_id = ? AND mbr.mbr_authorized = ? GROUP BY mbr.mbr_id', array($this->CI->session->userdata('phpcollab_member'), 1));
 			if($query->num_rows() > 0) {
 				$member = $query->row();
 
