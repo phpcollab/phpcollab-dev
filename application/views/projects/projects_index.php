@@ -16,6 +16,14 @@
 			<?php echo form_input($this->router->class.'_projects_prj_name', set_value($this->router->class.'_projects_prj_name', $this->session->userdata($this->router->class.'_projects_prj_name')), 'id="projects_prj_name" class="inputtext"'); ?>
 		</div>
 		<div>
+			<?php echo form_label($this->lang->line('prj_status'), 'tasks_prj_status'); ?>
+			<?php echo form_dropdown($this->router->class.'_projects_prj_status', $this->my_model->dropdown_status(), set_value($this->router->class.'_projects_prj_status', $this->session->userdata($this->router->class.'_projects_prj_status')), 'id="tasks_prj_status" class="select"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('prj_priority'), 'tasks_prj_priority'); ?>
+			<?php echo form_dropdown($this->router->class.'_projects_prj_priority', $this->my_model->dropdown_priority(), set_value($this->router->class.'_projects_prj_priority', $this->session->userdata($this->router->class.'_projects_prj_priority')), 'id="tasks_prj_priority" class="select"'); ?>
+		</div>
+		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
 		</div>
 	</div>

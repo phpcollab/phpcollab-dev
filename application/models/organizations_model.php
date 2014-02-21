@@ -9,7 +9,6 @@ class organizations_model extends CI_Model {
 		$filters[$this->router->class.'_organizations_org_owner'] = array('org.org_owner', 'equal');
 		$filters[$this->router->class.'_organizations_org_name'] = array('org.org_name', 'like');
 		$filters[$this->router->class.'_organizations_org_authorized'] = array('org.org_authorized', 'equal');
-		$filters[$this->router->class.'_organizations_org_datecreated'] = array('org.org_datecreated', 'like');
 		$flt = $this->my_library->build_filters($filters);
 		$columns = array();
 		$columns[] = 'org.org_id';

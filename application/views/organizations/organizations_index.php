@@ -20,10 +20,6 @@
 			<?php echo form_dropdown($this->router->class.'_organizations_org_authorized', $this->my_model->dropdown_reply(), set_value($this->router->class.'_organizations_org_authorized', $this->session->userdata($this->router->class.'_organizations_org_authorized')), 'id="organizations_org_authorized" class="select"'); ?>
 		</div>
 		<div>
-			<?php echo form_label($this->lang->line('org_datecreated'), 'organizations_org_datecreated'); ?>
-			<?php echo form_input($this->router->class.'_organizations_org_datecreated', set_value($this->router->class.'_organizations_org_datecreated', $this->session->userdata($this->router->class.'_organizations_org_datecreated')), 'id="organizations_org_datecreated" class="inputtext"'); ?>
-		</div>
-		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
 		</div>
 	</div>

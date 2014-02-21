@@ -8,6 +8,8 @@ class projects_model extends CI_Model {
 		$data = array();
 		$filters = array();
 		$filters[$this->router->class.'_projects_prj_name'] = array('prj.prj_name', 'like');
+		$filters[$this->router->class.'_projects_prj_status'] = array('prj.prj_status', 'equal');
+		$filters[$this->router->class.'_projects_prj_priority'] = array('prj.prj_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
 		if($org) {
 			$data['org'] = $org;
