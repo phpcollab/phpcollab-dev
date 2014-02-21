@@ -78,6 +78,19 @@ $lang['rol_code'] = 'rol_code';
 $lang['rol_system'] = 'rol_system';
 $lang['rol_datecreated'] = 'rol_datecreated';
 
+$lang['members'] = 'Members';
+$lang['mbr_id'] = 'mbr_id';
+$lang['org_id'] = 'org_id';
+$lang['org_name'] = 'org_name';
+$lang['mbr_name'] = 'mbr_name';
+$lang['mbr_description'] = 'mbr_description';
+$lang['mbr_email'] = 'mbr_email';
+$lang['mbr_password'] = 'mbr_password';
+$lang['mbr_authorized'] = 'mbr_authorized';
+$lang['mbr_comments'] = 'mbr_comments';
+$lang['mbr_datecreated'] = 'mbr_datecreated';
+$lang['mbr_datemodified'] = 'mbr_datemodified';
+
 $lang['collapse'] = 'Fermer';
 $lang['expand'] = 'Ouvrir';
 $lang['already_exists'] = 'Le champ %s existe déjà';

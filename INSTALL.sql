@@ -558,7 +558,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (21, 'phpcollab/icons/projects_members', 'rocket', '0000-00-00 00:00:00'),
 (22, 'phpcollab/icons/organizations', 'building-o', '0000-00-00 00:00:00'),
 (23, 'phpcollab/icons/trackers', 'bullhorn', '0000-00-00 00:00:00'),
-(24, 'phpcollab/icons/roles', 'shield', '0000-00-00 00:00:00');
+(24, 'phpcollab/icons/roles', 'shield', '0000-00-00 00:00:00'),
+(25, 'phpcollab/icons/members', 'users', '2014-02-21 11:40:12');
 
 -- --------------------------------------------------------
 
