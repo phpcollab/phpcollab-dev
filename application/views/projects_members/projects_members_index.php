@@ -30,6 +30,7 @@
 		<tr>
 		<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_id')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('organization')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('member')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_authorized')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_published')); ?>
@@ -40,8 +41,9 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
-			<td><a href="<?php echo $this->my_url; ?>projects_members/read/<?php echo $row->prj_mbr_id; ?>"><?php echo $row->prj_mbr_id; ?></a></td>
-			<td><?php echo $row->mbr_name; ?></td>
+			<td><?php echo $row->prj_mbr_id; ?></td>
+			<td><?php echo $row->org_name; ?></td>
+			<td><a href="<?php echo $this->my_url; ?>projects_members/read/<?php echo $row->prj_mbr_id; ?>"><?php echo $row->mbr_name; ?></a></td>
 			<td><?php echo $this->lang->line('reply_'.$row->prj_mbr_authorized); ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->prj_mbr_published); ?></td>
 			<td><?php echo $row->prj_mbr_datecreated; ?></td>

@@ -11,6 +11,7 @@ class projects_members_model extends CI_Model {
 		$flt[] = 'prj_mbr.prj_id = \''.$prj->prj_id.'\'';
 		$columns = array();
 		$columns[] = 'prj_mbr.prj_mbr_id';
+		$columns[] = 'org.org_name';
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'prj_mbr.prj_mbr_authorized';
 		$columns[] = 'prj_mbr.prj_mbr_published';
@@ -32,11 +33,11 @@ class projects_members_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id WHERE '.implode(' AND ', $flt).' GROUP BY prj_mbr.prj_mbr_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT mbr.mbr_name, org.org_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id WHERE '.implode(' AND ', $flt).' GROUP BY prj_mbr.prj_mbr_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($prj_mbr_id) {
-		$query = $this->db->query('SELECT mbr.mbr_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id WHERE prj_mbr.prj_mbr_id = ? GROUP BY prj_mbr.prj_mbr_id', array($prj_mbr_id));
+		$query = $this->db->query('SELECT mbr.mbr_name, org.org_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id WHERE prj_mbr.prj_mbr_id = ? GROUP BY prj_mbr.prj_mbr_id', array($prj_mbr_id));
 		return $query->row();
 	}
 	function dropdown_mbr_id($prj_id = false) {
