@@ -29,7 +29,7 @@ class tasks extends CI_Controller {
 			$data['dropdown_trk_id'] = $this->tasks_model->dropdown_trk_id();
 			$data['dropdown_mln_id'] = $this->tasks_model->dropdown_mln_id($prj_id);
 			$data['dropdown_tsk_owner'] = $this->tasks_model->dropdown_tsk_owner();
-			$data['dropdown_tsk_assigned'] = $this->tasks_model->dropdown_tsk_assigned();
+			$data['dropdown_tsk_assigned'] = $this->tasks_model->dropdown_tsk_assigned($prj_id);
 			$data['dropdown_tsk_parent'] = $this->tasks_model->dropdown_tsk_parent($prj_id);
 			$this->form_validation->set_rules('trk_id', 'lang:trk_id', 'required|numeric');
 			$this->form_validation->set_rules('mln_id', 'lang:mln_id', 'numeric');
@@ -115,7 +115,7 @@ class tasks extends CI_Controller {
 				$data['dropdown_trk_id'] = $this->tasks_model->dropdown_trk_id();
 				$data['dropdown_mln_id'] = $this->tasks_model->dropdown_mln_id($data['row']->prj_id);
 				$data['dropdown_tsk_owner'] = $this->tasks_model->dropdown_tsk_owner();
-				$data['dropdown_tsk_assigned'] = $this->tasks_model->dropdown_tsk_assigned();
+				$data['dropdown_tsk_assigned'] = $this->tasks_model->dropdown_tsk_assigned($data['row']->prj_id);
 				$data['dropdown_tsk_parent'] = $this->tasks_model->dropdown_tsk_parent($data['row']->prj_id);
 				$this->form_validation->set_rules('trk_id', 'lang:trk_id', 'required|numeric');
 				$this->form_validation->set_rules('mln_id', 'lang:mln_id', 'numeric');

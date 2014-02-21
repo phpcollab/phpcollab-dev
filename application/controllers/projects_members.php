@@ -26,7 +26,7 @@ class projects_members extends CI_Controller {
 		if($data['prj']) {
 			$this->my_library->set_title($this->lang->line('projects_members'));
 			$this->load->library('form_validation');
-			$data['dropdown_mbr_id'] = $this->projects_members_model->dropdown_mbr_id();
+			$data['dropdown_mbr_id'] = $this->projects_members_model->dropdown_mbr_id($prj_id);
 			$this->form_validation->set_rules('mbr_id', 'lang:mbr_id', 'required|numeric');
 			$this->form_validation->set_rules('prj_mbr_authorized', 'lang:prj_mbr_authorized', 'numeric');
 			$this->form_validation->set_rules('prj_mbr_published', 'lang:prj_mbr_published', 'numeric');

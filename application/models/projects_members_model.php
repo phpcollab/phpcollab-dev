@@ -39,10 +39,14 @@ class projects_members_model extends CI_Model {
 		$query = $this->db->query('SELECT mbr.mbr_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id WHERE prj_mbr.prj_mbr_id = ? GROUP BY prj_mbr.prj_mbr_id', array($prj_mbr_id));
 		return $query->row();
 	}
-	function dropdown_mbr_id() {
+	function dropdown_mbr_id($prj_id = false) {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mbr.mbr_id AS field_key, mbr.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr GROUP BY mbr.mbr_id ORDER BY mbr.mbr_name ASC');
+		if($prj_id) {
+			$query = $this->db->query('SELECT mbr.mbr_id AS field_key, mbr.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.mbr_id NOT IN(SELECT prj_mbr.mbr_id FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr WHERE prj_mbr.prj_id = ?)GROUP BY mbr.mbr_id ORDER BY mbr.mbr_name ASC', array($prj_id));
+		} else {
+			$query = $this->db->query('SELECT mbr.mbr_id AS field_key, mbr.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr GROUP BY mbr.mbr_id ORDER BY mbr.mbr_name ASC');
+		}
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
 				$select[$row->field_key] = $row->field_label;

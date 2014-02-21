@@ -10,11 +10,11 @@
 	<?php echo validation_errors(); ?>
 	<div class="column1">
 		<p>
-		<?php echo form_label($this->lang->line('trk_id').' *', 'trk_id'); ?>
+		<?php echo form_label($this->lang->line('tracker').' *', 'trk_id'); ?>
 		<?php echo form_dropdown('trk_id', $dropdown_trk_id, set_value('trk_id', $row->trk_id), 'id="trk_id" class="select required numeric"'); ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('mln_id'), 'mln_id'); ?>
+		<?php echo form_label($this->lang->line('milestone'), 'mln_id'); ?>
 		<?php echo form_dropdown('mln_id', $dropdown_mln_id, set_value('trk_id', $row->mln_id), 'id="mln_id" class="select numeric"'); ?>
 		</p>
 		<p>

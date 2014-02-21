@@ -47,7 +47,7 @@ class tasks_model extends CI_Model {
 		$data['dropdown_trk_id'] = $this->dropdown_trk_id();
 		$data['dropdown_mln_id'] = $this->dropdown_mln_id($prj->prj_id);
 		$data['dropdown_tsk_owner'] = $this->dropdown_tsk_owner();
-		$data['dropdown_tsk_assigned'] = $this->dropdown_tsk_assigned();
+		$data['dropdown_tsk_assigned'] = $this->dropdown_tsk_assigned($prj->prj_id);
 		$data['dropdown_tsk_parent'] = $this->dropdown_tsk_parent($prj->prj_id);
 		return $content = $this->load->view('tasks/tasks_index', $data, TRUE);
 	}
@@ -107,10 +107,10 @@ class tasks_model extends CI_Model {
 		}
 		return $select;
 	}
-	function dropdown_tsk_assigned() {
+	function dropdown_tsk_assigned($prj_id) {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mbr_assigned.mbr_id AS field_key, mbr_assigned.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr_assigned GROUP BY mbr_assigned.mbr_id ORDER BY mbr_assigned.mbr_name ASC');
+		$query = $this->db->query('SELECT mbr_assigned.mbr_id AS field_key, mbr_assigned.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr_assigned WHERE mbr_assigned.mbr_id IN(SELECT prj_mbr.mbr_id FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr WHERE prj_mbr.prj_id = ?) GROUP BY mbr_assigned.mbr_id ORDER BY mbr_assigned.mbr_name ASC', array($prj_id));
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
 				$select[$row->field_key] = $row->field_label;

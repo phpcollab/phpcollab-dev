@@ -8,7 +8,7 @@
 	<?php echo validation_errors(); ?>
 	<div class="column1">
 		<p>
-		<?php echo form_label($this->lang->line('mbr_id').' *', 'mbr_id'); ?>
+		<?php echo form_label($this->lang->line('member').' *', 'mbr_id'); ?>
 		<?php echo form_dropdown('mbr_id', $dropdown_mbr_id, set_value('mbr_id', ''), 'id="mbr_id" class="select required numeric"'); ?>
 		</p>
 		<p>
