@@ -27,7 +27,6 @@
 		<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_id')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_owner')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('mbr_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('tsk_description')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_datecreated')); ?>
@@ -38,7 +37,6 @@
 		<?php foreach($rows as $row) { ?>
 		<tr>
 			<td><?php echo $row->trk_id; ?></td>
-			<td><?php echo $row->trk_owner; ?></td>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>trackers/read/<?php echo $row->trk_id; ?>"><?php echo $row->trk_name; ?></a></td>
 			<td><?php echo $row->tsk_description; ?></td>

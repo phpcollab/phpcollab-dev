@@ -11,7 +11,6 @@ class projects_members_model extends CI_Model {
 		$flt[] = 'prj_mbr.prj_id = \''.$prj->prj_id.'\'';
 		$columns = array();
 		$columns[] = 'prj_mbr.prj_mbr_id';
-		$columns[] = 'prj_mbr.mbr_id';
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'prj_mbr.prj_mbr_authorized';
 		$columns[] = 'prj_mbr.prj_mbr_published';

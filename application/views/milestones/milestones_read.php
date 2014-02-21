@@ -13,10 +13,6 @@
 		<?php if($row->mln_id) { ?><?php echo $row->mln_id; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('mln_id'); ?></span>
-		<?php if($row->mln_name) { ?><?php echo $row->mln_name; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
 		<span class="label"><?php echo $this->lang->line('mln_owner'); ?></span>
 		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
@@ -44,7 +40,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_status'); ?></span>
-		<?php if($row->mln_status) { ?><?php echo $row->mln_status; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mln_status) { ?><?php echo $this->lang->line('status_'.$row->mln_status); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_priority'); ?></span>

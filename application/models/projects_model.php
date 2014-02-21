@@ -4,11 +4,15 @@ class projects_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
 	}
-	function get_index_list($add_filters = array()) {
+	function get_index_list($org = false) {
+		$data = array();
 		$filters = array();
 		$filters[$this->router->class.'_projects_prj_name'] = array('prj.prj_name', 'like');
 		$flt = $this->my_library->build_filters($filters);
-		$flt = array_merge($add_filters, $flt);
+		if($org) {
+			$data['org'] = $org;
+			$flt[] = 'prj.org_id = \''.$org->org_id.'\'';
+		}
 		$columns = array();
 		$columns[] = 'prj.prj_id';
 		if($this->router->class != 'organizations') {
@@ -24,7 +28,6 @@ class projects_model extends CI_Model {
 		$col = $this->my_library->build_columns($this->router->class.'_projects', $columns, 'prj.prj_name', 'ASC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_projects');
-		$data = array();
 		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];

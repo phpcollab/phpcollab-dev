@@ -35,7 +35,7 @@
 	<div class="column1 columnlast">
 		<p>
 		<?php echo form_label($this->lang->line('mln_status').' *', 'mln_status'); ?>
-		<?php echo form_input('mln_status', set_value('mln_status', ''), 'id="mln_status" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('mln_status', $this->my_model->dropdown_status(), set_value('mln_status', 1), 'id="mln_status" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_priority').' *', 'mln_priority'); ?>

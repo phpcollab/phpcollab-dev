@@ -41,7 +41,7 @@
 	<div class="column1 columnlast">
 		<p>
 		<?php echo form_label($this->lang->line('prj_status').' *', 'prj_status'); ?>
-		<?php echo form_input('prj_status', set_value('prj_status', $row->prj_status), 'id="prj_status" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('prj_status', $this->my_model->dropdown_status(), set_value('prj_status', $row->prj_status), 'id="prj_status" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_priority').' *', 'prj_priority'); ?>

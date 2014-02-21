@@ -49,7 +49,7 @@
 	<div class="column1 columnlast">
 		<p>
 		<?php echo form_label($this->lang->line('tsk_status').' *', 'tsk_status'); ?>
-		<?php echo form_input('tsk_status', set_value('tsk_status', $row->tsk_status), 'id="tsk_status" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('tsk_status', $this->my_model->dropdown_status(), set_value('tsk_status', $row->tsk_status), 'id="tsk_status" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_priority').' *', 'tsk_priority'); ?>

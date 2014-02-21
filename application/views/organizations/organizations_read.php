@@ -14,10 +14,6 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('org_owner'); ?></span>
-		<?php if($row->org_owner) { ?><?php echo $row->org_owner; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('mbr_name'); ?></span>
 		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>

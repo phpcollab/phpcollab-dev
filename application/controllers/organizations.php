@@ -71,8 +71,8 @@ class Organizations extends CI_Controller {
 		if($data['row']) {
 			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
 			$content = $this->load->view('organizations/organizations_read', $data, TRUE);
-			$content .= $this->members_model->get_index_list(array('mbr.org_id = \''.$org_id.'\''));
-			$content .= $this->projects_model->get_index_list(array('prj.org_id = \''.$org_id.'\''));
+			$content .= $this->members_model->get_index_list($data['row']);
+			$content .= $this->projects_model->get_index_list($data['row']);
 			$this->my_library->set_zone('content', $content);
 		} else {
 			$this->index();
@@ -247,6 +247,18 @@ class Organizations extends CI_Controller {
 				}
 			}
 			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_date_start'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT tsk.tsk_status AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = ?) GROUP BY ref ORDER BY ref ASC', array($org_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = $this->lang->line('status_'.$row->ref);
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_status'), $values, $legend);
 
 			$legend = array();
 			$values = array();

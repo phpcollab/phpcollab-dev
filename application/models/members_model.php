@@ -4,7 +4,8 @@ class members_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
 	}
-	function get_index_list($add_filters = array()) {
+	function get_index_list($org = false) {
+		$data = array();
 		$filters = array();
 		if($this->router->class != 'organizations') {
 			$filters[$this->router->class.'_members_org_id'] = array('mbr.org_id', 'equal');
@@ -13,7 +14,10 @@ class members_model extends CI_Model {
 		$filters[$this->router->class.'_members_mbr_email'] = array('mbr.mbr_email', 'like');
 		$filters[$this->router->class.'_members_mbr_authorized'] = array('mbr.mbr_authorized', 'like');
 		$flt = $this->my_library->build_filters($filters);
-		$flt = array_merge($add_filters, $flt);
+		if($org) {
+			$data['org'] = $org;
+			$flt[] = 'mbr.org_id = \''.$org->org_id.'\'';
+		}
 		$columns = array();
 		$columns[] = 'mbr.mbr_id';
 		if($this->router->class != 'organizations') {
@@ -27,7 +31,6 @@ class members_model extends CI_Model {
 		$col = $this->my_library->build_columns($this->router->class.'_members', $columns, 'mbr.mbr_name', 'ASC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_members');
-		$data = array();
 		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];

@@ -255,6 +255,18 @@ class projects extends CI_Controller {
 
 			$legend = array();
 			$values = array();
+			$query = $this->db->query('SELECT tsk.tsk_status AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = ? GROUP BY ref ORDER BY ref ASC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = $this->lang->line('status_'.$row->ref);
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_status'), $values, $legend);
+
+			$legend = array();
+			$values = array();
 			$query = $this->db->query('SELECT tsk.tsk_priority AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = ? GROUP BY ref ORDER BY ref ASC', array($prj_id));
 			if($query->num_rows() > 0) {
 				$current_month = date('Y-m');

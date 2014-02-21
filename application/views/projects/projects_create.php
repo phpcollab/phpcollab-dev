@@ -9,7 +9,7 @@
 	<div class="column1">
 		<p>
 		<?php echo form_label($this->lang->line('org_id').' *', 'org_id'); ?>
-		<?php echo form_dropdown('org_id', $dropdown_org_id, set_value('org_id', ''), 'id="org_id" class="select required numeric"'); ?>
+		<?php echo form_dropdown('org_id', $dropdown_org_id, set_value('org_id', $this->input->get('org_id')), 'id="org_id" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_owner').' *', 'prj_owner'); ?>
@@ -39,7 +39,7 @@
 	<div class="column1 columnlast">
 		<p>
 		<?php echo form_label($this->lang->line('prj_status').' *', 'prj_status'); ?>
-		<?php echo form_input('prj_status', set_value('prj_status', ''), 'id="prj_status" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('prj_status', $this->my_model->dropdown_status(), set_value('prj_status', 1), 'id="prj_status" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_priority').' *', 'prj_priority'); ?>

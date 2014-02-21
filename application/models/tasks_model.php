@@ -6,7 +6,9 @@ class tasks_model extends CI_Model {
 	}
 	function get_index_list($prj, $mln = false) {
 		$data = array();
+		$data['prj'] = $prj;
 		if($mln) {
+			$data['mln'] = $mln;
 			$data['ref_filter'] = $this->router->class.'_tasks_'.$mln->mln_id;
 		} else {
 			$data['ref_filter'] = $this->router->class.'_tasks_'.$prj->prj_id;
@@ -29,7 +31,7 @@ class tasks_model extends CI_Model {
 		if($this->router->class != 'milestones') {
 			$columns[] = 'mln.mln_name';
 		}
-		$columns[] = 'mbr_assigned.mbr_name';
+		$columns[] = 'mbr_name_assigned';
 		$columns[] = 'tsk.tsk_name';
 		$columns[] = 'tsk.tsk_date_start';
 		$columns[] = 'tsk.tsk_status';
@@ -38,7 +40,6 @@ class tasks_model extends CI_Model {
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'tsk.tsk_name', 'ASC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
-		$data['prj'] = $prj;
 		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
@@ -55,11 +56,11 @@ class tasks_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name, mbr_assigned.mbr_name, tsk_parent.tsk_name AS tsk_name_parent, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('tasks').' AS tsk_parent ON tsk_parent.tsk_id = tsk.tsk_parent WHERE '.implode(' AND ', $flt).' GROUP BY tsk.tsk_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name, mbr_assigned.mbr_name AS mbr_name_assigned, tsk_parent.tsk_name AS tsk_name_parent, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('tasks').' AS tsk_parent ON tsk_parent.tsk_id = tsk.tsk_parent WHERE '.implode(' AND ', $flt).' GROUP BY tsk.tsk_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($tsk_id) {
-		$query = $this->db->query('SELECT prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name, mbr_assigned.mbr_name, tsk_parent.tsk_name AS tsk_name_parent, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('tasks').' AS tsk_parent ON tsk_parent.tsk_id = tsk.tsk_parent WHERE tsk.tsk_id = ? GROUP BY tsk.tsk_id', array($tsk_id));
+		$query = $this->db->query('SELECT prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name,  mbr_assigned.mbr_name AS mbr_name_assigned, tsk_parent.tsk_name AS tsk_name_parent, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('tasks').' AS tsk_parent ON tsk_parent.tsk_id = tsk.tsk_parent WHERE tsk.tsk_id = ? GROUP BY tsk.tsk_id', array($tsk_id));
 		return $query->row();
 	}
 	function dropdown_prj_id() {

@@ -15,6 +15,17 @@ class My_model extends CI_Model {
 		}
 		return array('languages' => $languages, 'language_default' => $language_default);
 	}
+	function dropdown_status() {
+		$select = array();
+		$select[''] = '-';
+		$select[1] = $this->lang->line('status_1');
+		$select[2] = $this->lang->line('status_2');
+		$select[3] = $this->lang->line('status_3');
+		$select[4] = $this->lang->line('status_4');
+		$select[5] = $this->lang->line('status_5');
+		$select[5] = $this->lang->line('status_6');
+		return $select;
+	}
 	function dropdown_priority() {
 		$select = array();
 		$select[''] = '-';

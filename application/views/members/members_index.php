@@ -1,7 +1,7 @@
 <article class="title">
 	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/members') ?>"></i><?php echo $this->lang->line('members'); ?> (<?php echo $position; ?>)</h2>
 	<ul>
-	<li><a href="<?php echo $this->my_url; ?>members/create"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<li><a href="<?php echo $this->my_url; ?>members/create<?php if($this->router->class == 'organizations') { ?>?org_id=<?php echo $org->org_id; ?><?php } ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
 	<?php if($this->router->class != 'members') { ?>
 		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-members') || $this->input->cookie($this->router->class.'-members') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-members-collapse"><a href="#<?php echo $this->router->class; ?>-members"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
 		<li class="expand<?php if($this->input->cookie($this->router->class.'-members') == 'collapse') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-members-expand"><a href="#<?php echo $this->router->class; ?>-members"><i class="fa fa-caret-square-o-down"></i><?php echo $this->lang->line('expand'); ?></a></li>
@@ -13,7 +13,7 @@
 	<div class="filters">
 		<?php if($this->router->class != 'organizations') { ?>
 			<div>
-				<?php echo form_label($this->lang->line('org_id'), 'members_org_id'); ?>
+				<?php echo form_label($this->lang->line('organization'), 'members_org_id'); ?>
 				<?php echo form_dropdown($this->router->class.'_members_org_id', $dropdown_org_id, set_value($this->router->class.'_members_org_id', $this->session->userdata($this->router->class.'_members_org_id')), 'id="members_org_id" class="select"'); ?>
 			</div>
 		<?php } ?>
@@ -41,7 +41,7 @@
 		<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_id')); ?>
 			<?php if($this->router->class != 'organizations') { ?>
-				<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('org_name')); ?>
+				<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('organization')); ?>
 			<?php } ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_email')); ?>

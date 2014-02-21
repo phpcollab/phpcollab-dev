@@ -13,10 +13,6 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('trk_owner'); ?></span>
-		<?php if($row->trk_owner) { ?><?php echo $row->trk_owner; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('mbr_name'); ?></span>
 		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>

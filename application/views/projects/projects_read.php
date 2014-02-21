@@ -13,7 +13,7 @@
 		<?php if($row->prj_id) { ?><?php echo $row->prj_id; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('org_id'); ?></span>
+		<span class="label"><?php echo $this->lang->line('organization'); ?></span>
 		<?php if($row->org_name) { ?><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><?php echo $row->org_name; ?></a><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
@@ -44,7 +44,7 @@
 	<div class="column1 columnlast">
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_status'); ?></span>
-		<?php if($row->prj_status) { ?><?php echo $row->prj_status; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_status) { ?><?php echo $this->lang->line('status_'.$row->prj_status); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_priority'); ?></span>

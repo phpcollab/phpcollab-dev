@@ -8,7 +8,7 @@
 <article>
 	<div class="column1">
 		<p>
-		<span class="label"><?php echo $this->lang->line('mbr_name'); ?></span>
+		<span class="label"><?php echo $this->lang->line('member'); ?></span>
 		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>

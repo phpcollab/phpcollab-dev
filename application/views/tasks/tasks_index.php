@@ -5,7 +5,7 @@
 		<h2><a href="<?php echo $this->my_url; ?>tasks/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/tasks'); ?>"></i><?php echo $this->lang->line('tasks'); ?></a> (<?php echo $position; ?>)</h2>
 	<?php } ?>
 	<ul>
-	<li><a href="<?php echo $this->my_url; ?>tasks/create/<?php echo $prj->prj_id; ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<li><a href="<?php echo $this->my_url; ?>tasks/create/<?php echo $prj->prj_id; ?><?php if($this->router->class == 'milestones') { ?>?mln_id=<?php echo $mln->mln_id; ?><?php } ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
 	<?php if($this->router->class != 'tasks') { ?>
 		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-tasks') || $this->input->cookie($this->router->class.'-tasks') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-tasks-collapse"><a href="#<?php echo $this->router->class; ?>-tasks"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
 		<li class="expand<?php if($this->input->cookie($this->router->class.'-tasks') == 'collapse') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-tasks-expand"><a href="#<?php echo $this->router->class; ?>-tasks"><i class="fa fa-caret-square-o-down"></i><?php echo $this->lang->line('expand'); ?></a></li>
@@ -61,10 +61,10 @@
 			<?php if($this->router->class != 'milestones') { ?>
 				<td><a href="<?php echo $this->my_url; ?>milestones/read/<?php echo $row->mln_id; ?>"><?php echo $row->mln_name; ?></a></td>
 			<?php } ?>
-			<td><?php echo $row->mbr_name; ?></td>
+			<td><?php echo $row->mbr_name_assigned; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_id; ?>"><?php echo $row->tsk_name; ?></a></td>
 			<td><?php echo $row->tsk_date_start; ?></td>
-			<td><?php echo $row->tsk_status; ?></td>
+			<td><?php echo $this->lang->line('status_'.$row->tsk_status); ?></td>
 			<td><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->tsk_priority); ?></span></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<th>

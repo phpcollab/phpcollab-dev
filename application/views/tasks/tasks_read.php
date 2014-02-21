@@ -16,7 +16,7 @@
 		<?php if($row->trk_name) { ?><?php echo $row->trk_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('mln_id'); ?></span>
+		<span class="label"><?php echo $this->lang->line('milestone'); ?></span>
 		<?php if($row->mln_name) { ?><a href="<?php echo $this->my_url; ?>milestones/read/<?php echo $row->mln_id; ?>"><?php echo $row->mln_name; ?></a><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
@@ -25,7 +25,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_assigned'); ?></span>
-		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mbr_name_assigned) { ?><?php echo $row->mbr_name_assigned; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_name'); ?></span>
@@ -51,7 +51,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_status'); ?></span>
-		<?php if($row->tsk_status) { ?><?php echo $row->tsk_status; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_status) { ?><?php echo $this->lang->line('status_'.$row->tsk_status); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_priority'); ?></span>

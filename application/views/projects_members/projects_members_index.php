@@ -16,7 +16,7 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
-			<?php echo form_label($this->lang->line('mbr_id'), 'projects_members_mbr_id'); ?>
+			<?php echo form_label($this->lang->line('member'), 'projects_members_mbr_id'); ?>
 			<?php echo form_dropdown($this->router->class.'_projects_members_mbr_id', $dropdown_mbr_id, set_value($this->router->class.'_projects_members_mbr_id', $this->session->userdata($this->router->class.'_projects_members_mbr_id')), 'id="projects_members_mbr_id" class="select"'); ?>
 		</div>
 		<div>
@@ -30,8 +30,7 @@
 		<tr>
 		<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_id')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('mbr_id')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('mbr_name')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('member')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_authorized')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_published')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_datecreated')); ?>
@@ -42,7 +41,6 @@
 		<?php foreach($rows as $row) { ?>
 		<tr>
 			<td><a href="<?php echo $this->my_url; ?>projects_members/read/<?php echo $row->prj_mbr_id; ?>"><?php echo $row->prj_mbr_id; ?></a></td>
-			<td><?php echo $row->mbr_id; ?></td>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->prj_mbr_authorized); ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->prj_mbr_published); ?></td>

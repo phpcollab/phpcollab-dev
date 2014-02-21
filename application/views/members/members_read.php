@@ -12,7 +12,7 @@
 		<?php if($row->mbr_id) { ?><?php echo $row->mbr_id; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('org_name'); ?></span>
+		<span class="label"><?php echo $this->lang->line('organization'); ?></span>
 		<?php if($row->org_name) { ?><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><?php echo $row->org_name; ?></a><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
