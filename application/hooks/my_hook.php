@@ -57,7 +57,7 @@ class My_hook {
 		if($this->CI->config->item('tinymce/enabled')) {
 			$this->CI->my_library->foot[] = '<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>';
 			$this->CI->my_library->foot[] = '<script>tinymce.init({
-				selector: \'.wysiwyg\',
+				selector: \'.textarea\',
 				entity_encoding : \'raw\',
 				remove_script_host: true,
 				relative_urls: true,
