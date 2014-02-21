@@ -17,7 +17,7 @@
 	<div class="filters">
 		<div>
 			<?php echo form_label($this->lang->line('mln_owner'), 'milestones_mln_owner'); ?>
-			<?php echo form_dropdown($this->router->class.'_milestones_mln_owner', $dropdown_mln_owner, set_value($this->router->class.'_milestones_mln_owner', $this->session->userdata($this->router->class.'_milestones_mln_owner')), 'id="milestones_mln_owner" class="select"'); ?>
+			<?php echo form_dropdown($ref_filter.'_mln_owner', $dropdown_mln_owner, set_value($ref_filter.'_mln_owner', $this->session->userdata($ref_filter.'_mln_owner')), 'id="milestones_mln_owner" class="select"'); ?>
 		</div>
 		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
@@ -29,13 +29,13 @@
 		<thead>
 		<tr>
 		<?php $i = 0; ?>
-			<?php $this->my_library->display_column($this->router->class.'_milestones', $columns[$i++], $this->lang->line('mln_id')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_milestones', $columns[$i++], $this->lang->line('mln_owner')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_milestones', $columns[$i++], $this->lang->line('mln_name')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_milestones', $columns[$i++], $this->lang->line('mln_date_start')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_milestones', $columns[$i++], $this->lang->line('mln_status')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_milestones', $columns[$i++], $this->lang->line('mln_priority')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_milestones', $columns[$i++], $this->lang->line('tsk_completion')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_id')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_owner')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_name')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_date_start')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_status')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_priority')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_completion')); ?>
 			<th>&nbsp;</th>
 		</tr>
 		</thead>

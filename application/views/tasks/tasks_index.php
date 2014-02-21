@@ -17,17 +17,17 @@
 	<div class="filters">
 		<div>
 			<?php echo form_label($this->lang->line('trk_id'), 'tasks_trk_id'); ?>
-			<?php echo form_dropdown($this->router->class.'_tasks_trk_id', $dropdown_trk_id, set_value($this->router->class.'_tasks_trk_id', $this->session->userdata($this->router->class.'_tasks_trk_id')), 'id="tasks_trk_id" class="select"'); ?>
+			<?php echo form_dropdown($ref_filter.'_trk_id', $dropdown_trk_id, set_value($ref_filter.'_trk_id', $this->session->userdata($ref_filter.'_trk_id')), 'id="tasks_trk_id" class="select"'); ?>
 		</div>
 		<?php if($this->router->class != 'milestones') { ?>
 			<div>
 				<?php echo form_label($this->lang->line('mln_id'), 'tasks_mln_id'); ?>
-				<?php echo form_dropdown($this->router->class.'_tasks_mln_id', $dropdown_mln_id, set_value($this->router->class.'_tasks_mln_id', $this->session->userdata($this->router->class.'_tasks_mln_id')), 'id="tasks_mln_id" class="select"'); ?>
+				<?php echo form_dropdown($ref_filter.'_mln_id', $dropdown_mln_id, set_value($ref_filter.'_mln_id', $this->session->userdata($ref_filter.'_mln_id')), 'id="tasks_mln_id" class="select"'); ?>
 			</div>
 		<?php } ?>
 		<div>
 			<?php echo form_label($this->lang->line('tsk_assigned'), 'tasks_tsk_assigned'); ?>
-			<?php echo form_dropdown($this->router->class.'_tasks_tsk_assigned', $dropdown_tsk_assigned, set_value($this->router->class.'_tasks_tsk_assigned', $this->session->userdata($this->router->class.'_tasks_tsk_assigned')), 'id="tasks_tsk_assigned" class="select"'); ?>
+			<?php echo form_dropdown($ref_filter.'_tsk_assigned', $dropdown_tsk_assigned, set_value($ref_filter.'_tsk_assigned', $this->session->userdata($ref_filter.'_tsk_assigned')), 'id="tasks_tsk_assigned" class="select"'); ?>
 		</div>
 		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
@@ -39,17 +39,17 @@
 		<thead>
 		<tr>
 		<?php $i = 0; ?>
-			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_id')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('trk_id')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_id')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('trk_id')); ?>
 			<?php if($this->router->class != 'milestones') { ?>
-				<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('mln_id')); ?>
+				<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_id')); ?>
 			<?php } ?>
-			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_assigned')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_name')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_date_start')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_status')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_priority')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_tasks', $columns[$i++], $this->lang->line('tsk_completion')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_assigned')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_name')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_date_start')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_status')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_priority')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_completion')); ?>
 			<th>&nbsp;</th>
 		</tr>
 		</thead>

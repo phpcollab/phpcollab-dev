@@ -5,12 +5,18 @@ class tasks_model extends CI_Model {
 		parent::__construct();
 	}
 	function get_index_list($prj, $mln = false) {
-		$filters = array();
-		$filters[$this->router->class.'_tasks_trk_id'] = array('tsk.trk_id', 'equal');
-		if($this->router->class != 'milestones') {
-			$filters[$this->router->class.'_tasks_mln_id'] = array('tsk.mln_id', 'equal');
+		$data = array();
+		if($mln) {
+			$data['ref_filter'] = $this->router->class.'_tasks_'.$mln->mln_id;
+		} else {
+			$data['ref_filter'] = $this->router->class.'_tasks_'.$prj->prj_id;
 		}
-		$filters[$this->router->class.'_tasks_tsk_assigned'] = array('tsk.tsk_assigned', 'like');
+		$filters = array();
+		$filters[$data['ref_filter'].'_trk_id'] = array('tsk.trk_id', 'equal');
+		if($this->router->class != 'milestones') {
+			$filters[$data['ref_filter'].'_mln_id'] = array('tsk.mln_id', 'equal');
+		}
+		$filters[$data['ref_filter'].'_tsk_assigned'] = array('tsk.tsk_assigned', 'like');
 		$flt = $this->my_library->build_filters($filters);
 		if($mln) {
 			$flt[] = 'tsk.mln_id = \''.$mln->mln_id.'\'';
@@ -29,15 +35,14 @@ class tasks_model extends CI_Model {
 		$columns[] = 'tsk.tsk_status';
 		$columns[] = 'tsk.tsk_priority';
 		$columns[] = 'tsk.tsk_completion';
-		$col = $this->my_library->build_columns($this->router->class.'_tasks', $columns, 'tsk.tsk_name', 'ASC');
+		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'tsk.tsk_name', 'ASC');
 		$results = $this->get_total($flt);
-		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_tasks');
-		$data = array();
+		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
 		$data['prj'] = $prj;
 		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
-		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_tasks');
+		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $data['ref_filter']);
 		$data['dropdown_trk_id'] = $this->dropdown_trk_id();
 		$data['dropdown_mln_id'] = $this->dropdown_mln_id($prj->prj_id);
 		$data['dropdown_tsk_owner'] = $this->dropdown_tsk_owner();
