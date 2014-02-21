@@ -48,7 +48,7 @@ class Auth_library_default extends CI_Driver {
 		$member = FALSE;
 		$query = $this->CI->db->query('SELECT cnt.* FROM '.$this->CI->db->dbprefix('_connections').' AS cnt WHERE cnt.mbr_id = ? AND cnt.token_connection = ? GROUP BY cnt.cnt_id', array($this->CI->session->userdata('phpcollab_member'), $this->CI->input->cookie('phpcollab_member')));
 		if($query->num_rows() > 0) {
-			$query = $this->CI->db->query('SELECT mbr.* FROM '.$this->CI->db->dbprefix('members').' AS mbr WHERE mbr.mbr_id = ? GROUP BY mbr.mbr_id', array($this->CI->session->userdata('phpcollab_member')));
+			$query = $this->CI->db->query('SELECT mbr.*, org.org_name FROM '.$this->CI->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->CI->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id WHERE mbr.mbr_id = ? GROUP BY mbr.mbr_id', array($this->CI->session->userdata('phpcollab_member')));
 			if($query->num_rows() > 0) {
 				$member = $query->row();
 			}

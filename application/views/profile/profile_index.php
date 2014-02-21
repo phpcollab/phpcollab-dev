@@ -1,28 +1,36 @@
 <article class="title">
-	<h2><i class="fa fa-user"></i><?php echo $this->lang->line('profile'); ?></h2>
+	<h2><i class="fa fa-user"></i><?php echo $this->phpcollab_member->mbr_name; ?></h2>
 	<ul>
+	<li><a href="<?php echo $this->my_url; ?>profile/update"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li>
 	</ul>
 </article>
 <article>
-	<?php echo form_open(current_url()); ?>
-	<?php echo validation_errors(); ?>
 	<div class="column1">
 		<p>
-		<?php echo form_label($this->lang->line('mbr_email').' *', 'mbr_email'); ?>
-		<?php echo form_input('mbr_email', set_value('mbr_email', $this->phpcollab_member->mbr_email), 'maxlength="255" id="mbr_email" class="inputtext valid_email required"'); ?>
+		<span class="label"><?php echo $this->lang->line('org_name'); ?></span>
+		<?php if($this->phpcollab_member->org_name) { ?><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $this->phpcollab_member->org_id; ?>"><?php echo $this->phpcollab_member->org_name; ?></a><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('mbr_password'), 'mbr_password'); ?>
-		<?php echo form_password('mbr_password', set_value('mbr_password'), 'id="mbr_password" class="inputpassword"'); ?>
+		<span class="label"><?php echo $this->lang->line('mbr_name'); ?></span>
+		<?php if($this->phpcollab_member->mbr_name) { ?><?php echo $this->phpcollab_member->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('mbr_password_confirm'), 'mbr_password_confirm'); ?>
-		<?php echo form_password('mbr_password_confirm', set_value('mbr_password_confirm'), 'id="mbr_password_confirm" class="inputpassword"'); ?>
-		</p>
-		<p>
-		<span class="label">&nbsp;</span>
-		<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
+		<span class="label"><?php echo $this->lang->line('mbr_description'); ?></span>
+		<?php if($this->phpcollab_member->mbr_description) { ?><?php echo $this->phpcollab_member->mbr_description; ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
-	<?php echo form_close(); ?>
+	<div class="column1 columnlast">
+		<p>
+		<span class="label"><?php echo $this->lang->line('mbr_email'); ?></span>
+		<?php if($this->phpcollab_member->mbr_email) { ?><?php echo $this->phpcollab_member->mbr_email; ?><?php } else { ?>-<?php } ?>
+		</p>
+		<p>
+		<span class="label"><?php echo $this->lang->line('mbr_datecreated'); ?></span>
+		<?php if($this->phpcollab_member->mbr_datecreated) { ?><?php echo $this->phpcollab_member->mbr_datecreated; ?><?php } else { ?>-<?php } ?>
+		</p>
+		<p>
+		<span class="label"><?php echo $this->lang->line('mbr_datemodified'); ?></span>
+		<?php if($this->phpcollab_member->mbr_datemodified) { ?><?php echo $this->phpcollab_member->mbr_datemodified; ?><?php } else { ?>-<?php } ?>
+		</p>
+	</div>
 </article>

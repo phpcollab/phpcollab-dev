@@ -30,6 +30,10 @@
 		<?php echo form_password('mbr_password', set_value('mbr_password', ''), 'id="mbr_password" class="inputtext required"'); ?>
 		</p>
 		<p>
+		<?php echo form_label($this->lang->line('mbr_password_confirm'), 'mbr_password_confirm'); ?>
+		<?php echo form_password('mbr_password_confirm', set_value('mbr_password_confirm'), 'id="mbr_password_confirm" class="inputpassword"'); ?>
+		</p>
+		<p>
 		<?php echo form_label($this->lang->line('mbr_authorized'), 'mbr_authorized'); ?>
 		<?php echo form_checkbox('mbr_authorized', '1', set_checkbox('mbr_authorized', '1'), 'id="mbr_authorized" class="inputcheckbox numeric"'); ?>
 		</p>

@@ -18,7 +18,7 @@
 			<li class="show-phone show-tablet"><a id="toggle-sidebar" href="#"><i class="fa fa-exchange"></i><?php echo $this->lang->line('sidebar'); ?></a></li>
 			<?php if($this->session->userdata('phpcollab_member')) { ?>
 				<li><a href="<?php echo $this->my_url; ?>"><i class="fa fa-home"></i><?php echo $this->lang->line('home'); ?></a></li>
-				<li><a href="<?php echo $this->my_url; ?>profile"><i class="fa fa-user"></i><?php echo $this->phpcollab_member->mbr_email; ?></a></li>
+				<li><a href="<?php echo $this->my_url; ?>profile"><i class="fa fa-user"></i><?php echo $this->phpcollab_member->mbr_name; ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>logout"><i class="fa fa-sign-out"></i><?php echo $this->lang->line('logout'); ?></a></li>
 			<?php } else { ?>
 				<li><a href="<?php echo $this->my_url; ?>login"><i class="fa fa-sign-in"></i><?php echo $this->lang->line('login'); ?></a></li>

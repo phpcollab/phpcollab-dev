@@ -235,7 +235,7 @@ $(document).ready(function() {
 		var form_test_result = form_test(ref);
 		if(form_test_result == 0) {
 		} else {
-			event.preventDefault();
+			//event.preventDefault();
 		}
 	});
 	set_positions();

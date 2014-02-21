@@ -23,6 +23,7 @@ class members extends CI_Controller {
 		$this->form_validation->set_rules('mbr_description', 'lang:mbr_description', '');
 		$this->form_validation->set_rules('mbr_email', 'lang:mbr_email', 'required|valid_email|max_length[255]|callback_email');
 		$this->form_validation->set_rules('mbr_password', 'lang:mbr_password', 'required');
+		$this->form_validation->set_rules('mbr_password_confirm', 'lang:mbr_password_confirm', 'required|matches[mbr_password]');
 		$this->form_validation->set_rules('mbr_authorized', 'lang:mbr_authorized', 'numeric');
 		$this->form_validation->set_rules('mbr_comments', 'lang:mbr_comments', '');
 		if($this->form_validation->run() == FALSE) {
@@ -78,6 +79,7 @@ class members extends CI_Controller {
 			$this->form_validation->set_rules('mbr_description', 'lang:mbr_description', '');
 			$this->form_validation->set_rules('mbr_email', 'lang:mbr_email', 'required|valid_email|max_length[255]|callback_email');
 			$this->form_validation->set_rules('mbr_password', 'lang:mbr_password', '');
+			$this->form_validation->set_rules('mbr_password_confirm', 'lang:mbr_password_confirm', 'matches[mbr_password]');
 			$this->form_validation->set_rules('mbr_authorized', 'lang:mbr_authorized', 'numeric');
 			$this->form_validation->set_rules('mbr_comments', 'lang:mbr_comments', '');
 			if($this->form_validation->run() == FALSE) {
