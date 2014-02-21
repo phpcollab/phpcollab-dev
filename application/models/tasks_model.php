@@ -13,7 +13,7 @@ class tasks_model extends CI_Model {
 		$filters[$this->router->class.'_tasks_tsk_assigned'] = array('tsk.tsk_assigned', 'like');
 		$flt = $this->my_library->build_filters($filters);
 		if($mln) {
-			$flt[] = 'tsk.mln_id = \''.$mln->prj_id.'\'';
+			$flt[] = 'tsk.mln_id = \''.$mln->mln_id.'\'';
 		} else {
 			$flt[] = 'tsk.prj_id = \''.$prj->prj_id.'\'';
 		}
