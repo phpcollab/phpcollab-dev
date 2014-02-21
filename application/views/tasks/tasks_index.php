@@ -16,12 +16,12 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
-			<?php echo form_label($this->lang->line('trk_id'), 'tasks_trk_id'); ?>
+			<?php echo form_label($this->lang->line('tracker'), 'tasks_trk_id'); ?>
 			<?php echo form_dropdown($ref_filter.'_trk_id', $dropdown_trk_id, set_value($ref_filter.'_trk_id', $this->session->userdata($ref_filter.'_trk_id')), 'id="tasks_trk_id" class="select"'); ?>
 		</div>
 		<?php if($this->router->class != 'milestones') { ?>
 			<div>
-				<?php echo form_label($this->lang->line('mln_id'), 'tasks_mln_id'); ?>
+				<?php echo form_label($this->lang->line('milestone'), 'tasks_mln_id'); ?>
 				<?php echo form_dropdown($ref_filter.'_mln_id', $dropdown_mln_id, set_value($ref_filter.'_mln_id', $this->session->userdata($ref_filter.'_mln_id')), 'id="tasks_mln_id" class="select"'); ?>
 			</div>
 		<?php } ?>
@@ -40,9 +40,9 @@
 		<tr>
 		<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_id')); ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('trk_id')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tracker')); ?>
 			<?php if($this->router->class != 'milestones') { ?>
-				<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_id')); ?>
+				<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('milestone')); ?>
 			<?php } ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_assigned')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_name')); ?>
@@ -59,7 +59,7 @@
 			<td><?php echo $row->tsk_id; ?></td>
 			<td><?php echo $row->trk_name; ?></td>
 			<?php if($this->router->class != 'milestones') { ?>
-				<td><?php echo $row->mln_name; ?></td>
+				<td><a href="<?php echo $this->my_url; ?>milestones/read/<?php echo $row->mln_id; ?>"><?php echo $row->mln_name; ?></a></td>
 			<?php } ?>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_id; ?>"><?php echo $row->tsk_name; ?></a></td>

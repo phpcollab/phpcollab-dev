@@ -184,4 +184,78 @@ class milestones extends CI_Controller {
 			redirect($this->my_url);
 		}
 	}
+	public function statistics($mln_id) {
+		$data = array();
+		$data['row'] = $this->milestones_model->get_row($mln_id);
+		if($data['row']) {
+			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
+			if($data['prj']) {
+				$this->my_library->set_title($this->lang->line('milestones').' / '.$data['row']->mln_name);
+				$data['tasks'] = '';
+
+				$legend = array();
+				$values = array();
+				$query = $this->db->query('SELECT trk.trk_name AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id WHERE tsk.mln_id = ? GROUP BY ref ORDER BY nb DESC', array($mln_id));
+				if($query->num_rows() > 0) {
+					$current_month = date('Y-m');
+					foreach($query->result() as $row) {
+						if($row->ref) {
+							$legend[] = $row->ref;
+						} else {
+							$legend[] = '-';
+						}
+						$values[] = $row->nb;
+					}
+				}
+				$data['tasks'] .= build_table_repartition($this->lang->line('tracker'), $values, $legend);
+
+				$legend = array();
+				$values = array();
+				$query = $this->db->query('SELECT SUBSTRING(tsk.tsk_date_start, 1, 7) AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = ? GROUP BY ref ORDER BY ref ASC', array($mln_id));
+				if($query->num_rows() > 0) {
+					$current_month = date('Y-m');
+					foreach($query->result() as $row) {
+						if($row->ref) {
+							$legend[] = $row->ref;
+						} else {
+							$legend[] = '-';
+						}
+						$values[] = $row->nb;
+					}
+				}
+				$data['tasks'] .= build_table_repartition($this->lang->line('tsk_date_start'), $values, $legend);
+
+				$legend = array();
+				$values = array();
+				$query = $this->db->query('SELECT tsk.tsk_priority AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = ? GROUP BY ref ORDER BY ref ASC', array($mln_id));
+				if($query->num_rows() > 0) {
+					$current_month = date('Y-m');
+					foreach($query->result() as $row) {
+						$legend[] = '<span class="color_percent priority_'.$row->ref.'" style="width:100%;">'.$this->lang->line('priority_'.$row->ref).'</span>';
+						$values[] = $row->nb;
+					}
+				}
+				$data['tasks'] .= build_table_repartition($this->lang->line('tsk_priority'), $values, $legend);
+
+				$legend = array();
+				$values = array();
+				$query = $this->db->query('SELECT tsk.tsk_completion AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = ? GROUP BY ref ORDER BY ref ASC', array($mln_id));
+				if($query->num_rows() > 0) {
+					$current_month = date('Y-m');
+					foreach($query->result() as $row) {
+						$legend[] = $row->ref.'%';
+						$values[] = $row->nb;
+					}
+				}
+				$data['tasks'] .= build_table_repartition($this->lang->line('tsk_completion'), $values, $legend);
+
+				$content = $this->load->view('milestones/milestones_statistics', $data, TRUE);
+				$this->my_library->set_zone('content', $content);
+			} else {
+				redirect($this->my_url);
+			}
+		} else {
+			redirect($this->my_url);
+		}
+	}
 }

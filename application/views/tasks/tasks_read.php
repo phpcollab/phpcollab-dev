@@ -59,7 +59,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_parent'); ?></span>
-		<?php if($row->tsk_name) { ?><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_parent; ?>"><?php echo $row->tsk_name; ?></a><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_parent) { ?><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_parent; ?>"><?php echo $row->tsk_name_parent; ?></a><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_completion'); ?></span>
