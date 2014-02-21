@@ -105,7 +105,7 @@ tbody tr:nth-child(even) th, tbody tr:nth-child(even) td{background-color:#E7E7E
 .data_table td.result{text-align:center;}
 .data_table tr:nth-child(even) td{background-color:transparent;}
 .data_table tr:hover td{background-color:transparent;}
-.color_percent{background-color:#AEB2B7;color:#252732;display:inline-block;font-size:10px;margin-right:5px;width:20px;}
+.color_percent{background-color:#AEB2B7;color:#252732;display:inline-block;font-size:11px;margin-right:5px;width:20px;}
 .priority_5{background-color:#FF0000;}
 .priority_4{background-color:#FF6666;}
 .priority_3{background-color:#FFCCCC;}
