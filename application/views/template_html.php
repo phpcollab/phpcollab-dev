@@ -32,8 +32,10 @@
 <aside>
 	<?php if($this->session->userdata('phpcollab_member')) { ?>
 		<ul>
-			<li><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-building-o"></i><?php echo $this->lang->line('organizations'); ?></a></li>
+			<li><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a></li>
 			<li><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a></li>
+			<li><a href="<?php echo $this->my_url; ?>trackers"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/trackers'); ?>"></i><?php echo $this->lang->line('trackers'); ?></a></li>
+			<li><a href="<?php echo $this->my_url; ?>roles"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/roles'); ?>"></i><?php echo $this->lang->line('roles'); ?></a></li>
 			<li><a href="<?php echo $this->my_url; ?>_configuration"><i class="fa fa-gear"></i><?php echo $this->lang->line('configuration'); ?></a></li>
 		</ul>
 	<?php } ?>

@@ -528,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `_configuration` (
   `cfg_datecreated` datetime NOT NULL,
   PRIMARY KEY (`cfg_id`),
   UNIQUE KEY `cfg_path` (`cfg_path`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `_configuration`
@@ -555,7 +555,10 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (18, 'environment', 'dev', '2014-02-21 09:49:24'),
 (19, 'phpcollab/icons/projects', 'leaf', '0000-00-00 00:00:00'),
 (20, 'phpcollab/icons/tasks', 'tasks', '0000-00-00 00:00:00'),
-(21, 'phpcollab/icons/projects_members', 'rocket', '0000-00-00 00:00:00');
+(21, 'phpcollab/icons/projects_members', 'rocket', '0000-00-00 00:00:00'),
+(22, 'phpcollab/icons/organizations', 'building-o', '0000-00-00 00:00:00'),
+(23, 'phpcollab/icons/trackers', 'bullhorn', '0000-00-00 00:00:00'),
+(24, 'phpcollab/icons/roles', 'shield', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

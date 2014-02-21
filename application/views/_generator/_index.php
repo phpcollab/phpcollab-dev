@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><?php if($icon) { ?><i class="fa fa-<?php echo $icon; ?>"></i><?php } ?>&lt;?php echo $this->lang->line('<?php echo $table; ?>'); ?&gt; (&lt;?php echo $position; ?&gt;)</h2>
+	<h2><i class="fa fa-&lt;?php echo $this->config->item('phpcollab/icons/<?php echo $table; ?>') ?&gt;"></i>&lt;?php echo $this->lang->line('<?php echo $table; ?>'); ?&gt; (&lt;?php echo $position; ?&gt;)</h2>
 	<ul>
 <?php if($action_statistics) { ?>	<li><a href="&lt;?php echo $this->my_url; ?&gt;<?php echo $table; ?>/statistics"><i class="fa fa-bar-chart-o"></i>&lt;?php echo $this->lang->line('statistics'); ?&gt;</a></li>
 <?php } ?>

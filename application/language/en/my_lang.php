@@ -64,6 +64,20 @@ $lang['tsk_published'] = 'tsk_published';
 $lang['tsk_datecreated'] = 'tsk_datecreated';
 $lang['tsk_datemodified'] = 'tsk_datemodified';
 
+$lang['trackers'] = 'Trackers';
+$lang['trk_id'] = 'trk_id';
+$lang['trk_owner'] = 'trk_owner';
+$lang['mbr_name'] = 'mbr_name';
+$lang['trk_name'] = 'trk_name';
+$lang['tsk_description'] = 'tsk_description';
+$lang['trk_datecreated'] = 'trk_datecreated';
+
+$lang['roles'] = 'Roles';
+$lang['rol_id'] = 'rol_id';
+$lang['rol_code'] = 'rol_code';
+$lang['rol_system'] = 'rol_system';
+$lang['rol_datecreated'] = 'rol_datecreated';
+
 $lang['collapse'] = 'Collapse';
 $lang['expand'] = 'Expand';
 $lang['already_exists'] = 'The %s field already exists';

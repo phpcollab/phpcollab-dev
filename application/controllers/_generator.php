@@ -287,9 +287,6 @@ class _generator extends CI_Controller {
 				$content .= '<p>'.form_label('language field', 'language_field').form_dropdown('language_field', $select_language, set_value('language_field'), 'id="language_field" class="select required"').'</p>';
 			}
 
-			$content .= '<p>'.form_label('icon', 'icon').form_input('icon', set_value('icon', ''), 'id="icon" class="inputtext"').'</p>';
-			$content .= '<p>'.form_label('folder', 'folder').form_input('folder', set_value('folder', '/'), 'id="folder" class="inputtext"').'</p>';
-
 			$content .= '<p>'.form_label('write files', 'write').form_checkbox('write', '1', set_checkbox('write', '1'), 'id="write" class="inputcheckbox numeric"').'</p>';
 			$content .= '<p>'.form_label('Create', 'action_create').form_checkbox('action_create', '1', set_checkbox('action_create', '1', TRUE), 'id="action_create" class="inputcheckbox numeric"').'</p>';
 			$content .= '<p>'.form_label('Read', 'action_read').form_checkbox('action_read', '1', set_checkbox('action_read', '1', TRUE), 'id="action_read" class="inputcheckbox numeric"').'</p>';
@@ -342,13 +339,12 @@ class _generator extends CI_Controller {
 				}
 
 				$data['table_alias'] = $this->input->post('table_alias');
-				$data['icon'] = $this->input->post('icon');
 				if($table_translation) {
 					$data['table_translation_alias'] = $this->input->post('table_translation_alias');
 					$data['language_field'] = $this->input->post('language_field');
 				}
 
-				$folder = $this->input->post('folder');
+				$folder = '';
 
 				if(!is_dir(APPPATH.'views/'.$folder.$table)) {
 					mkdir(APPPATH.'views/'.$folder.$table);
