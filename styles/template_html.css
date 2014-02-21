@@ -143,6 +143,7 @@ optgroup option{margin-left:5px;}
 .inputsubmit, button{background-color:#444755;color:#AEB2B7;cursor:pointer;padding:4px 4px;}
 .inputtext, .inputpassword{width:97%;}
 .inputtext.numeric{width:60px;}
+.inputtext.date{width:80px;}
 .select{padding:1px 1px;}
 option[selected]{font-weight:bold;}
 .textarea{height:200px;min-height:200px;resize:vertical;width:97%;}
@@ -152,8 +153,6 @@ label a:link, label a:visited{cursor:pointer;}
 .filters div{float:left;height:22px;margin:5px 10px 5px 0px;overflow:hidden;position:relative;white-space:nowrap;}
 .filters label{display:inline;padding-right:5px;}
 .filters .inputtext{padding:1px 2px;width:100px;}
-.filters .inputtext.numeric{width:60px;}
-.filters .inputtext.date{width:80px;}
 .filters .inputsubmit, button{padding:1px 4px;}
 input:-webkit-autofill{-webkit-box-shadow:0px 0px 0px 1000px #FFFFFF inset;}
 
