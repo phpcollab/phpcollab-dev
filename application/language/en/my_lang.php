@@ -1,4 +1,6 @@
 <?php
+$lang['permissions'] = 'Permissions';
+
 $lang['priority_1'] = 'Low';
 $lang['priority_2'] = 'Normal';
 $lang['priority_3'] = 'High';

@@ -11,11 +11,19 @@ class Organizations extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
+		if(!$this->auth_library->permission('organizations/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('organizations'));
 		$content = $this->organizations_model->get_index_list();
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
+		if(!$this->auth_library->permission('organizations/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('organizations'));
 		$this->load->library('form_validation');
 		$data = array();
@@ -54,6 +62,10 @@ class Organizations extends CI_Controller {
 		}
 	}
 	public function read($org_id) {
+		if(!$this->auth_library->permission('organizations/index')) {
+			redirect($this->my_url);
+		}
+
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
@@ -67,6 +79,10 @@ class Organizations extends CI_Controller {
 		}
 	}
 	public function update($org_id) {
+		if(!$this->auth_library->permission('organizations/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
@@ -112,6 +128,10 @@ class Organizations extends CI_Controller {
 		}
 	}
 	public function delete($org_id) {
+		if(!$this->auth_library->permission('organizations/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);

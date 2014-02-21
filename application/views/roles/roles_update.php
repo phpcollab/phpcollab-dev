@@ -5,8 +5,8 @@
 	<li><a href="<?php echo $this->my_url; ?>roles/delete/<?php echo $row->rol_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
 	</ul>
 </article>
+<?php echo form_open(current_url()); ?>
 <article>
-	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
 	<div class="column1">
 		<p>
@@ -18,5 +18,26 @@
 		<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
 		</p>
 	</div>
-	<?php echo form_close(); ?>
 </article>
+<article class="title">
+	<h2><?php echo $this->lang->line('permissions'); ?></h2>
+</article>
+<article>
+	<div class="column2">
+		<?php $u = 1; ?>
+		<?php foreach($permissions as $per) { ?>
+			<p>
+			<?php echo form_label($per->per_code, 'per_'.$per->per_id); ?>
+			<?php echo form_checkbox('per_'.$per->per_id, '1', set_checkbox('per_'.$per->per_id, '1', value2boolean($per->per_saved, '1')), 'id="per_'.$per->per_id.'" class="inputcheckbox"'); ?>
+			</p>
+			<?php if($permissions_limit == $u) { ?>
+				</div>
+				<div class="column2">
+				<?php $u = 1; ?>
+			<?php } else { ?>
+				<?php $u++; ?>
+			<?php } ?>
+		<?php } ?>
+	</div>
+</article>
+<?php echo form_close(); ?>

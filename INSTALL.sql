@@ -143,12 +143,14 @@ CREATE TABLE IF NOT EXISTS `members_roles` (
   `rol_id` int(10) unsigned NOT NULL,
   `mbr_rol_datecreated` datetime NOT NULL,
   PRIMARY KEY (`mbr_rol_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `members_roles`
 --
 
+INSERT INTO `members_roles` (`mbr_rol_id`, `mbr_id`, `rol_id`, `mbr_rol_datecreated`) VALUES
+(1, 1, 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -172,12 +174,16 @@ CREATE TABLE IF NOT EXISTS `milestones` (
   `mln_datecreated` datetime NOT NULL,
   `mln_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`mln_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `milestones`
 --
 
+INSERT INTO `milestones` (`mln_id`, `prj_id`, `mln_owner`, `mln_name`, `mln_description`, `mln_date_start`, `mln_date_due`, `mln_date_complete`, `mln_status`, `mln_priority`, `mln_comments`, `mln_published`, `mln_datecreated`, `mln_datemodified`) VALUES
+(1, 1, 1, 'Test step 1', NULL, '2014-02-23', NULL, NULL, 1, 2, NULL, 0, '2014-02-21 13:30:59', NULL),
+(2, 2, 1, 'MIlestone other project', NULL, '2014-02-23', NULL, NULL, 1, 2, NULL, 0, '2014-02-21 13:35:32', NULL),
+(3, 1, 1, 'Test step 2', NULL, '2014-02-23', NULL, NULL, 2, 2, NULL, 0, '2014-02-21 13:43:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -212,7 +218,8 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `ntf_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ntf_code` varchar(255) NOT NULL,
   `ntf_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`ntf_id`)
+  PRIMARY KEY (`ntf_id`),
+  UNIQUE KEY `ntf_code` (`ntf_code`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
@@ -264,13 +271,137 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `per_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `per_code` varchar(255) NOT NULL,
   `per_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`per_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`per_id`),
+  UNIQUE KEY `per_code` (`per_code`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=128 ;
 
 --
 -- Dumping data for table `permissions`
 --
 
+INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
+(1, 'files/index', '0000-00-00 00:00:00'),
+(2, 'files/create', '0000-00-00 00:00:00'),
+(3, 'files/read/comments', '0000-00-00 00:00:00'),
+(4, 'files/update', '0000-00-00 00:00:00'),
+(5, 'files/update/status', '0000-00-00 00:00:00'),
+(6, 'files/update/comments', '0000-00-00 00:00:00'),
+(7, 'files/update/published', '0000-00-00 00:00:00'),
+(8, 'files/delete', '0000-00-00 00:00:00'),
+(9, 'files_milestones/index', '0000-00-00 00:00:00'),
+(10, 'files_milestones/create', '0000-00-00 00:00:00'),
+(11, 'files_milestones/read/comments', '0000-00-00 00:00:00'),
+(12, 'files_milestones/update', '0000-00-00 00:00:00'),
+(13, 'files_milestones/delete', '0000-00-00 00:00:00'),
+(14, 'files_projects/index', '0000-00-00 00:00:00'),
+(15, 'files_projects/create', '0000-00-00 00:00:00'),
+(16, 'files_projects/read/comments', '0000-00-00 00:00:00'),
+(17, 'files_projects/update', '0000-00-00 00:00:00'),
+(18, 'files_projects/delete', '0000-00-00 00:00:00'),
+(19, 'files_tasks/index', '0000-00-00 00:00:00'),
+(20, 'files_tasks/create', '0000-00-00 00:00:00'),
+(21, 'files_tasks/read/comments', '0000-00-00 00:00:00'),
+(22, 'files_tasks/update', '0000-00-00 00:00:00'),
+(23, 'files_tasks/delete', '0000-00-00 00:00:00'),
+(24, 'members/index', '0000-00-00 00:00:00'),
+(25, 'members/create', '0000-00-00 00:00:00'),
+(26, 'members/read/comments', '0000-00-00 00:00:00'),
+(27, 'members/update', '0000-00-00 00:00:00'),
+(28, 'members/update/comments', '0000-00-00 00:00:00'),
+(29, 'members/delete', '0000-00-00 00:00:00'),
+(35, 'milestones/index', '0000-00-00 00:00:00'),
+(36, 'milestones/create', '0000-00-00 00:00:00'),
+(37, 'milestones/read/comments', '0000-00-00 00:00:00'),
+(38, 'milestones/update', '0000-00-00 00:00:00'),
+(39, 'milestones/update/date_start', '0000-00-00 00:00:00'),
+(40, 'milestones/update/date_due', '0000-00-00 00:00:00'),
+(41, 'milestones/update/date_complete', '0000-00-00 00:00:00'),
+(42, 'milestones/update/status', '0000-00-00 00:00:00'),
+(43, 'milestones/update/priority', '0000-00-00 00:00:00'),
+(44, 'milestones/update/comments', '0000-00-00 00:00:00'),
+(45, 'milestones/update/published', '0000-00-00 00:00:00'),
+(46, 'milestones/delete', '0000-00-00 00:00:00'),
+(47, 'notes/index', '0000-00-00 00:00:00'),
+(48, 'notes/create', '0000-00-00 00:00:00'),
+(49, 'notes/read/comments', '0000-00-00 00:00:00'),
+(50, 'notes/update', '0000-00-00 00:00:00'),
+(51, 'notes/update/published', '0000-00-00 00:00:00'),
+(52, 'notes/delete', '0000-00-00 00:00:00'),
+(53, 'notifications/index', '0000-00-00 00:00:00'),
+(54, 'notifications/create', '0000-00-00 00:00:00'),
+(55, 'notifications/read/comments', '0000-00-00 00:00:00'),
+(56, 'notifications/update', '0000-00-00 00:00:00'),
+(57, 'notifications/delete', '0000-00-00 00:00:00'),
+(58, 'organizations/index', '0000-00-00 00:00:00'),
+(59, 'organizations/create', '0000-00-00 00:00:00'),
+(60, 'organizations/read/comments', '0000-00-00 00:00:00'),
+(61, 'organizations/update', '0000-00-00 00:00:00'),
+(62, 'organizations/update/comments', '0000-00-00 00:00:00'),
+(63, 'organizations/delete', '0000-00-00 00:00:00'),
+(64, 'permissions/index', '0000-00-00 00:00:00'),
+(65, 'permissions/create', '0000-00-00 00:00:00'),
+(66, 'permissions/read/comments', '0000-00-00 00:00:00'),
+(67, 'permissions/update', '0000-00-00 00:00:00'),
+(68, 'permissions/delete', '0000-00-00 00:00:00'),
+(69, 'posts/create', '0000-00-00 00:00:00'),
+(70, 'posts/delete', '0000-00-00 00:00:00'),
+(71, 'projects/index', '0000-00-00 00:00:00'),
+(72, 'projects/create', '0000-00-00 00:00:00'),
+(73, 'projects/read/comments', '0000-00-00 00:00:00'),
+(74, 'projects/update', '0000-00-00 00:00:00'),
+(75, 'projects/update/date_start', '0000-00-00 00:00:00'),
+(76, 'projects/update/date_due', '0000-00-00 00:00:00'),
+(77, 'projects/update/date_complete', '0000-00-00 00:00:00'),
+(78, 'projects/update/status', '0000-00-00 00:00:00'),
+(79, 'projects/update/priority', '0000-00-00 00:00:00'),
+(80, 'projects/update/comments', '0000-00-00 00:00:00'),
+(81, 'projects/update/published', '0000-00-00 00:00:00'),
+(82, 'projects/delete', '0000-00-00 00:00:00'),
+(83, 'projects_members/index', '0000-00-00 00:00:00'),
+(84, 'projects_members/create', '0000-00-00 00:00:00'),
+(85, 'projects_members/read/comments', '0000-00-00 00:00:00'),
+(86, 'projects_members/update', '0000-00-00 00:00:00'),
+(87, 'projects_members/delete', '0000-00-00 00:00:00'),
+(88, 'projects_trackers/index', '0000-00-00 00:00:00'),
+(89, 'projects_trackers/create', '0000-00-00 00:00:00'),
+(90, 'projects_trackers/read/comments', '0000-00-00 00:00:00'),
+(91, 'projects_trackers/update', '0000-00-00 00:00:00'),
+(92, 'projects_trackers/delete', '0000-00-00 00:00:00'),
+(93, 'roles/index', '0000-00-00 00:00:00'),
+(94, 'roles/create', '0000-00-00 00:00:00'),
+(95, 'roles/read/comments', '0000-00-00 00:00:00'),
+(96, 'roles/update', '0000-00-00 00:00:00'),
+(97, 'roles/delete', '0000-00-00 00:00:00'),
+(98, 'roles_permissions/index', '0000-00-00 00:00:00'),
+(99, 'roles_permissions/create', '0000-00-00 00:00:00'),
+(100, 'roles_permissions/read/comments', '0000-00-00 00:00:00'),
+(101, 'roles_permissions/update', '0000-00-00 00:00:00'),
+(102, 'roles_permissions/delete', '0000-00-00 00:00:00'),
+(103, 'tasks/index', '0000-00-00 00:00:00'),
+(104, 'tasks/create', '0000-00-00 00:00:00'),
+(105, 'tasks/read/comments', '0000-00-00 00:00:00'),
+(106, 'tasks/update', '0000-00-00 00:00:00'),
+(107, 'tasks/update/date_start', '0000-00-00 00:00:00'),
+(108, 'tasks/update/date_due', '0000-00-00 00:00:00'),
+(109, 'tasks/update/date_complete', '0000-00-00 00:00:00'),
+(110, 'tasks/update/status', '0000-00-00 00:00:00'),
+(111, 'tasks/update/priority', '0000-00-00 00:00:00'),
+(112, 'tasks/update/comments', '0000-00-00 00:00:00'),
+(113, 'tasks/update/published', '0000-00-00 00:00:00'),
+(114, 'tasks/delete', '0000-00-00 00:00:00'),
+(115, 'topics/index', '0000-00-00 00:00:00'),
+(116, 'topics/create', '0000-00-00 00:00:00'),
+(117, 'topics/read/comments', '0000-00-00 00:00:00'),
+(118, 'topics/update', '0000-00-00 00:00:00'),
+(119, 'topics/update/status', '0000-00-00 00:00:00'),
+(120, 'topics/update/priority', '0000-00-00 00:00:00'),
+(121, 'topics/update/published', '0000-00-00 00:00:00'),
+(122, 'topics/delete', '0000-00-00 00:00:00'),
+(123, 'trackers/index', '0000-00-00 00:00:00'),
+(124, 'trackers/create', '0000-00-00 00:00:00'),
+(125, 'trackers/read/comments', '0000-00-00 00:00:00'),
+(126, 'trackers/update', '0000-00-00 00:00:00'),
+(127, 'trackers/delete', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -315,15 +446,16 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `prj_datecreated` datetime NOT NULL,
   `prj_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`prj_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `projects`
 --
 
 INSERT INTO `projects` (`prj_id`, `org_id`, `prj_owner`, `prj_name`, `prj_description`, `prj_date_start`, `prj_date_due`, `prj_date_complete`, `prj_status`, `prj_priority`, `prj_comments`, `prj_published`, `prj_datecreated`, `prj_datemodified`) VALUES
-(1, 2, 1, 'Test', NULL, '0000-00-00', NULL, NULL, 1, 1, NULL, 1, '2014-02-21 04:34:49', '2014-02-21 12:25:47'),
-(2, 1, 1, 'Test 2', NULL, '2014-02-20', NULL, NULL, 1, 2, NULL, 0, '2014-02-21 08:57:46', NULL);
+(1, 2, 1, 'Test', NULL, '2014-02-22', '2014-02-27', '2014-02-28', 1, 1, NULL, 1, '2014-02-21 04:34:49', '2014-02-21 14:24:27'),
+(2, 1, 1, 'Test 2', NULL, '2014-02-20', NULL, NULL, 1, 3, NULL, 0, '2014-02-21 08:57:46', '2014-02-21 13:59:27'),
+(3, 1, 1, 'Urgent project', NULL, '2014-02-20', NULL, NULL, 2, 4, NULL, 0, '2014-02-21 14:03:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -379,7 +511,8 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `rol_code` varchar(255) NOT NULL,
   `rol_system` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `rol_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`rol_id`)
+  PRIMARY KEY (`rol_id`),
+  UNIQUE KEY `rol_code` (`rol_code`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
@@ -405,12 +538,135 @@ CREATE TABLE IF NOT EXISTS `roles_permissions` (
   `per_id` int(10) unsigned NOT NULL,
   `rol_per_datecreated` datetime NOT NULL,
   PRIMARY KEY (`rol_per_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=125 ;
 
 --
 -- Dumping data for table `roles_permissions`
 --
 
+INSERT INTO `roles_permissions` (`rol_per_id`, `rol_id`, `per_id`, `rol_per_datecreated`) VALUES
+(1, 1, 2, '2014-02-21 15:12:22'),
+(2, 1, 8, '2014-02-21 15:12:22'),
+(3, 1, 1, '2014-02-21 15:12:22'),
+(4, 1, 3, '2014-02-21 15:12:22'),
+(5, 1, 4, '2014-02-21 15:12:22'),
+(6, 1, 6, '2014-02-21 15:12:22'),
+(7, 1, 7, '2014-02-21 15:12:22'),
+(8, 1, 5, '2014-02-21 15:12:22'),
+(9, 1, 10, '2014-02-21 15:12:22'),
+(10, 1, 13, '2014-02-21 15:12:22'),
+(11, 1, 9, '2014-02-21 15:12:22'),
+(12, 1, 11, '2014-02-21 15:12:22'),
+(13, 1, 12, '2014-02-21 15:12:22'),
+(14, 1, 15, '2014-02-21 15:12:22'),
+(15, 1, 18, '2014-02-21 15:12:22'),
+(16, 1, 14, '2014-02-21 15:12:22'),
+(17, 1, 16, '2014-02-21 15:12:22'),
+(18, 1, 17, '2014-02-21 15:12:22'),
+(19, 1, 20, '2014-02-21 15:12:22'),
+(20, 1, 23, '2014-02-21 15:12:22'),
+(21, 1, 19, '2014-02-21 15:12:22'),
+(22, 1, 21, '2014-02-21 15:12:22'),
+(23, 1, 22, '2014-02-21 15:12:22'),
+(24, 1, 25, '2014-02-21 15:12:22'),
+(25, 1, 29, '2014-02-21 15:12:22'),
+(26, 1, 24, '2014-02-21 15:12:22'),
+(27, 1, 26, '2014-02-21 15:12:22'),
+(28, 1, 27, '2014-02-21 15:12:22'),
+(29, 1, 28, '2014-02-21 15:12:22'),
+(30, 1, 36, '2014-02-21 15:12:22'),
+(31, 1, 46, '2014-02-21 15:12:22'),
+(32, 1, 35, '2014-02-21 15:12:22'),
+(33, 1, 37, '2014-02-21 15:12:22'),
+(34, 1, 38, '2014-02-21 15:12:22'),
+(35, 1, 44, '2014-02-21 15:12:22'),
+(36, 1, 41, '2014-02-21 15:12:22'),
+(37, 1, 40, '2014-02-21 15:12:22'),
+(38, 1, 39, '2014-02-21 15:12:22'),
+(39, 1, 43, '2014-02-21 15:12:22'),
+(40, 1, 45, '2014-02-21 15:12:22'),
+(41, 1, 42, '2014-02-21 15:12:22'),
+(42, 1, 48, '2014-02-21 15:12:22'),
+(43, 1, 52, '2014-02-21 15:12:22'),
+(44, 1, 47, '2014-02-21 15:12:22'),
+(45, 1, 49, '2014-02-21 15:12:22'),
+(46, 1, 50, '2014-02-21 15:12:22'),
+(47, 1, 51, '2014-02-21 15:12:22'),
+(48, 1, 54, '2014-02-21 15:12:22'),
+(49, 1, 57, '2014-02-21 15:12:22'),
+(50, 1, 53, '2014-02-21 15:12:22'),
+(51, 1, 55, '2014-02-21 15:12:22'),
+(52, 1, 56, '2014-02-21 15:12:22'),
+(53, 1, 59, '2014-02-21 15:12:22'),
+(54, 1, 63, '2014-02-21 15:12:22'),
+(124, 1, 58, '2014-02-21 15:30:00'),
+(56, 1, 60, '2014-02-21 15:12:22'),
+(57, 1, 61, '2014-02-21 15:12:22'),
+(58, 1, 62, '2014-02-21 15:12:22'),
+(59, 1, 65, '2014-02-21 15:12:22'),
+(60, 1, 68, '2014-02-21 15:12:22'),
+(61, 1, 64, '2014-02-21 15:12:22'),
+(62, 1, 66, '2014-02-21 15:12:22'),
+(63, 1, 67, '2014-02-21 15:12:22'),
+(64, 1, 69, '2014-02-21 15:12:22'),
+(65, 1, 70, '2014-02-21 15:12:22'),
+(66, 1, 72, '2014-02-21 15:12:22'),
+(67, 1, 82, '2014-02-21 15:12:22'),
+(68, 1, 71, '2014-02-21 15:12:22'),
+(69, 1, 73, '2014-02-21 15:12:22'),
+(70, 1, 74, '2014-02-21 15:12:22'),
+(71, 1, 80, '2014-02-21 15:12:22'),
+(72, 1, 77, '2014-02-21 15:12:22'),
+(73, 1, 76, '2014-02-21 15:12:22'),
+(74, 1, 75, '2014-02-21 15:12:22'),
+(75, 1, 79, '2014-02-21 15:12:22'),
+(76, 1, 81, '2014-02-21 15:12:22'),
+(77, 1, 78, '2014-02-21 15:12:22'),
+(78, 1, 84, '2014-02-21 15:12:22'),
+(79, 1, 87, '2014-02-21 15:12:22'),
+(80, 1, 83, '2014-02-21 15:12:22'),
+(81, 1, 85, '2014-02-21 15:12:22'),
+(82, 1, 86, '2014-02-21 15:12:22'),
+(83, 1, 89, '2014-02-21 15:12:22'),
+(84, 1, 92, '2014-02-21 15:12:22'),
+(85, 1, 88, '2014-02-21 15:12:22'),
+(86, 1, 90, '2014-02-21 15:12:22'),
+(87, 1, 91, '2014-02-21 15:12:22'),
+(88, 1, 94, '2014-02-21 15:12:22'),
+(89, 1, 97, '2014-02-21 15:12:22'),
+(90, 1, 93, '2014-02-21 15:12:22'),
+(91, 1, 95, '2014-02-21 15:12:22'),
+(92, 1, 96, '2014-02-21 15:12:22'),
+(93, 1, 99, '2014-02-21 15:12:22'),
+(94, 1, 102, '2014-02-21 15:12:22'),
+(95, 1, 98, '2014-02-21 15:12:22'),
+(96, 1, 100, '2014-02-21 15:12:22'),
+(97, 1, 101, '2014-02-21 15:12:22'),
+(98, 1, 104, '2014-02-21 15:12:22'),
+(99, 1, 114, '2014-02-21 15:12:22'),
+(100, 1, 103, '2014-02-21 15:12:22'),
+(101, 1, 105, '2014-02-21 15:12:22'),
+(102, 1, 106, '2014-02-21 15:12:22'),
+(103, 1, 112, '2014-02-21 15:12:22'),
+(104, 1, 109, '2014-02-21 15:12:22'),
+(105, 1, 108, '2014-02-21 15:12:22'),
+(106, 1, 107, '2014-02-21 15:12:22'),
+(107, 1, 111, '2014-02-21 15:12:22'),
+(108, 1, 113, '2014-02-21 15:12:22'),
+(109, 1, 110, '2014-02-21 15:12:22'),
+(110, 1, 116, '2014-02-21 15:12:22'),
+(111, 1, 122, '2014-02-21 15:12:22'),
+(112, 1, 115, '2014-02-21 15:12:22'),
+(113, 1, 117, '2014-02-21 15:12:22'),
+(114, 1, 118, '2014-02-21 15:12:22'),
+(115, 1, 120, '2014-02-21 15:12:22'),
+(116, 1, 121, '2014-02-21 15:12:22'),
+(117, 1, 119, '2014-02-21 15:12:22'),
+(118, 1, 124, '2014-02-21 15:12:22'),
+(119, 1, 127, '2014-02-21 15:12:22'),
+(120, 1, 123, '2014-02-21 15:12:22'),
+(121, 1, 125, '2014-02-21 15:12:22'),
+(122, 1, 126, '2014-02-21 15:12:22');
 
 -- --------------------------------------------------------
 
@@ -439,18 +695,21 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `tsk_datecreated` datetime NOT NULL,
   `tsk_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`tsk_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `tasks`
 --
 
 INSERT INTO `tasks` (`tsk_id`, `prj_id`, `trk_id`, `mln_id`, `tsk_owner`, `tsk_assigned`, `tsk_name`, `tsk_description`, `tsk_date_start`, `tsk_date_due`, `tsk_date_complete`, `tsk_status`, `tsk_priority`, `tsk_parent`, `tsk_completion`, `tsk_comments`, `tsk_published`, `tsk_datecreated`, `tsk_datemodified`) VALUES
-(1, 1, 1, NULL, 1, 1, 'Test', NULL, NULL, NULL, NULL, 1, 1, NULL, 90, NULL, 0, '2014-02-21 09:22:25', '2014-02-21 09:47:15'),
-(2, 1, 1, NULL, 1, NULL, 'Test name', 'Description', NULL, NULL, NULL, 1, 2, NULL, 20, NULL, 0, '2014-02-21 09:33:07', '2014-02-21 09:34:54'),
-(3, 1, 2, NULL, 1, 1, 'Test name', NULL, NULL, NULL, NULL, 1, 2, NULL, 10, NULL, 0, '2014-02-21 09:38:16', NULL),
+(1, 1, 1, 1, 1, 1, 'Test', NULL, NULL, NULL, NULL, 1, 1, NULL, 90, NULL, 0, '2014-02-21 09:22:25', '2014-02-21 13:33:50'),
+(2, 1, 1, 3, 1, NULL, 'Test name', 'Description', '2014-02-20', NULL, NULL, 1, 5, 1, 20, NULL, 0, '2014-02-21 09:33:07', '2014-02-21 14:28:23'),
+(3, 1, 2, NULL, 1, 1, 'Test name', NULL, NULL, NULL, NULL, 1, 3, NULL, 10, NULL, 0, '2014-02-21 09:38:16', '2014-02-21 14:00:30'),
 (4, 2, 1, NULL, 1, NULL, 'Test', NULL, NULL, NULL, NULL, 1, 2, NULL, 10, NULL, 0, '2014-02-21 09:59:25', NULL),
-(5, 2, 1, NULL, 1, NULL, 'Test', NULL, NULL, NULL, NULL, 1, 2, NULL, 60, NULL, 0, '2014-02-21 12:19:32', NULL);
+(5, 2, 1, NULL, 1, NULL, 'Test', NULL, NULL, NULL, NULL, 1, 2, NULL, 60, NULL, 0, '2014-02-21 12:19:32', NULL),
+(6, 1, 1, 1, 1, 5, 'tsk_name', 'tsk_description', '0000-00-00', '0000-00-00', '0000-00-00', 1, 4, 1, 50, 'tsk_comments', 1, '2014-02-21 14:00:47', '2014-02-21 14:11:01'),
+(7, 1, 1, 1, 1, 5, 'tsk_name', 'tsk_description', '0000-00-00', '0000-00-00', '0000-00-00', 1, 5, 1, 20, 'tsk_comments', 1, '2014-02-21 14:01:03', NULL),
+(8, 2, 1, 2, 1, NULL, 'task other project', NULL, '2014-02-21', NULL, NULL, 2, 3, NULL, 60, NULL, 0, '2014-02-21 14:12:53', '2014-02-21 14:13:05');
 
 -- --------------------------------------------------------
 
@@ -563,6 +822,18 @@ CREATE TABLE IF NOT EXISTS `_connections` (
   KEY `mbr_id` (`mbr_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
+--
+-- Dumping data for table `_connections`
+--
+
+INSERT INTO `_connections` (`cnt_id`, `mbr_id`, `token_connection`, `cnt_ip`, `cnt_agent`, `cnt_datecreated`) VALUES
+(2, 1, '5619da81c3da39fe9873944d99e558bd45718991', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', '2014-02-21 05:23:46'),
+(3, 1, 'b52a64716379baa6213670db0750d4f4b402d74c', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36', '2014-02-21 04:57:45'),
+(4, 1, '8c0e41b3fbad8053522cdf8696e1c4a8f124a914', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36', '2014-02-21 08:20:53'),
+(5, 1, 'cb4409b37088570d67892c2ab613582b78bba63a', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:27.0) Gecko/20100101 Firefox/27.0', '2014-02-21 10:12:58'),
+(6, 1, 'd2c1c4d55420cb478d2ad73a004ca90253ace6aa', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36', '2014-02-21 13:21:36'),
+(7, 1, 'eaae6001f79e7b77506ab51135dd01480da4fe26', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:27.0) Gecko/20100101 Firefox/27.0', '2014-02-21 13:24:58');
+
 -- --------------------------------------------------------
 
 --
@@ -577,11 +848,12 @@ CREATE TABLE IF NOT EXISTS `_languages` (
   `lng_datecreated` datetime NOT NULL,
   PRIMARY KEY (`lng_id`),
   UNIQUE KEY `lng_code` (`lng_code`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000001 ;
 
 --
 -- Dumping data for table `_languages`
 --
 
 INSERT INTO `_languages` (`lng_id`, `lng_code`, `lng_name`, `lng_default`, `lng_datecreated`) VALUES
-(1, 'en', 'English', 1, '2014-02-08 07:33:59');
+(1, 'en', 'English', 1, '2014-02-08 07:33:59'),
+(2, 'fr', 'Français', 0, '2014-02-08 07:33:59');

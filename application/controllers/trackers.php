@@ -9,11 +9,19 @@ class trackers extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
+		if(!$this->auth_library->permission('trackers/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('trackers'));
 		$content = $this->trackers_model->get_index_list();
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
+		if(!$this->auth_library->permission('trackers/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('trackers'));
 		$this->load->library('form_validation');
 		$data = array();
@@ -48,6 +56,10 @@ class trackers extends CI_Controller {
 		}
 	}
 	public function read($trk_id) {
+		if(!$this->auth_library->permission('trackers/index')) {
+			redirect($this->my_url);
+		}
+
 		$data = array();
 		$data['row'] = $this->trackers_model->get_row($trk_id);
 		if($data['row']) {
@@ -59,6 +71,10 @@ class trackers extends CI_Controller {
 		}
 	}
 	public function update($trk_id) {
+		if(!$this->auth_library->permission('trackers/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->trackers_model->get_row($trk_id);
@@ -100,6 +116,10 @@ class trackers extends CI_Controller {
 		}
 	}
 	public function delete($trk_id) {
+		if(!$this->auth_library->permission('trackers/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->trackers_model->get_row($trk_id);

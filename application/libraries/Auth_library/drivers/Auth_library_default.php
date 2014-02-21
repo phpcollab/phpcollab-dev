@@ -44,6 +44,13 @@ class Auth_library_default extends CI_Driver {
 		$this->CI->session->unset_userdata('phpcollab_member');
 		session_regenerate_id();
 	}
+	function permission($per_code) {
+		if(isset($this->CI->phpcollab_member->permissions[$per_code]) == 1 && $this->CI->phpcollab_member->permissions[$per_code] == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	function get() {
 		$member = FALSE;
 		$query = $this->CI->db->query('SELECT cnt.* FROM '.$this->CI->db->dbprefix('_connections').' AS cnt WHERE cnt.mbr_id = ? AND cnt.token_connection = ? GROUP BY cnt.cnt_id', array($this->CI->session->userdata('phpcollab_member'), $this->CI->input->cookie('phpcollab_member')));
@@ -51,6 +58,16 @@ class Auth_library_default extends CI_Driver {
 			$query = $this->CI->db->query('SELECT mbr.*, org.org_name FROM '.$this->CI->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->CI->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id WHERE mbr.mbr_id = ? GROUP BY mbr.mbr_id', array($this->CI->session->userdata('phpcollab_member')));
 			if($query->num_rows() > 0) {
 				$member = $query->row();
+
+				$member->permissions = array();
+				$query = $this->CI->db->query('SELECT per.*, COUNT(rol_per.rol_per_id) AS total_saved FROM '.$this->CI->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->CI->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id LEFT JOIN '.$this->CI->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.rol_id = rol_per.rol_id AND mbr_rol.mbr_id = ? GROUP BY per.per_id', array($this->CI->session->userdata('phpcollab_member')));
+				foreach($query->result() as $row) {
+					if($row->total_saved > 0) {
+						$member->permissions[$row->per_code] = true;
+					} else {
+						$member->permissions[$row->per_code] = false;
+					}
+				}
 			}
 		}
 		return $member;

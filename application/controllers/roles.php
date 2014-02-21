@@ -9,11 +9,19 @@ class roles extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
+		if(!$this->auth_library->permission('roles/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('roles'));
 		$content = $this->roles_model->get_index_list();
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
+		if(!$this->auth_library->permission('roles/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('roles'));
 		$this->load->library('form_validation');
 		$data = array();
@@ -42,6 +50,10 @@ class roles extends CI_Controller {
 		}
 	}
 	public function read($rol_id) {
+		if(!$this->auth_library->permission('roles/index')) {
+			redirect($this->my_url);
+		}
+
 		$data = array();
 		$data['row'] = $this->roles_model->get_row($rol_id);
 		if($data['row']) {
@@ -53,11 +65,23 @@ class roles extends CI_Controller {
 		}
 	}
 	public function update($rol_id) {
+		if(!$this->auth_library->permission('roles/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->roles_model->get_row($rol_id);
 		if($data['row']) {
 			$this->my_library->set_title($this->lang->line('roles').' / '.$data['row']->rol_code);
+
+			$query = $this->db->query('SELECT per.*, IF(rol_per.rol_per_id IS NOT NULL, 1, 0) AS per_saved FROM '.$this->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id AND rol_per.rol_id = ? WHERE per.per_code NOT LIKE ? AND per.per_code NOT LIKE ? GROUP BY per.per_id ORDER BY per.per_code ASC', array($rol_id, 'roles/%', 'members/%'));
+			$data['permissions'] = $query->result();
+			foreach($data['permissions'] as $per) {
+				$this->form_validation->set_rules('per_'.$per->per_id, $per->per_code);
+			}
+			$data['permissions_limit'] = ceil(count($data['permissions'])/3);
+
 			$this->form_validation->set_rules('rol_code', 'lang:rol_code', 'required|max_length[255]');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('roles/roles_update', $data, TRUE);
@@ -82,6 +106,21 @@ class roles extends CI_Controller {
 				$this->db->set('rol_code', $this->input->post('rol_code'));
 				$this->db->where('rol_id', $rol_id);
 				$this->db->update('roles');
+
+				foreach($data['permissions'] as $per) {
+					if($per->per_saved == 0 && $this->input->post('per_'.$per->per_id)) {
+						$this->db->set('per_id', $per->per_id);
+						$this->db->set('rol_id', $rol_id);
+						$this->db->set('rol_per_datecreated', date('Y-m-d H:i:s'));
+						$this->db->insert('roles_permissions');
+					}
+					if($per->per_saved == 1 && !$this->input->post('per_'.$per->per_id)) {
+						$this->db->where('per_id', $per->per_id);
+						$this->db->where('rol_id', $rol_id);
+						$this->db->delete('roles_permissions');
+					}
+				}
+
 				$this->read($rol_id);
 			}
 		} else {
@@ -89,6 +128,10 @@ class roles extends CI_Controller {
 		}
 	}
 	public function delete($rol_id) {
+		if(!$this->auth_library->permission('roles/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->roles_model->get_row($rol_id);

@@ -7,11 +7,25 @@ class _generator extends CI_Controller {
 		$this->tables = array();
 		$this->tables[''] = '-';
 
+		//$update_fields = array('status', 'priority', 'date_start', 'date_due', 'date_complete', 'comments', 'published');
+
 		$query = $this->db->query('SHOW TABLE STATUS');
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
 				if(substr($row->Name, 0, 1) != '_') {
 					$this->tables[$row->Name] = $row->Name;
+
+					/*echo 'INSERT INTO permissions (per_code) VALUES(\''.$row->Name.'/index\');<br>';
+					echo 'INSERT INTO permissions (per_code) VALUES(\''.$row->Name.'/create\');<br>';
+					echo 'INSERT INTO permissions (per_code) VALUES(\''.$row->Name.'/read/comments\');<br>';
+					echo 'INSERT INTO permissions (per_code) VALUES(\''.$row->Name.'/update\');<br>';
+					$query = $this->db->query('SHOW FULL COLUMNS FROM '.$row->Name);
+					foreach($query->result() as $row_fields) {
+						if(in_array(substr($row_fields->Field, 4), $update_fields)) {
+							echo 'INSERT INTO permissions (per_code) VALUES(\''.$row->Name.'/update/'.substr($row_fields->Field, 4).'\');<br>';
+						}
+					}
+					echo 'INSERT INTO permissions (per_code) VALUES(\''.$row->Name.'/delete\');<br>';*/
 				}
 			}
 		}
@@ -134,26 +148,26 @@ class _generator extends CI_Controller {
 						$data['primary'] = $row->Field;
 						$exclude[] = $row->Field;
 					}
-	
+
 					$fields[$row->Field] = array();
 					$fields[$row->Field]['rules_create'] = array();
 					$fields[$row->Field]['rules_update'] = array();
 					$fields[$row->Field]['classes'] = array();
-	
+
 					if($row->Key == 'UNI') {
 						$k_rule = 'callback_'.$row->Field;
 						$fields[$row->Field]['rules_create'][$k_rule] = $k_rule;
-	
+
 						$k_rule = 'callback_'.$row->Field.'[\'.$data[\'row\']->'.$row->Field.'.\']';
 						$fields[$row->Field]['rules_update'][$k_rule] = $k_rule;
-	
+
 						$callback[] = $row->Field;
 					}
-	
+
 					$fields[$row->Field]['default'] = strval($row->Default);
-	
+
 					$fields[$row->Field]['real_type'] = $row->Type;
-	
+
 					if($row->Null == 'NO' && !stristr($row->Type, 'tinyint')) {
 						$fields[$row->Field]['rules_create']['required'] = 'required';
 						$fields[$row->Field]['rules_update']['required'] = 'required';
@@ -178,11 +192,11 @@ class _generator extends CI_Controller {
 					}
 					if(stristr($row->Type, 'text')) {
 						$fields[$row->Field]['type'] = 'textarea';
-	
+
 					} else if(stristr($row->Type, 'tinyint')) {
 						$fields[$row->Field]['type'] = 'checkbox';
 						$boolean[] = $row->Field;
-	
+
 					} else if($row->Key != 'PRI' && substr($row->Type, 0, 3) == 'int' && $this->input->post('select_key_'.$row->Field) && $this->input->post('select_label_'.$row->Field) && $this->input->post('select_table_'.$row->Field)) {
 						$fields[$row->Field]['type'] = 'dropdown';
 						$fields[$row->Field]['select_key'] = $_POST['select_key_'.$row->Field];
@@ -195,7 +209,7 @@ class _generator extends CI_Controller {
 						}
 						$fields[$row->Field]['select_condition'] = $_POST['select_condition_'.$row->Field];
 						$select[] = $row->Field;
-	
+
 					} else {
 						$fields[$row->Field]['type'] = 'input';
 					}

@@ -9,11 +9,19 @@ class members extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
+		if(!$this->auth_library->permission('members/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('members'));
 		$content = $this->members_model->get_index_list();
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
+		if(!$this->auth_library->permission('members/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('members'));
 		$this->load->library('form_validation');
 		$data = array();
@@ -57,6 +65,10 @@ class members extends CI_Controller {
 		}
 	}
 	public function read($mbr_id) {
+		if(!$this->auth_library->permission('members/index')) {
+			redirect($this->my_url);
+		}
+
 		$data = array();
 		$data['row'] = $this->members_model->get_row($mbr_id);
 		if($data['row']) {
@@ -68,6 +80,10 @@ class members extends CI_Controller {
 		}
 	}
 	public function update($mbr_id) {
+		if(!$this->auth_library->permission('members/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->members_model->get_row($mbr_id);
@@ -123,6 +139,10 @@ class members extends CI_Controller {
 		}
 	}
 	public function delete($mbr_id) {
+		if(!$this->auth_library->permission('members/index')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->members_model->get_row($mbr_id);
