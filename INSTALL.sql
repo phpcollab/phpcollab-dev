@@ -820,19 +820,7 @@ CREATE TABLE IF NOT EXISTS `_connections` (
   PRIMARY KEY (`cnt_id`),
   UNIQUE KEY `token_connection` (`token_connection`),
   KEY `mbr_id` (`mbr_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
-
---
--- Dumping data for table `_connections`
---
-
-INSERT INTO `_connections` (`cnt_id`, `mbr_id`, `token_connection`, `cnt_ip`, `cnt_agent`, `cnt_datecreated`) VALUES
-(2, 1, '5619da81c3da39fe9873944d99e558bd45718991', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', '2014-02-21 05:23:46'),
-(3, 1, 'b52a64716379baa6213670db0750d4f4b402d74c', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36', '2014-02-21 04:57:45'),
-(4, 1, '8c0e41b3fbad8053522cdf8696e1c4a8f124a914', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36', '2014-02-21 08:20:53'),
-(5, 1, 'cb4409b37088570d67892c2ab613582b78bba63a', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:27.0) Gecko/20100101 Firefox/27.0', '2014-02-21 10:12:58'),
-(6, 1, 'd2c1c4d55420cb478d2ad73a004ca90253ace6aa', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36', '2014-02-21 13:21:36'),
-(7, 1, 'eaae6001f79e7b77506ab51135dd01480da4fe26', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:27.0) Gecko/20100101 Firefox/27.0', '2014-02-21 13:24:58');
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -855,5 +843,4 @@ CREATE TABLE IF NOT EXISTS `_languages` (
 --
 
 INSERT INTO `_languages` (`lng_id`, `lng_code`, `lng_name`, `lng_default`, `lng_datecreated`) VALUES
-(1, 'en', 'English', 1, '2014-02-08 07:33:59'),
-(2, 'fr', 'Français', 0, '2014-02-08 07:33:59');
+(1, 'en', 'English', 1, '2014-02-08 07:33:59');
