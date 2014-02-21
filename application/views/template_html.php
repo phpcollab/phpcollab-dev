@@ -7,6 +7,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <title><?php echo $this->my_library->get_title(); ?></title>
 <link href="<?php echo $this->config->item('font-awesome/cdn'); ?>" rel="stylesheet" type="text/css">
+<link href="<?php echo base_url(); ?>thirdparty/jquery/jquery.ui.min.css?modified=<?php echo filemtime('thirdparty/jquery/jquery.ui.min.css'); ?>" rel="stylesheet" type="text/css">
 <?php echo $this->my_library->get_head(); ?>
 </head>
 <body<?php if(count($this->my_library->errors) > 0) { ?> class="error"<?php } ?>>
@@ -64,6 +65,7 @@ var uri_string = '<?php echo $this->uri->uri_string(); ?>';
 </script>
 
 <script src="<?php echo base_url(); ?>thirdparty/jquery/jquery.min.js?modified=<?php echo filemtime('thirdparty/jquery/jquery.min.js'); ?>"></script>
+<script src="<?php echo base_url(); ?>thirdparty/jquery/jquery.ui.min.js?modified=<?php echo filemtime('thirdparty/jquery/jquery.ui.min.js'); ?>"></script>
 <script src="<?php echo base_url(); ?>thirdparty/jquery/jquery.cookie.min.js?modified=<?php echo filemtime('thirdparty/jquery/jquery.cookie.min.js'); ?>"></script>
 <?php echo $this->my_library->get_foot(); ?>
 

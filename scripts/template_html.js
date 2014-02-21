@@ -272,4 +272,13 @@ $(document).ready(function() {
 		$(href).hide();
 		$.cookie(href.substring(1), 'collapse', { expires: 30, path: '/' });
 	});
+	$('.inputtext.date').datepicker({
+		showOtherMonths: true,
+		selectOtherMonths: true,
+		changeMonth: true,
+		changeYear: true,
+		numberOfMonths: 2,
+		dateFormat: 'yy-mm-dd',
+		showButtonPanel: true
+	});
 });
