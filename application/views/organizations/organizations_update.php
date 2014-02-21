@@ -27,10 +27,12 @@
 		<?php echo form_label($this->lang->line('org_comments'), 'org_comments'); ?>
 		<?php echo form_textarea('org_comments', set_value('org_comments', $row->org_comments), 'id="org_comments" class="textarea"'); ?>
 		</p>
-		<p>
-		<?php echo form_label($this->lang->line('org_authorized'), 'org_authorized'); ?>
-		<?php echo form_checkbox('org_authorized', '1', set_checkbox('org_authorized', '1', value2boolean($row->org_authorized, '1')), 'id="org_authorized" class="inputcheckbox numeric"'); ?>
-		</p>
+		<?php if($row->org_system == 0) { ?>
+			<p>
+			<?php echo form_label($this->lang->line('org_authorized'), 'org_authorized'); ?>
+			<?php echo form_checkbox('org_authorized', '1', set_checkbox('org_authorized', '1', value2boolean($row->org_authorized, '1')), 'id="org_authorized" class="inputcheckbox numeric"'); ?>
+			</p>
+		<?php } ?>
 		<p>
 		<span class="label">&nbsp;</span>
 		<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>

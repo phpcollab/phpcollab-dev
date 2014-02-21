@@ -56,10 +56,10 @@ class milestones_model extends CI_Model {
 	function dropdown_mln_owner() {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mbr.mbr_id AS field_key, mbr.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr GROUP BY mbr.mbr_id ORDER BY mbr.mbr_name ASC');
+		$query = $this->db->query('SELECT mbr.mbr_id AS field_key, org.org_name AS field_optgroup, mbr.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id GROUP BY mbr.mbr_id ORDER BY org.org_name ASC, mbr.mbr_name ASC');
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
-				$select[$row->field_key] = $row->field_label;
+				$select[$row->field_optgroup][$row->field_key] = $row->field_label;
 			}
 		}
 		return $select;

@@ -4,6 +4,12 @@
 	</ul>
 </article>
 <article class="title">
+	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/milestones'); ?>"></i><?php echo $this->lang->line('milestones'); ?></h2>
+</article>
+<article>
+	<?php echo $milestones; ?>
+</article>
+<article class="title">
 	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/tasks'); ?>"></i><?php echo $this->lang->line('tasks'); ?></h2>
 </article>
 <article>

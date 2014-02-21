@@ -93,7 +93,9 @@ class Organizations extends CI_Controller {
 			$this->form_validation->set_rules('org_name', 'lang:org_name', 'required|max_length[255]');
 			$this->form_validation->set_rules('org_description', 'lang:org_description', '');
 			$this->form_validation->set_rules('org_comments', 'lang:org_comments', '');
-			$this->form_validation->set_rules('org_authorized', 'lang:org_authorized', 'numeric');
+			if($data['row']->org_system == 0) {
+				$this->form_validation->set_rules('org_authorized', 'lang:org_authorized', 'numeric');
+			}
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('organizations/organizations_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
@@ -118,7 +120,9 @@ class Organizations extends CI_Controller {
 				$this->db->set('org_name', $this->input->post('org_name'));
 				$this->db->set('org_description', $this->input->post('org_description'));
 				$this->db->set('org_comments', $this->input->post('org_comments'));
-				$this->db->set('org_authorized', checkbox2database($this->input->post('org_authorized')));
+				if($data['row']->org_system == 0) {
+					$this->db->set('org_authorized', checkbox2database($this->input->post('org_authorized')));
+				}
 				$this->db->where('org_id', $org_id);
 				$this->db->update('organizations');
 				$this->read($org_id);

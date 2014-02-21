@@ -171,6 +171,65 @@ class projects extends CI_Controller {
 		$data['row'] = $this->projects_model->get_row($prj_id);
 		if($data['row']) {
 			$this->my_library->set_title($this->lang->line('projects').' / '.$data['row']->prj_name);
+
+			$data['milestones'] = '';
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT mbr.mbr_name AS ref, mbr.mbr_id AS id, COUNT(DISTINCT(mln.mln_id)) AS nb FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner WHERE mln.prj_id = ? GROUP BY ref ORDER BY nb DESC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = $row->ref;
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['milestones'] .= build_table_repartition($this->lang->line('mln_owner'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT SUBSTRING(mln.mln_date_start, 1, 7) AS ref, COUNT(DISTINCT(mln.mln_id)) AS nb FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY ref ORDER BY ref DESC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = $row->ref;
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['milestones'] .= build_table_repartition($this->lang->line('mln_date_start'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT mln.mln_status AS ref, COUNT(DISTINCT(mln.mln_id)) AS nb FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY ref ORDER BY ref ASC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = $this->lang->line('status_'.$row->ref);
+					$values[] = $row->nb;
+				}
+			}
+			$data['milestones'] .= build_table_repartition($this->lang->line('mln_status'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT mln.mln_priority AS ref, COUNT(DISTINCT(mln.mln_id)) AS nb FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY ref ORDER BY ref ASC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = '<span class="color_percent priority_'.$row->ref.'" style="width:100%;">'.$this->lang->line('priority_'.$row->ref).'</span>';
+					$values[] = $row->nb;
+				}
+			}
+			$data['milestones'] .= build_table_repartition($this->lang->line('mln_priority'), $values, $legend);
+
 			$data['tasks'] = '';
 
 			$legend = array();

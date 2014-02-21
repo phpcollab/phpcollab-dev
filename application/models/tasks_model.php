@@ -99,10 +99,10 @@ class tasks_model extends CI_Model {
 	function dropdown_tsk_owner() {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mbr.mbr_id AS field_key, mbr.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr GROUP BY mbr.mbr_id ORDER BY mbr.mbr_name ASC');
+		$query = $this->db->query('SELECT mbr.mbr_id AS field_key, org.org_name AS field_optgroup, mbr.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id GROUP BY mbr.mbr_id ORDER BY org.org_name ASC, mbr.mbr_name ASC');
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
-				$select[$row->field_key] = $row->field_label;
+				$select[$row->field_optgroup][$row->field_key] = $row->field_label;
 			}
 		}
 		return $select;
@@ -110,10 +110,10 @@ class tasks_model extends CI_Model {
 	function dropdown_tsk_assigned($prj_id) {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mbr_assigned.mbr_id AS field_key, mbr_assigned.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr_assigned WHERE mbr_assigned.mbr_id IN(SELECT prj_mbr.mbr_id FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr WHERE prj_mbr.prj_id = ?) GROUP BY mbr_assigned.mbr_id ORDER BY mbr_assigned.mbr_name ASC', array($prj_id));
+		$query = $this->db->query('SELECT mbr_assigned.mbr_id AS field_key, org.org_name AS field_optgroup, mbr_assigned.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr_assigned LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr_assigned.org_id WHERE mbr_assigned.mbr_id IN(SELECT prj_mbr.mbr_id FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr WHERE prj_mbr.prj_id = ?) GROUP BY mbr_assigned.mbr_id ORDER BY org.org_name ASC, mbr_assigned.mbr_name ASC', array($prj_id));
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
-				$select[$row->field_key] = $row->field_label;
+				$select[$row->field_optgroup][$row->field_key] = $row->field_label;
 			}
 		}
 		return $select;
