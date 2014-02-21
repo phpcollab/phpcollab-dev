@@ -30,6 +30,18 @@
 			<?php echo form_dropdown($ref_filter.'_tsk_assigned', $dropdown_tsk_assigned, set_value($ref_filter.'_tsk_assigned', $this->session->userdata($ref_filter.'_tsk_assigned')), 'id="tasks_tsk_assigned" class="select"'); ?>
 		</div>
 		<div>
+			<?php echo form_label($this->lang->line('tsk_name'), 'tasks_tsk_name'); ?>
+			<?php echo form_input($ref_filter.'_tsk_name', set_value($ref_filter.'_tsk_name', $this->session->userdata($ref_filter.'_tsk_name')), 'id="tasks_tsk_name" class="inputtext"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('tsk_status'), 'tasks_tsk_status'); ?>
+			<?php echo form_dropdown($ref_filter.'_tsk_status', $this->my_model->dropdown_status(), set_value($ref_filter.'_tsk_status', $this->session->userdata($ref_filter.'_tsk_status')), 'id="tasks_tsk_status" class="select"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('tsk_priority'), 'tasks_tsk_priority'); ?>
+			<?php echo form_dropdown($ref_filter.'_tsk_priority', $this->my_model->dropdown_priority(), set_value($ref_filter.'_tsk_priority', $this->session->userdata($ref_filter.'_tsk_priority')), 'id="tasks_tsk_priority" class="select"'); ?>
+		</div>
+		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
 		</div>
 	</div>

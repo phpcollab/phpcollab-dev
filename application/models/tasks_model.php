@@ -18,7 +18,10 @@ class tasks_model extends CI_Model {
 		if($this->router->class != 'milestones') {
 			$filters[$data['ref_filter'].'_mln_id'] = array('tsk.mln_id', 'equal');
 		}
-		$filters[$data['ref_filter'].'_tsk_assigned'] = array('tsk.tsk_assigned', 'like');
+		$filters[$data['ref_filter'].'_tsk_assigned'] = array('tsk.tsk_assigned', 'equal');
+		$filters[$data['ref_filter'].'_tsk_name'] = array('tsk.tsk_name', 'like');
+		$filters[$data['ref_filter'].'_tsk_status'] = array('tsk.tsk_status', 'equal');
+		$filters[$data['ref_filter'].'_tsk_priority'] = array('tsk.tsk_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
 		if($mln) {
 			$flt[] = 'tsk.mln_id = \''.$mln->mln_id.'\'';

@@ -23,7 +23,6 @@ class My_model extends CI_Model {
 		$select[3] = $this->lang->line('status_3');
 		$select[4] = $this->lang->line('status_4');
 		$select[5] = $this->lang->line('status_5');
-		$select[5] = $this->lang->line('status_6');
 		return $select;
 	}
 	function dropdown_priority() {

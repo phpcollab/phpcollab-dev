@@ -12,7 +12,7 @@ class members_model extends CI_Model {
 		}
 		$filters[$this->router->class.'_members_mbr_name'] = array('mbr.mbr_name', 'like');
 		$filters[$this->router->class.'_members_mbr_email'] = array('mbr.mbr_email', 'like');
-		$filters[$this->router->class.'_members_mbr_authorized'] = array('mbr.mbr_authorized', 'like');
+		$filters[$this->router->class.'_members_mbr_authorized'] = array('mbr.mbr_authorized', 'equal');
 		$flt = $this->my_library->build_filters($filters);
 		if($org) {
 			$data['org'] = $org;
