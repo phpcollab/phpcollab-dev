@@ -26,7 +26,6 @@ class projects_members extends CI_Controller {
 		if($data['prj']) {
 			$this->my_library->set_title($this->lang->line('projects_members'));
 			$this->load->library('form_validation');
-			$data['dropdown_prj_id'] = $this->projects_members_model->dropdown_prj_id();
 			$data['dropdown_mbr_id'] = $this->projects_members_model->dropdown_mbr_id();
 			$this->form_validation->set_rules('mbr_id', 'lang:mbr_id', 'required|numeric');
 			$this->form_validation->set_rules('prj_mbr_authorized', 'lang:prj_mbr_authorized', 'numeric');
@@ -85,10 +84,6 @@ class projects_members extends CI_Controller {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
 				$this->my_library->set_title($this->lang->line('projects_members').' / '.$data['row']->prj_mbr_id);
-				$data['dropdown_prj_id'] = $this->projects_members_model->dropdown_prj_id();
-				$data['dropdown_mbr_id'] = $this->projects_members_model->dropdown_mbr_id();
-				$this->form_validation->set_rules('prj_id', 'lang:prj_id', 'required|numeric');
-				$this->form_validation->set_rules('mbr_id', 'lang:mbr_id', 'required|numeric');
 				$this->form_validation->set_rules('prj_mbr_authorized', 'lang:prj_mbr_authorized', 'numeric');
 				$this->form_validation->set_rules('prj_mbr_published', 'lang:prj_mbr_published', 'numeric');
 				if($this->form_validation->run() == FALSE) {
@@ -111,8 +106,6 @@ class projects_members extends CI_Controller {
 							}
 						}
 					}
-					$this->db->set('prj_id', $this->input->post('prj_id'));
-					$this->db->set('mbr_id', $this->input->post('mbr_id'));
 					$this->db->set('prj_mbr_authorized', checkbox2database($this->input->post('prj_mbr_authorized')));
 					$this->db->set('prj_mbr_published', checkbox2database($this->input->post('prj_mbr_published')));
 					$this->db->where('prj_mbr_id', $prj_mbr_id);

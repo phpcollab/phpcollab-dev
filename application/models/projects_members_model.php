@@ -25,7 +25,6 @@ class projects_members_model extends CI_Model {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_projects_members');
-		$data['dropdown_prj_id'] = $this->dropdown_prj_id();
 		$data['dropdown_mbr_id'] = $this->dropdown_mbr_id();
 		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
 		return $content = $this->load->view('projects_members/projects_members_index', $data, TRUE);
@@ -35,23 +34,12 @@ class projects_members_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT prj.prj_name, mbr.mbr_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = prj_mbr.prj_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id WHERE '.implode(' AND ', $flt).' GROUP BY prj_mbr.prj_mbr_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT mbr.mbr_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id WHERE '.implode(' AND ', $flt).' GROUP BY prj_mbr.prj_mbr_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($prj_mbr_id) {
-		$query = $this->db->query('SELECT prj.prj_name, mbr.mbr_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = prj_mbr.prj_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id WHERE prj_mbr.prj_mbr_id = ? GROUP BY prj_mbr.prj_mbr_id', array($prj_mbr_id));
+		$query = $this->db->query('SELECT mbr.mbr_name, prj_mbr.* FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj_mbr.mbr_id WHERE prj_mbr.prj_mbr_id = ? GROUP BY prj_mbr.prj_mbr_id', array($prj_mbr_id));
 		return $query->row();
-	}
-	function dropdown_prj_id() {
-		$select = array();
-		$select[''] = '-';
-		$query = $this->db->query('SELECT prj.prj_id AS field_key, prj.prj_name AS field_label FROM '.$this->db->dbprefix('projects').' AS prj GROUP BY prj.prj_id ORDER BY prj.prj_name ASC');
-		if($query->num_rows() > 0) {
-			foreach($query->result() as $row) {
-				$select[$row->field_key] = $row->field_label;
-			}
-		}
-		return $select;
 	}
 	function dropdown_mbr_id() {
 		$select = array();

@@ -521,7 +521,6 @@ INSERT INTO `trackers` (`trk_id`, `trk_owner`, `trk_name`, `tsk_description`, `t
 -- Table structure for table `_configuration`
 --
 
-DROP TABLE IF EXISTS `_configuration`;
 CREATE TABLE IF NOT EXISTS `_configuration` (
   `cfg_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cfg_path` varchar(255) NOT NULL,
@@ -529,7 +528,7 @@ CREATE TABLE IF NOT EXISTS `_configuration` (
   `cfg_datecreated` datetime NOT NULL,
   PRIMARY KEY (`cfg_id`),
   UNIQUE KEY `cfg_path` (`cfg_path`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `_configuration`
@@ -553,7 +552,10 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (15, 'phpcollab/driver/auth', 'default', '2014-02-21 04:57:00'),
 (16, 'phpcollab/driver/auth/default/salt', NULL, '0000-00-00 00:00:00'),
 (17, 'debug/enabled', '1', '2014-02-21 09:49:17'),
-(18, 'environment', 'dev', '2014-02-21 09:49:24');
+(18, 'environment', 'dev', '2014-02-21 09:49:24'),
+(19, 'phpcollab/icons/projects', 'leaf', '0000-00-00 00:00:00'),
+(20, 'phpcollab/icons/tasks', 'tasks', '0000-00-00 00:00:00'),
+(21, 'phpcollab/icons/projects_members', 'rocket', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

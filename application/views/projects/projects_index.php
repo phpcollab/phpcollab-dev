@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><i class="fa fa-leaf"></i><?php echo $this->lang->line('projects'); ?> (<?php echo $position; ?>)</h2>
+	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?> (<?php echo $position; ?>)</h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>projects/create"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
 	<?php if($this->router->class != 'projects') { ?>
