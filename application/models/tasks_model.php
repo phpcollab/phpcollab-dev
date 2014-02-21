@@ -4,18 +4,25 @@ class tasks_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
 	}
-	function get_index_list($prj) {
+	function get_index_list($prj, $mln = false) {
 		$filters = array();
 		$filters[$this->router->class.'_tasks_trk_id'] = array('tsk.trk_id', 'like');
-		$filters[$this->router->class.'_tasks_mln_id'] = array('tsk.mln_id', 'like');
+		if($this->router->class != 'milestones') {
+			$filters[$this->router->class.'_tasks_mln_id'] = array('tsk.mln_id', 'like');
+		}
 		$filters[$this->router->class.'_tasks_tsk_assigned'] = array('tsk.tsk_assigned', 'like');
 		$flt = $this->my_library->build_filters($filters);
-		$flt[] = 'tsk.prj_id = \''.$prj->prj_id.'\'';
+		if($mln) {
+			$flt[] = 'tsk.mln_id = \''.$mln->prj_id.'\'';
+		} else {
+			$flt[] = 'tsk.prj_id = \''.$prj->prj_id.'\'';
+		}
 		$columns = array();
 		$columns[] = 'tsk.tsk_id';
-		$columns[] = 'tsk.trk_id';
 		$columns[] = 'trk.trk_name';
-		$columns[] = 'mln.mln_name';
+		if($this->router->class != 'milestones') {
+			$columns[] = 'mln.mln_name';
+		}
 		$columns[] = 'mbr_assigned.mbr_name';
 		$columns[] = 'tsk.tsk_name';
 		$columns[] = 'tsk.tsk_date_start';
@@ -31,8 +38,8 @@ class tasks_model extends CI_Model {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_tasks');
-		$data['dropdown_prj_id'] = $this->dropdown_prj_id();
 		$data['dropdown_trk_id'] = $this->dropdown_trk_id();
+		$data['dropdown_mln_id'] = $this->dropdown_mln_id($prj->prj_id);
 		$data['dropdown_tsk_owner'] = $this->dropdown_tsk_owner();
 		$data['dropdown_tsk_assigned'] = $this->dropdown_tsk_assigned();
 		$data['dropdown_tsk_parent'] = $this->dropdown_tsk_parent();
@@ -73,10 +80,10 @@ class tasks_model extends CI_Model {
 		}
 		return $select;
 	}
-	function dropdown_mln_id() {
+	function dropdown_mln_id($prj_id) {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mln.mln_id AS field_key, mln.mln_name AS field_label FROM '.$this->db->dbprefix('milestones').' AS mln GROUP BY mln.mln_id ORDER BY mln.mln_name ASC');
+		$query = $this->db->query('SELECT mln.mln_id AS field_key, mln.mln_name AS field_label FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY mln.mln_id ORDER BY mln.mln_name ASC', array($prj_id));
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
 				$select[$row->field_key] = $row->field_label;

@@ -4,7 +4,6 @@
 -- Table structure for table `files`
 --
 
-DROP TABLE IF EXISTS `files`;
 CREATE TABLE IF NOT EXISTS `files` (
   `fle_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fle_owner` int(10) unsigned NOT NULL,
@@ -33,7 +32,6 @@ CREATE TABLE IF NOT EXISTS `files` (
 -- Table structure for table `files_milestones`
 --
 
-DROP TABLE IF EXISTS `files_milestones`;
 CREATE TABLE IF NOT EXISTS `files_milestones` (
   `fle_mln_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fle_id` int(10) unsigned NOT NULL,
@@ -53,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `files_milestones` (
 -- Table structure for table `files_projects`
 --
 
-DROP TABLE IF EXISTS `files_projects`;
 CREATE TABLE IF NOT EXISTS `files_projects` (
   `fle_prj_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fle_id` int(10) unsigned NOT NULL,
@@ -73,7 +70,6 @@ CREATE TABLE IF NOT EXISTS `files_projects` (
 -- Table structure for table `files_tasks`
 --
 
-DROP TABLE IF EXISTS `files_tasks`;
 CREATE TABLE IF NOT EXISTS `files_tasks` (
   `fle_tsk_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `fle_id` int(10) unsigned NOT NULL,
@@ -93,7 +89,6 @@ CREATE TABLE IF NOT EXISTS `files_tasks` (
 -- Table structure for table `members`
 --
 
-DROP TABLE IF EXISTS `members`;
 CREATE TABLE IF NOT EXISTS `members` (
   `mbr_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `org_id` int(10) unsigned NOT NULL,
@@ -106,14 +101,16 @@ CREATE TABLE IF NOT EXISTS `members` (
   `mbr_datecreated` datetime NOT NULL,
   `mbr_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`mbr_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `members`
 --
 
 INSERT INTO `members` (`mbr_id`, `org_id`, `mbr_name`, `mbr_description`, `mbr_email`, `mbr_password`, `mbr_authorized`, `mbr_comments`, `mbr_datecreated`, `mbr_datemodified`) VALUES
-(1, 1, 'Example', NULL, 'example@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', 1, NULL, '2014-02-20 22:09:54', NULL);
+(1, 1, 'Example', 'test 2', 'example@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', 1, NULL, '2014-02-20 22:09:54', '2014-02-21 11:54:23'),
+(4, 1, 'Example', NULL, 'example2@example.com', '30e0c510958c33b6a29f8b7ec2b640fe022f80ad', 1, NULL, '2014-02-21 11:47:57', '2014-02-21 12:05:39'),
+(5, 2, 'Client 1', NULL, 'client@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', 1, NULL, '2014-02-21 11:51:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -121,7 +118,6 @@ INSERT INTO `members` (`mbr_id`, `org_id`, `mbr_name`, `mbr_description`, `mbr_e
 -- Table structure for table `members_notifications`
 --
 
-DROP TABLE IF EXISTS `members_notifications`;
 CREATE TABLE IF NOT EXISTS `members_notifications` (
   `mbr_ntf_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `mbr_id` int(10) unsigned NOT NULL,
@@ -141,7 +137,6 @@ CREATE TABLE IF NOT EXISTS `members_notifications` (
 -- Table structure for table `members_roles`
 --
 
-DROP TABLE IF EXISTS `members_roles`;
 CREATE TABLE IF NOT EXISTS `members_roles` (
   `mbr_rol_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `mbr_id` int(10) unsigned NOT NULL,
@@ -161,7 +156,6 @@ CREATE TABLE IF NOT EXISTS `members_roles` (
 -- Table structure for table `milestones`
 --
 
-DROP TABLE IF EXISTS `milestones`;
 CREATE TABLE IF NOT EXISTS `milestones` (
   `mln_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `prj_id` int(10) unsigned NOT NULL,
@@ -174,6 +168,7 @@ CREATE TABLE IF NOT EXISTS `milestones` (
   `mln_status` int(10) unsigned NOT NULL,
   `mln_priority` int(10) unsigned NOT NULL,
   `mln_comments` text,
+  `mln_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `mln_datecreated` datetime NOT NULL,
   `mln_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`mln_id`)
@@ -190,7 +185,6 @@ CREATE TABLE IF NOT EXISTS `milestones` (
 -- Table structure for table `notes`
 --
 
-DROP TABLE IF EXISTS `notes`;
 CREATE TABLE IF NOT EXISTS `notes` (
   `nte_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `prj_id` int(10) unsigned NOT NULL,
@@ -214,7 +208,6 @@ CREATE TABLE IF NOT EXISTS `notes` (
 -- Table structure for table `notifications`
 --
 
-DROP TABLE IF EXISTS `notifications`;
 CREATE TABLE IF NOT EXISTS `notifications` (
   `ntf_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ntf_code` varchar(255) NOT NULL,
@@ -241,7 +234,6 @@ INSERT INTO `notifications` (`ntf_id`, `ntf_code`, `ntf_datecreated`) VALUES
 -- Table structure for table `organizations`
 --
 
-DROP TABLE IF EXISTS `organizations`;
 CREATE TABLE IF NOT EXISTS `organizations` (
   `org_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `org_owner` int(10) unsigned NOT NULL,
@@ -268,7 +260,6 @@ INSERT INTO `organizations` (`org_id`, `org_owner`, `org_name`, `org_description
 -- Table structure for table `permissions`
 --
 
-DROP TABLE IF EXISTS `permissions`;
 CREATE TABLE IF NOT EXISTS `permissions` (
   `per_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `per_code` varchar(255) NOT NULL,
@@ -287,7 +278,6 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 -- Table structure for table `posts`
 --
 
-DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
   `pst_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tcs_id` int(10) unsigned NOT NULL,
@@ -309,7 +299,6 @@ CREATE TABLE IF NOT EXISTS `posts` (
 -- Table structure for table `projects`
 --
 
-DROP TABLE IF EXISTS `projects`;
 CREATE TABLE IF NOT EXISTS `projects` (
   `prj_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `org_id` int(10) unsigned NOT NULL,
@@ -333,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
 --
 
 INSERT INTO `projects` (`prj_id`, `org_id`, `prj_owner`, `prj_name`, `prj_description`, `prj_date_start`, `prj_date_due`, `prj_date_complete`, `prj_status`, `prj_priority`, `prj_comments`, `prj_published`, `prj_datecreated`, `prj_datemodified`) VALUES
-(1, 2, 1, 'Test', NULL, '0000-00-00', NULL, NULL, 1, 1, NULL, 0, '2014-02-21 04:34:49', NULL),
+(1, 2, 1, 'Test', NULL, '0000-00-00', NULL, NULL, 1, 1, NULL, 1, '2014-02-21 04:34:49', '2014-02-21 12:25:47'),
 (2, 1, 1, 'Test 2', NULL, '2014-02-20', NULL, NULL, 1, 2, NULL, 0, '2014-02-21 08:57:46', NULL);
 
 -- --------------------------------------------------------
@@ -342,7 +331,6 @@ INSERT INTO `projects` (`prj_id`, `org_id`, `prj_owner`, `prj_name`, `prj_descri
 -- Table structure for table `projects_members`
 --
 
-DROP TABLE IF EXISTS `projects_members`;
 CREATE TABLE IF NOT EXISTS `projects_members` (
   `prj_mbr_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `prj_id` int(10) unsigned NOT NULL,
@@ -358,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `projects_members` (
 --
 
 INSERT INTO `projects_members` (`prj_mbr_id`, `prj_id`, `mbr_id`, `prj_mbr_authorized`, `prj_mbr_published`, `prj_mbr_datecreated`) VALUES
-(2, 1, 1, 1, 1, '2014-02-21 08:39:20'),
+(2, 1, 1, 0, 0, '2014-02-21 08:39:20'),
 (3, 2, 1, 1, 1, '2014-02-21 08:59:00');
 
 -- --------------------------------------------------------
@@ -367,7 +355,6 @@ INSERT INTO `projects_members` (`prj_mbr_id`, `prj_id`, `mbr_id`, `prj_mbr_autho
 -- Table structure for table `projects_trackers`
 --
 
-DROP TABLE IF EXISTS `projects_trackers`;
 CREATE TABLE IF NOT EXISTS `projects_trackers` (
   `prj_trk_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `prj_id` int(10) unsigned NOT NULL,
@@ -387,7 +374,6 @@ CREATE TABLE IF NOT EXISTS `projects_trackers` (
 -- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `rol_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `rol_code` varchar(255) NOT NULL,
@@ -413,7 +399,6 @@ INSERT INTO `roles` (`rol_id`, `rol_code`, `rol_system`, `rol_datecreated`) VALU
 -- Table structure for table `roles_permissions`
 --
 
-DROP TABLE IF EXISTS `roles_permissions`;
 CREATE TABLE IF NOT EXISTS `roles_permissions` (
   `rol_per_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `rol_id` int(10) unsigned NOT NULL,
@@ -433,7 +418,6 @@ CREATE TABLE IF NOT EXISTS `roles_permissions` (
 -- Table structure for table `tasks`
 --
 
-DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE IF NOT EXISTS `tasks` (
   `tsk_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `prj_id` int(10) unsigned NOT NULL,
@@ -455,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `tsk_datecreated` datetime NOT NULL,
   `tsk_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`tsk_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `tasks`
@@ -465,7 +449,8 @@ INSERT INTO `tasks` (`tsk_id`, `prj_id`, `trk_id`, `mln_id`, `tsk_owner`, `tsk_a
 (1, 1, 1, NULL, 1, 1, 'Test', NULL, NULL, NULL, NULL, 1, 1, NULL, 90, NULL, 0, '2014-02-21 09:22:25', '2014-02-21 09:47:15'),
 (2, 1, 1, NULL, 1, NULL, 'Test name', 'Description', NULL, NULL, NULL, 1, 2, NULL, 20, NULL, 0, '2014-02-21 09:33:07', '2014-02-21 09:34:54'),
 (3, 1, 2, NULL, 1, 1, 'Test name', NULL, NULL, NULL, NULL, 1, 2, NULL, 10, NULL, 0, '2014-02-21 09:38:16', NULL),
-(4, 2, 1, NULL, 1, NULL, 'Test', NULL, NULL, NULL, NULL, 1, 2, NULL, 10, NULL, 0, '2014-02-21 09:59:25', NULL);
+(4, 2, 1, NULL, 1, NULL, 'Test', NULL, NULL, NULL, NULL, 1, 2, NULL, 10, NULL, 0, '2014-02-21 09:59:25', NULL),
+(5, 2, 1, NULL, 1, NULL, 'Test', NULL, NULL, NULL, NULL, 1, 2, NULL, 60, NULL, 0, '2014-02-21 12:19:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -473,7 +458,6 @@ INSERT INTO `tasks` (`tsk_id`, `prj_id`, `trk_id`, `mln_id`, `tsk_owner`, `tsk_a
 -- Table structure for table `topics`
 --
 
-DROP TABLE IF EXISTS `topics`;
 CREATE TABLE IF NOT EXISTS `topics` (
   `tcs_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `prj_id` int(10) unsigned NOT NULL,
@@ -497,7 +481,6 @@ CREATE TABLE IF NOT EXISTS `topics` (
 -- Table structure for table `trackers`
 --
 
-DROP TABLE IF EXISTS `trackers`;
 CREATE TABLE IF NOT EXISTS `trackers` (
   `trk_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `trk_owner` int(10) unsigned NOT NULL,
@@ -528,7 +511,7 @@ CREATE TABLE IF NOT EXISTS `_configuration` (
   `cfg_datecreated` datetime NOT NULL,
   PRIMARY KEY (`cfg_id`),
   UNIQUE KEY `cfg_path` (`cfg_path`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `_configuration`
@@ -559,7 +542,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (22, 'phpcollab/icons/organizations', 'building-o', '0000-00-00 00:00:00'),
 (23, 'phpcollab/icons/trackers', 'bullhorn', '0000-00-00 00:00:00'),
 (24, 'phpcollab/icons/roles', 'shield', '0000-00-00 00:00:00'),
-(25, 'phpcollab/icons/members', 'users', '2014-02-21 11:40:12');
+(25, 'phpcollab/icons/members', 'users', '2014-02-21 11:40:12'),
+(26, 'phpcollab/icons/milestones', 'calendar', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -567,7 +551,6 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 -- Table structure for table `_connections`
 --
 
-DROP TABLE IF EXISTS `_connections`;
 CREATE TABLE IF NOT EXISTS `_connections` (
   `cnt_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `mbr_id` int(10) unsigned NOT NULL,
@@ -578,17 +561,7 @@ CREATE TABLE IF NOT EXISTS `_connections` (
   PRIMARY KEY (`cnt_id`),
   UNIQUE KEY `token_connection` (`token_connection`),
   KEY `mbr_id` (`mbr_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `_connections`
---
-
-INSERT INTO `_connections` (`cnt_id`, `mbr_id`, `token_connection`, `cnt_ip`, `cnt_agent`, `cnt_datecreated`) VALUES
-(2, 1, '5619da81c3da39fe9873944d99e558bd45718991', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', '2014-02-21 05:23:46'),
-(3, 1, 'b52a64716379baa6213670db0750d4f4b402d74c', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36', '2014-02-21 04:57:45'),
-(4, 1, '8c0e41b3fbad8053522cdf8696e1c4a8f124a914', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.117 Safari/537.36', '2014-02-21 08:20:53'),
-(5, 1, 'cb4409b37088570d67892c2ab613582b78bba63a', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:27.0) Gecko/20100101 Firefox/27.0', '2014-02-21 10:12:58');
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -596,7 +569,6 @@ INSERT INTO `_connections` (`cnt_id`, `mbr_id`, `token_connection`, `cnt_ip`, `c
 -- Table structure for table `_languages`
 --
 
-DROP TABLE IF EXISTS `_languages`;
 CREATE TABLE IF NOT EXISTS `_languages` (
   `lng_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `lng_code` char(2) NOT NULL,

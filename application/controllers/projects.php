@@ -5,6 +5,7 @@ class projects extends CI_Controller {
 		parent::__construct();
 		$this->load->model('projects_model');
 		$this->load->model('projects_members_model');
+		$this->load->model('milestones_model');
 		$this->load->model('tasks_model');
 
 		$this->storage_table = 'projects';
@@ -73,6 +74,7 @@ class projects extends CI_Controller {
 			$this->my_library->set_title($this->lang->line('projects').' / '.$data['row']->prj_name);
 			$content = $this->load->view('projects/projects_read', $data, TRUE);
 			$content .= $this->projects_members_model->get_index_list($data['row']);
+			$content .= $this->milestones_model->get_index_list($data['row']);
 			$content .= $this->tasks_model->get_index_list($data['row']);
 			$this->my_library->set_zone('content', $content);
 		} else {

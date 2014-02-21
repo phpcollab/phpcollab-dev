@@ -64,6 +64,22 @@ $lang['tsk_published'] = 'tsk_published';
 $lang['tsk_datecreated'] = 'tsk_datecreated';
 $lang['tsk_datemodified'] = 'tsk_datemodified';
 
+$lang['milestones'] = 'Milestones';
+$lang['mln_id'] = 'mln_id';
+$lang['prj_id'] = 'prj_id';
+$lang['mln_owner'] = 'mln_owner';
+$lang['mln_name'] = 'mln_name';
+$lang['mln_description'] = 'mln_description';
+$lang['mln_date_start'] = 'mln_date_start';
+$lang['mln_date_due'] = 'mln_date_due';
+$lang['mln_date_complete'] = 'mln_date_complete';
+$lang['mln_status'] = 'mln_status';
+$lang['mln_priority'] = 'mln_priority';
+$lang['mln_comments'] = 'mln_comments';
+$lang['mln_published'] = 'mln_published';
+$lang['mln_datecreated'] = 'mln_datecreated';
+$lang['mln_datemodified'] = 'mln_datemodified';
+
 $lang['trackers'] = 'Trackers';
 $lang['trk_id'] = 'trk_id';
 $lang['trk_owner'] = 'trk_owner';

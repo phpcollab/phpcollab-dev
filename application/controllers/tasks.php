@@ -27,7 +27,7 @@ class tasks extends CI_Controller {
 			$this->my_library->set_title($this->lang->line('tasks'));
 			$this->load->library('form_validation');
 			$data['dropdown_trk_id'] = $this->tasks_model->dropdown_trk_id();
-			$data['dropdown_mln_id'] = $this->tasks_model->dropdown_mln_id();
+			$data['dropdown_mln_id'] = $this->tasks_model->dropdown_mln_id($prj_id);
 			$data['dropdown_tsk_owner'] = $this->tasks_model->dropdown_tsk_owner();
 			$data['dropdown_tsk_assigned'] = $this->tasks_model->dropdown_tsk_assigned();
 			$data['dropdown_tsk_parent'] = $this->tasks_model->dropdown_tsk_parent();
@@ -113,7 +113,7 @@ class tasks extends CI_Controller {
 			if($data['prj']) {
 				$this->my_library->set_title($this->lang->line('tasks').' / '.$data['row']->tsk_name);
 				$data['dropdown_trk_id'] = $this->tasks_model->dropdown_trk_id();
-				$data['dropdown_mln_id'] = $this->tasks_model->dropdown_mln_id();
+				$data['dropdown_mln_id'] = $this->tasks_model->dropdown_mln_id($data['row']->prj_id);
 				$data['dropdown_tsk_owner'] = $this->tasks_model->dropdown_tsk_owner();
 				$data['dropdown_tsk_assigned'] = $this->tasks_model->dropdown_tsk_assigned();
 				$data['dropdown_tsk_parent'] = $this->tasks_model->dropdown_tsk_parent();
