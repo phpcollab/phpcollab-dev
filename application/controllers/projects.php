@@ -207,7 +207,39 @@ class projects extends CI_Controller {
 
 			$legend = array();
 			$values = array();
-			$query = $this->db->query('SELECT SUBSTRING(tsk.tsk_date_start, 1, 7) AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = ? GROUP BY ref ORDER BY ref ASC', array($prj_id));
+			$query = $this->db->query('SELECT mbr.mbr_name AS ref, mbr.mbr_id AS id, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner WHERE tsk.prj_id = ? GROUP BY ref ORDER BY nb DESC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = $row->ref;
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_owner'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT mbr.mbr_name AS ref, mbr.mbr_id AS id, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_assigned WHERE tsk.prj_id = ? GROUP BY ref ORDER BY nb DESC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = $row->ref;
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_assigned'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT SUBSTRING(tsk.tsk_date_start, 1, 7) AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = ? GROUP BY ref ORDER BY ref DESC', array($prj_id));
 			if($query->num_rows() > 0) {
 				$current_month = date('Y-m');
 				foreach($query->result() as $row) {
