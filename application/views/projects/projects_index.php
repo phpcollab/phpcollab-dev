@@ -35,7 +35,7 @@
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_status')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_priority')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('tsk_completion')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_datecreated')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('tasks')); ?>
 			<th>&nbsp;</th>
 		</tr>
 		</thead>
@@ -52,7 +52,7 @@
 			<td><?php echo $this->lang->line('status_'.$row->prj_status); ?></td>
 			<td><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->prj_priority); ?></span></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
-			<td><?php echo $row->prj_datecreated; ?></td>
+			<td><?php echo $row->count_tasks; ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>projects/update/<?php echo $row->prj_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
 			<a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>

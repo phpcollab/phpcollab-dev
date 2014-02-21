@@ -21,7 +21,6 @@ $lang['org_name'] = 'Name';
 $lang['org_description'] = 'Description';
 $lang['org_comments'] = 'Comments';
 $lang['org_authorized'] = 'Authorized?';
-$lang['org_system'] = 'System?';
 $lang['org_datecreated'] = 'Date created';
 
 $lang['projects'] = 'Projects';

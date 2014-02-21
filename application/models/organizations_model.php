@@ -16,8 +16,7 @@ class organizations_model extends CI_Model {
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'org.org_name';
 		$columns[] = 'org.org_authorized';
-		$columns[] = 'tsk_completion';
-		$columns[] = 'org.org_datecreated';
+		$columns[] = 'count_projects';
 		$col = $this->my_library->build_columns($this->router->class.'_organizations', $columns, 'org.org_name', 'ASC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_organizations');
@@ -34,7 +33,7 @@ class organizations_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, org.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id)) AS tsk_completion FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner WHERE '.implode(' AND ', $flt).' GROUP BY org.org_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT mbr.mbr_name, org.*, (SELECT COUNT(prj.prj_id) FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id) AS count_projects FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner WHERE '.implode(' AND ', $flt).' GROUP BY org.org_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($org_id) {

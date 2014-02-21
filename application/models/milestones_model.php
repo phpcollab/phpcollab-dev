@@ -19,6 +19,7 @@ class milestones_model extends CI_Model {
 		$columns[] = 'mln.mln_status';
 		$columns[] = 'mln.mln_priority';
 		$columns[] = 'tsk_completion';
+		$columns[] = 'count_tasks';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'mln.mln_name', 'ASC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
@@ -35,7 +36,7 @@ class milestones_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion, (SELECT COUNT(tsk.tsk_id) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id) AS count_tasks FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($mln_id) {

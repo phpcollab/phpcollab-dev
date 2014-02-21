@@ -24,7 +24,7 @@ class projects_model extends CI_Model {
 		$columns[] = 'prj.prj_status';
 		$columns[] = 'prj.prj_priority';
 		$columns[] = 'tsk_completion';
-		$columns[] = 'prj.prj_datecreated';
+		$columns[] = 'count_tasks';
 		$col = $this->my_library->build_columns($this->router->class.'_projects', $columns, 'prj.prj_name', 'ASC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_projects');
@@ -41,7 +41,7 @@ class projects_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT org.org_name, mbr.mbr_name, prj.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id)  AS tsk_completion FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = prj.org_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj.prj_owner WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT org.org_name, mbr.mbr_name, prj.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id)  AS tsk_completion, (SELECT COUNT(tsk.tsk_id) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id) AS count_tasks FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = prj.org_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj.prj_owner WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($prj_id) {

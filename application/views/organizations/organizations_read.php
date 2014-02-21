@@ -39,10 +39,6 @@
 		<?php if($row->tsk_completion) { ?><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('org_system'); ?></span>
-		<?php echo $this->lang->line('reply_'.$row->org_system); ?>
-		</p>
-		<p>
 		<span class="label"><?php echo $this->lang->line('org_datecreated'); ?></span>
 		<?php if($row->org_datecreated) { ?><?php echo $row->org_datecreated; ?><?php } else { ?>-<?php } ?>
 		</p>

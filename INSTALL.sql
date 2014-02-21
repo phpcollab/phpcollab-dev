@@ -100,17 +100,17 @@ CREATE TABLE IF NOT EXISTS `members` (
   `mbr_comments` text,
   `mbr_datecreated` datetime NOT NULL,
   `mbr_datemodified` datetime DEFAULT NULL,
-  PRIMARY KEY (`mbr_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  PRIMARY KEY (`mbr_id`),
+  UNIQUE KEY `mbr_email` (`mbr_email`),
+  KEY `org_id` (`org_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=100 ;
 
 --
 -- Dumping data for table `members`
 --
 
 INSERT INTO `members` (`mbr_id`, `org_id`, `mbr_name`, `mbr_description`, `mbr_email`, `mbr_password`, `mbr_authorized`, `mbr_comments`, `mbr_datecreated`, `mbr_datemodified`) VALUES
-(1, 1, 'Example', 'test 2', 'example@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', 1, NULL, '2014-02-20 22:09:54', '2014-02-21 11:54:23'),
-(4, 1, 'Example', NULL, 'example2@example.com', '30e0c510958c33b6a29f8b7ec2b640fe022f80ad', 1, NULL, '2014-02-21 11:47:57', '2014-02-21 12:05:39'),
-(5, 2, 'Client 1', NULL, 'client@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', 1, NULL, '2014-02-21 11:51:33', NULL);
+(1, 1, 'Example', NULL, 'example@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', 1, NULL, '2014-02-20 22:09:54', '2014-02-21 16:12:29');
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,9 @@ CREATE TABLE IF NOT EXISTS `members_notifications` (
   `mbr_id` int(10) unsigned NOT NULL,
   `ntf_id` int(10) unsigned NOT NULL,
   `mbr_ntf_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`mbr_ntf_id`)
+  PRIMARY KEY (`mbr_ntf_id`),
+  KEY `mbr_id` (`mbr_id`),
+  KEY `ntf_id` (`ntf_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -143,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `members_roles` (
   `rol_id` int(10) unsigned NOT NULL,
   `mbr_rol_datecreated` datetime NOT NULL,
   PRIMARY KEY (`mbr_rol_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=109 ;
 
 --
 -- Dumping data for table `members_roles`
@@ -173,17 +175,14 @@ CREATE TABLE IF NOT EXISTS `milestones` (
   `mln_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `mln_datecreated` datetime NOT NULL,
   `mln_datemodified` datetime DEFAULT NULL,
-  PRIMARY KEY (`mln_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  PRIMARY KEY (`mln_id`),
+  KEY `prj_id` (`prj_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `milestones`
 --
 
-INSERT INTO `milestones` (`mln_id`, `prj_id`, `mln_owner`, `mln_name`, `mln_description`, `mln_date_start`, `mln_date_due`, `mln_date_complete`, `mln_status`, `mln_priority`, `mln_comments`, `mln_published`, `mln_datecreated`, `mln_datemodified`) VALUES
-(1, 1, 1, 'Test step 1', NULL, '2014-02-23', NULL, NULL, 1, 2, NULL, 0, '2014-02-21 13:30:59', NULL),
-(2, 2, 1, 'MIlestone other project', NULL, '2014-02-23', NULL, NULL, 1, 2, NULL, 0, '2014-02-21 13:35:32', NULL),
-(3, 1, 1, 'Test step 2', NULL, '2014-02-23', NULL, NULL, 2, 2, NULL, 0, '2014-02-21 13:43:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -200,7 +199,8 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `nte_date` date DEFAULT NULL,
   `nte_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `nte_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`nte_id`)
+  PRIMARY KEY (`nte_id`),
+  KEY `prj_id` (`prj_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -251,15 +251,14 @@ CREATE TABLE IF NOT EXISTS `organizations` (
   `org_system` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `org_datecreated` datetime NOT NULL,
   PRIMARY KEY (`org_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=100 ;
 
 --
 -- Dumping data for table `organizations`
 --
 
 INSERT INTO `organizations` (`org_id`, `org_owner`, `org_name`, `org_description`, `org_comments`, `org_authorized`, `org_system`, `org_datecreated`) VALUES
-(1, 1, 'My company', NULL, NULL, 1, 1, '2014-02-20 22:03:04'),
-(2, 1, 'Test client', NULL, NULL, 0, 0, '2014-02-21 05:25:38');
+(1, 1, 'My company', NULL, NULL, 1, 1, '2014-02-20 22:03:04');
 
 -- --------------------------------------------------------
 
@@ -416,7 +415,9 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `pst_description` text NOT NULL,
   `pst_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `pst_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`pst_id`)
+  PRIMARY KEY (`pst_id`),
+  KEY `tcs_id` (`tcs_id`),
+  KEY `mbr_id` (`mbr_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -445,17 +446,14 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `prj_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `prj_datecreated` datetime NOT NULL,
   `prj_datemodified` datetime DEFAULT NULL,
-  PRIMARY KEY (`prj_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  PRIMARY KEY (`prj_id`),
+  KEY `org_id` (`org_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`prj_id`, `org_id`, `prj_owner`, `prj_name`, `prj_description`, `prj_date_start`, `prj_date_due`, `prj_date_complete`, `prj_status`, `prj_priority`, `prj_comments`, `prj_published`, `prj_datecreated`, `prj_datemodified`) VALUES
-(1, 2, 1, 'Test', NULL, '2014-02-22', '2014-02-27', '2014-02-28', 1, 1, NULL, 1, '2014-02-21 04:34:49', '2014-02-21 14:24:27'),
-(2, 1, 1, 'Test 2', NULL, '2014-02-20', NULL, NULL, 1, 3, NULL, 0, '2014-02-21 08:57:46', '2014-02-21 13:59:27'),
-(3, 1, 1, 'Urgent project', NULL, '2014-02-20', NULL, NULL, 2, 4, NULL, 0, '2014-02-21 14:03:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -470,16 +468,15 @@ CREATE TABLE IF NOT EXISTS `projects_members` (
   `prj_mbr_authorized` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `prj_mbr_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `prj_mbr_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`prj_mbr_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  PRIMARY KEY (`prj_mbr_id`),
+  KEY `prj_id` (`prj_id`),
+  KEY `mbr_id` (`mbr_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `projects_members`
 --
 
-INSERT INTO `projects_members` (`prj_mbr_id`, `prj_id`, `mbr_id`, `prj_mbr_authorized`, `prj_mbr_published`, `prj_mbr_datecreated`) VALUES
-(2, 1, 1, 0, 0, '2014-02-21 08:39:20'),
-(3, 2, 1, 1, 1, '2014-02-21 08:59:00');
 
 -- --------------------------------------------------------
 
@@ -537,17 +534,19 @@ CREATE TABLE IF NOT EXISTS `roles_permissions` (
   `rol_id` int(10) unsigned NOT NULL,
   `per_id` int(10) unsigned NOT NULL,
   `rol_per_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`rol_per_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=125 ;
+  PRIMARY KEY (`rol_per_id`),
+  KEY `rol_id` (`rol_id`),
+  KEY `per_id` (`per_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=128 ;
 
 --
 -- Dumping data for table `roles_permissions`
 --
 
 INSERT INTO `roles_permissions` (`rol_per_id`, `rol_id`, `per_id`, `rol_per_datecreated`) VALUES
-(1, 1, 2, '2014-02-21 15:12:22'),
+(127, 1, 1, '2014-02-21 16:26:09'),
 (2, 1, 8, '2014-02-21 15:12:22'),
-(3, 1, 1, '2014-02-21 15:12:22'),
+(126, 1, 2, '2014-02-21 16:26:09'),
 (4, 1, 3, '2014-02-21 15:12:22'),
 (5, 1, 4, '2014-02-21 15:12:22'),
 (6, 1, 6, '2014-02-21 15:12:22'),
@@ -694,22 +693,16 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `tsk_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `tsk_datecreated` datetime NOT NULL,
   `tsk_datemodified` datetime DEFAULT NULL,
-  PRIMARY KEY (`tsk_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  PRIMARY KEY (`tsk_id`),
+  KEY `prj_id` (`prj_id`),
+  KEY `trk_id` (`trk_id`),
+  KEY `mln_id` (`mln_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`tsk_id`, `prj_id`, `trk_id`, `mln_id`, `tsk_owner`, `tsk_assigned`, `tsk_name`, `tsk_description`, `tsk_date_start`, `tsk_date_due`, `tsk_date_complete`, `tsk_status`, `tsk_priority`, `tsk_parent`, `tsk_completion`, `tsk_comments`, `tsk_published`, `tsk_datecreated`, `tsk_datemodified`) VALUES
-(1, 1, 1, 1, 1, 1, 'Test', NULL, NULL, NULL, NULL, 1, 1, NULL, 90, NULL, 0, '2014-02-21 09:22:25', '2014-02-21 13:33:50'),
-(2, 1, 1, 3, 1, NULL, 'Test name', 'Description', '2014-02-20', NULL, NULL, 1, 5, 1, 20, NULL, 0, '2014-02-21 09:33:07', '2014-02-21 14:28:23'),
-(3, 1, 2, NULL, 1, 1, 'Test name', NULL, NULL, NULL, NULL, 1, 3, NULL, 10, NULL, 0, '2014-02-21 09:38:16', '2014-02-21 14:00:30'),
-(4, 2, 1, NULL, 1, NULL, 'Test', NULL, NULL, NULL, NULL, 1, 2, NULL, 10, NULL, 0, '2014-02-21 09:59:25', NULL),
-(5, 2, 1, NULL, 1, NULL, 'Test', NULL, NULL, NULL, NULL, 1, 2, NULL, 60, NULL, 0, '2014-02-21 12:19:32', NULL),
-(6, 1, 1, 1, 1, 5, 'tsk_name', 'tsk_description', '0000-00-00', '0000-00-00', '0000-00-00', 1, 4, 1, 50, 'tsk_comments', 1, '2014-02-21 14:00:47', '2014-02-21 14:11:01'),
-(7, 1, 1, 1, 1, 5, 'tsk_name', 'tsk_description', '0000-00-00', '0000-00-00', '0000-00-00', 1, 5, 1, 20, 'tsk_comments', 1, '2014-02-21 14:01:03', NULL),
-(8, 2, 1, 2, 1, NULL, 'task other project', NULL, '2014-02-21', NULL, NULL, 2, 3, NULL, 60, NULL, 0, '2014-02-21 14:12:53', '2014-02-21 14:13:05');
 
 -- --------------------------------------------------------
 
@@ -820,7 +813,7 @@ CREATE TABLE IF NOT EXISTS `_connections` (
   PRIMARY KEY (`cnt_id`),
   UNIQUE KEY `token_connection` (`token_connection`),
   KEY `mbr_id` (`mbr_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
