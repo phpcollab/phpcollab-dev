@@ -161,4 +161,121 @@ class Organizations extends CI_Controller {
 			$this->index();
 		}
 	}
+	public function statistics($org_id) {
+		$data = array();
+		$data['row'] = $this->organizations_model->get_row($org_id);
+		if($data['row']) {
+			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
+			$data['tasks'] = '';
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT trk.trk_name AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = ?) GROUP BY ref ORDER BY nb DESC', array($org_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = $row->ref;
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tracker'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT prj.prj_name AS ref, prj.prj_id AS id, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = ?) GROUP BY ref ORDER BY nb DESC', array($org_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = '<a href="'.$this->my_url.'projects/statistics/'.$row->id.'">'.$row->ref.'</a>';
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('project'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT mbr.mbr_name AS ref, mbr.mbr_id AS id, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = ?) GROUP BY ref ORDER BY nb DESC', array($org_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = $row->ref;
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_owner'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT mbr.mbr_name AS ref, mbr.mbr_id AS id, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_assigned WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = ?) GROUP BY ref ORDER BY nb DESC', array($org_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = $row->ref;
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_assigned'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT SUBSTRING(tsk.tsk_date_start, 1, 7) AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = ?) GROUP BY ref ORDER BY ref DESC', array($org_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					if($row->ref) {
+						$legend[] = $row->ref;
+					} else {
+						$legend[] = '-';
+					}
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_date_start'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT tsk.tsk_priority AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = ?) GROUP BY ref ORDER BY ref ASC', array($org_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = '<span class="color_percent priority_'.$row->ref.'" style="width:100%;">'.$this->lang->line('priority_'.$row->ref).'</span>';
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_priority'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT tsk.tsk_completion AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = ?) GROUP BY ref ORDER BY ref ASC', array($org_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = $row->ref.'%';
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_completion'), $values, $legend);
+
+			$content = $this->load->view('organizations/organizations_statistics', $data, TRUE);
+			$this->my_library->set_zone('content', $content);
+		} else {
+			redirect($this->my_url);
+		}
+	}
 }

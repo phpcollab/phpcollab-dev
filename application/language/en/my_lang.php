@@ -19,6 +19,7 @@ $lang['org_system'] = 'org_system';
 $lang['org_datecreated'] = 'org_datecreated';
 
 $lang['projects'] = 'Projects';
+$lang['project'] = 'Project';
 $lang['prj_id'] = 'prj_id';
 $lang['org_id'] = 'org_id';
 $lang['org_name'] = 'org_name';
