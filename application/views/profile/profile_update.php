@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>profile"><i class="fa fa-user"></i><?php echo $this->lang->line('profile'); ?></a> / <i class="fa fa-wrench"></i><?php echo $this->phpcollab_member->mbr_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>profile"><i class="fa fa-user"></i><?php echo $this->phpcollab_member->mbr_name; ?></a></h2>
 	<ul>
 	</ul>
 </article>
@@ -20,6 +20,10 @@
 		<p>
 		<?php echo form_label($this->lang->line('mbr_email').' *', 'mbr_email'); ?>
 		<?php echo form_input('mbr_email', set_value('mbr_email', $this->phpcollab_member->mbr_email), 'maxlength="255" id="mbr_email" class="inputtext valid_email required"'); ?>
+		</p>
+		<p>
+		<?php echo form_label($this->lang->line('mbr_email_confirm').' *', 'mbr_email_confirm'); ?>
+		<?php echo form_input('mbr_email_confirm', set_value('mbr_email_confirm', $this->phpcollab_member->mbr_email), 'maxlength="255" id="mbr_email_confirm" class="inputtext valid_email required"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mbr_password'), 'mbr_password'); ?>

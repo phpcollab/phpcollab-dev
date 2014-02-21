@@ -114,21 +114,25 @@ class Organizations extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
-			$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
-			if($this->form_validation->run() == FALSE) {
-				$content = $this->load->view('organizations/organizations_delete', $data, TRUE);
-				$this->my_library->set_zone('content', $content);
-			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-							unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
+			if($data['row']->org_system == 0) {
+				$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
+				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
+				if($this->form_validation->run() == FALSE) {
+					$content = $this->load->view('organizations/organizations_delete', $data, TRUE);
+					$this->my_library->set_zone('content', $content);
+				} else {
+					if(count($this->storage_fields) > 0) {
+						foreach($this->storage_fields as $field) {
+							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
+								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
+							}
 						}
 					}
+					$this->db->where('org_id', $org_id);
+					$this->db->delete('organizations');
+					$this->index();
 				}
-				$this->db->where('org_id', $org_id);
-				$this->db->delete('organizations');
+			} else {
 				$this->index();
 			}
 		} else {
