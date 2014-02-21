@@ -15,6 +15,7 @@ class organizations_model extends CI_Model {
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'org.org_name';
 		$columns[] = 'org.org_authorized';
+		$columns[] = 'count_members';
 		$columns[] = 'count_projects';
 		$col = $this->my_library->build_columns($this->router->class.'_organizations', $columns, 'org.org_name', 'ASC');
 		$results = $this->get_total($flt);
@@ -32,7 +33,7 @@ class organizations_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, org.*, (SELECT COUNT(prj.prj_id) FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id) AS count_projects FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner WHERE '.implode(' AND ', $flt).' GROUP BY org.org_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT mbr.mbr_name, org.*, (SELECT COUNT(mbr.mbr_id) FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.org_id = org.org_id) AS count_members, (SELECT COUNT(prj.prj_id) FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id) AS count_projects FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner WHERE '.implode(' AND ', $flt).' GROUP BY org.org_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($org_id) {

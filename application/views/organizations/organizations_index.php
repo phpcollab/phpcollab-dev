@@ -33,6 +33,7 @@
 			<?php $this->my_library->display_column($this->router->class.'_organizations', $columns[$i++], $this->lang->line('org_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_organizations', $columns[$i++], $this->lang->line('org_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_organizations', $columns[$i++], $this->lang->line('org_authorized')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_organizations', $columns[$i++], $this->lang->line('members')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_organizations', $columns[$i++], $this->lang->line('projects')); ?>
 			<th>&nbsp;</th>
 		</tr>
@@ -44,6 +45,7 @@
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><?php echo $row->org_name; ?></a></td>
 			<td><?php echo $this->lang->line('reply_'.$row->org_authorized); ?></td>
+			<td><?php echo $row->count_members; ?></td>
 			<td><?php echo $row->count_projects; ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>organizations/update/<?php echo $row->org_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
