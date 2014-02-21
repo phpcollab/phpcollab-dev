@@ -4,17 +4,21 @@ class members_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
 	}
-	function get_index_list() {
+	function get_index_list($add_filters = array()) {
 		$filters = array();
-		$filters[$this->router->class.'_members_org_id'] = array('mbr.org_id', 'like');
+		if($this->router->class != 'organizations') {
+			$filters[$this->router->class.'_members_org_id'] = array('mbr.org_id', 'like');
+		}
 		$filters[$this->router->class.'_members_mbr_name'] = array('mbr.mbr_name', 'like');
 		$filters[$this->router->class.'_members_mbr_email'] = array('mbr.mbr_email', 'like');
 		$filters[$this->router->class.'_members_mbr_authorized'] = array('mbr.mbr_authorized', 'like');
 		$flt = $this->my_library->build_filters($filters);
+		$flt = array_merge($add_filters, $flt);
 		$columns = array();
 		$columns[] = 'mbr.mbr_id';
-		$columns[] = 'mbr.org_id';
-		$columns[] = 'org.org_name';
+		if($this->router->class != 'organizations') {
+			$columns[] = 'org.org_name';
+		}
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'mbr.mbr_email';
 		$columns[] = 'mbr.mbr_authorized';

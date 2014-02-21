@@ -11,7 +11,9 @@ class projects_model extends CI_Model {
 		$flt = array_merge($add_filters, $flt);
 		$columns = array();
 		$columns[] = 'prj.prj_id';
-		$columns[] = 'org.org_name';
+		if($this->router->class != 'organizations') {
+			$columns[] = 'org.org_name';
+		}
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'prj.prj_name';
 		$columns[] = 'prj.prj_date_start';

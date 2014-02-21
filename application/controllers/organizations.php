@@ -4,6 +4,7 @@ class Organizations extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('organizations_model');
+		$this->load->model('members_model');
 		$this->load->model('projects_model');
 
 		$this->storage_table = 'organizations';
@@ -58,6 +59,7 @@ class Organizations extends CI_Controller {
 		if($data['row']) {
 			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
 			$content = $this->load->view('organizations/organizations_read', $data, TRUE);
+			$content .= $this->members_model->get_index_list(array('mbr.org_id = \''.$org_id.'\''));
 			$content .= $this->projects_model->get_index_list(array('prj.org_id = \''.$org_id.'\''));
 			$this->my_library->set_zone('content', $content);
 		} else {

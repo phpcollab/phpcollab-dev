@@ -9,7 +9,7 @@
 	<div class="column1">
 		<p>
 		<?php echo form_label($this->lang->line('trk_owner').' *', 'trk_owner'); ?>
-		<?php echo form_dropdown('trk_owner', $dropdown_trk_owner, set_value('trk_owner', ''), 'id="trk_owner" class="select required numeric"'); ?>
+		<?php echo form_dropdown('trk_owner', $dropdown_trk_owner, set_value('trk_owner', $this->phpcollab_member->mbr_id), 'id="trk_owner" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('trk_name').' *', 'trk_name'); ?>

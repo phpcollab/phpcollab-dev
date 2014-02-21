@@ -17,7 +17,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_owner').' *', 'tsk_owner'); ?>
-		<?php echo form_dropdown('tsk_owner', $dropdown_tsk_owner, set_value('tsk_owner', ''), 'id="tsk_owner" class="select required numeric"'); ?>
+		<?php echo form_dropdown('tsk_owner', $dropdown_tsk_owner, set_value('tsk_owner', $this->phpcollab_member->mbr_id), 'id="tsk_owner" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_assigned'), 'tsk_assigned'); ?>

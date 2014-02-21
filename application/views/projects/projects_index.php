@@ -26,7 +26,9 @@
 		<tr>
 		<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_id')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('org_id')); ?>
+			<?php if($this->router->class != 'organizations') { ?>
+				<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('org_id')); ?>
+			<?php } ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_date_start')); ?>
@@ -41,7 +43,9 @@
 		<?php foreach($rows as $row) { ?>
 		<tr>
 			<td><?php echo $row->prj_id; ?></td>
-			<td><?php echo $row->org_name; ?></td>
+			<?php if($this->router->class != 'organizations') { ?>
+				<td><?php echo $row->org_name; ?></td>
+			<?php } ?>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>projects/read/<?php echo $row->prj_id; ?>"><?php echo $row->prj_name; ?></a></td>
 			<td><?php echo $row->prj_date_start; ?></td>

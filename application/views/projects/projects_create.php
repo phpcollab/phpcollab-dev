@@ -13,7 +13,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_owner').' *', 'prj_owner'); ?>
-		<?php echo form_dropdown('prj_owner', $dropdown_prj_owner, set_value('prj_owner', ''), 'id="prj_owner" class="select required numeric"'); ?>
+		<?php echo form_dropdown('prj_owner', $dropdown_prj_owner, set_value('prj_owner', $this->phpcollab_member->mbr_id), 'id="prj_owner" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_name').' *', 'prj_name'); ?>
