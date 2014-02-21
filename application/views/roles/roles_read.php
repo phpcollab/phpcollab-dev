@@ -25,3 +25,21 @@
 		</p>
 	</div>
 </article>
+<article class="title">
+	<h2><?php echo $this->lang->line('permissions'); ?></h2>
+</article>
+<article>
+	<div class="column2">
+		<?php $u = 1; ?>
+		<?php foreach($permissions as $per) { ?>
+			<p<?php if($per->per_saved == 0) { ?> style="font-style:italic;text-decoration:line-through;"<?php } ?>><?php echo $per->per_code; ?></p>
+			<?php if($permissions_limit == $u) { ?>
+				</div>
+				<div class="column2">
+				<?php $u = 1; ?>
+			<?php } else { ?>
+				<?php $u++; ?>
+			<?php } ?>
+		<?php } ?>
+	</div>
+</article>

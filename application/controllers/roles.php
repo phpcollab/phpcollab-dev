@@ -58,6 +58,11 @@ class roles extends CI_Controller {
 		$data['row'] = $this->roles_model->get_row($rol_id);
 		if($data['row']) {
 			$this->my_library->set_title($this->lang->line('roles').' / '.$data['row']->rol_code);
+
+			$query = $this->db->query('SELECT per.*, IF(rol_per.rol_per_id IS NOT NULL, 1, 0) AS per_saved FROM '.$this->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id AND rol_per.rol_id = ? GROUP BY per.per_id ORDER BY per.per_code ASC', array($rol_id));
+			$data['permissions'] = $query->result();
+			$data['permissions_limit'] = ceil(count($data['permissions'])/3);
+
 			$content = $this->load->view('roles/roles_read', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
