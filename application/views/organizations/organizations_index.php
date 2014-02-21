@@ -17,7 +17,7 @@
 		</div>
 		<div>
 			<?php echo form_label($this->lang->line('org_authorized'), 'organizations_org_authorized'); ?>
-			<?php echo form_dropdown($this->router->class.'_organizations_org_authorized', $dropdown_reply, set_value($this->router->class.'_organizations_org_authorized', $this->session->userdata($this->router->class.'_organizations_org_authorized')), 'id="organizations_org_authorized" class="select"'); ?>
+			<?php echo form_dropdown($this->router->class.'_organizations_org_authorized', $this->my_model->dropdown_reply(), set_value($this->router->class.'_organizations_org_authorized', $this->session->userdata($this->router->class.'_organizations_org_authorized')), 'id="organizations_org_authorized" class="select"'); ?>
 		</div>
 		<div>
 			<?php echo form_label($this->lang->line('org_datecreated'), 'organizations_org_datecreated'); ?>

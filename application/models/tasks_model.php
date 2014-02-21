@@ -6,9 +6,9 @@ class tasks_model extends CI_Model {
 	}
 	function get_index_list($prj, $mln = false) {
 		$filters = array();
-		$filters[$this->router->class.'_tasks_trk_id'] = array('tsk.trk_id', 'like');
+		$filters[$this->router->class.'_tasks_trk_id'] = array('tsk.trk_id', 'equal');
 		if($this->router->class != 'milestones') {
-			$filters[$this->router->class.'_tasks_mln_id'] = array('tsk.mln_id', 'like');
+			$filters[$this->router->class.'_tasks_mln_id'] = array('tsk.mln_id', 'equal');
 		}
 		$filters[$this->router->class.'_tasks_tsk_assigned'] = array('tsk.tsk_assigned', 'like');
 		$flt = $this->my_library->build_filters($filters);
@@ -42,8 +42,7 @@ class tasks_model extends CI_Model {
 		$data['dropdown_mln_id'] = $this->dropdown_mln_id($prj->prj_id);
 		$data['dropdown_tsk_owner'] = $this->dropdown_tsk_owner();
 		$data['dropdown_tsk_assigned'] = $this->dropdown_tsk_assigned();
-		$data['dropdown_tsk_parent'] = $this->dropdown_tsk_parent();
-		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
+		$data['dropdown_tsk_parent'] = $this->dropdown_tsk_parent($prj->prj_id);
 		return $content = $this->load->view('tasks/tasks_index', $data, TRUE);
 	}
 	function get_total($flt) {
@@ -113,10 +112,10 @@ class tasks_model extends CI_Model {
 		}
 		return $select;
 	}
-	function dropdown_tsk_parent() {
+	function dropdown_tsk_parent($prj_id) {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT tsk_parent.tsk_id AS field_key, tsk_parent.tsk_name AS field_label FROM '.$this->db->dbprefix('tasks').' AS tsk_parent GROUP BY tsk_parent.tsk_id ORDER BY tsk_parent.tsk_name ASC');
+		$query = $this->db->query('SELECT tsk_parent.tsk_id AS field_key, tsk_parent.tsk_name AS field_label FROM '.$this->db->dbprefix('tasks').' AS tsk_parent WHERE tsk_parent.prj_id = ? GROUP BY tsk_parent.tsk_id ORDER BY tsk_parent.tsk_name ASC', array($prj_id));
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
 				$select[$row->field_key] = $row->field_label;

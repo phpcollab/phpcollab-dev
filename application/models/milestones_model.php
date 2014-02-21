@@ -27,7 +27,6 @@ class milestones_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_milestones');
 		$data['dropdown_mln_owner'] = $this->dropdown_mln_owner();
-		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
 		return $content = $this->load->view('milestones/milestones_index', $data, TRUE);
 	}
 	function get_total($flt) {

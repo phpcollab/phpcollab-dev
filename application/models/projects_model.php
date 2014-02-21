@@ -31,7 +31,6 @@ class projects_model extends CI_Model {
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_projects');
 		$data['dropdown_org_id'] = $this->dropdown_org_id();
 		$data['dropdown_prj_owner'] = $this->dropdown_prj_owner();
-		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
 		return $content = $this->load->view('projects/projects_index', $data, TRUE);
 	}
 	function get_total($flt) {

@@ -99,13 +99,18 @@ thead tr th.sort_desc span, thead tr th.sort_desc a:link, thead tr th.sort_desc 
 tbody th{padding-right:0px;white-space:nowrap;}
 tbody th a:link, tbody th a:visited{margin-right:3px;}
 tbody tr:nth-child(even) th, tbody tr:nth-child(even) td{background-color:#E7E7E7;}
-table tbody tr:hover th, table tbody tr:hover td{background-color:#AEB2B7;}
+/*table tbody tr:hover th, table tbody tr:hover td{background-color:#AEB2B7;}*/
 
 .data_table{float:left;margin:0px 10px 10px 0px;}
 .data_table td.result{text-align:center;}
 .data_table tr:nth-child(even) td{background-color:transparent;}
 .data_table tr:hover td{background-color:transparent;}
 .color_percent{background-color:#AEB2B7;color:#252732;display:inline-block;font-size:10px;margin-right:5px;width:20px;}
+.priority_5{background-color:#FF0000;}
+.priority_4{background-color:#FF6666;}
+.priority_3{background-color:#FFCCCC;}
+.priority_2{background-color:#FFFFFF;}
+.priority_1{background-color:#FFFFFF;}
 
 .column1, .column2{float:left;margin-bottom:5px;padding-bottom:5px;position:relative;}
 .column1{width:49%;}

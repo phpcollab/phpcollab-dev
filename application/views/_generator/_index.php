@@ -15,7 +15,7 @@
 		<?php foreach($filters as $v) { ?><div>
 			&lt;?php echo form_label($this->lang->line('<?php echo $v; ?>'), '<?php echo $table; ?>_<?php echo $v; ?>'); ?&gt;
 <?php if($fields[$v]['type'] == 'checkbox' && in_array($v, $boolean)) { ?>
-			&lt;?php echo form_dropdown($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>', $dropdown_reply, set_value($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>', $this->session->userdata($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>')), 'id="<?php echo $table; ?>_<?php echo $v; ?>" class="select"'); ?&gt;
+			&lt;?php echo form_dropdown($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>', $this->my_model->dropdown_reply(), set_value($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>', $this->session->userdata($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>')), 'id="<?php echo $table; ?>_<?php echo $v; ?>" class="select"'); ?&gt;
 <?php } else if($fields[$v]['type'] == 'dropdown') { ?>
 			&lt;?php echo form_<?php echo $fields[$v]['type']; ?>($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>', $dropdown_<?php echo $v; ?>, set_value($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>', $this->session->userdata($this->router->class.'_<?php echo $table; ?>_<?php echo $v; ?>')), 'id="<?php echo $table; ?>_<?php echo $v; ?>" class="select"'); ?&gt;
 <?php } else { ?>

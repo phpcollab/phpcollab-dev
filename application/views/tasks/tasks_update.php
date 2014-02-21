@@ -53,7 +53,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_priority').' *', 'tsk_priority'); ?>
-		<?php echo form_input('tsk_priority', set_value('tsk_priority', $row->tsk_priority), 'id="tsk_priority" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('tsk_priority', $this->my_model->dropdown_priority(), set_value('tsk_priority', $row->tsk_priority), 'id="tsk_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_parent'), 'tsk_parent'); ?>
@@ -61,7 +61,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_completion').' *', 'tsk_completion'); ?>
-		<?php echo form_input('tsk_completion', set_value('tsk_completion', $row->tsk_completion), 'id="tsk_completion" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('tsk_completion', $this->my_model->dropdown_completion(), set_value('tsk_completion', $row->tsk_completion), 'id="tsk_completion" class="select numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_comments'), 'tsk_comments'); ?>

@@ -26,7 +26,6 @@ class organizations_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_organizations');
 		$data['dropdown_org_owner'] = $this->dropdown_org_owner();
-		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
 		return $content = $this->load->view('organizations/organizations_index', $data, TRUE);
 	}
 	function get_total($flt) {

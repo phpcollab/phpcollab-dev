@@ -35,8 +35,6 @@ class <?php echo $table; ?>_model extends CI_Model {
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_<?php echo $table; ?>');
 <?php foreach($select as $v) { ?>		$data['dropdown_<?php echo $v; ?>'] = $this->dropdown_<?php echo $v; ?>();
 <?php } ?>
-<?php if(count($boolean) > 0) { ?>		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
-<?php } ?>
 		return $content = $this->load->view('<?php echo $table; ?>/<?php echo $table; ?>_index', $data, TRUE);
 	}
 	function get_total($flt) {

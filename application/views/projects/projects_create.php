@@ -25,7 +25,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_date_start').' *', 'prj_date_start'); ?>
-		<?php echo form_input('prj_date_start', set_value('prj_date_start', ''), 'id="prj_date_start" class="inputtext required date"'); ?>
+		<?php echo form_input('prj_date_start', set_value('prj_date_start', date('Y-m-d')), 'id="prj_date_start" class="inputtext required date"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_date_due'), 'prj_date_due'); ?>
@@ -43,7 +43,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_priority').' *', 'prj_priority'); ?>
-		<?php echo form_input('prj_priority', set_value('prj_priority', ''), 'id="prj_priority" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('prj_priority', $this->my_model->dropdown_priority(), set_value('prj_priority', 2), 'id="prj_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_comments'), 'prj_comments'); ?>

@@ -33,7 +33,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_date_start'), 'tsk_date_start'); ?>
-		<?php echo form_input('tsk_date_start', set_value('tsk_date_start', ''), 'id="tsk_date_start" class="inputtext date"'); ?>
+		<?php echo form_input('tsk_date_start', set_value('tsk_date_start', date('Y-m-d')), 'id="tsk_date_start" class="inputtext date"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_date_due'), 'tsk_date_due'); ?>
@@ -51,7 +51,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_priority').' *', 'tsk_priority'); ?>
-		<?php echo form_input('tsk_priority', set_value('tsk_priority', ''), 'id="tsk_priority" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('tsk_priority', $this->my_model->dropdown_priority(), set_value('tsk_priority', 2), 'id="tsk_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_parent'), 'tsk_parent'); ?>
@@ -59,7 +59,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_completion').' *', 'tsk_completion'); ?>
-		<?php echo form_input('tsk_completion', set_value('tsk_completion', ''), 'id="tsk_completion" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('tsk_completion', $this->my_model->dropdown_completion(), set_value('tsk_completion', ''), 'id="tsk_completion" class="select numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_comments'), 'tsk_comments'); ?>

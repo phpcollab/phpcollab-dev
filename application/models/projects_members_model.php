@@ -6,7 +6,7 @@ class projects_members_model extends CI_Model {
 	}
 	function get_index_list($prj) {
 		$filters = array();
-		$filters[$this->router->class.'_projects_members_mbr_id'] = array('prj_mbr.mbr_id', 'like');
+		$filters[$this->router->class.'_projects_members_mbr_id'] = array('prj_mbr.mbr_id', 'equal');
 		$flt = $this->my_library->build_filters($filters);
 		$flt[] = 'prj_mbr.prj_id = \''.$prj->prj_id.'\'';
 		$columns = array();
@@ -26,7 +26,6 @@ class projects_members_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_projects_members');
 		$data['dropdown_mbr_id'] = $this->dropdown_mbr_id();
-		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
 		return $content = $this->load->view('projects_members/projects_members_index', $data, TRUE);
 	}
 	function get_total($flt) {

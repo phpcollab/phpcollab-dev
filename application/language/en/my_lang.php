@@ -1,4 +1,10 @@
 <?php
+$lang['priority_1'] = 'Low';
+$lang['priority_2'] = 'Normal';
+$lang['priority_3'] = 'High';
+$lang['priority_4'] = 'Urgent';
+$lang['priority_5'] = 'Immediate';
+
 $lang['organizations'] = 'Organizations';
 $lang['org_id'] = 'org_id';
 $lang['org_owner'] = 'org_owner';

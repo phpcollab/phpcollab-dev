@@ -20,7 +20,6 @@ class roles_model extends CI_Model {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_roles');
-		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
 		return $content = $this->load->view('roles/roles_index', $data, TRUE);
 	}
 	function get_total($flt) {

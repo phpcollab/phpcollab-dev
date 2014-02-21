@@ -577,12 +577,11 @@ CREATE TABLE IF NOT EXISTS `_languages` (
   `lng_datecreated` datetime NOT NULL,
   PRIMARY KEY (`lng_id`),
   UNIQUE KEY `lng_code` (`lng_code`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000001 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `_languages`
 --
 
 INSERT INTO `_languages` (`lng_id`, `lng_code`, `lng_name`, `lng_default`, `lng_datecreated`) VALUES
-(1, 'en', 'English', 1, '2014-02-08 07:33:59'),
-(2, 'fr', 'Français', 0, '2014-02-08 07:33:59');
+(1, 'en', 'English', 1, '2014-02-08 07:33:59');

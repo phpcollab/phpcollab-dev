@@ -21,7 +21,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_date_start').' *', 'mln_date_start'); ?>
-		<?php echo form_input('mln_date_start', set_value('mln_date_start', ''), 'id="mln_date_start" class="inputtext required date"'); ?>
+		<?php echo form_input('mln_date_start', set_value('mln_date_start', date('Y-m-d')), 'id="mln_date_start" class="inputtext required date"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_date_due'), 'mln_date_due'); ?>
@@ -39,7 +39,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_priority').' *', 'mln_priority'); ?>
-		<?php echo form_input('mln_priority', set_value('mln_priority', ''), 'id="mln_priority" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('mln_priority', $this->my_model->dropdown_priority(), set_value('mln_priority', 2), 'id="mln_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_comments'), 'mln_comments'); ?>

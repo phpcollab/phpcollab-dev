@@ -45,7 +45,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_priority').' *', 'prj_priority'); ?>
-		<?php echo form_input('prj_priority', set_value('prj_priority', $row->prj_priority), 'id="prj_priority" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('prj_priority', $this->my_model->dropdown_priority(), set_value('prj_priority', $row->prj_priority), 'id="prj_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('prj_comments'), 'prj_comments'); ?>

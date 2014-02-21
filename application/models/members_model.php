@@ -7,7 +7,7 @@ class members_model extends CI_Model {
 	function get_index_list($add_filters = array()) {
 		$filters = array();
 		if($this->router->class != 'organizations') {
-			$filters[$this->router->class.'_members_org_id'] = array('mbr.org_id', 'like');
+			$filters[$this->router->class.'_members_org_id'] = array('mbr.org_id', 'equal');
 		}
 		$filters[$this->router->class.'_members_mbr_name'] = array('mbr.mbr_name', 'like');
 		$filters[$this->router->class.'_members_mbr_email'] = array('mbr.mbr_email', 'like');
@@ -32,7 +32,6 @@ class members_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_members');
 		$data['dropdown_org_id'] = $this->dropdown_org_id();
-		$data['dropdown_reply'] = $this->my_model->dropdown_reply();
 		return $content = $this->load->view('members/members_index', $data, TRUE);
 	}
 	function get_total($flt) {

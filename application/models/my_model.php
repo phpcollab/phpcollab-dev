@@ -15,6 +15,23 @@ class My_model extends CI_Model {
 		}
 		return array('languages' => $languages, 'language_default' => $language_default);
 	}
+	function dropdown_priority() {
+		$select = array();
+		$select[''] = '-';
+		$select[1] = $this->lang->line('priority_1');
+		$select[2] = $this->lang->line('priority_2');
+		$select[3] = $this->lang->line('priority_3');
+		$select[4] = $this->lang->line('priority_4');
+		$select[5] = $this->lang->line('priority_5');
+		return $select;
+	}
+	function dropdown_completion() {
+		$dropdown_completion = array();
+		for($i=0;$i<=100;$i=$i+10) {
+			$dropdown_completion[$i] = $i;
+		}
+		return $dropdown_completion;
+	}
 	function dropdown_reply() {
 		$select = array();
 		$select[''] = '-';

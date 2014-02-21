@@ -47,7 +47,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_priority'); ?></span>
-		<?php if($row->prj_priority) { ?><?php echo $row->prj_priority; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_priority) { ?><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->prj_priority); ?></span><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_completion'); ?></span>

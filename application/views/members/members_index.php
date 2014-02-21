@@ -27,7 +27,7 @@
 		</div>
 		<div>
 			<?php echo form_label($this->lang->line('mbr_authorized'), 'members_mbr_authorized'); ?>
-			<?php echo form_dropdown($this->router->class.'_members_mbr_authorized', $dropdown_reply, set_value($this->router->class.'_members_mbr_authorized', $this->session->userdata($this->router->class.'_members_mbr_authorized')), 'id="members_mbr_authorized" class="select"'); ?>
+			<?php echo form_dropdown($this->router->class.'_members_mbr_authorized', $this->my_model->dropdown_reply(), set_value($this->router->class.'_members_mbr_authorized', $this->session->userdata($this->router->class.'_members_mbr_authorized')), 'id="members_mbr_authorized" class="select"'); ?>
 		</div>
 		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>

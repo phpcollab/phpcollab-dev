@@ -55,15 +55,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_priority'); ?></span>
-		<?php if($row->tsk_priority) { ?><?php echo $row->tsk_priority; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_priority) { ?><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->tsk_priority); ?></span><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_parent'); ?></span>
-		<?php if($row->tsk_parent) { ?><?php echo $row->tsk_parent; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('tsk_name'); ?></span>
-		<?php if($row->tsk_name) { ?><?php echo $row->tsk_name; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_name) { ?><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_parent; ?>"><?php echo $row->tsk_name; ?></a><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_completion'); ?></span>

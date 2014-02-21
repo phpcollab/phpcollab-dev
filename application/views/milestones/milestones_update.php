@@ -41,7 +41,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_priority').' *', 'mln_priority'); ?>
-		<?php echo form_input('mln_priority', set_value('mln_priority', $row->mln_priority), 'id="mln_priority" class="inputtext required numeric"'); ?>
+		<?php echo form_dropdown('mln_priority', $this->my_model->dropdown_priority(), set_value('mln_priority', $row->mln_priority), 'id="mln_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_comments'), 'mln_comments'); ?>
