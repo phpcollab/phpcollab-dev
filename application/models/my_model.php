@@ -60,22 +60,44 @@ class My_model extends CI_Model {
 			$new = $row->log_dls_new;
 
 			if(strstr($field, 'priority')) {
-				$old = '<span class="color_percent priority_'.$old.'" style="width:100%;">'.$this->priority($old).'</span>';
-				$new = '<span class="color_percent priority_'.$new.'" style="width:100%;">'.$this->priority($new).'</span>';
+				if($old != '') {
+					$old = '<span class="color_percent priority_'.$old.'" style="text-decoration:line-through;width:100%;">'.$this->priority($old).'</span>';
+				}
+				if($new != '') {
+					$new = '<span class="color_percent priority_'.$new.'" style="text-decoration:line-through;width:100%;">'.$this->priority($new).'</span>';
+				}
 
 			} else if(strstr($field, 'status')) {
-				$old = $this->status($old);
-				$new = $this->status($new);
+				if($old != '') {
+					$old = $this->status($old);
+				}
+				if($new != '') {
+					$new = $this->status($new);
+				}
 
 			} else if(strstr($field, 'published')) {
-				$old = $this->lang->line('reply_'.$old);
-				$new = $this->lang->line('reply_'.$new);
+				if($old != '') {
+					$old = $this->lang->line('reply_'.$old);
+				}
+				if($new != '') {
+					$new = $this->lang->line('reply_'.$new);
+				}
 
 			} else if(strstr($field, 'completion')) {
-				$old = '<span class="color_percent" style="width:'.intval($old).'%;">'.intval($old).'%</span>';
-				$new = '<span class="color_percent" style="width:'.intval($new).'%;">'.intval($new).'%</span>';
+				if($old != '') {
+					$old = '<span class="color_percent" style="text-decoration:line-through;width:'.intval($old).'%;">'.intval($old).'%</span>';
+				}
+				if($new != '') {
+					$new = '<span class="color_percent" style="text-decoration:line-through;width:'.intval($new).'%;">'.intval($new).'%</span>';
+				}
 			}
 
+			if($old == '') {
+				$old = '-';
+			}
+			if($new == '') {
+				$new = '-';
+			}
 			$fields[$field] = array('old' => $old, 'new' => $new);
 		}
 		return $fields;
