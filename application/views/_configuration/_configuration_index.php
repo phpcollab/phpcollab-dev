@@ -38,7 +38,7 @@
 			<td><?php echo $row->cfg_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>_configuration/read/<?php echo $row->cfg_id; ?>"><?php echo $row->cfg_path; ?></a></td>
 			<td><?php echo $row->cfg_value; ?></td>
-			<td><?php echo $row->cfg_datecreated; ?></td>
+			<td><?php echo $this->my_library->timezone_datetime($row->cfg_datecreated); ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>_configuration/update/<?php echo $row->cfg_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
 			<a href="<?php echo $this->my_url; ?>_configuration/delete/<?php echo $row->cfg_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>

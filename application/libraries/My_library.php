@@ -314,4 +314,7 @@ class My_library {
 		$this->CI->pagination->initialize($config);
 		return array('output'=>$this->CI->pagination->create_links(), 'start'=>$start, 'limit'=>$config['per_page'], 'position'=>$position);
 	}
+	function timezone_datetime($datetime) {
+		return date('Y-m-d H:i:s', strtotime($datetime) + $this->CI->session->userdata('timezone') * 3600);
+	}
 }

@@ -37,13 +37,13 @@
 		<thead>
 		<tr>
 		<?php $i = 0; ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_id')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('organization')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('member')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_authorized')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_published')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('roles')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_datecreated')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('prj_mbr_id')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('organization')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('member')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('prj_mbr_authorized')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('prj_mbr_published')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('roles')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('prj_mbr_datecreated')); ?>
 			<th>&nbsp;</th>
 		</tr>
 		</thead>
@@ -56,7 +56,7 @@
 			<td><?php echo $this->lang->line('reply_'.$row->prj_mbr_authorized); ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->prj_mbr_published); ?></td>
 			<td><?php echo $row->roles; ?></td>
-			<td><?php echo $row->prj_mbr_datecreated; ?></td>
+			<td><?php echo $this->my_library->timezone_datetime($row->prj_mbr_datecreated); ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>projects_members/update/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
 			<a href="<?php echo $this->my_url; ?>projects_members/delete/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>

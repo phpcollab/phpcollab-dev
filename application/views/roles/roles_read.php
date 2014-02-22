@@ -21,7 +21,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('rol_datecreated'); ?></span>
-		<?php if($row->rol_datecreated) { ?><?php echo $row->rol_datecreated; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->rol_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->rol_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

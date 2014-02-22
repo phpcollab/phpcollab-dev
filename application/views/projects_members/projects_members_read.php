@@ -29,7 +29,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_mbr_datecreated'); ?></span>
-		<?php if($row->prj_mbr_datecreated) { ?><?php echo $row->prj_mbr_datecreated; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_mbr_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->prj_mbr_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

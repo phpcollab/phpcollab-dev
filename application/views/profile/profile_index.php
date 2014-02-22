@@ -30,11 +30,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_datecreated'); ?></span>
-		<?php if($this->phpcollab_member->mbr_datecreated) { ?><?php echo $this->phpcollab_member->mbr_datecreated; ?><?php } else { ?>-<?php } ?>
+		<?php if($this->phpcollab_member->mbr_datecreated) { ?><?php echo $this->my_library->timezone_datetime($this->phpcollab_member->mbr_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_datemodified'); ?></span>
-		<?php if($this->phpcollab_member->mbr_datemodified) { ?><?php echo $this->phpcollab_member->mbr_datemodified; ?><?php } else { ?>-<?php } ?>
+		<?php if($this->phpcollab_member->mbr_datemodified) { ?><?php echo $this->my_library->timezone_datetime($this->phpcollab_member->mbr_datemodified); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

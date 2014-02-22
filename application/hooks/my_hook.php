@@ -49,7 +49,7 @@ class My_hook {
 				redirect($this->CI->my_url.'login?uri_string='.urlencode($this->CI->uri->uri_string()));
 			}
 		} else {
-			if($this->CI->uri->segment(2) != 'login' && $this->CI->uri->segment(2) != 'forgotpassword' && $this->CI->uri->segment(2) != 'setup') {
+			if($this->CI->uri->segment(2) != 'login' && $this->CI->uri->segment(2) != 'forgotpassword' && $this->CI->uri->segment(2) != 'timezone' && $this->CI->uri->segment(2) != 'setup') {
 				redirect($this->CI->my_url.'login?uri_string='.urlencode($this->CI->uri->uri_string()));
 			}
 		}

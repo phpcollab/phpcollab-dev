@@ -40,7 +40,7 @@
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>trackers/read/<?php echo $row->trk_id; ?>"><?php echo $row->trk_name; ?></a></td>
 			<td><?php echo $row->tsk_description; ?></td>
-			<td><?php echo $row->trk_datecreated; ?></td>
+			<td><?php echo $this->my_library->timezone_datetime($row->trk_datecreated); ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>trackers/update/<?php echo $row->trk_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
 			<a href="<?php echo $this->my_url; ?>trackers/delete/<?php echo $row->trk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>

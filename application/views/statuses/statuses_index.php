@@ -42,7 +42,7 @@
 			<td><a href="<?php echo $this->my_url; ?>statuses/read/<?php echo $row->stu_id; ?>"><?php echo $row->stu_name; ?></a></td>
 			<td><?php echo $this->lang->line('reply_'.$row->stu_isclosed); ?></td>
 			<td><?php echo $row->stu_ordering; ?></td>
-			<td><?php echo $row->stu_datecreated; ?></td>
+			<td><?php echo $this->my_library->timezone_datetime($row->stu_datecreated); ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>statuses/update/<?php echo $row->stu_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
 			<a href="<?php echo $this->my_url; ?>statuses/delete/<?php echo $row->stu_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>

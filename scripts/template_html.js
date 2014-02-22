@@ -212,6 +212,27 @@ function toggle_sidebar() {
 	set_positions();
 }
 $(document).ready(function() {
+	if(timezone == false) {
+		d = new Date();
+		params = [];
+		params.push({'name': 'timezone', 'value': -d.getTimezoneOffset() / 60});
+		params.push({'name': csrf_token_name, 'value': $.cookie(csrf_cookie_name)});
+		$.ajax({
+			async: true,
+			cache: true,
+			data: params,
+			dataType: 'json',
+			statusCode: {
+				200: function(data_return, textStatus, jqXHR) {
+				}
+			},
+			type: 'POST',
+			url: my_url + 'timezone'
+		});
+	}
+
+	$('.timeago').timeago();
+
 	$(document).find('input[data-placeholder], textarea[data-placeholder]').each(function(index) {
 		if($(this).val() == '') {
 			$(this).addClass('placeholder');

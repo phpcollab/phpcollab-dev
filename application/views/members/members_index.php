@@ -62,7 +62,7 @@
 			<td><?php echo $row->mbr_email; ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->mbr_authorized); ?></td>
 			<td><?php echo $row->roles; ?></td>
-			<td><?php echo $row->mbr_datecreated; ?></td>
+			<td><?php echo $this->my_library->timezone_datetime($row->mbr_datecreated); ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>members/update/<?php echo $row->mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
 			<?php if($row->mbr_id != $this->phpcollab_member->mbr_id) { ?><a href="<?php echo $this->my_url; ?>members/delete/<?php echo $row->mbr_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a><?php } ?>

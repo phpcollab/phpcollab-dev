@@ -71,11 +71,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_datecreated'); ?></span>
-		<?php if($row->tsk_datecreated) { ?><?php echo $row->tsk_datecreated; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->tsk_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_datemodified'); ?></span>
-		<?php if($row->tsk_datemodified) { ?><?php echo $row->tsk_datemodified; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_datemodified) { ?><?php echo $this->my_library->timezone_datetime($row->tsk_datemodified); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

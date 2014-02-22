@@ -39,11 +39,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_datecreated'); ?></span>
-		<?php if($row->mbr_datecreated) { ?><?php echo $row->mbr_datecreated; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mbr_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->mbr_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_datemodified'); ?></span>
-		<?php if($row->mbr_datemodified) { ?><?php echo $row->mbr_datemodified; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mbr_datemodified) { ?><?php echo $this->my_library->timezone_datetime($row->mbr_datemodified); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

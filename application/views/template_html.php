@@ -70,12 +70,16 @@ var ci_method = '<?php echo $this->router->method; ?>';
 var debug_enabled = <?php if($this->config->item('debug/enabled')) { ?>true<?php } else { ?>false<?php } ?>;
 var environment = '<?php echo $this->config->item('environment'); ?>';
 var language = '<?php echo $this->config->item('language'); ?>';
+var my_url = '<?php echo $this->my_url; ?>';
+var timezone = <?php if($this->session->userdata('timezone')) { ?>true<?php } else { ?>false<?php } ?>;
 var uri_string = '<?php echo $this->uri->uri_string(); ?>';
 </script>
 
 <script src="<?php echo base_url(); ?>thirdparty/jquery/jquery.min.js?modified=<?php echo filemtime('thirdparty/jquery/jquery.min.js'); ?>"></script>
 <script src="<?php echo base_url(); ?>thirdparty/jquery/jquery.ui.min.js?modified=<?php echo filemtime('thirdparty/jquery/jquery.ui.min.js'); ?>"></script>
 <script src="<?php echo base_url(); ?>thirdparty/jquery/jquery.cookie.min.js?modified=<?php echo filemtime('thirdparty/jquery/jquery.cookie.min.js'); ?>"></script>
+<script src="<?php echo base_url(); ?>thirdparty/jquery/jquery.timeago.js"></script>
+<script src="<?php echo base_url(); ?>thirdparty/jquery/jquery.timeago.<?php echo $this->config->item('language'); ?>.js"></script>
 <?php echo $this->my_library->get_foot(); ?>
 
 <?php echo $this->my_library->get_debug(); ?>

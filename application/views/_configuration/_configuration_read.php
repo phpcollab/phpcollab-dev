@@ -21,7 +21,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('cfg_datecreated'); ?></span>
-		<?php if($row->cfg_datecreated) { ?><?php echo $row->cfg_datecreated; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->cfg_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->cfg_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

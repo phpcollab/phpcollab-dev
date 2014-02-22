@@ -51,7 +51,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('fle_datecreated'); ?></span>
-		<?php if($row->fle_datecreated) { ?><?php echo $row->fle_datecreated; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->fle_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->fle_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

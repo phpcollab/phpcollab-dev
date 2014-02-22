@@ -30,11 +30,11 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mbr_password'), 'mbr_password'); ?>
-		<?php echo form_password('mbr_password', set_value('mbr_password'), 'id="mbr_password" class="inputtext"'); ?>
+		<?php echo form_password('mbr_password', set_value('mbr_password', ''), 'id="mbr_password" class="inputpassword"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mbr_password_confirm'), 'mbr_password_confirm'); ?>
-		<?php echo form_password('mbr_password_confirm', set_value('mbr_password_confirm'), 'id="mbr_password_confirm" class="inputpassword"'); ?>
+		<?php echo form_password('mbr_password_confirm', set_value('mbr_password_confirm', ''), 'id="mbr_password_confirm" class="inputpassword"'); ?>
 		</p>
 		<?php if($row->mbr_id != $this->phpcollab_member->mbr_id) { ?>
 			<p>

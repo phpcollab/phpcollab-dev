@@ -62,11 +62,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_datecreated'); ?></span>
-		<?php if($row->prj_datecreated) { ?><?php echo $row->prj_datecreated; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->prj_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_datemodified'); ?></span>
-		<?php if($row->prj_datemodified) { ?><?php echo $row->prj_datemodified; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_datemodified) { ?><?php echo $this->my_library->timezone_datetime($row->prj_datemodified); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

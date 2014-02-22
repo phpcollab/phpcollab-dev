@@ -12,7 +12,7 @@
 		<article>
 			<div class="column1">
 				<p><?php echo $row->mbr_name; ?></p>
-				<p><?php echo $row->log_datecreated; ?></p>
+				<p><?php echo $this->my_library->timezone_datetime($row->log_datecreated); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->log_datecreated); ?>"></span>)</p>
 				<p><?php echo nl2br($row->log_comments); ?></p>
 			</div>
 			<div class="column1 columnlast">
