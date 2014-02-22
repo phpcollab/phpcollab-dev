@@ -78,6 +78,7 @@ class projects extends CI_Controller {
 			$content .= $this->tasks_model->get_index_list($data['row']);
 			$content .= $this->notes_model->get_index_list($data['row']);
 			$content .= $this->files_model->get_index_list($data['row']);
+			$content .= $this->my_model->get_logs('project', $prj_id);
 			$this->my_library->set_zone('content', $content);
 		} else {
 			$this->index();
