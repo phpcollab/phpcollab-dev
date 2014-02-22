@@ -10,8 +10,8 @@ class Email_library {
 		$this->protocol = 'sendmail';
 		$this->protocols = array('mail', 'sendmail', 'smtp');
 		$this->salt_email = $this->CI->config->item('salt_email');
-		$this->sender_email = $this->CI->config->item('sender_email');
-		$this->sender_name = $this->CI->config->item('sender_name');
+		$this->sender_email = $this->CI->config->item('sender/email');
+		$this->sender_name = $this->CI->config->item('sender/name');
 		$this->smtp_host = '';
 		$this->smtp_user = '';
 		$this->smtp_pass = '';

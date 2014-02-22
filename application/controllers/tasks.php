@@ -84,13 +84,13 @@ class tasks extends CI_Controller {
 				$this->db->insert('tasks');
 				$tsk_id = $this->db->insert_id();
 
-				/*if($this->input->post('tsk_assigned') != '') {
+				if($this->input->post('tsk_assigned') != '') {
 					$data['row'] = $this->tasks_model->get_row($tsk_id);
 					$this->load->library(array('email_library'));
 					$to = $this->members_model->get_row($this->input->post('tsk_assigned'))->mbr_email;
 					$message = $this->load->view('emails/project_task_assigned', $data, TRUE);
 					$this->email_library->send($to, $message);
-				}*/
+				}
 
 				$this->read($tsk_id);
 			}
