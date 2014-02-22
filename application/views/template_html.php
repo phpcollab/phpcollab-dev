@@ -44,7 +44,9 @@
 				<li><a href="<?php echo $this->my_url; ?>statuses"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/statuses'); ?>"></i><?php echo $this->lang->line('statuses'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>members"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/members'); ?>"></i><?php echo $this->lang->line('members'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>roles"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/roles'); ?>"></i><?php echo $this->lang->line('roles'); ?></a></li>
-				<li><a href="<?php echo $this->my_url; ?>_configuration"><i class="fa fa-gear"></i><?php echo $this->lang->line('configuration'); ?></a></li>
+				<li><a href="<?php echo $this->my_url; ?>_configuration"><i class="fa fa-gears"></i><?php echo $this->lang->line('configuration'); ?></a></li>
+				<li><a href="<?php echo $this->my_url; ?>_database"><i class="fa fa-hdd-o"></i><?php echo $this->lang->line('database'); ?></a></li>
+				<li><a href="<?php echo $this->my_url; ?>_info"><i class="fa fa-info-circle"></i><?php echo $this->lang->line('info'); ?></a></li>
 			<?php } ?>
 		</ul>
 	<?php } ?>
