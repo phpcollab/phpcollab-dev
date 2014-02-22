@@ -201,7 +201,7 @@ class tasks extends CI_Controller {
 					}
 					$this->db->where('tsk_id', $tsk_id);
 					$this->db->delete('tasks');
-					$this->index();
+					redirect($this->my_url.'projects/read/'.$data['row']->prj_id);
 				}
 			} else {
 				redirect($this->my_url);

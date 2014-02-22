@@ -153,7 +153,7 @@ class notes extends CI_Controller {
 					}
 					$this->db->where('nte_id', $nte_id);
 					$this->db->delete('notes');
-					$this->index();
+					redirect($this->my_url.'projects/read/'.$data['row']->prj_id);
 				}
 			} else {
 				redirect($this->my_url);

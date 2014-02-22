@@ -175,7 +175,7 @@ class milestones extends CI_Controller {
 					}
 					$this->db->where('mln_id', $mln_id);
 					$this->db->delete('milestones');
-					$this->index();
+					redirect($this->my_url.'projects/read/'.$data['row']->prj_id);
 				}
 			} else {
 				redirect($this->my_url);
