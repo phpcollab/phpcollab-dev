@@ -162,6 +162,22 @@ class projects extends CI_Controller {
 				}
 				$this->db->where('prj_id', $prj_id);
 				$this->db->delete('projects');
+
+				$this->db->where('prj_id', $prj_id);
+				$this->db->delete('projects_members');
+
+				$this->db->where('prj_id', $prj_id);
+				$this->db->delete('milestones');
+
+				$this->db->where('prj_id', $prj_id);
+				$this->db->delete('notes');
+
+				$this->db->where('prj_id', $prj_id);
+				$this->db->delete('tasks');
+
+				$this->db->where('prj_id', $prj_id);
+				$this->db->delete('topics');
+
 				$this->index();
 			}
 		} else {
