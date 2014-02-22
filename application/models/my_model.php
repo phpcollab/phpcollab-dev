@@ -64,7 +64,7 @@ class My_model extends CI_Model {
 					$old = '<span class="color_percent priority_'.$old.'" style="text-decoration:line-through;width:100%;">'.$this->priority($old).'</span>';
 				}
 				if($new != '') {
-					$new = '<span class="color_percent priority_'.$new.'" style="text-decoration:line-through;width:100%;">'.$this->priority($new).'</span>';
+					$new = '<span class="color_percent priority_'.$new.'" style="width:100%;">'.$this->priority($new).'</span>';
 				}
 
 			} else if(strstr($field, 'status')) {
@@ -88,7 +88,7 @@ class My_model extends CI_Model {
 					$old = '<span class="color_percent" style="text-decoration:line-through;width:'.intval($old).'%;">'.intval($old).'%</span>';
 				}
 				if($new != '') {
-					$new = '<span class="color_percent" style="text-decoration:line-through;width:'.intval($new).'%;">'.intval($new).'%</span>';
+					$new = '<span class="color_percent" style="width:'.intval($new).'%;">'.intval($new).'%</span>';
 				}
 			}
 
