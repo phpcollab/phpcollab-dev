@@ -79,7 +79,7 @@ aside ul li{border-bottom:1px solid #252732;border-top:1px solid #43484e;margin:
 aside ul li a:link, aside ul li a:visited{color:#AEB2B7;display:block;padding:5px 0px;text-decoration:none;}
 aside ul li.active, aside ul li:hover{background-color:#252732;border-top:1px solid #252732;}
 
-article{background-color:#f6f8fa;border-radius:3px 3px 3px 3px;clear:both;line-height:1.4;padding:5px 10px 5px 10px;margin:0px 10px 10px 0px;overflow-x:auto;overflow-y:hidden;text-align:justify;}
+article{background-color:#f6f8fa;border-radius:3px 3px 3px 3px;clear:both;line-height:1.4;padding:0px 10px 0px 10px;margin:0px 10px 10px 0px;overflow-x:auto;overflow-y:hidden;text-align:justify;}
 article h2{font-size:14px;font-weight:bold;margin:5px 0px;}
 article h2 a:link, article h2 a:visited{text-decoration:none;}
 article.title{background-color:#444755;color:#AEB2B7;}
