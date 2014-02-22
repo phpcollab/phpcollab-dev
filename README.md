@@ -1,6 +1,7 @@
 New experimental phpCollab, not for production
 
 ![Screenshot](screenshot.png)
+![Screenshot](screenshot2.png)
 
 Edit [/application/config/database.php](/application/config/database.php) to define "username", "password" and "database" ("hostname" if necessary)
 
