@@ -16,8 +16,16 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
-			<?php echo form_label($this->lang->line('member'), 'projects_members_mbr_id'); ?>
-			<?php echo form_dropdown($this->router->class.'_projects_members_mbr_id', $dropdown_mbr_id, set_value($this->router->class.'_projects_members_mbr_id', $this->session->userdata($this->router->class.'_projects_members_mbr_id')), 'id="projects_members_mbr_id" class="select"'); ?>
+			<?php echo form_label($this->lang->line('mbr_name'), 'projects_members_mbr_name'); ?>
+			<?php echo form_input($ref_filter.'_mbr_name', set_value($ref_filter.'_mbr_name', $this->session->userdata($ref_filter.'_mbr_name')), 'id="projects_members_mbr_name" class="inputtext"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('mbr_email'), 'projects_members_mbr_email'); ?>
+			<?php echo form_input($ref_filter.'_mbr_email', set_value($ref_filter.'_mbr_email', $this->session->userdata($ref_filter.'_mbr_email')), 'id="projects_members_mbr_email" class="inputtext"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('mbr_authorized'), 'projects_members_mbr_authorized'); ?>
+			<?php echo form_dropdown($ref_filter.'_mbr_authorized', $this->my_model->dropdown_reply(), set_value($ref_filter.'_mbr_authorized', $this->session->userdata($ref_filter.'_mbr_authorized')), 'id="projects_members_mbr_authorized" class="select"'); ?>
 		</div>
 		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
@@ -34,6 +42,7 @@
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('member')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_authorized')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_published')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('roles')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects_members', $columns[$i++], $this->lang->line('prj_mbr_datecreated')); ?>
 			<th>&nbsp;</th>
 		</tr>
@@ -46,6 +55,7 @@
 			<td><a href="<?php echo $this->my_url; ?>projects_members/read/<?php echo $row->prj_mbr_id; ?>"><?php echo $row->mbr_name; ?></a></td>
 			<td><?php echo $this->lang->line('reply_'.$row->prj_mbr_authorized); ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->prj_mbr_published); ?></td>
+			<td><?php echo $row->roles; ?></td>
 			<td><?php echo $row->prj_mbr_datecreated; ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>projects_members/update/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>

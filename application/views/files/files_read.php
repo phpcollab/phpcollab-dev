@@ -28,6 +28,10 @@
 	</div>
 	<div class="column1 columnlast">
 		<p>
+		<span class="label"><?php echo $this->lang->line('fle_size'); ?></span>
+		<?php if($row->fle_size) { ?><?php echo convert_size($row->fle_size); ?><?php } else { ?>-<?php } ?>
+		</p>
+		<p>
 		<span class="label"><?php echo $this->lang->line('fle_comments'); ?></span>
 		<?php if($row->fle_comments) { ?><?php echo $row->fle_comments; ?><?php } else { ?>-<?php } ?>
 		</p>
@@ -41,3 +45,13 @@
 		</p>
 	</div>
 </article>
+<?php $extension = strtolower(substr(strrchr($row->fle_name, '.'), 1)); ?>
+<?php $image_extensions = array('jpeg', 'jpg', 'png', 'swf', 'gif'); ?>
+<?php if(in_array($extension, $image_extensions)) { ?>
+<article class="title">
+	<h2><i class="fa fa-picture-o"></i><?php echo $this->lang->line('preview'); ?></h2>
+</article>
+<article>
+	<img src="<?php echo base_url(); ?>storage/projects/<?php echo $prj->prj_id; ?>/<?php echo $row->fle_name; ?>" alt="<?php echo $row->fle_name; ?>">
+</article>
+<?php } ?>

@@ -12,7 +12,7 @@
 		<?php echo form_dropdown('fle_owner', $dropdown_fle_owner, set_value('fle_owner', $this->phpcollab_member->mbr_id), 'id="fle_owner" class="select required numeric"'); ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('fle_name').' *', 'fle_name'); ?>
+		<?php echo form_label($this->lang->line('fle_name').' * (<em>'.ini_get('upload_max_filesize').' max.)</em>', 'fle_name'); ?>
 		<?php echo form_upload('fle_name', FALSE, 'id="fle_name" class="inputtext required"'); ?>
 		</p>
 		<p>

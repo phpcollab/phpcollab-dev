@@ -24,6 +24,10 @@
 		<?php echo $this->lang->line('reply_'.$row->prj_mbr_published); ?>
 		</p>
 		<p>
+		<span class="label"><?php echo $this->lang->line('roles'); ?></span>
+		<?php if($row->roles) { ?><?php echo $row->roles; ?><?php } else { ?>-<?php } ?>
+		</p>
+		<p>
 		<span class="label"><?php echo $this->lang->line('prj_mbr_datecreated'); ?></span>
 		<?php if($row->prj_mbr_datecreated) { ?><?php echo $row->prj_mbr_datecreated; ?><?php } else { ?>-<?php } ?>
 		</p>

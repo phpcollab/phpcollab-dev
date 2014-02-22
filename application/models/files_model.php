@@ -8,12 +8,14 @@ class files_model extends CI_Model {
 		$data = array();
 		$data['ref_filter'] = $this->router->class.'_files_'.$prj->prj_id;
 		$filters = array();
+		$filters[$data['ref_filter'].'_fle_name'] = array('fle.fle_name', 'like');
 		$flt = $this->my_library->build_filters($filters);
 		$flt[] = 'fle_prj.prj_id = \''.$prj->prj_id.'\'';
 		$columns = array();
 		$columns[] = 'fle.fle_id';
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'fle.fle_name';
+		$columns[] = 'fle.fle_size';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'fle.fle_name', 'ASC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
