@@ -22,6 +22,7 @@ example
 * Trackers
 * Files
 * Notes
+* Logs (organizations, members, projects, team, milestones, tasks)
 
 ###Todo
 * Notifications

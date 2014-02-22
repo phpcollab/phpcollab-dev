@@ -75,7 +75,7 @@ class My_model extends CI_Model {
 					$new = $this->status($new);
 				}
 
-			} else if(strstr($field, 'published')) {
+			} else if(strstr($field, 'published') || strstr($field, 'authorized')) {
 				if($old != '') {
 					$old = $this->lang->line('reply_'.$old);
 				}

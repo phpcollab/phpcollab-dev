@@ -68,6 +68,7 @@ class projects_members extends CI_Controller {
 			if($data['prj']) {
 				$this->my_library->set_title($this->lang->line('projects_members').' / '.$data['row']->prj_mbr_id);
 				$content = $this->load->view('projects_members/projects_members_read', $data, TRUE);
+				$content .= $this->my_model->get_logs('project_member', $prj_mbr_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
 				redirect($this->my_url);
@@ -110,6 +111,9 @@ class projects_members extends CI_Controller {
 					$this->db->set('prj_mbr_published', checkbox2database($this->input->post('prj_mbr_published')));
 					$this->db->where('prj_mbr_id', $prj_mbr_id);
 					$this->db->update('projects_members');
+
+					$this->my_model->save_log('project_member', $prj_mbr_id, $data['row']);
+
 					$this->read($prj_mbr_id);
 				}
 			} else {
