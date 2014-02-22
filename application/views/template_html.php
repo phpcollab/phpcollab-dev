@@ -41,6 +41,7 @@
 		<ul>
 			<?php if($this->auth_library->role('administrator')) { ?>
 				<li><a href="<?php echo $this->my_url; ?>trackers"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/trackers'); ?>"></i><?php echo $this->lang->line('trackers'); ?></a></li>
+				<li><a href="<?php echo $this->my_url; ?>statuses"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/statuses'); ?>"></i><?php echo $this->lang->line('statuses'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>members"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/members'); ?>"></i><?php echo $this->lang->line('members'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>roles"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/roles'); ?>"></i><?php echo $this->lang->line('roles'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>_configuration"><i class="fa fa-gear"></i><?php echo $this->lang->line('configuration'); ?></a></li>

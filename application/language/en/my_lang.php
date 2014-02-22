@@ -2,7 +2,14 @@
 $lang['administrator'] = 'Administrator';
 $lang['permissions'] = 'Permissions';
 
+$lang['statuses'] = 'Statuses';
+$lang['stu_id'] = 'Status ID';
+$lang['stu_owner'] = 'Owner';
+$lang['stu_name'] = 'Name';
 $lang['stu_isclosed'] = 'Closed?';
+$lang['stu_ordering'] = 'Ordering';
+$lang['stu_datecreated'] = 'Date created';
+
 $lang['stu_isclosed_1'] = 'Closed';
 $lang['stu_isclosed_0'] = 'Open';
 

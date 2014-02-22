@@ -625,7 +625,6 @@ CREATE TABLE IF NOT EXISTS `statuses` (
   `stu_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `stu_owner` int(10) unsigned NOT NULL,
   `stu_name` varchar(255) NOT NULL,
-  `stu_isdefault` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `stu_isclosed` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `stu_ordering` int(11) NOT NULL DEFAULT '0',
   `stu_datecreated` datetime NOT NULL,
@@ -637,13 +636,13 @@ CREATE TABLE IF NOT EXISTS `statuses` (
 -- Dumping data for table `statuses`
 --
 
-INSERT INTO `statuses` (`stu_id`, `stu_owner`, `stu_name`, `stu_isdefault`, `stu_isclosed`, `stu_ordering`, `stu_datecreated`) VALUES
-(1, 1, 'New', 1, 0, 1, '2012-07-01 22:00:00'),
-(2, 1, 'Re-opened', 0, 0, 2, '2012-07-01 22:00:00'),
-(3, 1, 'Suspended', 0, 1, 3, '2012-07-01 22:00:00'),
-(4, 1, 'Rejected', 0, 1, 4, '2012-07-01 22:00:00'),
-(5, 1, 'Done', 0, 1, 5, '2012-07-01 22:00:00'),
-(6, 1, 'Resolved', 0, 1, 6, '0000-00-00 00:00:00');
+INSERT INTO `statuses` (`stu_id`, `stu_owner`, `stu_name`, `stu_isclosed`, `stu_ordering`, `stu_datecreated`) VALUES
+(1, 1, 'New', 0, 1, '2012-07-01 22:00:00'),
+(2, 1, 'Re-opened', 0, 2, '2012-07-01 22:00:00'),
+(3, 1, 'Suspended', 1, 3, '2012-07-01 22:00:00'),
+(4, 1, 'Rejected', 1, 4, '2012-07-01 22:00:00'),
+(5, 1, 'Done', 1, 5, '2012-07-01 22:00:00'),
+(6, 1, 'Resolved', 1, 6, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -775,7 +774,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (25, 'phpcollab/icons/members', 'users', '2014-02-21 11:40:12'),
 (26, 'phpcollab/icons/milestones', 'calendar', '0000-00-00 00:00:00'),
 (27, 'phpcollab/default/status', '1', '2014-02-22 03:22:45'),
-(28, 'phpcollab/default/priority', '2', '2014-02-22 03:24:18');
+(28, 'phpcollab/default/priority', '2', '2014-02-22 03:24:18'),
+(29, 'phpcollab/icons/statuses', 'sun-o', '2014-02-22 04:23:50');
 
 -- --------------------------------------------------------
 
