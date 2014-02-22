@@ -20,6 +20,7 @@ class tasks_model extends CI_Model {
 		}
 		$filters[$data['ref_filter'].'_tsk_assigned'] = array('tsk.tsk_assigned', 'equal');
 		$filters[$data['ref_filter'].'_tsk_name'] = array('tsk.tsk_name', 'like');
+		$filters[$data['ref_filter'].'_stu_isclosed'] = array('stu.stu_isclosed', 'equal');
 		$filters[$data['ref_filter'].'_tsk_status'] = array('tsk.tsk_status', 'equal');
 		$filters[$data['ref_filter'].'_tsk_priority'] = array('tsk.tsk_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
@@ -37,7 +38,7 @@ class tasks_model extends CI_Model {
 		$columns[] = 'mbr_name_assigned';
 		$columns[] = 'tsk.tsk_name';
 		$columns[] = 'tsk.tsk_date_start';
-		$columns[] = 'tsk.tsk_status';
+		$columns[] = 'stu.stu_ordering';
 		$columns[] = 'tsk.tsk_priority';
 		$columns[] = 'tsk.tsk_completion';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'tsk.tsk_name', 'ASC');
@@ -55,11 +56,11 @@ class tasks_model extends CI_Model {
 		return $content = $this->load->view('tasks/tasks_index', $data, TRUE);
 	}
 	function get_total($flt) {
-		$query = $this->db->query('SELECT COUNT(tsk.tsk_id) AS count FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE '.implode(' AND ', $flt));
+		$query = $this->db->query('SELECT COUNT(tsk.tsk_id) AS count FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = tsk.tsk_status WHERE '.implode(' AND ', $flt));
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name, mbr_assigned.mbr_name AS mbr_name_assigned, tsk_parent.tsk_name AS tsk_name_parent, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('tasks').' AS tsk_parent ON tsk_parent.tsk_id = tsk.tsk_parent WHERE '.implode(' AND ', $flt).' GROUP BY tsk.tsk_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name, mbr_assigned.mbr_name AS mbr_name_assigned, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = tsk.tsk_status WHERE '.implode(' AND ', $flt).' GROUP BY tsk.tsk_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($tsk_id) {

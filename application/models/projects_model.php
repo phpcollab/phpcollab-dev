@@ -8,6 +8,7 @@ class projects_model extends CI_Model {
 		$data = array();
 		$filters = array();
 		$filters[$this->router->class.'_projects_prj_name'] = array('prj.prj_name', 'like');
+		$filters[$this->router->class.'_projects_stu_isclosed'] = array('stu.stu_isclosed', 'equal');
 		$filters[$this->router->class.'_projects_prj_status'] = array('prj.prj_status', 'equal');
 		$filters[$this->router->class.'_projects_prj_priority'] = array('prj.prj_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
@@ -23,7 +24,7 @@ class projects_model extends CI_Model {
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'prj.prj_name';
 		$columns[] = 'prj.prj_date_start';
-		$columns[] = 'prj.prj_status';
+		$columns[] = 'stu.stu_ordering';
 		$columns[] = 'prj.prj_priority';
 		$columns[] = 'tsk_completion';
 		$columns[] = 'count_tasks';
@@ -39,11 +40,11 @@ class projects_model extends CI_Model {
 		return $content = $this->load->view('projects/projects_index', $data, TRUE);
 	}
 	function get_total($flt) {
-		$query = $this->db->query('SELECT COUNT(prj.prj_id) AS count FROM '.$this->db->dbprefix('projects').' AS prj WHERE '.implode(' AND ', $flt));
+		$query = $this->db->query('SELECT COUNT(prj.prj_id) AS count FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = prj.prj_status WHERE '.implode(' AND ', $flt));
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT org.org_name, mbr.mbr_name, prj.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id)  AS tsk_completion, (SELECT COUNT(tsk.tsk_id) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id) AS count_tasks FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = prj.org_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj.prj_owner WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT org.org_name, mbr.mbr_name, prj.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id)  AS tsk_completion, (SELECT COUNT(tsk.tsk_id) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id) AS count_tasks FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = prj.org_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj.prj_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = prj.prj_status WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($prj_id) {

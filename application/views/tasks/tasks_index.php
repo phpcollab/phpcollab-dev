@@ -34,6 +34,10 @@
 			<?php echo form_input($ref_filter.'_tsk_name', set_value($ref_filter.'_tsk_name', $this->session->userdata($ref_filter.'_tsk_name')), 'id="tasks_tsk_name" class="inputtext"'); ?>
 		</div>
 		<div>
+			<?php echo form_label($this->lang->line('stu_isclosed'), 'tasks_stu_isclosed'); ?>
+			<?php echo form_dropdown($ref_filter.'_stu_isclosed', $this->my_model->dropdown_reply(), set_value($ref_filter.'_stu_isclosed', $this->session->userdata($ref_filter.'_stu_isclosed')), 'id="tasks_stu_isclosed" class="select"'); ?>
+		</div>
+		<div>
 			<?php echo form_label($this->lang->line('tsk_status'), 'tasks_tsk_status'); ?>
 			<?php echo form_dropdown($ref_filter.'_tsk_status', $this->my_model->dropdown_status(), set_value($ref_filter.'_tsk_status', $this->session->userdata($ref_filter.'_tsk_status')), 'id="tasks_tsk_status" class="select"'); ?>
 		</div>

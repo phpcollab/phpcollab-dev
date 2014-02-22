@@ -17,15 +17,22 @@ class My_model extends CI_Model {
 	}
 	function get_statuses() {
 		$this->statuses = array();
+		$this->statuses_closed = array();
 		$query = $this->db->query('SELECT stu.* FROM '.$this->db->dbprefix('statuses').' AS stu GROUP BY stu.stu_id');
 		foreach($query->result() as $row) {
 			$this->statuses[$row->stu_id] = $row->stu_name;
+			if($row->stu_isclosed == 1) {
+				$this->statuses_closed[] = $row->stu_id;
+			}
 		}
-		return $this->statuses;
 	}
 	function status($stu_id) {
 		if(isset($this->statuses[$stu_id]) == 1) {
-			return $this->statuses[$stu_id];
+			if(!in_array($stu_id, $this->statuses_closed)) {
+				return '<strong>'.$this->statuses[$stu_id].'</strong>';
+			} else {
+				return $this->statuses[$stu_id];
+			}
 		} else {
 			return '-';
 		}

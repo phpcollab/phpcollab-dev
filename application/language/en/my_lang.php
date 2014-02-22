@@ -2,6 +2,7 @@
 $lang['administrator'] = 'Administrator';
 $lang['permissions'] = 'Permissions';
 
+$lang['stu_isclosed'] = 'Closed?';
 $lang['stu_isclosed_1'] = 'Closed';
 $lang['stu_isclosed_0'] = 'Open';
 

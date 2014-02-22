@@ -16,8 +16,16 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
-			<?php echo form_label($this->lang->line('mln_owner'), 'milestones_mln_owner'); ?>
-			<?php echo form_dropdown($ref_filter.'_mln_owner', $dropdown_mln_owner, set_value($ref_filter.'_mln_owner', $this->session->userdata($ref_filter.'_mln_owner')), 'id="milestones_mln_owner" class="select"'); ?>
+			<?php echo form_label($this->lang->line('stu_isclosed'), 'milestones_stu_isclosed'); ?>
+			<?php echo form_dropdown($ref_filter.'_stu_isclosed', $this->my_model->dropdown_reply(), set_value($ref_filter.'_stu_isclosed', $this->session->userdata($ref_filter.'_stu_isclosed')), 'id="milestones_stu_isclosed" class="select"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('mln_status'), 'milestoness_mln_status'); ?>
+			<?php echo form_dropdown($ref_filter.'_mln_status', $this->my_model->dropdown_status(), set_value($ref_filter.'_mln_status', $this->session->userdata($ref_filter.'_mln_status')), 'id="milestoness_mln_status" class="select"'); ?>
+		</div>
+		<div>
+			<?php echo form_label($this->lang->line('mln_priority'), 'milestoness_mln_priority'); ?>
+			<?php echo form_dropdown($ref_filter.'_mln_priority', $this->my_model->dropdown_priority(), set_value($ref_filter.'_mln_priority', $this->session->userdata($ref_filter.'_mln_priority')), 'id="milestoness_mln_priority" class="select"'); ?>
 		</div>
 		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
