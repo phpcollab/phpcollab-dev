@@ -1,3 +1,6 @@
+<?php $extension = strtolower(substr(strrchr($row->fle_name, '.'), 1)); ?>
+<?php $size_extensions = array('gif', 'jpeg', 'jpg', 'png', 'swf', 'psd', 'tiff', 'bmp'); ?>
+<?php $preview_extensions = array('jpeg', 'jpg', 'png', 'swf', 'gif'); ?>
 <article class="title">
 	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> / <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> / <a href="<?php echo $this->my_url; ?>files/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/files'); ?>"></i><?php echo $this->lang->line('files'); ?></a> / <i class="fa fa-eye"></i><?php echo $row->fle_name; ?></h2>
 	<ul>
@@ -31,6 +34,13 @@
 		<span class="label"><?php echo $this->lang->line('fle_size'); ?></span>
 		<?php if($row->fle_size) { ?><?php echo convert_size($row->fle_size); ?><?php } else { ?>-<?php } ?>
 		</p>
+		<?php if(in_array($extension, $size_extensions)) { ?>
+			<?php $dim = getimagesize('storage/projects/'.$prj->prj_id.'/'.$row->fle_name); ?>
+			<p>
+			<span class="label"><?php echo $this->lang->line('dimensions'); ?></span>
+			<?php echo $dim[0]; ?>x<?php echo $dim[1]; ?>
+			</p>
+		<?php } ?>
 		<p>
 		<span class="label"><?php echo $this->lang->line('fle_comments'); ?></span>
 		<?php if($row->fle_comments) { ?><?php echo $row->fle_comments; ?><?php } else { ?>-<?php } ?>
@@ -45,9 +55,7 @@
 		</p>
 	</div>
 </article>
-<?php $extension = strtolower(substr(strrchr($row->fle_name, '.'), 1)); ?>
-<?php $image_extensions = array('jpeg', 'jpg', 'png', 'swf', 'gif'); ?>
-<?php if(in_array($extension, $image_extensions)) { ?>
+<?php if(in_array($extension, $preview_extensions)) { ?>
 <article class="title">
 	<h2><i class="fa fa-picture-o"></i><?php echo $this->lang->line('preview'); ?></h2>
 </article>
