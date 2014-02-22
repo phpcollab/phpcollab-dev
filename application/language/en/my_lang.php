@@ -1,6 +1,6 @@
 <?php
 $lang['logs'] = 'Logs';
-$lang['log_comments'] = 'Comments';
+$lang['log_comments'] = 'Log';
 $lang['log_datecreated'] = 'Date created';
 $lang['project_task_assigned'] = 'A task has been assigned to you';
 $lang['administrator'] = 'Administrator';
