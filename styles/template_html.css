@@ -195,5 +195,9 @@ main > section{height:auto!important;margin:0px;}
 main section section{padding:0px!important;}
 article{background-color:#FFFFFF;border:none;color:#000000;padding:0px;margin:0px;max-width:none;text-align:justify;}
 article.title{color:#000000;}
+article.title h2 a:link, article.title h2 a:visited{color:#000000;text-decoration:none;}
 article.title ul{display:none;}
+thead tr th.sort_asc span, thead tr th.sort_asc a:link, thead tr th.sort_asc a:visited{color:#000000;}
+thead tr th.sort_desc span, thead tr th.sort_desc a:link, thead tr th.sort_desc a:visited{color:#000000;}
+.fa{color:#000000;
 }
