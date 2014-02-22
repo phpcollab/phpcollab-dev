@@ -64,6 +64,7 @@ class My_hook {
 				entity_encoding : \'raw\',
 				remove_script_host: true,
 				relative_urls: true,
+				visualblocks_default_state: true,
 				plugins: \'advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker searchreplace wordcount visualblocks visualchars code fullscreen media nonbreaking table contextmenu directionality template paste\',
 				toolbar1: \'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect\',
 				toolbar2: \'cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code\',
