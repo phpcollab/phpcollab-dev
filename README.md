@@ -20,9 +20,9 @@ example
 * Tasks
 * Milestones
 * Trackers
+* Files
+* Notes
 
 ###Todo
 * Permissions / Roles
-* Files
 * Topics / Posts
-* Notes

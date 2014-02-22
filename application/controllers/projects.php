@@ -8,6 +8,7 @@ class projects extends CI_Controller {
 		$this->load->model('milestones_model');
 		$this->load->model('tasks_model');
 		$this->load->model('notes_model');
+		$this->load->model('files_model');
 
 		$this->storage_table = 'projects';
 		$this->storage_fields = array();
@@ -78,6 +79,7 @@ class projects extends CI_Controller {
 			$content .= $this->milestones_model->get_index_list($data['row']);
 			$content .= $this->tasks_model->get_index_list($data['row']);
 			$content .= $this->notes_model->get_index_list($data['row']);
+			$content .= $this->files_model->get_index_list($data['row']);
 			$this->my_library->set_zone('content', $content);
 		} else {
 			$this->index();
@@ -174,6 +176,9 @@ class projects extends CI_Controller {
 
 				$this->db->where('prj_id', $prj_id);
 				$this->db->delete('tasks');
+
+				$this->db->where('prj_id', $prj_id);
+				$this->db->delete('files_projects');
 
 				$this->db->where('prj_id', $prj_id);
 				$this->db->delete('topics');

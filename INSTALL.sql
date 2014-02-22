@@ -777,7 +777,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (27, 'phpcollab/default/status', '1', '2014-02-22 03:22:45'),
 (28, 'phpcollab/default/priority', '2', '2014-02-22 03:24:18'),
 (29, 'phpcollab/icons/statuses', 'sun-o', '2014-02-22 04:23:50'),
-(30, 'phpcollab/icons/notes', 'file-text-o', '2014-02-22 04:41:52');
+(30, 'phpcollab/icons/notes', 'file-text-o', '2014-02-22 04:41:52'),
+(31, 'phpcollab/icons/files', 'cloud-upload', '2014-02-22 04:41:52');
 
 -- --------------------------------------------------------
 

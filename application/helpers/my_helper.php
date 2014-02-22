@@ -81,11 +81,14 @@ if( ! function_exists('csv_line')) {
 }
 
 if( ! function_exists('download_header')) {
-	function download_header($filename) {
+	function download_header($filename, $filesize) {
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Content-Transfer-Encoding: binary');
 		header('Pragma: public');
 		header('Content-Description: File Transfer');
 		header('Content-Type: application/force-download');
 		header('Content-Disposition: attachment; filename="'.$filename.'";');
+		header('Content-Length: '.$filesize);
 	}
 }
 
@@ -307,5 +310,61 @@ if( ! function_exists('directory_files_count')) {
 			closedir($dir);
 		}
 		return $files_count;
+	}
+}
+
+if( ! function_exists('clean_string')) {
+	function clean_string($str) {
+		$allowed = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.';
+
+		$from = explode(',', 'À,Á,Â,Ã,Ä,Å,à,á,â,ã,ä,å,Ò,Ó,Ô,Õ,Ö,Ø,ò,ó,ô,õ,ö,ø,È,É,Ê,Ë,è,é,ê,ë,Ç,ç,Ì,Í,Î,Ï,ì,í,î,ï,Ù,Ú,Û,Ü,ù,ú,û,ü,ÿ,Ñ,ñ');
+		$to = explode(',', 'A,A,A,A,A,A,a,a,a,a,a,a,O,O,O,O,O,O,o,o,o,o,o,o,E,E,E,E,e,e,e,e,C,c,I,I,I,I,i,i,i,i,U,U,U,U,u,u,u,u,y,N,n');
+		$str = str_replace($from, $to, $str);
+
+		$str = strtolower($str);
+		$str = str_replace('&#039;', '-', $str);
+		$str = str_replace('&quot;', '', $str);
+		$str = str_replace('&amp;', '-', $str);
+		$str = str_replace('&lt;', '', $str);
+		$str = str_replace('&gt;', '', $str);
+		$str = str_replace('\'', '-', $str);
+		$str = str_replace('@', '-', $str);
+		$str = str_replace('(', '-', $str);
+		$str = str_replace(')', '-', $str);
+		$str = str_replace('#', '-', $str);
+		$str = str_replace('&', '-', $str);
+		$str = str_replace(' ', '-', $str);
+		$str = str_replace('_', '-', $str);
+		$str = str_replace('\\', '', $str);
+		$str = str_replace('/', '', $str);
+		$str = str_replace('"', '', $str);
+		$str = str_replace('?', '-', $str);
+		$str = str_replace(':', '-', $str);
+		$str = str_replace('*', '-', $str);
+		$str = str_replace('|', '-', $str);
+		$str = str_replace('<', '-', $str);
+		$str = str_replace('>', '-', $str);
+		$str = str_replace('°', '-', $str);
+		$str = str_replace(',', '-', $str);
+
+		$strlen = strlen($allowed);
+		for($i=0;$i<$strlen;$i++) {
+			$accepted[] = substr($allowed, $i, 1);
+		}
+		$newstr = '';
+		$strlen = strlen($str);
+		for($i=0;$i<$strlen;$i++) {
+			$asc = substr($str, $i, 1);
+			if(in_array($asc, $accepted)) {
+				$newstr .= $asc;
+			}
+		}
+		while(strstr($newstr, '--')) {
+			$newstr = str_replace('--', '-', $newstr);
+		}
+		if(substr($newstr, -1) == '-') {
+			$newstr = substr($newstr, 0, -1);
+		}
+		return $newstr;
 	}
 }
