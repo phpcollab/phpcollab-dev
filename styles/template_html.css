@@ -71,6 +71,7 @@ header nav{background-color:#444755;border-bottom:3px solid #252732;}
 header nav ul li{margin:0px;padding:3px 0px 3px 5px;}
 
 main > section{height:auto;margin:0px 0px 0px 230px;overflow-x:hidden;overflow-y:auto;position:relative;}
+main section section{padding-bottom:30px;}
 
 aside{background-color:#30353b;border-radius:0px 3px 0px 0px;color:#AEB2B7;float:left;height:auto;margin:0px 0px 0px 0px;overflow-x:hidden;overflow-y:auto;width:220px;}
 aside h1{background-color:#444755;margin:0px;padding:5px;text-align:center;}
@@ -167,7 +168,7 @@ tbody th span.warning{background-color:#F0AD4E;color:#FFFFFF;}
 .show-phone{display:none !important;}
 .show-tablet{display:none !important;}
 
-.paging{clear:both;margin:20px 0px;padding:5px 5px 5px 0px;}
+.paging{clear:both;margin:10px 0px 10px 0px;padding:5px 5px 5px 0px;}
 .paging strong, .paging a:link, .paging a:visited{border:1px solid #AEB2B7;margin:0px 5px 0px 0px;padding:2px 4px 2px 5px;text-decoration:none;}
 .paging strong{background-color:#444755;color:#FFFFFF;font-weight:normal;text-decoration:none;}
 .paging a:hover{background-color:#E7E7E7;}

@@ -18,7 +18,12 @@ class Notes_model extends CI_Model {
 		$columns[] = 'nte.nte_date';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'nte.nte_name', 'ASC');
 		$results = $this->get_total($flt);
-		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
+		if($this->router->class == 'notes') {
+			$limit = 30;
+		} else {
+			$limit = 10;
+		}
+		$build_pagination = $this->my_library->build_pagination($results->count, $limit, $data['ref_filter']);
 		$data['prj'] = $prj;
 		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];

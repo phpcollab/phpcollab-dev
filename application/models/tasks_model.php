@@ -43,7 +43,12 @@ class tasks_model extends CI_Model {
 		$columns[] = 'tsk.tsk_completion';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'tsk.tsk_name', 'ASC');
 		$results = $this->get_total($flt);
-		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
+		if($this->router->class == 'tasks') {
+			$limit = 30;
+		} else {
+			$limit = 10;
+		}
+		$build_pagination = $this->my_library->build_pagination($results->count, $limit, $data['ref_filter']);
 		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
@@ -92,7 +97,7 @@ class tasks_model extends CI_Model {
 	function dropdown_mln_id($prj_id) {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mln.mln_id AS field_key, mln.mln_name AS field_label FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY mln.mln_id ORDER BY mln.mln_name ASC', array($prj_id));
+		$query = $this->db->query('SELECT mln.mln_id AS field_key, mln.mln_name AS field_label FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY mln.mln_id ORDER BY mln.mln_date_start ASC, mln.mln_name ASC', array($prj_id));
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
 				$select[$row->field_key] = $row->field_label;

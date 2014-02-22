@@ -18,7 +18,12 @@ class projects_members_model extends CI_Model {
 		$columns[] = 'prj_mbr.prj_mbr_datecreated';
 		$col = $this->my_library->build_columns($this->router->class.'_projects_members', $columns, 'prj_mbr.prj_mbr_id', 'ASC');
 		$results = $this->get_total($flt);
-		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_projects_members');
+		if($this->router->class == 'projects_members') {
+			$limit = 30;
+		} else {
+			$limit = 10;
+		}
+		$build_pagination = $this->my_library->build_pagination($results->count, $limit, $this->router->class.'_projects_members');
 		$data = array();
 		$data['prj'] = $prj;
 		$data['columns'] = $col;
