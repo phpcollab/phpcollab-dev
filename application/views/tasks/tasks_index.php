@@ -76,8 +76,8 @@
 			<td><?php echo $row->mbr_name_assigned; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_id; ?>"><?php echo $row->tsk_name; ?></a></td>
 			<td><?php echo $row->tsk_date_start; ?></td>
-			<td><?php echo $this->lang->line('status_'.$row->tsk_status); ?></td>
-			<td><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->tsk_priority); ?></span></td>
+			<td><?php echo $this->my_model->status($row->tsk_status); ?></td>
+			<td><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tsk_priority); ?></span></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>tasks/update/<?php echo $row->tsk_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>

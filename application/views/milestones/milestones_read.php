@@ -40,11 +40,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_status'); ?></span>
-		<?php if($row->mln_status) { ?><?php echo $this->lang->line('status_'.$row->mln_status); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mln_status) { ?><?php echo $this->my_model->status($row->mln_status); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_priority'); ?></span>
-		<?php if($row->mln_priority) { ?><span class="color_percent priority_<?php echo $row->mln_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->mln_priority); ?></span><?php } else { ?>-<?php } ?>
+		<?php if($row->mln_priority) { ?><span class="color_percent priority_<?php echo $row->mln_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->mln_priority); ?></span><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_completion'); ?></span>

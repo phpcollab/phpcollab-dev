@@ -9,7 +9,7 @@ class members extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
-		if(!$this->auth_library->permission('members/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -18,7 +18,7 @@ class members extends CI_Controller {
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
-		if(!$this->auth_library->permission('members/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -80,7 +80,7 @@ class members extends CI_Controller {
 		}
 	}
 	public function read($mbr_id) {
-		if(!$this->auth_library->permission('members/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -95,7 +95,7 @@ class members extends CI_Controller {
 		}
 	}
 	public function update($mbr_id) {
-		if(!$this->auth_library->permission('members/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -178,7 +178,7 @@ class members extends CI_Controller {
 		}
 	}
 	public function delete($mbr_id) {
-		if(!$this->auth_library->permission('members/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -202,6 +202,16 @@ class members extends CI_Controller {
 					}
 					$this->db->where('mbr_id', $mbr_id);
 					$this->db->delete('members');
+
+					$this->db->where('mbr_id', $mbr_id);
+					$this->db->delete('members_roles');
+
+					$this->db->where('mbr_id', $mbr_id);
+					$this->db->delete('projects_members');
+
+					$this->db->where('mbr_id', $mbr_id);
+					$this->db->delete('members_notifications');
+
 					$this->index();
 				}
 			} else {

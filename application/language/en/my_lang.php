@@ -1,11 +1,9 @@
 <?php
+$lang['administrator'] = 'Administrator';
 $lang['permissions'] = 'Permissions';
 
-$lang['status_1'] = 'New';
-$lang['status_2'] = 'Re-opened';
-$lang['status_3'] = 'Suspended';
-$lang['status_4'] = 'Rejected';
-$lang['status_5'] = 'Closed';
+$lang['stu_isclosed_1'] = 'Closed';
+$lang['stu_isclosed_0'] = 'Open';
 
 $lang['priority_1'] = 'Low';
 $lang['priority_2'] = 'Normal';

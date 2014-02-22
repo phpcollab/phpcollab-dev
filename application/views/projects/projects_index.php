@@ -57,8 +57,8 @@
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>projects/read/<?php echo $row->prj_id; ?>"><?php echo $row->prj_name; ?></a></td>
 			<td><?php echo $row->prj_date_start; ?></td>
-			<td><?php echo $this->lang->line('status_'.$row->prj_status); ?></td>
-			<td><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->prj_priority); ?></span></td>
+			<td><?php echo $this->my_model->status($row->prj_status); ?></td>
+			<td><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->prj_priority); ?></span></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<td><?php echo $row->count_tasks; ?></td>
 			<th>

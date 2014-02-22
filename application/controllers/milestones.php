@@ -263,7 +263,7 @@ class milestones extends CI_Controller {
 				if($query->num_rows() > 0) {
 					$current_month = date('Y-m');
 					foreach($query->result() as $row) {
-						$legend[] = $this->lang->line('status_'.$row->ref);
+						$legend[] = $this->my_model->status($row->ref);
 						$values[] = $row->nb;
 					}
 				}
@@ -275,7 +275,7 @@ class milestones extends CI_Controller {
 				if($query->num_rows() > 0) {
 					$current_month = date('Y-m');
 					foreach($query->result() as $row) {
-						$legend[] = '<span class="color_percent priority_'.$row->ref.'" style="width:100%;">'.$this->lang->line('priority_'.$row->ref).'</span>';
+						$legend[] = '<span class="color_percent priority_'.$row->ref.'" style="width:100%;">'.$this->my_model->priority($row->ref).'</span>';
 						$values[] = $row->nb;
 					}
 				}

@@ -9,7 +9,7 @@ class trackers extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
-		if(!$this->auth_library->permission('trackers/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -18,7 +18,7 @@ class trackers extends CI_Controller {
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
-		if(!$this->auth_library->permission('trackers/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -56,7 +56,7 @@ class trackers extends CI_Controller {
 		}
 	}
 	public function read($trk_id) {
-		if(!$this->auth_library->permission('trackers/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -71,7 +71,7 @@ class trackers extends CI_Controller {
 		}
 	}
 	public function update($trk_id) {
-		if(!$this->auth_library->permission('trackers/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 
@@ -116,7 +116,7 @@ class trackers extends CI_Controller {
 		}
 	}
 	public function delete($trk_id) {
-		if(!$this->auth_library->permission('trackers/index')) {
+		if(!$this->auth_library->role('administrator')) {
 			redirect($this->my_url);
 		}
 

@@ -31,6 +31,10 @@ class _generator extends CI_Controller {
 		}
 	}
 	public function index() {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('generator'));
 
 		$this->load->library('form_validation');
@@ -57,6 +61,10 @@ class _generator extends CI_Controller {
 		}
 	}
 	public function table($table, $table_translation = false) {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('generator'));
 
 		$data = array();

@@ -54,6 +54,9 @@ class My_hook {
 			}
 		}
 
+		$this->CI->my_model->get_priorities();
+		$this->CI->my_model->get_statuses();
+
 		if($this->CI->config->item('tinymce/enabled')) {
 			$this->CI->my_library->foot[] = '<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>';
 			$this->CI->my_library->foot[] = '<script>tinymce.init({

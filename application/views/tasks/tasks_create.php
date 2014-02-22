@@ -47,11 +47,11 @@
 	<div class="column1 columnlast">
 		<p>
 		<?php echo form_label($this->lang->line('tsk_status').' *', 'tsk_status'); ?>
-		<?php echo form_dropdown('tsk_status', $this->my_model->dropdown_status(), set_value('tsk_status', 1), 'id="tsk_status" class="select required numeric"'); ?>
+		<?php echo form_dropdown('tsk_status', $this->my_model->dropdown_status(), set_value('tsk_status', $this->config->item('phpcollab/default/status')), 'id="tsk_status" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_priority').' *', 'tsk_priority'); ?>
-		<?php echo form_dropdown('tsk_priority', $this->my_model->dropdown_priority(), set_value('tsk_priority', 2), 'id="tsk_priority" class="select required numeric"'); ?>
+		<?php echo form_dropdown('tsk_priority', $this->my_model->dropdown_priority(), set_value('tsk_priority', $this->config->item('phpcollab/default/priority')), 'id="tsk_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_parent'), 'tsk_parent'); ?>

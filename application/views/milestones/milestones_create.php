@@ -35,11 +35,11 @@
 	<div class="column1 columnlast">
 		<p>
 		<?php echo form_label($this->lang->line('mln_status').' *', 'mln_status'); ?>
-		<?php echo form_dropdown('mln_status', $this->my_model->dropdown_status(), set_value('mln_status', 1), 'id="mln_status" class="select required numeric"'); ?>
+		<?php echo form_dropdown('mln_status', $this->my_model->dropdown_status(), set_value('mln_status', $this->config->item('phpcollab/default/status')), 'id="mln_status" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_priority').' *', 'mln_priority'); ?>
-		<?php echo form_dropdown('mln_priority', $this->my_model->dropdown_priority(), set_value('mln_priority', 2), 'id="mln_priority" class="select required numeric"'); ?>
+		<?php echo form_dropdown('mln_priority', $this->my_model->dropdown_priority(), set_value('mln_priority', $this->config->item('phpcollab/default/priority')), 'id="mln_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('mln_comments'), 'mln_comments'); ?>

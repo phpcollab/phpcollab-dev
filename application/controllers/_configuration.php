@@ -9,6 +9,10 @@ class _configuration extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('configuration'));
 		$filters = array();
 		$filters[$this->router->class.'__configuration_cfg_path'] = array('cfg.cfg_path', 'like');
@@ -31,6 +35,10 @@ class _configuration extends CI_Controller {
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('configuration'));
 		$this->load->library('form_validation');
 		$data = array();
@@ -62,6 +70,10 @@ class _configuration extends CI_Controller {
 		}
 	}
 	public function read($cfg_id) {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$data = array();
 		$data['row'] = $this->_configuration_model->get_row($cfg_id);
 		if($data['row']) {
@@ -73,6 +85,10 @@ class _configuration extends CI_Controller {
 		}
 	}
 	public function update($cfg_id) {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->_configuration_model->get_row($cfg_id);
@@ -111,6 +127,10 @@ class _configuration extends CI_Controller {
 		}
 	}
 	public function delete($cfg_id) {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->_configuration_model->get_row($cfg_id);

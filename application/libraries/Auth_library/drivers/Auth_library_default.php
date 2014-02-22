@@ -44,8 +44,15 @@ class Auth_library_default extends CI_Driver {
 		$this->CI->session->unset_userdata('phpcollab_member');
 		session_regenerate_id();
 	}
+	function role($rol_code) {
+		if(isset($this->CI->phpcollab_member->roles_array[$rol_code]) == 1 && $this->CI->phpcollab_member->roles_array[$rol_code] == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	function permission($per_code) {
-		if(isset($this->CI->phpcollab_member->permissions[$per_code]) == 1 && $this->CI->phpcollab_member->permissions[$per_code] == 1) {
+		if(isset($this->CI->phpcollab_member->permissions_array[$per_code]) == 1 && $this->CI->phpcollab_member->permissions_array[$per_code] == 1) {
 			return true;
 		} else {
 			return false;
@@ -59,13 +66,17 @@ class Auth_library_default extends CI_Driver {
 			if($query->num_rows() > 0) {
 				$member = $query->row();
 
-				$member->permissions = array();
+				$member->roles_array = array();
+				$query = $this->CI->db->query('SELECT rol.* FROM '.$this->CI->db->dbprefix('roles').' AS rol LEFT JOIN '.$this->CI->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.rol_id = rol.rol_id WHERE mbr_rol.mbr_id = ? GROUP BY rol.rol_id', array($this->CI->session->userdata('phpcollab_member')));
+				foreach($query->result() as $row) {
+					$member->roles_array[$row->rol_code] = true;
+				}
+
+				$member->permissions_array = array();
 				$query = $this->CI->db->query('SELECT per.*, COUNT(rol_per.rol_per_id) AS total_saved FROM '.$this->CI->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->CI->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id LEFT JOIN '.$this->CI->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.rol_id = rol_per.rol_id AND mbr_rol.mbr_id = ? GROUP BY per.per_id', array($this->CI->session->userdata('phpcollab_member')));
 				foreach($query->result() as $row) {
 					if($row->total_saved > 0) {
-						$member->permissions[$row->per_code] = true;
-					} else {
-						$member->permissions[$row->per_code] = false;
+						$member->permissions_array[$row->per_code] = true;
 					}
 				}
 			}

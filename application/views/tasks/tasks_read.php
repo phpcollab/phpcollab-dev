@@ -51,11 +51,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_status'); ?></span>
-		<?php if($row->tsk_status) { ?><?php echo $this->lang->line('status_'.$row->tsk_status); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_status) { ?><?php echo $this->my_model->status($row->tsk_status); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_priority'); ?></span>
-		<?php if($row->tsk_priority) { ?><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->tsk_priority); ?></span><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_priority) { ?><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tsk_priority); ?></span><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_parent'); ?></span>

@@ -4,9 +4,11 @@
 	<li><a href="<?php echo $this->my_url; ?>projects/statistics/<?php echo $row->prj_id; ?>"><i class="fa fa-bar-chart-o"></i><?php echo $this->lang->line('statistics'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>projects/update/<?php echo $row->prj_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
+	<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-read') || $this->input->cookie($this->router->class.'-read') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-read-collapse"><a href="#<?php echo $this->router->class; ?>-read"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
+	<li class="expand<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-read-expand"><a href="#<?php echo $this->router->class; ?>-read"><i class="fa fa-caret-square-o-down"></i><?php echo $this->lang->line('expand'); ?></a></li>
 	</ul>
 </article>
-<article>
+<article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
 	<div class="column1">
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_id'); ?></span>
@@ -44,11 +46,11 @@
 	<div class="column1 columnlast">
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_status'); ?></span>
-		<?php if($row->prj_status) { ?><?php echo $this->lang->line('status_'.$row->prj_status); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_status) { ?><?php echo $this->my_model->status($row->prj_status); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_priority'); ?></span>
-		<?php if($row->prj_priority) { ?><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->lang->line('priority_'.$row->prj_priority); ?></span><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_priority) { ?><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->prj_priority); ?></span><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_completion'); ?></span>
