@@ -33,7 +33,6 @@ class projects extends CI_Controller {
 		$this->form_validation->set_rules('prj_date_complete', 'lang:prj_date_complete', '');
 		$this->form_validation->set_rules('prj_status', 'lang:prj_status', 'required|numeric');
 		$this->form_validation->set_rules('prj_priority', 'lang:prj_priority', 'required|numeric');
-		$this->form_validation->set_rules('prj_comments', 'lang:prj_comments', '');
 		$this->form_validation->set_rules('prj_published', 'lang:prj_published', 'numeric');
 		if($this->form_validation->run() == FALSE) {
 			$content = $this->load->view('projects/projects_create', $data, TRUE);
@@ -61,7 +60,6 @@ class projects extends CI_Controller {
 			$this->db->set('prj_date_complete', $this->input->post('prj_date_complete'));
 			$this->db->set('prj_status', $this->input->post('prj_status'));
 			$this->db->set('prj_priority', $this->input->post('prj_priority'));
-			$this->db->set('prj_comments', $this->input->post('prj_comments'));
 			$this->db->set('prj_published', checkbox2database($this->input->post('prj_published')));
 			$this->db->set('prj_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('projects');
@@ -102,8 +100,8 @@ class projects extends CI_Controller {
 			$this->form_validation->set_rules('prj_date_complete', 'lang:prj_date_complete', '');
 			$this->form_validation->set_rules('prj_status', 'lang:prj_status', 'required|numeric');
 			$this->form_validation->set_rules('prj_priority', 'lang:prj_priority', 'required|numeric');
-			$this->form_validation->set_rules('prj_comments', 'lang:prj_comments', '');
 			$this->form_validation->set_rules('prj_published', 'lang:prj_published', 'numeric');
+			$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('projects/projects_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
@@ -133,11 +131,13 @@ class projects extends CI_Controller {
 				$this->db->set('prj_date_complete', $this->input->post('prj_date_complete'));
 				$this->db->set('prj_status', $this->input->post('prj_status'));
 				$this->db->set('prj_priority', $this->input->post('prj_priority'));
-				$this->db->set('prj_comments', $this->input->post('prj_comments'));
 				$this->db->set('prj_published', checkbox2database($this->input->post('prj_published')));
 				$this->db->set('prj_datemodified', date('Y-m-d H:i:s'));
 				$this->db->where('prj_id', $prj_id);
 				$this->db->update('projects');
+
+				$this->my_model->save_log('project', $prj_id, $data['row']);
+
 				$this->read($prj_id);
 			}
 		} else {

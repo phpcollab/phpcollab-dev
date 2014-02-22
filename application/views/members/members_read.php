@@ -38,10 +38,6 @@
 		<?php if($row->roles) { ?><?php echo $row->roles; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('mbr_comments'); ?></span>
-		<?php if($row->mbr_comments) { ?><?php echo $row->mbr_comments; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_datecreated'); ?></span>
 		<?php if($row->mbr_datecreated) { ?><?php echo $row->mbr_datecreated; ?><?php } else { ?>-<?php } ?>
 		</p>

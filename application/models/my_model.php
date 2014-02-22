@@ -4,6 +4,82 @@ class My_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
 	}
+	function save_log($type, $reference, $row) {
+		$diff = array();
+		foreach($row as $k => $v) {
+			if($this->input->post($k) != '' && $this->input->post($k) != $v && $k != 'mbr_password') {
+				$diff[$k] = array('old' => $v, 'new' => $this->input->post($k));
+			}
+		}
+		if(count($diff) > 0 || $this->input->post('log_comments') != '') {
+			$this->db->set('mbr_id', $this->phpcollab_member->mbr_id);
+			$this->db->set('log_type', $type);
+			$this->db->set('log_reference', $reference);
+			$this->db->set('log_comments', $this->input->post('log_comments'));
+			$this->db->set('log_datecreated', date('Y-m-d H:i:s'));
+			$this->db->insert('logs');
+			$log_id = $this->db->insert_id();
+
+			if(count($diff) > 0) {
+				foreach($diff as $k => $v) {
+					$this->db->set('log_id', $log_id);
+					$this->db->set('log_dls_field', $k);
+					$this->db->set('log_dls_old', $v['old']);
+					$this->db->set('log_dls_new', $v['new']);
+					$this->db->insert('logs_details');
+				}
+			}
+		}
+	}
+	function get_logs($type, $reference) {
+		$data = array();
+		$flt = array();
+		$flt[] = 'log.log_type = \''.$type.'\'';
+		$flt[] = 'log.log_reference = \''.$reference.'\'';
+		$results = $this->get_total_logs($flt);
+		$build_pagination = $this->my_library->build_pagination($results->count, 10, $type.'_'.$reference);
+		$data['pagination'] = $build_pagination['output'];
+		$data['position'] = $build_pagination['position'];
+		$data['rows'] = $this->get_rows_logs($flt, $build_pagination['limit'], $build_pagination['start'], $type.'_'.$reference);
+		return $content = $this->load->view('logs/logs_index', $data, TRUE);
+	}
+	function get_total_logs($flt) {
+		$query = $this->db->query('SELECT COUNT(log.log_id) AS count FROM '.$this->db->dbprefix('logs').' AS log WHERE '.implode(' AND ', $flt));
+		return $query->row();
+	}
+	function get_rows_logs($flt, $num, $offset, $column) {
+		$query = $this->db->query('SELECT mbr.mbr_name, log.* FROM '.$this->db->dbprefix('logs').' AS log LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = log.mbr_id WHERE '.implode(' AND ', $flt).' GROUP BY log.log_id ORDER BY log.log_datecreated DESC LIMIT '.$offset.', '.$num);
+		return $query->result();
+	}
+	function get_log_details($log_id) {
+		$fields = array();
+		$query = $this->db->query('SELECT log_dls.* FROM '.$this->db->dbprefix('logs_details').' AS log_dls WHERE log_dls.log_id = ? GROUP BY log_dls.log_dls_id', array($log_id));
+		foreach($query->result() as $row) {
+			$field = $row->log_dls_field;
+			$old = $row->log_dls_old;
+			$new = $row->log_dls_new;
+
+			if(strstr($field, 'priority')) {
+				$old = '<span class="color_percent priority_'.$old.'" style="width:100%;">'.$this->priority($old).'</span>';
+				$new = '<span class="color_percent priority_'.$new.'" style="width:100%;">'.$this->priority($new).'</span>';
+
+			} else if(strstr($field, 'status')) {
+				$old = $this->status($old);
+				$new = $this->status($new);
+
+			} else if(strstr($field, 'published')) {
+				$old = $this->lang->line('reply_'.$old);
+				$new = $this->lang->line('reply_'.$new);
+
+			} else if(strstr($field, 'completion')) {
+				$old = '<span class="color_percent" style="width:'.intval($old).'%;">'.intval($old).'%</span>';
+				$new = '<span class="color_percent" style="width:'.intval($new).'%;">'.intval($new).'%</span>';
+			}
+
+			$fields[$field] = array('old' => $old, 'new' => $new);
+		}
+		return $fields;
+	}
 	function get_languages() {
 		$languages = array();
 		$query = $this->db->query('SELECT lng.* FROM '.$this->db->dbprefix('_languages').' AS lng GROUP BY lng.lng_id');

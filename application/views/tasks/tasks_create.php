@@ -62,10 +62,6 @@
 		<?php echo form_dropdown('tsk_completion', $this->my_model->dropdown_completion(), set_value('tsk_completion', ''), 'id="tsk_completion" class="select numeric"'); ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('tsk_comments'), 'tsk_comments'); ?>
-		<?php echo form_textarea('tsk_comments', set_value('tsk_comments', ''), 'id="tsk_comments" class="textarea"'); ?>
-		</p>
-		<p>
 		<?php echo form_label($this->lang->line('tsk_published'), 'tsk_published'); ?>
 		<?php echo form_checkbox('tsk_published', '1', set_checkbox('tsk_published', '1'), 'id="tsk_published" class="inputcheckbox numeric"'); ?>
 		</p>

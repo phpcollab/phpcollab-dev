@@ -1,6 +1,41 @@
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `logs`
+--
+
+CREATE TABLE IF NOT EXISTS `logs` (
+  `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `mbr_id` int(10) unsigned NOT NULL,
+  `log_type` varchar(30) NOT NULL DEFAULT '',
+  `log_reference` int(10) unsigned NOT NULL,
+  `log_comments` text,
+  `log_datecreated` datetime NOT NULL,
+  PRIMARY KEY (`log_id`),
+  KEY `mbr_id` (`mbr_id`),
+  KEY `log_type` (`log_type`),
+  KEY `log_reference` (`log_reference`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs_details`
+--
+
+CREATE TABLE IF NOT EXISTS `logs_details` (
+  `log_dls_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `log_id` int(10) unsigned NOT NULL,
+  `log_dls_field` varchar(30) NOT NULL DEFAULT '',
+  `log_dls_old` text,
+  `log_dls_new` text,
+  PRIMARY KEY (`log_dls_id`),
+  KEY `log_id` (`log_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `files`
 --
 
@@ -97,7 +132,6 @@ CREATE TABLE IF NOT EXISTS `members` (
   `mbr_email` varchar(255) NOT NULL,
   `mbr_password` char(40) NOT NULL,
   `mbr_authorized` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `mbr_comments` text,
   `mbr_datecreated` datetime NOT NULL,
   `mbr_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`mbr_id`),
@@ -109,8 +143,8 @@ CREATE TABLE IF NOT EXISTS `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`mbr_id`, `org_id`, `mbr_name`, `mbr_description`, `mbr_email`, `mbr_password`, `mbr_authorized`, `mbr_comments`, `mbr_datecreated`, `mbr_datemodified`) VALUES
-(1, 1, 'Example', NULL, 'example@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', 1, NULL, '2014-02-20 22:09:54', '2014-02-21 16:12:29');
+INSERT INTO `members` (`mbr_id`, `org_id`, `mbr_name`, `mbr_description`, `mbr_email`, `mbr_password`, `mbr_authorized`, `mbr_datecreated`, `mbr_datemodified`) VALUES
+(1, 1, 'Example', NULL, 'example@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', 1, '2014-02-20 22:09:54', '2014-02-21 16:12:29');
 
 -- --------------------------------------------------------
 
@@ -171,7 +205,6 @@ CREATE TABLE IF NOT EXISTS `milestones` (
   `mln_date_complete` date DEFAULT NULL,
   `mln_status` int(10) unsigned NOT NULL,
   `mln_priority` int(10) unsigned NOT NULL,
-  `mln_comments` text,
   `mln_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `mln_datecreated` datetime NOT NULL,
   `mln_datemodified` datetime DEFAULT NULL,
@@ -247,7 +280,6 @@ CREATE TABLE IF NOT EXISTS `organizations` (
   `org_owner` int(10) unsigned NOT NULL,
   `org_name` varchar(255) NOT NULL,
   `org_description` text,
-  `org_comments` text,
   `org_authorized` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `org_system` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `org_datecreated` datetime NOT NULL,
@@ -258,8 +290,8 @@ CREATE TABLE IF NOT EXISTS `organizations` (
 -- Dumping data for table `organizations`
 --
 
-INSERT INTO `organizations` (`org_id`, `org_owner`, `org_name`, `org_description`, `org_comments`, `org_authorized`, `org_system`, `org_datecreated`) VALUES
-(1, 1, 'My company', NULL, NULL, 1, 1, '2014-02-20 22:03:04');
+INSERT INTO `organizations` (`org_id`, `org_owner`, `org_name`, `org_description`, `org_authorized`, `org_system`, `org_datecreated`) VALUES
+(1, 1, 'My company', NULL, 1, 1, '2014-02-20 22:03:04');
 
 -- --------------------------------------------------------
 
@@ -305,67 +337,55 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (23, 'files_tasks/delete', '0000-00-00 00:00:00'),
 (35, 'milestones/index', '0000-00-00 00:00:00'),
 (36, 'milestones/create', '0000-00-00 00:00:00'),
-(37, 'milestones/read/comments', '0000-00-00 00:00:00'),
 (38, 'milestones/update', '0000-00-00 00:00:00'),
 (39, 'milestones/update/date_start', '0000-00-00 00:00:00'),
 (40, 'milestones/update/date_due', '0000-00-00 00:00:00'),
 (41, 'milestones/update/date_complete', '0000-00-00 00:00:00'),
 (42, 'milestones/update/status', '0000-00-00 00:00:00'),
 (43, 'milestones/update/priority', '0000-00-00 00:00:00'),
-(44, 'milestones/update/comments', '0000-00-00 00:00:00'),
 (45, 'milestones/update/published', '0000-00-00 00:00:00'),
 (46, 'milestones/delete', '0000-00-00 00:00:00'),
 (47, 'notes/index', '0000-00-00 00:00:00'),
 (48, 'notes/create', '0000-00-00 00:00:00'),
-(49, 'notes/read/comments', '0000-00-00 00:00:00'),
 (50, 'notes/update', '0000-00-00 00:00:00'),
 (51, 'notes/update/published', '0000-00-00 00:00:00'),
 (52, 'notes/delete', '0000-00-00 00:00:00'),
 (53, 'notifications/index', '0000-00-00 00:00:00'),
 (54, 'notifications/create', '0000-00-00 00:00:00'),
-(55, 'notifications/read/comments', '0000-00-00 00:00:00'),
 (56, 'notifications/update', '0000-00-00 00:00:00'),
 (57, 'notifications/delete', '0000-00-00 00:00:00'),
 (58, 'organizations/index', '0000-00-00 00:00:00'),
 (59, 'organizations/create', '0000-00-00 00:00:00'),
-(60, 'organizations/read/comments', '0000-00-00 00:00:00'),
 (61, 'organizations/update', '0000-00-00 00:00:00'),
-(62, 'organizations/update/comments', '0000-00-00 00:00:00'),
 (63, 'organizations/delete', '0000-00-00 00:00:00'),
 (69, 'posts/create', '0000-00-00 00:00:00'),
 (70, 'posts/delete', '0000-00-00 00:00:00'),
 (71, 'projects/index', '0000-00-00 00:00:00'),
 (72, 'projects/create', '0000-00-00 00:00:00'),
-(73, 'projects/read/comments', '0000-00-00 00:00:00'),
 (74, 'projects/update', '0000-00-00 00:00:00'),
 (75, 'projects/update/date_start', '0000-00-00 00:00:00'),
 (76, 'projects/update/date_due', '0000-00-00 00:00:00'),
 (77, 'projects/update/date_complete', '0000-00-00 00:00:00'),
 (78, 'projects/update/status', '0000-00-00 00:00:00'),
 (79, 'projects/update/priority', '0000-00-00 00:00:00'),
-(80, 'projects/update/comments', '0000-00-00 00:00:00'),
 (81, 'projects/update/published', '0000-00-00 00:00:00'),
 (82, 'projects/delete', '0000-00-00 00:00:00'),
 (83, 'projects_members/index', '0000-00-00 00:00:00'),
 (84, 'projects_members/create', '0000-00-00 00:00:00'),
-(85, 'projects_members/read/comments', '0000-00-00 00:00:00'),
 (86, 'projects_members/update', '0000-00-00 00:00:00'),
 (87, 'projects_members/delete', '0000-00-00 00:00:00'),
 (103, 'tasks/index', '0000-00-00 00:00:00'),
 (104, 'tasks/create', '0000-00-00 00:00:00'),
-(105, 'tasks/read/comments', '0000-00-00 00:00:00'),
 (106, 'tasks/update', '0000-00-00 00:00:00'),
 (107, 'tasks/update/date_start', '0000-00-00 00:00:00'),
 (108, 'tasks/update/date_due', '0000-00-00 00:00:00'),
 (109, 'tasks/update/date_complete', '0000-00-00 00:00:00'),
 (110, 'tasks/update/status', '0000-00-00 00:00:00'),
 (111, 'tasks/update/priority', '0000-00-00 00:00:00'),
-(112, 'tasks/update/comments', '0000-00-00 00:00:00'),
 (113, 'tasks/update/published', '0000-00-00 00:00:00'),
 (114, 'tasks/delete', '0000-00-00 00:00:00'),
 (115, 'topics/index', '0000-00-00 00:00:00'),
 (116, 'topics/create', '0000-00-00 00:00:00'),
-(117, 'topics/read/comments', '0000-00-00 00:00:00'),
 (118, 'topics/update', '0000-00-00 00:00:00'),
 (119, 'topics/update/status', '0000-00-00 00:00:00'),
 (120, 'topics/update/priority', '0000-00-00 00:00:00'),
@@ -373,7 +393,6 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (122, 'topics/delete', '0000-00-00 00:00:00'),
 (123, 'trackers/index', '0000-00-00 00:00:00'),
 (124, 'trackers/create', '0000-00-00 00:00:00'),
-(125, 'trackers/read/comments', '0000-00-00 00:00:00'),
 (126, 'trackers/update', '0000-00-00 00:00:00'),
 (127, 'trackers/delete', '0000-00-00 00:00:00');
 
@@ -417,7 +436,6 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `prj_date_complete` date DEFAULT NULL,
   `prj_status` int(10) unsigned NOT NULL,
   `prj_priority` int(10) unsigned NOT NULL,
-  `prj_comments` text,
   `prj_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `prj_datecreated` datetime NOT NULL,
   `prj_datemodified` datetime DEFAULT NULL,
@@ -450,25 +468,6 @@ CREATE TABLE IF NOT EXISTS `projects_members` (
 
 --
 -- Dumping data for table `projects_members`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `projects_trackers`
---
-
-CREATE TABLE IF NOT EXISTS `projects_trackers` (
-  `prj_trk_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `prj_id` int(10) unsigned NOT NULL,
-  `trk_id` int(10) unsigned NOT NULL,
-  `prj_trk_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`prj_trk_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `projects_trackers`
 --
 
 
@@ -667,7 +666,6 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `tsk_priority` int(10) unsigned NOT NULL,
   `tsk_parent` int(10) unsigned DEFAULT NULL,
   `tsk_completion` int(10) unsigned NOT NULL,
-  `tsk_comments` text,
   `tsk_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `tsk_datecreated` datetime NOT NULL,
   `tsk_datemodified` datetime DEFAULT NULL,
@@ -725,8 +723,10 @@ CREATE TABLE IF NOT EXISTS `trackers` (
 --
 
 INSERT INTO `trackers` (`trk_id`, `trk_owner`, `trk_name`, `tsk_description`, `trk_datecreated`) VALUES
-(1, 1, 'Features', NULL, '2014-02-20 22:09:10'),
-(2, 1, 'Tickets', NULL, '2014-02-20 22:09:18');
+(1, 1, 'Feature', NULL, '2014-02-20 22:09:10'),
+(2, 1, 'Issue', NULL, '2014-02-20 22:09:18'),
+(3, 1, 'Bug', NULL, '2014-02-20 22:09:10'),
+(4, 1, 'Support', NULL, '2014-02-20 22:09:18');
 
 -- --------------------------------------------------------
 
@@ -780,7 +780,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (30, 'phpcollab/icons/notes', 'file-text-o', '2014-02-22 04:41:52'),
 (31, 'phpcollab/icons/files', 'cloud-upload', '2014-02-22 04:41:52'),
 (32, 'sender/email', 'example@example.com', '2014-02-22 04:41:52'),
-(33, 'sender/name', 'phpCollab', '2014-02-22 04:41:52');
+(33, 'sender/name', 'phpCollab', '2014-02-22 04:41:52'),
+(34, 'phpcollab/icons/logs', 'bookmark', '2014-02-22 04:41:52');
 
 -- --------------------------------------------------------
 

@@ -53,10 +53,6 @@
 		<?php if($row->tsk_completion) { ?><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('mln_comments'); ?></span>
-		<?php if($row->mln_comments) { ?><?php echo $row->mln_comments; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
 		<span class="label"><?php echo $this->lang->line('mln_published'); ?></span>
 		<?php echo $this->lang->line('reply_'.$row->mln_published); ?>
 		</p>

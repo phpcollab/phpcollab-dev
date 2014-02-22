@@ -36,7 +36,6 @@ class milestones extends CI_Controller {
 			$this->form_validation->set_rules('mln_date_complete', 'lang:mln_date_complete', '');
 			$this->form_validation->set_rules('mln_status', 'lang:mln_status', 'required|numeric');
 			$this->form_validation->set_rules('mln_priority', 'lang:mln_priority', 'required|numeric');
-			$this->form_validation->set_rules('mln_comments', 'lang:mln_comments', '');
 			$this->form_validation->set_rules('mln_published', 'lang:mln_published', 'numeric');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('milestones/milestones_create', $data, TRUE);
@@ -64,7 +63,6 @@ class milestones extends CI_Controller {
 				$this->db->set('mln_date_complete', $this->input->post('mln_date_complete'));
 				$this->db->set('mln_status', $this->input->post('mln_status'));
 				$this->db->set('mln_priority', $this->input->post('mln_priority'));
-				$this->db->set('mln_comments', $this->input->post('mln_comments'));
 				$this->db->set('mln_published', checkbox2database($this->input->post('mln_published')));
 				$this->db->set('mln_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('milestones');
@@ -84,6 +82,7 @@ class milestones extends CI_Controller {
 				$this->my_library->set_title($this->lang->line('milestones').' / '.$data['row']->mln_name);
 				$content = $this->load->view('milestones/milestones_read', $data, TRUE);
 				$content .= $this->tasks_model->get_index_list($data['prj'], $data['row']);
+				$content .= $this->my_model->get_logs('milestone', $mln_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
 				redirect($this->my_url);
@@ -109,8 +108,8 @@ class milestones extends CI_Controller {
 				$this->form_validation->set_rules('mln_date_complete', 'lang:mln_date_complete', '');
 				$this->form_validation->set_rules('mln_status', 'lang:mln_status', 'required|numeric');
 				$this->form_validation->set_rules('mln_priority', 'lang:mln_priority', 'required|numeric');
-				$this->form_validation->set_rules('mln_comments', 'lang:mln_comments', '');
 				$this->form_validation->set_rules('mln_published', 'lang:mln_published', 'numeric');
+				$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('milestones/milestones_update', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
@@ -139,11 +138,13 @@ class milestones extends CI_Controller {
 					$this->db->set('mln_date_complete', $this->input->post('mln_date_complete'));
 					$this->db->set('mln_status', $this->input->post('mln_status'));
 					$this->db->set('mln_priority', $this->input->post('mln_priority'));
-					$this->db->set('mln_comments', $this->input->post('mln_comments'));
 					$this->db->set('mln_published', checkbox2database($this->input->post('mln_published')));
 					$this->db->set('mln_datemodified', date('Y-m-d H:i:s'));
 					$this->db->where('mln_id', $mln_id);
 					$this->db->update('milestones');
+
+					$this->my_model->save_log('milestone', $mln_id, $data['row']);
+
 					$this->read($mln_id);
 				}
 			} else {

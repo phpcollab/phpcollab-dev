@@ -57,10 +57,6 @@
 		<?php if($row->tsk_completion) { ?><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('prj_comments'); ?></span>
-		<?php if($row->prj_comments) { ?><?php echo $row->prj_comments; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
 		<span class="label"><?php echo $this->lang->line('prj_published'); ?></span>
 		<?php echo $this->lang->line('reply_'.$row->prj_published); ?>
 		</p>

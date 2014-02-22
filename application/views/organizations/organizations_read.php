@@ -29,10 +29,6 @@
 	</div>
 	<div class="column1 columnlast">
 		<p>
-		<span class="label"><?php echo $this->lang->line('org_comments'); ?></span>
-		<?php if($row->org_comments) { ?><?php echo $row->org_comments; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
 		<span class="label"><?php echo $this->lang->line('org_authorized'); ?></span>
 		<?php echo $this->lang->line('reply_'.$row->org_authorized); ?>
 		</p>

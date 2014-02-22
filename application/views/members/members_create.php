@@ -37,10 +37,6 @@
 		<?php echo form_label($this->lang->line('mbr_authorized'), 'mbr_authorized'); ?>
 		<?php echo form_checkbox('mbr_authorized', '1', set_checkbox('mbr_authorized', '1'), 'id="mbr_authorized" class="inputcheckbox numeric"'); ?>
 		</p>
-		<p>
-		<?php echo form_label($this->lang->line('mbr_comments'), 'mbr_comments'); ?>
-		<?php echo form_textarea('mbr_comments', set_value('mbr_comments', ''), 'id="mbr_comments" class="textarea"'); ?>
-		</p>
 		<?php foreach($roles as $rol) { ?>
 		<p>
 		<?php echo form_label($rol->rol_code, 'rol_'.$rol->rol_id); ?>

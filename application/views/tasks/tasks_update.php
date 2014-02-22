@@ -64,12 +64,12 @@
 		<?php echo form_dropdown('tsk_completion', $this->my_model->dropdown_completion(), set_value('tsk_completion', $row->tsk_completion), 'id="tsk_completion" class="select numeric"'); ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('tsk_comments'), 'tsk_comments'); ?>
-		<?php echo form_textarea('tsk_comments', set_value('tsk_comments', $row->tsk_comments), 'id="tsk_comments" class="textarea"'); ?>
-		</p>
-		<p>
 		<?php echo form_label($this->lang->line('tsk_published'), 'tsk_published'); ?>
 		<?php echo form_checkbox('tsk_published', '1', set_checkbox('tsk_published', '1', value2boolean($row->tsk_published, '1')), 'id="tsk_published" class="inputcheckbox numeric"'); ?>
+		</p>
+		<p>
+		<?php echo form_label($this->lang->line('log_comments'), 'log_comments'); ?>
+		<?php echo form_textarea('log_comments', set_value('log_comments', ''), 'id="log_comments" class="textarea"'); ?>
 		</p>
 		<p>
 		<span class="label">&nbsp;</span>

@@ -31,7 +31,6 @@ class Organizations extends CI_Controller {
 		$this->form_validation->set_rules('org_owner', 'lang:org_owner', 'required|numeric');
 		$this->form_validation->set_rules('org_name', 'lang:org_name', 'required|max_length[255]');
 		$this->form_validation->set_rules('org_description', 'lang:org_description', '');
-		$this->form_validation->set_rules('org_comments', 'lang:org_comments', '');
 		$this->form_validation->set_rules('org_authorized', 'lang:org_authorized', 'numeric');
 		if($this->form_validation->run() == FALSE) {
 			$content = $this->load->view('organizations/organizations_create', $data, TRUE);
@@ -53,7 +52,6 @@ class Organizations extends CI_Controller {
 			$this->db->set('org_owner', $this->input->post('org_owner'));
 			$this->db->set('org_name', $this->input->post('org_name'));
 			$this->db->set('org_description', $this->input->post('org_description'));
-			$this->db->set('org_comments', $this->input->post('org_comments'));
 			$this->db->set('org_authorized', checkbox2database($this->input->post('org_authorized')));
 			$this->db->set('org_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('organizations');
@@ -92,10 +90,10 @@ class Organizations extends CI_Controller {
 			$this->form_validation->set_rules('org_owner', 'lang:org_owner', 'required|numeric');
 			$this->form_validation->set_rules('org_name', 'lang:org_name', 'required|max_length[255]');
 			$this->form_validation->set_rules('org_description', 'lang:org_description', '');
-			$this->form_validation->set_rules('org_comments', 'lang:org_comments', '');
 			if($data['row']->org_system == 0) {
 				$this->form_validation->set_rules('org_authorized', 'lang:org_authorized', 'numeric');
 			}
+			$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('organizations/organizations_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
@@ -119,12 +117,14 @@ class Organizations extends CI_Controller {
 				$this->db->set('org_owner', $this->input->post('org_owner'));
 				$this->db->set('org_name', $this->input->post('org_name'));
 				$this->db->set('org_description', $this->input->post('org_description'));
-				$this->db->set('org_comments', $this->input->post('org_comments'));
 				if($data['row']->org_system == 0) {
 					$this->db->set('org_authorized', checkbox2database($this->input->post('org_authorized')));
 				}
 				$this->db->where('org_id', $org_id);
 				$this->db->update('organizations');
+
+				$this->my_model->save_log('organization', $org_id, $data['row']);
+
 				$this->read($org_id);
 			}
 		} else {

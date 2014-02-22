@@ -38,7 +38,6 @@ class members extends CI_Controller {
 		$this->form_validation->set_rules('mbr_password', 'lang:mbr_password', 'required');
 		$this->form_validation->set_rules('mbr_password_confirm', 'lang:mbr_password_confirm', 'required|matches[mbr_password]');
 		$this->form_validation->set_rules('mbr_authorized', 'lang:mbr_authorized', 'numeric');
-		$this->form_validation->set_rules('mbr_comments', 'lang:mbr_comments', '');
 		if($this->form_validation->run() == FALSE) {
 			$content = $this->load->view('members/members_create', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
@@ -62,7 +61,6 @@ class members extends CI_Controller {
 			$this->db->set('mbr_email', $this->input->post('mbr_email'));
 			$this->db->set('mbr_password', $this->auth_library->salt_password($this->input->post('mbr_password')));
 			$this->db->set('mbr_authorized', checkbox2database($this->input->post('mbr_authorized')));
-			$this->db->set('mbr_comments', $this->input->post('mbr_comments'));
 			$this->db->set('mbr_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('members');
 			$mbr_id = $this->db->insert_id();
@@ -121,7 +119,7 @@ class members extends CI_Controller {
 			$this->form_validation->set_rules('mbr_password', 'lang:mbr_password', '');
 			$this->form_validation->set_rules('mbr_password_confirm', 'lang:mbr_password_confirm', 'matches[mbr_password]');
 			$this->form_validation->set_rules('mbr_authorized', 'lang:mbr_authorized', 'numeric');
-			$this->form_validation->set_rules('mbr_comments', 'lang:mbr_comments', '');
+			$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('members/members_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
@@ -152,7 +150,6 @@ class members extends CI_Controller {
 				if($data['row']->mbr_id != $this->phpcollab_member->mbr_id) {
 					$this->db->set('mbr_authorized', checkbox2database($this->input->post('mbr_authorized')));
 				}
-				$this->db->set('mbr_comments', $this->input->post('mbr_comments'));
 				$this->db->set('mbr_datemodified', date('Y-m-d H:i:s'));
 				$this->db->where('mbr_id', $mbr_id);
 				$this->db->update('members');
@@ -170,6 +167,8 @@ class members extends CI_Controller {
 						$this->db->delete('members_roles');
 					}
 				}
+
+				$this->my_model->save_log('member', $mbr_id, $data['row']);
 
 				$this->read($mbr_id);
 			}

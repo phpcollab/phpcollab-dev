@@ -45,8 +45,8 @@ class tasks extends CI_Controller {
 			$this->form_validation->set_rules('tsk_priority', 'lang:tsk_priority', 'required|numeric');
 			$this->form_validation->set_rules('tsk_parent', 'lang:tsk_parent', 'numeric');
 			$this->form_validation->set_rules('tsk_completion', 'lang:tsk_completion', 'required|numeric');
-			$this->form_validation->set_rules('tsk_comments', 'lang:tsk_comments', '');
 			$this->form_validation->set_rules('tsk_published', 'lang:tsk_published', 'numeric');
+			$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('tasks/tasks_create', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
@@ -78,7 +78,6 @@ class tasks extends CI_Controller {
 				$this->db->set('tsk_priority', $this->input->post('tsk_priority'));
 				$this->db->set('tsk_parent', $this->input->post('tsk_parent'));
 				$this->db->set('tsk_completion', $this->input->post('tsk_completion'));
-				$this->db->set('tsk_comments', $this->input->post('tsk_comments'));
 				$this->db->set('tsk_published', checkbox2database($this->input->post('tsk_published')));
 				$this->db->set('tsk_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('tasks');
@@ -106,6 +105,7 @@ class tasks extends CI_Controller {
 			if($data['prj']) {
 				$this->my_library->set_title($this->lang->line('tasks').' / '.$data['row']->tsk_name);
 				$content = $this->load->view('tasks/tasks_read', $data, TRUE);
+				$content .= $this->my_model->get_logs('task', $tsk_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
 				redirect($this->my_url);
@@ -140,8 +140,8 @@ class tasks extends CI_Controller {
 				$this->form_validation->set_rules('tsk_priority', 'lang:tsk_priority', 'required|numeric');
 				$this->form_validation->set_rules('tsk_parent', 'lang:tsk_parent', 'numeric');
 				$this->form_validation->set_rules('tsk_completion', 'lang:tsk_completion', 'required|numeric');
-				$this->form_validation->set_rules('tsk_comments', 'lang:tsk_comments', '');
 				$this->form_validation->set_rules('tsk_published', 'lang:tsk_published', 'numeric');
+				$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('tasks/tasks_update', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
@@ -175,11 +175,13 @@ class tasks extends CI_Controller {
 					$this->db->set('tsk_priority', $this->input->post('tsk_priority'));
 					$this->db->set('tsk_parent', $this->input->post('tsk_parent'));
 					$this->db->set('tsk_completion', $this->input->post('tsk_completion'));
-					$this->db->set('tsk_comments', $this->input->post('tsk_comments'));
 					$this->db->set('tsk_published', checkbox2database($this->input->post('tsk_published')));
 					$this->db->set('tsk_datemodified', date('Y-m-d H:i:s'));
 					$this->db->where('tsk_id', $tsk_id);
 					$this->db->update('tasks');
+
+					$this->my_model->save_log('task', $tsk_id, $data['row']);
+
 					$this->read($tsk_id);
 				}
 			} else {

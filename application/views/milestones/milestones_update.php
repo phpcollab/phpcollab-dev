@@ -44,12 +44,12 @@
 		<?php echo form_dropdown('mln_priority', $this->my_model->dropdown_priority(), set_value('mln_priority', $row->mln_priority), 'id="mln_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('mln_comments'), 'mln_comments'); ?>
-		<?php echo form_textarea('mln_comments', set_value('mln_comments', $row->mln_comments), 'id="mln_comments" class="textarea"'); ?>
-		</p>
-		<p>
 		<?php echo form_label($this->lang->line('mln_published'), 'mln_published'); ?>
 		<?php echo form_checkbox('mln_published', '1', set_checkbox('mln_published', '1', value2boolean($row->mln_published, '1')), 'id="mln_published" class="inputcheckbox numeric"'); ?>
+		</p>
+		<p>
+		<?php echo form_label($this->lang->line('log_comments'), 'log_comments'); ?>
+		<?php echo form_textarea('log_comments', set_value('log_comments', ''), 'id="log_comments" class="textarea"'); ?>
 		</p>
 		<p>
 		<span class="label">&nbsp;</span>

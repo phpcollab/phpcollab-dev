@@ -22,10 +22,6 @@
 	</div>
 	<div class="column1 columnlast">
 		<p>
-		<?php echo form_label($this->lang->line('org_comments'), 'org_comments'); ?>
-		<?php echo form_textarea('org_comments', set_value('org_comments', ''), 'id="org_comments" class="textarea"'); ?>
-		</p>
-		<p>
 		<?php echo form_label($this->lang->line('org_authorized'), 'org_authorized'); ?>
 		<?php echo form_checkbox('org_authorized', '1', set_checkbox('org_authorized', '1'), 'id="org_authorized" class="inputcheckbox numeric"'); ?>
 		</p>

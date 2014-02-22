@@ -12,7 +12,7 @@
 		<?php if($row->tsk_id) { ?><?php echo $row->tsk_id; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
-		<span class="label"><?php echo $this->lang->line('trk_id'); ?></span>
+		<span class="label"><?php echo $this->lang->line('tracker'); ?></span>
 		<?php if($row->trk_name) { ?><?php echo $row->trk_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
@@ -64,10 +64,6 @@
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_completion'); ?></span>
 		<?php if($row->tsk_completion) { ?><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('tsk_comments'); ?></span>
-		<?php if($row->tsk_comments) { ?><?php echo $row->tsk_comments; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_published'); ?></span>

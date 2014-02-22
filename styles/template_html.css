@@ -100,6 +100,7 @@ thead tr th.sort_desc span, thead tr th.sort_desc a:link, thead tr th.sort_desc 
 tbody th{padding-right:0px;white-space:nowrap;}
 tbody th a:link, tbody th a:visited{margin-right:3px;}
 tbody tr:nth-child(even) th, tbody tr:nth-child(even) td{background-color:#E7E7E7;}
+table.transparent tr:nth-child(even) th, table.transparent tr:nth-child(even) td{background-color:transparent;}
 /*table tbody tr:hover th, table tbody tr:hover td{background-color:#AEB2B7;}*/
 
 .data_table{float:left;margin:0px 10px 10px 0px;}

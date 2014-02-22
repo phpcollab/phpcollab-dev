@@ -43,8 +43,8 @@
 			</p>
 		<?php } ?>
 		<p>
-		<?php echo form_label($this->lang->line('mbr_comments'), 'mbr_comments'); ?>
-		<?php echo form_textarea('mbr_comments', set_value('mbr_comments', $row->mbr_comments), 'id="mbr_comments" class="textarea"'); ?>
+		<?php echo form_label($this->lang->line('log_comments'), 'log_comments'); ?>
+		<?php echo form_textarea('log_comments', set_value('log_comments', ''), 'id="log_comments" class="textarea"'); ?>
 		</p>
 		<?php foreach($roles as $rol) { ?>
 		<p>

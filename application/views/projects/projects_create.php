@@ -46,10 +46,6 @@
 		<?php echo form_dropdown('prj_priority', $this->my_model->dropdown_priority(), set_value('prj_priority', $this->config->item('phpcollab/default/priority')), 'id="prj_priority" class="select required numeric"'); ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('prj_comments'), 'prj_comments'); ?>
-		<?php echo form_textarea('prj_comments', set_value('prj_comments', ''), 'id="prj_comments" class="textarea"'); ?>
-		</p>
-		<p>
 		<?php echo form_label($this->lang->line('prj_published'), 'prj_published'); ?>
 		<?php echo form_checkbox('prj_published', '1', set_checkbox('prj_published', '1'), 'id="prj_published" class="inputcheckbox numeric"'); ?>
 		</p>
