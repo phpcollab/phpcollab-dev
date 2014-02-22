@@ -18,6 +18,7 @@ class milestones_model extends CI_Model {
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'mln.mln_name';
 		$columns[] = 'mln.mln_date_start';
+		$columns[] = 'mln.mln_date_due';
 		$columns[] = 'stu.stu_ordering';
 		$columns[] = 'mln.mln_priority';
 		$columns[] = 'tsk_completion';

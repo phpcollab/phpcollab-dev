@@ -228,13 +228,13 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 --
 
 INSERT INTO `notifications` (`ntf_id`, `ntf_code`, `ntf_datecreated`) VALUES
-(1, 'project/task/member/assigned', '0000-00-00 00:00:00'),
-(2, 'project/member/added', '0000-00-00 00:00:00'),
-(3, 'project/member/removed', '0000-00-00 00:00:00'),
+(1, 'project/task/assigned', '0000-00-00 00:00:00'),
+(2, 'project/member/created', '0000-00-00 00:00:00'),
+(3, 'project/member/deleted', '0000-00-00 00:00:00'),
 (4, 'project/topic/created', '0000-00-00 00:00:00'),
 (5, 'project/topic/post/created', '0000-00-00 00:00:00'),
 (6, 'project/task/updated', '0000-00-00 00:00:00'),
-(7, 'project/member/assigned/task/updated', '0000-00-00 00:00:00');
+(7, 'project/task/created', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

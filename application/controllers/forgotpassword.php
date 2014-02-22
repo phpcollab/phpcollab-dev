@@ -27,13 +27,13 @@ class Forgotpassword extends CI_Controller {
 				$this->db->where('mbr_id', $user->mbr_id);
 				$this->db->update('members');
 
-				$to = $user->mbr_email;
+				/*$to = $user->mbr_email;
 				$template = 'backend_forgotpassword';
 				$tags = array(
 					'[mbr_email]' => $user->mbr_email,
 					'[confirmation_url]' => $this->my_url.'forgotpassword/confirmation/'.$token_forgotpassword,
 				);
-				$this->email_library->send($to, $this->config->item('language'), $template, $tags);
+				$this->email_library->send($to, $this->config->item('language'), $template, $tags);*/
 
 				$data = array();
 				$content = $this->load->view('forgotpassword/forgotpassword_sent', $data, TRUE);

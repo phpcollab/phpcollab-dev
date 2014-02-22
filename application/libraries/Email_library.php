@@ -5,9 +5,9 @@ class Email_library {
 		$this->CI =& get_instance();
 
 		$this->mode = 'codeigniter';
-		$this->modes = array('codeigniter', 'emailstrategie');
+		$this->modes = array('codeigniter');
 		$this->priority = 3;
-		$this->protocol = 'mail';
+		$this->protocol = 'sendmail';
 		$this->protocols = array('mail', 'sendmail', 'smtp');
 		$this->salt_email = $this->CI->config->item('salt_email');
 		$this->sender_email = $this->CI->config->item('sender_email');
@@ -27,38 +27,15 @@ class Email_library {
 	function salt_email($eml_id) {
 		return sha1($eml_id.$this->salt_email);
 	}
-	function send($to, $language, $template, $tags) {
+	function send($to, $message) {
 		if(stristr($to, '@example.com')) {
 		} else {
 			$this->CI->load->helper('email');
 
-			if(valid_email($to) && file_exists('emails/'.$language.'/'.$template.'.html') && in_array($this->mode, $this->modes)) {
-				$this->CI->db->set('eml_to', $to);
-				$this->CI->db->set('eml_language', $language);
-				$this->CI->db->set('eml_template', $template);
-				$this->CI->db->set('eml_datesent', date('Y-m-d H:i:s'));
-				$this->CI->db->insert('_emails');
-				$eml_id = $this->CI->db->insert_id();
-
-				$message = file_get_contents('emails/'.$language.'/'.$template.'.html');
-
-				$tags['</body>'] = '<img border="0" alt="" src="'.$this->url.'email/open/'.$this->salt_email($eml_id).'" width="1" height="1"></body>';
-				$tags['href="'.$this->url] = 'href="'.$this->url.'email/click/'.$this->salt_email($eml_id).'?redirect='.$this->url;
-				$tags['href="/'] = 'href="'.$this->url.'email/click/'.$this->salt_email($eml_id).'?redirect='.$this->url;
-				$tags['src="/emails/'] = 'src="'.$this->url.'emails/';
-				$tags['src="/medias/'] = 'src="'.$this->url.'medias/';
-				$tags['src="/storage/'] = 'src="'.$this->url.'storage/';
-
-				foreach($tags as $k => $v) {
-					$message = str_replace($k, $v, $message);
-				}
-
+			if(valid_email($to) && $message != '' && in_array($this->mode, $this->modes)) {
 				preg_match_all("|<[tT][iI][tT][lL][eE](.*)>(.*)<\/[tT][iI][tT][lL][eE]>|U", $message, $matches);
 				$subject = $matches[2][0];
 				$subject = str_replace('&quot;', '"', $subject);
-
-				if($this->mode == 'emailstrategie') {
-				}
 
 				if($this->mode == 'codeigniter') {
 					$this->CI->load->library('email');
@@ -82,8 +59,6 @@ class Email_library {
 				}
 			}
 		}
-	}
-	public function emailstrategie() {
 	}
 	function alt_message($message) {
 		$messageText = $message;

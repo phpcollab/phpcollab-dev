@@ -24,5 +24,6 @@ example
 * Notes
 
 ###Todo
+* Notifications
 * Permissions / Roles
 * Topics / Posts

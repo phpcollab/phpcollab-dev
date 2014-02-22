@@ -1,4 +1,5 @@
 <?php
+$lang['project_task_assigned'] = 'A task has been assigned to you';
 $lang['administrator'] = 'Administrator';
 $lang['already_exists'] = 'The %s field already exists';
 $lang['cfg_datecreated'] = 'Date created';

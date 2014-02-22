@@ -5,6 +5,7 @@ class tasks extends CI_Controller {
 		parent::__construct();
 		$this->load->model('projects_model');
 		$this->load->model('tasks_model');
+		$this->load->model('members_model');
 
 		$this->storage_table = 'tasks';
 		$this->storage_fields = array();
@@ -82,6 +83,15 @@ class tasks extends CI_Controller {
 				$this->db->set('tsk_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('tasks');
 				$tsk_id = $this->db->insert_id();
+
+				/*if($this->input->post('tsk_assigned') != '') {
+					$data['row'] = $this->tasks_model->get_row($tsk_id);
+					$this->load->library(array('email_library'));
+					$to = $this->members_model->get_row($this->input->post('tsk_assigned'))->mbr_email;
+					$message = $this->load->view('emails/project_task_assigned', $data, TRUE);
+					$this->email_library->send($to, $message);
+				}*/
+
 				$this->read($tsk_id);
 			}
 		} else {
