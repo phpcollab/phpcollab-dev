@@ -13,19 +13,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('stu_owner'); ?></span>
-		<?php if($row->stu_owner) { ?><?php echo $row->stu_owner; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('mbr_name'); ?></span>
 		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('stu_name'); ?></span>
 		<?php if($row->stu_name) { ?><?php echo $row->stu_name; ?><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('stu_isdefault'); ?></span>
-		<?php echo $this->lang->line('reply_'.$row->stu_isdefault); ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('stu_isclosed'); ?></span>

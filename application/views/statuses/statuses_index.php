@@ -27,7 +27,6 @@
 		<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_id')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_owner')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('mbr_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_isclosed')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_ordering')); ?>
@@ -39,7 +38,6 @@
 		<?php foreach($rows as $row) { ?>
 		<tr>
 			<td><?php echo $row->stu_id; ?></td>
-			<td><?php echo $row->stu_owner; ?></td>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>statuses/read/<?php echo $row->stu_id; ?>"><?php echo $row->stu_name; ?></a></td>
 			<td><?php echo $this->lang->line('reply_'.$row->stu_isclosed); ?></td>

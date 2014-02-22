@@ -9,11 +9,19 @@ class statuses extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('statuses'));
 		$content = $this->statuses_model->get_index_list();
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->my_library->set_title($this->lang->line('statuses'));
 		$this->load->library('form_validation');
 		$data = array();
@@ -50,6 +58,10 @@ class statuses extends CI_Controller {
 		}
 	}
 	public function read($stu_id) {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$data = array();
 		$data['row'] = $this->statuses_model->get_row($stu_id);
 		if($data['row']) {
@@ -61,6 +73,10 @@ class statuses extends CI_Controller {
 		}
 	}
 	public function update($stu_id) {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->statuses_model->get_row($stu_id);
@@ -104,6 +120,10 @@ class statuses extends CI_Controller {
 		}
 	}
 	public function delete($stu_id) {
+		if(!$this->auth_library->role('administrator')) {
+			redirect($this->my_url);
+		}
+
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->statuses_model->get_row($stu_id);

@@ -11,7 +11,6 @@ class statuses_model extends CI_Model {
 		$flt = $this->my_library->build_filters($filters);
 		$columns = array();
 		$columns[] = 'stu.stu_id';
-		$columns[] = 'stu.stu_owner';
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'stu.stu_name';
 		$columns[] = 'stu.stu_isclosed';
