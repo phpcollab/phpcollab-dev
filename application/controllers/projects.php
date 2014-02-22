@@ -7,6 +7,7 @@ class projects extends CI_Controller {
 		$this->load->model('projects_members_model');
 		$this->load->model('milestones_model');
 		$this->load->model('tasks_model');
+		$this->load->model('notes_model');
 
 		$this->storage_table = 'projects';
 		$this->storage_fields = array();
@@ -76,6 +77,7 @@ class projects extends CI_Controller {
 			$content .= $this->projects_members_model->get_index_list($data['row']);
 			$content .= $this->milestones_model->get_index_list($data['row']);
 			$content .= $this->tasks_model->get_index_list($data['row']);
+			$content .= $this->notes_model->get_index_list($data['row']);
 			$this->my_library->set_zone('content', $content);
 		} else {
 			$this->index();

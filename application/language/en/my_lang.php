@@ -114,6 +114,16 @@ $lang['mbr_comments'] = 'Comments';
 $lang['mbr_datecreated'] = 'Date created';
 $lang['mbr_datemodified'] = 'Date modified';
 
+$lang['notes'] = 'Notes';
+$lang['note'] = 'Note';
+$lang['nte_id'] = 'Note ID';
+$lang['nte_owner'] = 'Owner';
+$lang['nte_name'] = 'Name';
+$lang['nte_description'] = 'Description';
+$lang['nte_date'] = 'Date';
+$lang['nte_published'] = 'Published?';
+$lang['nte_datecreated'] = 'Date created';
+
 $lang['collapse'] = 'Collapse';
 $lang['expand'] = 'Expand';
 $lang['already_exists'] = 'The %s field already exists';

@@ -199,6 +199,7 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `nte_date` date DEFAULT NULL,
   `nte_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `nte_datecreated` datetime NOT NULL,
+  `nte_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`nte_id`),
   KEY `prj_id` (`prj_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -775,7 +776,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (26, 'phpcollab/icons/milestones', 'calendar', '0000-00-00 00:00:00'),
 (27, 'phpcollab/default/status', '1', '2014-02-22 03:22:45'),
 (28, 'phpcollab/default/priority', '2', '2014-02-22 03:24:18'),
-(29, 'phpcollab/icons/statuses', 'sun-o', '2014-02-22 04:23:50');
+(29, 'phpcollab/icons/statuses', 'sun-o', '2014-02-22 04:23:50'),
+(30, 'phpcollab/icons/notes', 'file-text-o', '2014-02-22 04:41:52');
 
 -- --------------------------------------------------------
 
