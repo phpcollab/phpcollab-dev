@@ -38,7 +38,8 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<th>&nbsp;</th>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_id')); ?>
 			<?php if($this->router->class != 'organizations') { ?>
 				<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('organization')); ?>
@@ -54,6 +55,9 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
+			<td>
+				<?php if($row->mbr_authorized == 0) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notauthorized'); ?>" title="<?php echo $this->lang->line('icon_notauthorized'); ?>"></i><?php } ?>
+			</td>
 			<td><?php echo $row->mbr_id; ?></td>
 			<?php if($this->router->class != 'organizations') { ?>
 				<td><?php echo $row->org_name; ?></td>

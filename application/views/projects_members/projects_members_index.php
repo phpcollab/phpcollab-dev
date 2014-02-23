@@ -36,7 +36,8 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<th>&nbsp;</th>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('prj_mbr_id')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('organization')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('member')); ?>
@@ -50,6 +51,10 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
+			<td>
+				<?php if($row->prj_mbr_authorized == 0) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notauthorized'); ?>" title="<?php echo $this->lang->line('icon_notauthorized'); ?>"></i><?php } ?>
+				<?php if($row->prj_mbr_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
+			</td>
 			<td><?php echo $row->prj_mbr_id; ?></td>
 			<td><?php echo $row->org_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>projects_members/read/<?php echo $row->prj_mbr_id; ?>"><?php echo $row->mbr_name; ?></a></td>

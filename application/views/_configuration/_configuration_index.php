@@ -24,7 +24,7 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'__configuration', $columns[$i++], $this->lang->line('cfg_id')); ?>
 			<?php $this->my_library->display_column($this->router->class.'__configuration', $columns[$i++], $this->lang->line('cfg_path')); ?>
 			<?php $this->my_library->display_column($this->router->class.'__configuration', $columns[$i++], $this->lang->line('cfg_value')); ?>

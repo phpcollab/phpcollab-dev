@@ -54,7 +54,8 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<th>&nbsp;</th>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_id')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tracker')); ?>
 			<?php if($this->router->class != 'milestones') { ?>
@@ -72,6 +73,10 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
+			<td>
+				<?php if($row->tsk_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->tsk_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
+			</td>
 			<td><?php echo $row->tsk_id; ?></td>
 			<td><?php echo $row->trk_name; ?></td>
 			<?php if($this->router->class != 'milestones') { ?>

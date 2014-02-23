@@ -28,7 +28,8 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<th>&nbsp;</th>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_organizations', $columns[$i++], $this->lang->line('org_id')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_organizations', $columns[$i++], $this->lang->line('org_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_organizations', $columns[$i++], $this->lang->line('org_name')); ?>
@@ -41,6 +42,10 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
+			<td>
+				<?php if($row->org_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->org_authorized == 0) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notauthorized'); ?>" title="<?php echo $this->lang->line('icon_notauthorized'); ?>"></i><?php } ?>
+			</td>
 			<td><?php echo $row->org_id; ?></td>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><?php echo $row->org_name; ?></a></td>

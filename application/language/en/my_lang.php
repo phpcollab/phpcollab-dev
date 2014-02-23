@@ -1,4 +1,8 @@
 <?php
+$lang['icon_inteam'] = 'In team';
+$lang['icon_owner'] = 'Owner';
+$lang['icon_published'] = 'Published';
+$lang['icon_notauthorized'] = 'Not authorized';
 $lang['direct_link'] = 'Direct link';
 $lang['topics'] = 'Topics';
 $lang['topic'] = 'Topic';

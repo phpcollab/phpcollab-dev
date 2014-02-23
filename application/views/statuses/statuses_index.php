@@ -24,7 +24,8 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<th>&nbsp;</th>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_id')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_name')); ?>
@@ -37,6 +38,9 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
+			<td>
+				<?php if($row->stu_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+			</td>
 			<td><?php echo $row->stu_id; ?></td>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>statuses/read/<?php echo $row->stu_id; ?>"><?php echo $row->stu_name; ?></a></td>

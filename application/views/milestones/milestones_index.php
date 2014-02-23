@@ -36,7 +36,8 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<th>&nbsp;</th>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_id')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_owner')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_name')); ?>
@@ -52,6 +53,10 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
+			<td>
+				<?php if($row->mln_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->mln_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
+			</td>
 			<td><?php echo $row->mln_id; ?></td>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>milestones/read/<?php echo $row->mln_id; ?>"><?php echo $row->mln_name; ?></a></td>

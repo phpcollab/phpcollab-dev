@@ -20,7 +20,7 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_roles', $columns[$i++], $this->lang->line('rol_id')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_roles', $columns[$i++], $this->lang->line('rol_code')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_roles', $columns[$i++], $this->lang->line('rol_datecreated')); ?>

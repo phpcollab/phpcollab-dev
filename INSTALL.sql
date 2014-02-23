@@ -765,7 +765,11 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (34, 'phpcollab/icons/logs', 'bookmark', '2014-02-22 04:41:52'),
 (35, 'phpcollab/icons/topics', 'comments', '2014-02-22 04:41:52'),
 (36, 'phpcollab/icons/posts', 'comments', '2014-02-22 04:41:52'),
-(37, 'phpcollab/enabled/notifications', '1', '2014-02-22 04:41:52');
+(37, 'phpcollab/enabled/notifications', '1', '2014-02-22 04:41:52'),
+(38, 'phpcollab/icons/owner', 'star', '2014-02-22 04:41:52'),
+(39, 'phpcollab/icons/published', 'eye', '2014-02-22 04:41:52'),
+(40, 'phpcollab/icons/inteam', 'rocket', '2014-02-22 04:41:52'),
+(41, 'phpcollab/icons/notauthorized', 'lock', '2014-02-22 04:41:52');
 
 -- --------------------------------------------------------
 

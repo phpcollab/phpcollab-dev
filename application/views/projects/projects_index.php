@@ -36,7 +36,8 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<th>&nbsp;</th>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_id')); ?>
 			<?php if($this->router->class != 'organizations') { ?>
 				<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('organization')); ?>
@@ -54,6 +55,11 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
+			<td>
+				<?php if($row->prj_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->inteam == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/inteam'); ?>" title="<?php echo $this->lang->line('icon_inteam'); ?>"></i><?php } ?>
+				<?php if($row->prj_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
+			</td>
 			<td><?php echo $row->prj_id; ?></td>
 			<?php if($this->router->class != 'organizations') { ?>
 				<td><?php echo $row->org_name; ?></td>

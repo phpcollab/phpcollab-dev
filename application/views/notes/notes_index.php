@@ -28,7 +28,8 @@
 	<table>
 		<thead>
 		<tr>
-		<?php $i = 0; ?>
+			<th>&nbsp;</th>
+			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('nte_id')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('nte_owner')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('nte_name')); ?>
@@ -39,6 +40,10 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
+			<td>
+				<?php if($row->nte_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->nte_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
+			</td>
 			<td><?php echo $row->nte_id; ?></td>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>notes/read/<?php echo $row->nte_id; ?>"><?php echo $row->nte_name; ?></a></td>

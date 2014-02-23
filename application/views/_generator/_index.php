@@ -32,7 +32,7 @@
 	<table>
 		<thead>
 		<tr>
-		&lt;?php $i = 0; ?&gt;
+			&lt;?php $i = 0; ?&gt;
 <?php $u = 0; ?><?php foreach($columns as $v) { ?>			&lt;?php $this->my_library->display_column($this->router->class.'_<?php echo $table; ?>', $columns[$i++], $this->lang->line('<?php echo $v; ?>')); ?&gt;
 <?php if(isset($fields[$v]['select_label']) == 1) { ?><?php $u++; ?>			&lt;?php $this->my_library->display_column($this->router->class.'_<?php echo $table; ?>', $columns[$i++], $this->lang->line('<?php echo $fields[$v]['select_label']; ?>')); ?&gt;
 <?php } ?>
