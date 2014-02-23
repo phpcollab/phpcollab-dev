@@ -34,8 +34,6 @@ example
 * Files
 * Notes
 * Topics / Posts
-* Logs
-
-#####Todo
 * Notifications
 * Permissions / Roles
+* Logs
