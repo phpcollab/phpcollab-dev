@@ -67,7 +67,7 @@ class topics extends CI_Controller {
 				$this->db->set('pst_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('posts');
 
-				$this->read($tcs_id);
+				redirect($this->my_url.'topics/read/'.$tcs_id);
 			}
 		} else {
 			redirect($this->my_url);
@@ -136,7 +136,7 @@ class topics extends CI_Controller {
 
 					$this->my_model->save_log('topic', $tcs_id, $data['row']);
 
-					$this->read($tcs_id);
+					redirect($this->my_url.'topics/read/'.$tcs_id);
 				}
 			} else {
 				redirect($this->my_url);
@@ -215,7 +215,8 @@ class topics extends CI_Controller {
 					$this->db->set('pst_description', $this->input->post('pst_description'));
 					$this->db->set('pst_datecreated', date('Y-m-d H:i:s'));
 					$this->db->insert('posts');
-					$this->read($tcs_id);
+
+					redirect($this->my_url.'topics/read/'.$tcs_id);
 				}
 			} else {
 				redirect($this->my_url);

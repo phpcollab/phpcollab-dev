@@ -783,7 +783,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (32, 'sender/email', 'example@example.com', '2014-02-22 04:41:52'),
 (33, 'sender/name', 'phpCollab', '2014-02-22 04:41:52'),
 (34, 'phpcollab/icons/logs', 'bookmark', '2014-02-22 04:41:52'),
-(35, 'phpcollab/icons/topics', 'comments', '2014-02-22 04:41:52');
+(35, 'phpcollab/icons/topics', 'comments', '2014-02-22 04:41:52'),
+(35, 'phpcollab/icons/posts', 'comments', '2014-02-22 04:41:52');
 
 -- --------------------------------------------------------
 
