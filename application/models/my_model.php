@@ -91,6 +91,15 @@ class My_model extends CI_Model {
 					$new = '<span class="color_percent" style="width:'.intval($new).'%;">'.intval($new).'%</span>';
 				}
 
+			} else if($field == 'org_id') {
+				$field = 'organization';
+				if($old != '') {
+					$old = $this->organizations_model->get_row($old)->org_name;
+				}
+				if($new != '') {
+					$new = $this->organizations_model->get_row($new)->org_name;
+				}
+
 			} else if($field == 'trk_id') {
 				$field = 'tracker';
 				if($old != '') {
