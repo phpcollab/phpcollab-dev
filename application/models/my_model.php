@@ -91,7 +91,17 @@ class My_model extends CI_Model {
 					$new = '<span class="color_percent" style="width:'.intval($new).'%;">'.intval($new).'%</span>';
 				}
 
+			} else if($field == 'trk_id') {
+				$field = 'tracker';
+				if($old != '') {
+					$old = $this->trackers_model->get_row($old)->trk_name;
+				}
+				if($new != '') {
+					$new = $this->trackers_model->get_row($new)->trk_name;
+				}
+
 			} else if($field == 'mln_id') {
+				$field = 'milestone';
 				if($old != '') {
 					$old = $this->milestones_model->get_row($old)->mln_name;
 				}
