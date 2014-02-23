@@ -33,8 +33,14 @@
 <article>
 	<div class="column third">
 		<?php $u = 1; ?>
+		<?php $title_previous = ''; ?>
 		<?php foreach($permissions as $per) { ?>
-			<p<?php if($per->per_saved == 0) { ?> style="font-style:italic;text-decoration:line-through;"<?php } ?>><?php echo $per->per_code; ?></p>
+			<?php list($title, $nice) = explode('/', $per->per_code, 2); ?>
+			<?php if($title != $title_previous) { ?>
+				<h3><?php echo $this->lang->line($title); ?></h3>
+				<?php $title_previous = $title; ?>
+			<?php } ?>
+			<p<?php if($per->per_saved == 0) { ?> style="font-style:italic;text-decoration:line-through;"<?php } ?>><?php echo $nice; ?></p>
 			<?php if($permissions_limit == $u) { ?>
 				</div>
 				<div class="column third">

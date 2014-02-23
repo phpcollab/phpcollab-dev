@@ -30,9 +30,15 @@
 <article>
 	<div class="column third">
 		<?php $u = 1; ?>
+		<?php $title_previous = ''; ?>
 		<?php foreach($permissions as $per) { ?>
+			<?php list($title, $nice) = explode('/', $per->per_code, 2); ?>
+			<?php if($title != $title_previous) { ?>
+				<h3><?php echo $this->lang->line($title); ?></h3>
+				<?php $title_previous = $title; ?>
+			<?php } ?>
 			<p>
-			<?php echo form_label($per->per_code, 'per_'.$per->per_id); ?>
+			<?php echo form_label($nice, 'per_'.$per->per_id); ?>
 			<?php echo form_checkbox('per_'.$per->per_id, '1', set_checkbox('per_'.$per->per_id, '1', value2boolean($per->per_saved, '1')), 'id="per_'.$per->per_id.'" class="inputcheckbox"'); ?>
 			</p>
 			<?php if($permissions_limit == $u) { ?>
