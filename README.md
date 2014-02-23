@@ -21,11 +21,12 @@ example
 * Tasks
 * Milestones
 * Trackers
+* Statuses
 * Files
 * Notes
-* Logs (organizations, members, projects, team, milestones, tasks)
+* Topics / Posts
+* Logs
 
 ###Todo
 * Notifications
 * Permissions / Roles
-* Topics / Posts
