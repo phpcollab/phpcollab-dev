@@ -4,6 +4,7 @@ class Organizations extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('organizations_model');
+		$this->load->model('members_model');
 		$this->load->model('projects_model');
 
 		$this->storage_table = 'organizations';
