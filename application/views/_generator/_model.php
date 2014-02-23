@@ -35,7 +35,7 @@ class <?php echo $table; ?>_model extends CI_Model {
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_<?php echo $table; ?>');
 <?php foreach($select as $v) { ?>		$data['dropdown_<?php echo $v; ?>'] = $this->dropdown_<?php echo $v; ?>();
 <?php } ?>
-		return $content = $this->load->view('<?php echo $table; ?>/<?php echo $table; ?>_index', $data, TRUE);
+		return $this->load->view('<?php echo $table; ?>/<?php echo $table; ?>_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(<?php echo $table_alias; ?>.<?php echo $primary; ?>) AS count FROM '.$this->db->dbprefix('<?php echo $table; ?>').' AS <?php echo $table_alias; ?> WHERE '.implode(' AND ', $flt));

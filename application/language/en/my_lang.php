@@ -1,5 +1,5 @@
 <?php
-$lang['icon_inteam'] = 'In team';
+$lang['icon_ismember'] = 'Is member';
 $lang['icon_owner'] = 'Owner';
 $lang['icon_published'] = 'Published';
 $lang['icon_notauthorized'] = 'Not authorized';

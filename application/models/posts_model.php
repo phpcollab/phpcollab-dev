@@ -14,7 +14,7 @@ class posts_model extends CI_Model {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], 'posts_'.$tcs->tcs_id);
-		return $content = $this->load->view('posts/posts_index', $data, TRUE);
+		return $this->load->view('posts/posts_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(pst.pst_id) AS count FROM '.$this->db->dbprefix('posts').' AS pst WHERE '.implode(' AND ', $flt));

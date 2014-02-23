@@ -41,7 +41,7 @@ class My_model extends CI_Model {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows_logs($flt, $build_pagination['limit'], $build_pagination['start'], $type.'_'.$reference);
-		return $content = $this->load->view('logs/logs_index', $data, TRUE);
+		return $this->load->view('logs/logs_index', $data, TRUE);
 	}
 	function get_total_logs($flt) {
 		$query = $this->db->query('SELECT COUNT(log.log_id) AS count FROM '.$this->db->dbprefix('logs').' AS log WHERE '.implode(' AND ', $flt));

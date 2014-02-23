@@ -10,6 +10,20 @@ class organizations_model extends CI_Model {
 		$filters[$this->router->class.'_organizations_org_name'] = array('org.org_name', 'like');
 		$filters[$this->router->class.'_organizations_org_authorized'] = array('org.org_authorized', 'equal');
 		$flt = $this->my_library->build_filters($filters);
+		if($this->auth_library->permission('organizations/read/any')) {
+
+		} else if($this->auth_library->permission('organizations/read/ifowner') && $this->auth_library->permission('organizations/read/ifmember')) {
+			$flt[] = '( org.org_owner = \''.intval($this->phpcollab_member->mbr_id).'\' OR mbr_org.mbr_id IS NOT NULL )';
+
+		} else if($this->auth_library->permission('organizations/read/ifowner')) {
+			$flt[] = 'org.org_owner = \''.intval($this->phpcollab_member->mbr_id).'\'';
+
+		} else if($this->auth_library->permission('organizations/read/ifmember')) {
+			$flt[] = 'mbr_org.mbr_id IS NOT NULL';
+
+		} else {
+			return '';
+		}
 		$columns = array();
 		$columns[] = 'org.org_id';
 		$columns[] = 'mbr.mbr_name';
@@ -26,18 +40,18 @@ class organizations_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_organizations');
 		$data['dropdown_org_owner'] = $this->dropdown_org_owner();
-		return $content = $this->load->view('organizations/organizations_index', $data, TRUE);
+		return $this->load->view('organizations/organizations_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(org.org_id) AS count FROM '.$this->db->dbprefix('organizations').' AS org WHERE '.implode(' AND ', $flt));
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, org.*, (SELECT COUNT(mbr.mbr_id) FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.org_id = org.org_id) AS count_members, (SELECT COUNT(prj.prj_id) FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id) AS count_projects FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner WHERE '.implode(' AND ', $flt).' GROUP BY org.org_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT IF(mbr_org.mbr_id IS NOT NULL, 1, 0) AS ismember, mbr.mbr_name, org.*, (SELECT COUNT(mbr.mbr_id) FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.org_id = org.org_id) AS count_members, (SELECT COUNT(prj.prj_id) FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id) AS count_projects FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_org ON mbr_org.org_id = org.org_id AND mbr_org.mbr_authorized = ? AND mbr_org.mbr_id = ? WHERE '.implode(' AND ', $flt).' GROUP BY org.org_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num, array(1, $this->phpcollab_member->mbr_id));
 		return $query->result();
 	}
 	function get_row($org_id) {
-		$query = $this->db->query('SELECT mbr.mbr_name, org.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id)) AS tsk_completion FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner WHERE org.org_id = ? GROUP BY org.org_id', array($org_id));
+		$query = $this->db->query('SELECT IF(mbr_org.mbr_id IS NOT NULL, 1, 0) AS ismember, mbr.mbr_name, org.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id)) AS tsk_completion FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_org ON mbr_org.org_id = org.org_id AND mbr_org.mbr_authorized = ? AND mbr_org.mbr_id = ? WHERE org.org_id = ? GROUP BY org.org_id', array(1, $this->phpcollab_member->mbr_id, $org_id));
 		return $query->row();
 	}
 	function dropdown_org_owner() {

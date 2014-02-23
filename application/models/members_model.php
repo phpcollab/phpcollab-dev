@@ -36,7 +36,7 @@ class members_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_members');
 		$data['dropdown_org_id'] = $this->dropdown_org_id();
-		return $content = $this->load->view('members/members_index', $data, TRUE);
+		return $this->load->view('members/members_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(mbr.mbr_id) AS count FROM '.$this->db->dbprefix('members').' AS mbr WHERE '.implode(' AND ', $flt));

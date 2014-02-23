@@ -1,7 +1,8 @@
 <article class="title">
 	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?> (<?php echo $position; ?>)</h2>
 	<ul>
-	<li><a href="<?php echo $this->my_url; ?>projects/create<?php if($this->router->class == 'organizations') { ?>?org_id=<?php echo $org->org_id; ?><?php } ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<?php if($this->auth_library->permission('projects/create')) { ?><li><a href="<?php echo $this->my_url; ?>projects/create<?php if($this->router->class == 'organizations') { ?>?org_id=<?php echo $org->org_id; ?><?php } ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li><?php } ?>
+
 	<?php if($this->router->class != 'projects') { ?>
 		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-projects') || $this->input->cookie($this->router->class.'-projects') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-projects-collapse"><a href="#<?php echo $this->router->class; ?>-projects"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
 		<li class="expand<?php if($this->input->cookie($this->router->class.'-projects') == 'collapse') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-projects-expand"><a href="#<?php echo $this->router->class; ?>-projects"><i class="fa fa-caret-square-o-down"></i><?php echo $this->lang->line('expand'); ?></a></li>
@@ -57,7 +58,7 @@
 		<tr>
 			<td>
 				<?php if($row->prj_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
-				<?php if($row->inteam == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/inteam'); ?>" title="<?php echo $this->lang->line('icon_inteam'); ?>"></i><?php } ?>
+				<?php if($row->ismember == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/ismember'); ?>" title="<?php echo $this->lang->line('icon_ismember'); ?>"></i><?php } ?>
 				<?php if($row->prj_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
 			</td>
 			<td><?php echo $row->prj_id; ?></td>
@@ -72,8 +73,25 @@
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<td><?php echo $row->count_tasks; ?></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>projects/update/<?php echo $row->prj_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php if($this->auth_library->permission('projects/update/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>projects/update/<?php echo $row->prj_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+
+			<?php } else if($this->auth_library->permission('projects/update/ifowner') && $row->prj_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>projects/update/<?php echo $row->prj_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+
+			<?php } else if($this->auth_library->permission('projects/update/ifmember') && $row->ismember == 1) { ?>
+				<a href="<?php echo $this->my_url; ?>projects/update/<?php echo $row->prj_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+			<?php } ?>
+
+			<?php if($this->auth_library->permission('projects/delete/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+			<?php } else if($this->auth_library->permission('projects/delete/ifowner') && $row->prj_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+			<?php } else if($this->auth_library->permission('projects/delete/ifmember') && $row->ismember == 1) { ?>
+				<a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

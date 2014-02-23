@@ -25,7 +25,7 @@ class statuses_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_statuses');
 		$data['dropdown_stu_owner'] = $this->dropdown_stu_owner();
-		return $content = $this->load->view('statuses/statuses_index', $data, TRUE);
+		return $this->load->view('statuses/statuses_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(stu.stu_id) AS count FROM '.$this->db->dbprefix('statuses').' AS stu WHERE '.implode(' AND ', $flt));

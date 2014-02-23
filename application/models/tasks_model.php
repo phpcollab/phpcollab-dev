@@ -58,7 +58,7 @@ class tasks_model extends CI_Model {
 		$data['dropdown_tsk_owner'] = $this->dropdown_tsk_owner();
 		$data['dropdown_tsk_assigned'] = $this->dropdown_tsk_assigned($prj->prj_id);
 		$data['dropdown_tsk_parent'] = $this->dropdown_tsk_parent($prj->prj_id);
-		return $content = $this->load->view('tasks/tasks_index', $data, TRUE);
+		return $this->load->view('tasks/tasks_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(tsk.tsk_id) AS count FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = tsk.tsk_status WHERE '.implode(' AND ', $flt));

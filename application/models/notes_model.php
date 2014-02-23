@@ -30,7 +30,7 @@ class Notes_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $data['ref_filter']);
 		$data['dropdown_nte_owner'] = $this->dropdown_nte_owner();
-		return $content = $this->load->view('notes/notes_index', $data, TRUE);
+		return $this->load->view('notes/notes_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(nte.nte_id) AS count FROM '.$this->db->dbprefix('notes').' AS nte WHERE '.implode(' AND ', $flt));

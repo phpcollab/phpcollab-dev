@@ -11,19 +11,19 @@ class Organizations extends CI_Controller {
 		$this->storage_fields = array();
 	}
 	public function index() {
-		if(!$this->auth_library->permission('organizations/index')) {
+		if($this->auth_library->permission('organizations/index')) {
+		} else {
 			redirect($this->my_url);
 		}
-
 		$this->my_library->set_title($this->lang->line('organizations'));
 		$content = $this->organizations_model->get_index_list();
 		$this->my_library->set_zone('content', $content);
 	}
 	public function create() {
-		if(!$this->auth_library->permission('organizations/index')) {
+		if($this->auth_library->permission('organizations/create')) {
+		} else {
 			redirect($this->my_url);
 		}
-
 		$this->my_library->set_title($this->lang->line('organizations'));
 		$this->load->library('form_validation');
 		$data = array();
@@ -60,13 +60,15 @@ class Organizations extends CI_Controller {
 		}
 	}
 	public function read($org_id) {
-		if(!$this->auth_library->permission('organizations/index')) {
-			redirect($this->my_url);
-		}
-
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
+			if($this->auth_library->permission('organizations/read/any')) {
+			} else if($this->auth_library->permission('organizations/read/ifowner') && $data['row']->org_owner == $this->phpcollab_member->mbr_id) {
+			} else if($this->auth_library->permission('organizations/read/ifmember') && $data['row']->ismember == 1) {
+			} else {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
 			$content = $this->load->view('organizations/organizations_read', $data, TRUE);
 			$content .= $this->members_model->get_index_list($data['row']);
@@ -78,20 +80,24 @@ class Organizations extends CI_Controller {
 		}
 	}
 	public function update($org_id) {
-		if(!$this->auth_library->permission('organizations/index')) {
-			redirect($this->my_url);
-		}
-
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
+			if($this->auth_library->permission('organizations/update/any')) {
+			} else if($this->auth_library->permission('organizations/update/ifowner') && $data['row']->org_owner == $this->phpcollab_member->mbr_id) {
+			} else if($this->auth_library->permission('organizations/update/ifmember') && $data['row']->ismember == 1) {
+			} else {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
 			$data['dropdown_org_owner'] = $this->organizations_model->dropdown_org_owner();
-			$this->form_validation->set_rules('org_owner', 'lang:org_owner', 'required|numeric');
+			if($this->auth_library->permission('organizations/update/any')) {
+				$this->form_validation->set_rules('org_owner', 'lang:org_owner', 'required|numeric');
+			}
 			$this->form_validation->set_rules('org_name', 'lang:org_name', 'required|max_length[255]');
 			$this->form_validation->set_rules('org_description', 'lang:org_description', '');
-			if($data['row']->org_system == 0) {
+			if($data['row']->org_system == 0 && $this->auth_library->permission('organizations/update/any')) {
 				$this->form_validation->set_rules('org_authorized', 'lang:org_authorized', 'numeric');
 			}
 			$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
@@ -115,10 +121,12 @@ class Organizations extends CI_Controller {
 						}
 					}
 				}
-				$this->db->set('org_owner', $this->input->post('org_owner'));
+				if($this->auth_library->permission('organizations/update/any')) {
+					$this->db->set('org_owner', $this->input->post('org_owner'));
+				}
 				$this->db->set('org_name', $this->input->post('org_name'));
 				$this->db->set('org_description', $this->input->post('org_description'));
-				if($data['row']->org_system == 0) {
+				if($data['row']->org_system == 0 && $this->auth_library->permission('organizations/update/any')) {
 					$this->db->set('org_authorized', checkbox2database($this->input->post('org_authorized')));
 				}
 				$this->db->where('org_id', $org_id);
@@ -133,14 +141,16 @@ class Organizations extends CI_Controller {
 		}
 	}
 	public function delete($org_id) {
-		if(!$this->auth_library->permission('organizations/index')) {
-			redirect($this->my_url);
-		}
-
 		$this->load->library('form_validation');
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
+			if($this->auth_library->permission('organizations/delete/any')) {
+			} else if($this->auth_library->permission('organizations/delete/ifowner') && $data['row']->org_owner == $this->phpcollab_member->mbr_id) {
+			} else if($this->auth_library->permission('organizations/delete/ifmember') && $data['row']->ismember == 1) {
+			} else {
+				redirect($this->my_url);
+			}
 			if($data['row']->org_system == 0) {
 				$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');

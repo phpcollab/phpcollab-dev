@@ -1,7 +1,7 @@
 <article class="title">
 	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?> (<?php echo $position; ?>)</h2>
 	<ul>
-	<li><a href="<?php echo $this->my_url; ?>organizations/create"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<?php if($this->auth_library->permission('organizations/create')) { ?><li><a href="<?php echo $this->my_url; ?>organizations/create"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li><?php } ?>
 	</ul>
 </article>
 <article>
@@ -44,6 +44,7 @@
 		<tr>
 			<td>
 				<?php if($row->org_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->ismember == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/ismember'); ?>" title="<?php echo $this->lang->line('icon_ismember'); ?>"></i><?php } ?>
 				<?php if($row->org_authorized == 0) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notauthorized'); ?>" title="<?php echo $this->lang->line('icon_notauthorized'); ?>"></i><?php } ?>
 			</td>
 			<td><?php echo $row->org_id; ?></td>
@@ -53,8 +54,27 @@
 			<td><?php echo $row->count_members; ?></td>
 			<td><?php echo $row->count_projects; ?></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>organizations/update/<?php echo $row->org_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<?php if($row->org_system == 0) { ?><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a><?php } ?>
+			<?php if($this->auth_library->permission('organizations/update/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>organizations/update/<?php echo $row->org_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+
+			<?php } else if($this->auth_library->permission('organizations/update/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>organizations/update/<?php echo $row->org_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+
+			<?php } else if($this->auth_library->permission('organizations/update/ifmember') && $row->ismember == 1) { ?>
+				<a href="<?php echo $this->my_url; ?>organizations/update/<?php echo $row->org_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+			<?php } ?>
+
+			<?php if($row->org_system == 0) { ?>
+				<?php if($this->auth_library->permission('organizations/delete/any')) { ?>
+					<a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+				<?php } else if($this->auth_library->permission('organizations/delete/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) { ?>
+					<a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+				<?php } else if($this->auth_library->permission('organizations/delete/ifmember') && $row->ismember == 1) { ?>
+					<a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+				<?php } ?>
+			<?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

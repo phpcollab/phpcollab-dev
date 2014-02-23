@@ -20,7 +20,7 @@ class roles_model extends CI_Model {
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_roles');
-		return $content = $this->load->view('roles/roles_index', $data, TRUE);
+		return $this->load->view('roles/roles_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(rol.rol_id) AS count FROM '.$this->db->dbprefix('roles').' AS rol WHERE '.implode(' AND ', $flt));

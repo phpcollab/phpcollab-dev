@@ -24,7 +24,7 @@ class trackers_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $this->router->class.'_trackers');
 		$data['dropdown_trk_owner'] = $this->dropdown_trk_owner();
-		return $content = $this->load->view('trackers/trackers_index', $data, TRUE);
+		return $this->load->view('trackers/trackers_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(trk.trk_id) AS count FROM '.$this->db->dbprefix('trackers').' AS trk WHERE '.implode(' AND ', $flt));

@@ -52,11 +52,14 @@ class Auth_library_default extends CI_Driver {
 		}
 	}
 	function permission($per_code) {
-		if(isset($this->CI->phpcollab_member->permissions_array[$per_code]) == 1 && $this->CI->phpcollab_member->permissions_array[$per_code] == 1) {
+		if(isset($this->CI->phpcollab_member->permissions_array[$per_code]) == 1 && $this->CI->phpcollab_member->permissions_array[$per_code]) {
 			return true;
-		} else {
-			return false;
+		} else if(isset($this->CI->phpcollab_member->permissions_array[$per_code]) == 0) {
+			/*$this->CI->db->set('per_code', $per_code);
+			$this->CI->db->set('per_datecreated', date('Y-m-d H:i:s'));
+			$this->CI->db->insert('permissions');*/
 		}
+		return false;
 	}
 	function get() {
 		$member = FALSE;
@@ -73,10 +76,12 @@ class Auth_library_default extends CI_Driver {
 				}
 
 				$member->permissions_array = array();
-				$query = $this->CI->db->query('SELECT per.*, COUNT(rol_per.rol_per_id) AS total_saved FROM '.$this->CI->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->CI->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id LEFT JOIN '.$this->CI->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.rol_id = rol_per.rol_id AND mbr_rol.mbr_id = ? GROUP BY per.per_id', array($this->CI->session->userdata('phpcollab_member')));
+				$query = $this->CI->db->query('SELECT per.*, COUNT(mbr_rol.mbr_rol_id) AS total_saved FROM '.$this->CI->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->CI->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id LEFT JOIN '.$this->CI->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.rol_id = rol_per.rol_id AND mbr_rol.mbr_id = ? GROUP BY per.per_id', array($this->CI->session->userdata('phpcollab_member')));
 				foreach($query->result() as $row) {
 					if($row->total_saved > 0) {
 						$member->permissions_array[$row->per_code] = true;
+					} else {
+						$member->permissions_array[$row->per_code] = false;
 					}
 				}
 			}

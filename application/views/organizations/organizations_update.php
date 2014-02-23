@@ -1,18 +1,39 @@
 <article class="title">
 	<h2><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a> / <i class="fa fa-wrench"></i><?php echo $row->org_name; ?></h2>
 	<ul>
-	<li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>
-	<li><?php if($row->org_system == 0) { ?><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a><?php } ?></li>
+	<?php if($this->auth_library->permission('organizations/read/any')) { ?>
+		<li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>
+
+	<?php } else if($this->auth_library->permission('organizations/read/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) { ?>
+		<li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>
+
+	<?php } else if($this->auth_library->permission('organizations/read/ifmember') && $row->ismember == 1) { ?>
+		<li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>
+	<?php } ?>
+
+	<?php if($row->org_system == 0) { ?>
+		<?php if($this->auth_library->permission('organizations/delete/any')) { ?>
+			<li><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
+
+		<?php } else if($this->auth_library->permission('organizations/delete/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) { ?>
+			<li><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
+
+		<?php } else if($this->auth_library->permission('organizations/delete/ifmember') && $row->ismember == 1) { ?>
+			<li><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
+		<?php } ?>
+	<?php } ?>
 	</ul>
 </article>
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
 	<div class="column half">
-		<p>
-		<?php echo form_label($this->lang->line('org_owner').' *', 'org_owner'); ?>
-		<?php echo form_dropdown('org_owner', $dropdown_org_owner, set_value('org_owner', $row->org_owner), 'id="org_owner" class="select required numeric"'); ?>
-		</p>
+		<?php if($this->auth_library->permission('organizations/update/any')) { ?>
+			<p>
+			<?php echo form_label($this->lang->line('org_owner').' *', 'org_owner'); ?>
+			<?php echo form_dropdown('org_owner', $dropdown_org_owner, set_value('org_owner', $row->org_owner), 'id="org_owner" class="select required numeric"'); ?>
+			</p>
+		<?php } ?>
 		<p>
 		<?php echo form_label($this->lang->line('org_name').' *', 'org_name'); ?>
 		<?php echo form_input('org_name', set_value('org_name', $row->org_name), 'id="org_name" class="inputtext required"'); ?>
@@ -23,7 +44,7 @@
 		</p>
 	</div>
 	<div class="column half">
-		<?php if($row->org_system == 0) { ?>
+		<?php if($row->org_system == 0 && $this->auth_library->permission('organizations/update/any')) { ?>
 			<p>
 			<?php echo form_label($this->lang->line('org_authorized'), 'org_authorized'); ?>
 			<?php echo form_checkbox('org_authorized', '1', set_checkbox('org_authorized', '1', value2boolean($row->org_authorized, '1')), 'id="org_authorized" class="inputcheckbox numeric"'); ?>

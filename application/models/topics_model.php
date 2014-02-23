@@ -36,7 +36,7 @@ class topics_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $data['ref_filter']);
 		$data['dropdown_tcs_owner'] = $this->dropdown_tcs_owner();
-		return $content = $this->load->view('topics/topics_index', $data, TRUE);
+		return $this->load->view('topics/topics_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(tcs.tcs_id) AS count FROM '.$this->db->dbprefix('topics').' AS tcs WHERE '.implode(' AND ', $flt));

@@ -25,7 +25,7 @@ class files_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $data['ref_filter']);
 		$data['dropdown_fle_owner'] = $this->dropdown_fle_owner();
-		return $content = $this->load->view('files/files_index', $data, TRUE);
+		return $this->load->view('files/files_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(fle.fle_id) AS count FROM '.$this->db->dbprefix('files').' AS fle WHERE '.implode(' AND ', $flt));

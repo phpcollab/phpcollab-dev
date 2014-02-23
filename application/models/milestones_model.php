@@ -37,7 +37,7 @@ class milestones_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $data['ref_filter']);
 		$data['dropdown_mln_owner'] = $this->dropdown_mln_owner();
-		return $content = $this->load->view('milestones/milestones_index', $data, TRUE);
+		return $this->load->view('milestones/milestones_index', $data, TRUE);
 	}
 	function get_total($flt) {
 		$query = $this->db->query('SELECT COUNT(mln.mln_id) AS count FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE '.implode(' AND ', $flt));
