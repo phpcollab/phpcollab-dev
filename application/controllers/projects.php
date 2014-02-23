@@ -75,6 +75,13 @@ class projects extends CI_Controller {
 			$this->db->set('prj_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('projects');
 			$prj_id = $this->db->insert_id();
+
+			$this->db->set('prj_id', $prj_id);
+			$this->db->set('mbr_id', $this->input->post('prj_owner'));
+			$this->db->set('prj_mbr_authorized', 1);
+			$this->db->set('prj_mbr_datecreated', date('Y-m-d H:i:s'));
+			$this->db->insert('projects_members');
+
 			$this->read($prj_id);
 		}
 	}
