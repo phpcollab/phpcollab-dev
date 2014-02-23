@@ -9,7 +9,7 @@
 <?php echo form_hidden('rol_code_old', $row->rol_code); ?>
 <article>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<?php if($row->rol_system == 0) { ?>
 			<p>
 			<?php echo form_label($this->lang->line('rol_code').' *', 'rol_code'); ?>
@@ -26,7 +26,7 @@
 	<h2><?php echo $this->lang->line('permissions'); ?></h2>
 </article>
 <article>
-	<div class="column2">
+	<div class="column third">
 		<?php $u = 1; ?>
 		<?php foreach($permissions as $per) { ?>
 			<p>
@@ -35,7 +35,7 @@
 			</p>
 			<?php if($permissions_limit == $u) { ?>
 				</div>
-				<div class="column2">
+				<div class="column third">
 				<?php $u = 1; ?>
 			<?php } else { ?>
 				<?php $u++; ?>

@@ -6,7 +6,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('mbr_name').' *', 'mbr_name'); ?>
 		<?php echo form_input('mbr_name', set_value('mbr_name', $this->phpcollab_member->mbr_name), 'id="mbr_name" class="inputtext required"'); ?>
@@ -16,7 +16,7 @@
 		<?php echo form_textarea('mbr_description', set_value('mbr_description', $this->phpcollab_member->mbr_description), 'id="mbr_description" class="textarea"'); ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('mbr_email').' *', 'mbr_email'); ?>
 		<?php echo form_input('mbr_email', set_value('mbr_email', $this->phpcollab_member->mbr_email), 'maxlength="255" id="mbr_email" class="inputtext valid_email required"'); ?>

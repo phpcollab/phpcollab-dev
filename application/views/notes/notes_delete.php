@@ -8,7 +8,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('confirm').' *', 'confirm'); ?>
 		<?php echo form_checkbox('confirm', '1', FALSE, 'id="confirm" class="inputcheckbox"'); ?>

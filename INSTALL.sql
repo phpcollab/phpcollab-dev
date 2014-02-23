@@ -405,7 +405,7 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 CREATE TABLE IF NOT EXISTS `posts` (
   `pst_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tcs_id` int(10) unsigned NOT NULL,
-  `mbr_id` int(10) unsigned NOT NULL,
+  `pst_owner` int(10) unsigned NOT NULL,
   `pst_description` text NOT NULL,
   `pst_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `pst_datecreated` datetime NOT NULL,
@@ -695,8 +695,9 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `tcs_priority` int(10) unsigned NOT NULL,
   `tcs_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `tcs_datecreated` datetime NOT NULL,
+  `tcs_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`tcs_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `topics`
@@ -781,7 +782,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (31, 'phpcollab/icons/files', 'cloud-upload', '2014-02-22 04:41:52'),
 (32, 'sender/email', 'example@example.com', '2014-02-22 04:41:52'),
 (33, 'sender/name', 'phpCollab', '2014-02-22 04:41:52'),
-(34, 'phpcollab/icons/logs', 'bookmark', '2014-02-22 04:41:52');
+(34, 'phpcollab/icons/logs', 'bookmark', '2014-02-22 04:41:52'),
+(35, 'phpcollab/icons/topics', 'comments', '2014-02-22 04:41:52');
 
 -- --------------------------------------------------------
 

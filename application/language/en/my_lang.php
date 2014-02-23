@@ -1,4 +1,19 @@
 <?php
+$lang['topics'] = 'Topics';
+$lang['topic'] = 'Topic';
+$lang['tcs_id'] = 'Topic ID';
+$lang['tcs_owner'] = 'Owner';
+$lang['tcs_name'] = 'Title';
+$lang['tcs_status'] = 'Status';
+$lang['tcs_priority'] = 'Priority';
+$lang['tcs_published'] = 'Published?';
+$lang['tcs_datecreated'] = 'Date created';
+$lang['posts'] = 'Posts';
+$lang['post'] = 'Post';
+$lang['pst_id'] = 'pst_id';
+$lang['pst_description'] = 'Message';
+$lang['pst_published'] = 'Published?';
+$lang['pst_datecreated'] = 'Date created';
 $lang['logs'] = 'Logs';
 $lang['log_comments'] = 'Log';
 $lang['log_datecreated'] = 'Date created';

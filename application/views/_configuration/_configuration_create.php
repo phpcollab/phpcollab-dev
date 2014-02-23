@@ -6,7 +6,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('cfg_path').' *', 'cfg_path'); ?>
 		<?php echo form_input('cfg_path', set_value('cfg_path', ''), 'id="cfg_path" class="inputtext required"'); ?>

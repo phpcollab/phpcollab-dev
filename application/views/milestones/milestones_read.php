@@ -9,7 +9,7 @@
 	</ul>
 </article>
 <article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_id'); ?></span>
 		<?php if($row->mln_id) { ?><?php echo $row->mln_id; ?><?php } else { ?>-<?php } ?>
@@ -27,7 +27,7 @@
 		<?php if($row->mln_description) { ?><?php echo $row->mln_description; ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_date_start'); ?></span>
 		<?php if($row->mln_date_start) { ?><?php echo $row->mln_date_start; ?><?php } else { ?>-<?php } ?>

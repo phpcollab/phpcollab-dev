@@ -8,7 +8,7 @@
 	</ul>
 </article>
 <article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('nte_id'); ?></span>
 		<?php if($row->nte_id) { ?><?php echo $row->nte_id; ?><?php } else { ?>-<?php } ?>
@@ -38,7 +38,7 @@
 		<?php if($row->nte_datemodified) { ?><?php echo $this->my_library->timezone_datetime($row->nte_datemodified); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<?php if($row->nte_description) { ?><?php echo $row->nte_description; ?><?php } else { ?>-<?php } ?>
 	</div>
 </article>

@@ -10,12 +10,12 @@
 		<?php foreach($rows as $row) { ?>
 		<?php $fields = $this->my_model->get_log_details($row->log_id); ?>
 		<article>
-			<div class="column1">
+			<div class="column half">
 				<p><?php echo $row->mbr_name; ?></p>
 				<p><?php echo $this->my_library->timezone_datetime($row->log_datecreated); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->log_datecreated); ?>"></span>)</p>
 				<p><?php echo nl2br($row->log_comments); ?></p>
 			</div>
-			<div class="column1 columnlast">
+			<div class="column half">
 				<table>
 				<?php foreach($fields as $field => $details) { ?>
 					<tr><td width="33%"><?php echo $this->lang->line($field); ?></td><td width="33%" style="text-decoration:line-through;"><?php echo $details['old']; ?></td><td width="33%"><?php echo $details['new']; ?></td></tr>

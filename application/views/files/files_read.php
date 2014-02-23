@@ -11,7 +11,7 @@
 	</ul>
 </article>
 <article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('fle_id'); ?></span>
 		<?php if($row->fle_id) { ?><?php echo $row->fle_id; ?><?php } else { ?>-<?php } ?>
@@ -29,7 +29,7 @@
 		<?php if($row->fle_description) { ?><?php echo $row->fle_description; ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('fle_size'); ?></span>
 		<?php if($row->fle_size) { ?><?php echo convert_size($row->fle_size); ?><?php } else { ?>-<?php } ?>

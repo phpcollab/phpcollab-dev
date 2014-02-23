@@ -6,7 +6,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('rol_code').' *', 'rol_code'); ?>
 		<?php echo form_input('rol_code', set_value('rol_code', ''), 'id="rol_code" class="inputtext required"'); ?>

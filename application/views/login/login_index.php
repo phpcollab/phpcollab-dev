@@ -6,7 +6,7 @@
 <article>
 	<?php echo form_open(current_url().'?uri_string='.urlencode($this->input->get('uri_string'))); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('mbr_email').' *', 'mbr_email'); ?>
 		<?php echo form_input('mbr_email', set_value('mbr_email'), 'id="mbr_email" class="inputtext required valid_email"'); ?>

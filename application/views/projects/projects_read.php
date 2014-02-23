@@ -9,7 +9,7 @@
 	</ul>
 </article>
 <article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_id'); ?></span>
 		<?php if($row->prj_id) { ?><?php echo $row->prj_id; ?><?php } else { ?>-<?php } ?>
@@ -43,7 +43,7 @@
 		<?php if($row->prj_date_complete) { ?><?php echo $row->prj_date_complete; ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_status'); ?></span>
 		<?php if($row->prj_status) { ?><?php echo $this->my_model->status($row->prj_status); ?><?php } else { ?>-<?php } ?>

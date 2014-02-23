@@ -8,7 +8,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('tracker').' *', 'trk_id'); ?>
 		<?php echo form_dropdown('trk_id', $dropdown_trk_id, set_value('trk_id', $row->trk_id), 'id="trk_id" class="select required numeric"'); ?>
@@ -46,7 +46,7 @@
 		<?php echo form_input('tsk_date_complete', set_value('tsk_date_complete', $row->tsk_date_complete), 'id="tsk_date_complete" class="inputtext date"'); ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('tsk_status').' *', 'tsk_status'); ?>
 		<?php echo form_dropdown('tsk_status', $this->my_model->dropdown_status(), set_value('tsk_status', $row->tsk_status), 'id="tsk_status" class="select required numeric"'); ?>

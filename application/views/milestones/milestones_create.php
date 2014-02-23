@@ -6,7 +6,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('mln_owner').' *', 'mln_owner'); ?>
 		<?php echo form_dropdown('mln_owner', $dropdown_mln_owner, set_value('mln_owner', $this->phpcollab_member->mbr_id), 'id="mln_owner" class="select required numeric"'); ?>
@@ -32,7 +32,7 @@
 		<?php echo form_input('mln_date_complete', set_value('mln_date_complete', ''), 'id="mln_date_complete" class="inputtext date"'); ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('mln_status').' *', 'mln_status'); ?>
 		<?php echo form_dropdown('mln_status', $this->my_model->dropdown_status(), set_value('mln_status', $this->config->item('phpcollab/default/status')), 'id="mln_status" class="select required numeric"'); ?>

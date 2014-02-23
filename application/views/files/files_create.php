@@ -6,7 +6,7 @@
 <article>
 	<?php echo form_open_multipart(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('fle_owner').' *', 'fle_owner'); ?>
 		<?php echo form_dropdown('fle_owner', $dropdown_fle_owner, set_value('fle_owner', $this->phpcollab_member->mbr_id), 'id="fle_owner" class="select required numeric"'); ?>
@@ -20,7 +20,7 @@
 		<?php echo form_textarea('fle_description', set_value('fle_description', ''), 'id="fle_description" class="textarea"'); ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('fle_comments'), 'fle_comments'); ?>
 		<?php echo form_textarea('fle_comments', set_value('fle_comments', ''), 'id="fle_comments" class="textarea"'); ?>

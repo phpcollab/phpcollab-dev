@@ -10,7 +10,7 @@
 <article>
 	&lt;?php echo <?php if(count($upload) > 0) { ?>form_open_multipart<?php } else { ?>form_open<?php } ?>(current_url()); ?&gt;
 	&lt;?php echo validation_errors(); ?&gt;
-	<div class="column1">
+	<div class="column half">
 <?php foreach($save as $v) { ?>		<p>
 		&lt;?php echo form_label($this->lang->line('<?php echo $v; ?>')<?php if(isset($fields[$v]['classes']['required']) == 1) { ?>.' *'<?php } ?>, '<?php echo $v; ?>'); ?&gt;
 <?php if($fields[$v]['type'] == 'textarea') { ?>
@@ -28,7 +28,7 @@
 <?php } ?>
 <?php if($table_translation) { ?>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 <?php foreach($save_translation as $v) { ?>		<p>
 		&lt;?php echo form_label($this->lang->line('<?php echo $v; ?>')<?php if(isset($fields[$v]['classes']['required']) == 1) { ?>.' *'<?php } ?>, '<?php echo $v; ?>'); ?&gt;
 <?php if($fields[$v]['type'] == 'textarea') { ?>

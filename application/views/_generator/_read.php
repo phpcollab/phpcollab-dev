@@ -8,7 +8,7 @@
 	</ul>
 </article>
 <article>
-	<div class="column1">
+	<div class="column half">
 <?php foreach($read as $v) { ?>		<p>
 		<span class="label">&lt;?php echo $this->lang->line('<?php echo $v; ?>'); ?&gt;</span>
 <?php if($fields[$v]['type'] == 'checkbox' && in_array($v, $boolean)) { ?>
@@ -26,7 +26,7 @@
 <?php } ?><?php } ?>
 <?php if($table_translation) { ?>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 <?php foreach($read_translation as $v) { ?>		<p>
 		<span class="label">&lt;?php echo $this->lang->line('<?php echo $v; ?>'); ?&gt;</span>
 <?php if($fields[$v]['type'] == 'checkbox' && in_array($v, $boolean)) { ?>

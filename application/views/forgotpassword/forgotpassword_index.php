@@ -6,7 +6,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('mbr_email').' *', 'mbr_email'); ?>
 		<?php echo form_input('mbr_email', set_value('mbr_email'), 'maxlength="255" id="mbr_email" class="inputtext valid_email required"'); ?>

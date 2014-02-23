@@ -9,7 +9,7 @@
 	<?php echo form_open(current_url()); ?>
 	<?php echo form_hidden('mbr_email_old', $row->mbr_email); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('organization').' *', 'org_id'); ?>
 		<?php echo form_dropdown('org_id', $dropdown_org_id, set_value('org_id', $row->org_id), 'id="org_id" class="select required numeric"'); ?>
@@ -23,7 +23,7 @@
 		<?php echo form_textarea('mbr_description', set_value('mbr_description', $row->mbr_description), 'id="mbr_description" class="textarea"'); ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('mbr_email').' *', 'mbr_email'); ?>
 		<?php echo form_input('mbr_email', set_value('mbr_email', $row->mbr_email), 'id="mbr_email" class="inputtext required valid_email"'); ?>

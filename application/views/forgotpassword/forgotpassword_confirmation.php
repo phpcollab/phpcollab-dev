@@ -4,7 +4,7 @@
 	</ul>
 </article>
 <article>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_password'); ?></span>
 		<?php echo $mbr_password; ?>

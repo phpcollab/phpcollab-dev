@@ -8,7 +8,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('stu_owner').' *', 'stu_owner'); ?>
 		<?php echo form_dropdown('stu_owner', $dropdown_stu_owner, set_value('stu_owner', $row->stu_owner), 'id="stu_owner" class="select required numeric"'); ?>

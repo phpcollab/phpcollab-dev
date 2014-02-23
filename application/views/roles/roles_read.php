@@ -6,7 +6,7 @@
 	</ul>
 </article>
 <article>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('rol_id'); ?></span>
 		<?php if($row->rol_id) { ?><?php echo $row->rol_id; ?><?php } else { ?>-<?php } ?>
@@ -29,13 +29,13 @@
 	<h2><?php echo $this->lang->line('permissions'); ?></h2>
 </article>
 <article>
-	<div class="column2">
+	<div class="column third">
 		<?php $u = 1; ?>
 		<?php foreach($permissions as $per) { ?>
 			<p<?php if($per->per_saved == 0) { ?> style="font-style:italic;text-decoration:line-through;"<?php } ?>><?php echo $per->per_code; ?></p>
 			<?php if($permissions_limit == $u) { ?>
 				</div>
-				<div class="column2">
+				<div class="column third">
 				<?php $u = 1; ?>
 			<?php } else { ?>
 				<?php $u++; ?>

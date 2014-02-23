@@ -8,7 +8,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 mbr_name		<p>
 		<?php echo form_label($this->lang->line('prj_mbr_authorized'), 'prj_mbr_authorized'); ?>
 		<?php echo form_checkbox('prj_mbr_authorized', '1', set_checkbox('prj_mbr_authorized', '1', value2boolean($row->prj_mbr_authorized, '1')), 'id="prj_mbr_authorized" class="inputcheckbox numeric"'); ?>

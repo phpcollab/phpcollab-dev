@@ -10,7 +10,7 @@
 <article>
 	&lt;?php echo form_open(current_url()); ?&gt;
 	&lt;?php echo validation_errors(); ?&gt;
-	<div class="column1">
+	<div class="column half">
 		<p>
 		&lt;?php echo form_label($this->lang->line('confirm').' *', 'confirm'); ?&gt;
 		&lt;?php echo form_checkbox('confirm', '1', FALSE, 'id="confirm" class="inputcheckbox"'); ?&gt;

@@ -6,7 +6,7 @@
 	</ul>
 </article>
 <article>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('stu_id'); ?></span>
 		<?php if($row->stu_id) { ?><?php echo $row->stu_id; ?><?php } else { ?>-<?php } ?>

@@ -6,7 +6,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('org_owner').' *', 'org_owner'); ?>
 		<?php echo form_dropdown('org_owner', $dropdown_org_owner, set_value('org_owner', $this->phpcollab_member->mbr_id), 'id="org_owner" class="select required numeric"'); ?>
@@ -20,7 +20,7 @@
 		<?php echo form_textarea('org_description', set_value('org_description', ''), 'id="org_description" class="textarea"'); ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('org_authorized'), 'org_authorized'); ?>
 		<?php echo form_checkbox('org_authorized', '1', set_checkbox('org_authorized', '1'), 'id="org_authorized" class="inputcheckbox numeric"'); ?>

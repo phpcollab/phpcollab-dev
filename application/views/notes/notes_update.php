@@ -8,7 +8,7 @@
 <article>
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
-	<div class="column1">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('nte_owner').' *', 'nte_owner'); ?>
 		<?php echo form_dropdown('nte_owner', $dropdown_nte_owner, set_value('nte_owner', $row->nte_owner), 'id="nte_owner" class="select required numeric"'); ?>
@@ -30,7 +30,7 @@
 		<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
 		</p>
 	</div>
-	<div class="column1 columnlast">
+	<div class="column half">
 		<p>
 		<?php echo form_label($this->lang->line('nte_description'), 'nte_description'); ?>
 		<?php echo form_textarea('nte_description', set_value('nte_description', $row->nte_description), 'id="nte_description" class="textarea wysiwyg"'); ?>
