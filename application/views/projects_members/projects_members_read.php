@@ -32,4 +32,6 @@
 		<?php if($row->prj_mbr_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->prj_mbr_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
+	<div class="column half">
+	</div>
 </article>

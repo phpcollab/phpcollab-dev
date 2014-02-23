@@ -20,5 +20,7 @@
 		&lt;?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?&gt;
 		</p>
 	</div>
+	<div class="column half">
+	</div>
 	&lt;?php echo form_close(); ?&gt;
 </article>

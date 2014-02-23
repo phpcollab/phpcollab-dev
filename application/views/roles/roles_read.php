@@ -24,6 +24,8 @@
 		<?php if($row->rol_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->rol_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
+	<div class="column half">
+	</div>
 </article>
 <article class="title">
 	<h2><?php echo $this->lang->line('permissions'); ?></h2>

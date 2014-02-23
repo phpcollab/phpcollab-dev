@@ -21,6 +21,8 @@
 		<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
 		</p>
 	</div>
+	<div class="column half">
+	</div>
 </article>
 <article class="title">
 	<h2><?php echo $this->lang->line('permissions'); ?></h2>

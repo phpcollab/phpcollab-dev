@@ -28,4 +28,6 @@
 		<?php if($row->trk_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->trk_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
+	<div class="column half">
+	</div>
 </article>
