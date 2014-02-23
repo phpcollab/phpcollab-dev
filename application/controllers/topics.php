@@ -79,6 +79,9 @@ class topics extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('topics/read/onlypublished') && $data['row']->tcs_published == 0) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('topics').' / '.$data['row']->tcs_name);
 				$content = $this->load->view('topics/topics_read', $data, TRUE);
 				$content .= $this->posts_model->get_index_list($data['row']);

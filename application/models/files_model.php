@@ -16,6 +16,9 @@ class files_model extends CI_Model {
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'fle.fle_name';
 		$columns[] = 'fle.fle_size';
+		if($this->auth_library->permission('files/read/onlypublished')) {
+			$flt[] = 'fle.fle_published = \'1\'';
+		}
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'fle.fle_name', 'ASC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
@@ -38,17 +41,6 @@ class files_model extends CI_Model {
 	function get_row($fle_id) {
 		$query = $this->db->query('SELECT mbr.mbr_name, fle.* FROM '.$this->db->dbprefix('files').' AS fle LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = fle.fle_owner WHERE fle.fle_id = ? GROUP BY fle.fle_id', array($fle_id));
 		return $query->row();
-	}
-	function dropdown_prj_id() {
-		$select = array();
-		$select[''] = '-';
-		$query = $this->db->query('SELECT prj.prj_id AS field_key, prj.prj_name AS field_label FROM '.$this->db->dbprefix('projects').' AS prj GROUP BY prj.prj_id ORDER BY prj.prj_name ASC');
-		if($query->num_rows() > 0) {
-			foreach($query->result() as $row) {
-				$select[$row->field_key] = $row->field_label;
-			}
-		}
-		return $select;
 	}
 	function dropdown_fle_owner() {
 		$select = array();

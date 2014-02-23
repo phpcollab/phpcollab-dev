@@ -70,6 +70,9 @@ class notes extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('notes/read/onlypublished') && $data['row']->nte_published == 0) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('notes').' / '.$data['row']->nte_name);
 				$content = $this->load->view('notes/notes_read', $data, TRUE);
 				$this->my_library->set_zone('content', $content);

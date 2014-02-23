@@ -14,6 +14,9 @@ class topics_model extends CI_Model {
 		$filters[$data['ref_filter'].'_tcs_priority'] = array('tcs.tcs_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
 		$flt[] = 'tcs.prj_id = \''.$prj->prj_id.'\'';
+		if($this->auth_library->permission('topics/read/onlypublished')) {
+			$flt[] = 'tcs.tcs_published = \'1\'';
+		}
 		$columns = array();
 		$columns[] = 'tcs.tcs_id';
 		$columns[] = 'mbr.mbr_name';
@@ -49,17 +52,6 @@ class topics_model extends CI_Model {
 	function get_row($tcs_id) {
 		$query = $this->db->query('SELECT mbr.mbr_name, tcs.* FROM '.$this->db->dbprefix('topics').' AS tcs LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tcs.tcs_owner WHERE tcs.tcs_id = ? GROUP BY tcs.tcs_id', array($tcs_id));
 		return $query->row();
-	}
-	function dropdown_prj_id() {
-		$select = array();
-		$select[''] = '-';
-		$query = $this->db->query('SELECT prj.prj_id AS field_key, prj.prj_name AS field_label FROM '.$this->db->dbprefix('projects').' AS prj GROUP BY prj.prj_id ORDER BY prj.prj_name ASC');
-		if($query->num_rows() > 0) {
-			foreach($query->result() as $row) {
-				$select[$row->field_key] = $row->field_label;
-			}
-		}
-		return $select;
 	}
 	function dropdown_tcs_owner() {
 		$select = array();

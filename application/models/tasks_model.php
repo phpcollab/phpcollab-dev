@@ -29,6 +29,9 @@ class tasks_model extends CI_Model {
 		} else {
 			$flt[] = 'tsk.prj_id = \''.$prj->prj_id.'\'';
 		}
+		if($this->auth_library->permission('tasks/read/onlypublished')) {
+			$flt[] = 'tsk.tsk_published = \'1\'';
+		}
 		$columns = array();
 		$columns[] = 'tsk.tsk_id';
 		$columns[] = 'trk.trk_name';
@@ -72,17 +75,6 @@ class tasks_model extends CI_Model {
 		$query = $this->db->query('SELECT prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name,  mbr_assigned.mbr_name AS mbr_name_assigned, tsk_parent.tsk_name AS tsk_name_parent, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('tasks').' AS tsk_parent ON tsk_parent.tsk_id = tsk.tsk_parent WHERE tsk.tsk_id = ? GROUP BY tsk.tsk_id', array($tsk_id));
 		return $query->row();
 	}
-	function dropdown_prj_id() {
-		$select = array();
-		$select[''] = '-';
-		$query = $this->db->query('SELECT prj.prj_id AS field_key, prj.prj_name AS field_label FROM '.$this->db->dbprefix('projects').' AS prj GROUP BY prj.prj_id ORDER BY prj.prj_name ASC');
-		if($query->num_rows() > 0) {
-			foreach($query->result() as $row) {
-				$select[$row->field_key] = $row->field_label;
-			}
-		}
-		return $select;
-	}
 	function dropdown_trk_id() {
 		$select = array();
 		$select[''] = '-';
@@ -97,7 +89,11 @@ class tasks_model extends CI_Model {
 	function dropdown_mln_id($prj_id) {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mln.mln_id AS field_key, mln.mln_name AS field_label FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY mln.mln_id ORDER BY mln.mln_date_start ASC, mln.mln_name ASC', array($prj_id));
+		if($this->auth_library->permission('milestones/read/onlypublished')) {
+			$query = $this->db->query('SELECT mln.mln_id AS field_key, mln.mln_name AS field_label FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? AND mln.mln_published = 1 GROUP BY mln.mln_id ORDER BY mln.mln_date_start ASC, mln.mln_name ASC', array($prj_id, 1));
+		} else {
+			$query = $this->db->query('SELECT mln.mln_id AS field_key, mln.mln_name AS field_label FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY mln.mln_id ORDER BY mln.mln_date_start ASC, mln.mln_name ASC', array($prj_id));
+		}
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
 				$select[$row->field_key] = $row->field_label;

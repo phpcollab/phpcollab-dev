@@ -22,10 +22,6 @@
 	</div>
 	<div class="column half">
 		<p>
-		<?php echo form_label($this->lang->line('fle_comments'), 'fle_comments'); ?>
-		<?php echo form_textarea('fle_comments', set_value('fle_comments', ''), 'id="fle_comments" class="textarea"'); ?>
-		</p>
-		<p>
 		<?php echo form_label($this->lang->line('fle_published'), 'fle_published'); ?>
 		<?php echo form_checkbox('fle_published', '1', set_checkbox('fle_published', '1'), 'id="fle_published" class="inputcheckbox numeric"'); ?>
 		</p>

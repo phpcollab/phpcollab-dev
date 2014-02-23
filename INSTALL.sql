@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS `files` (
   `fle_parent` int(10) unsigned DEFAULT NULL,
   `fle_version` int(10) NOT NULL DEFAULT '1',
   `fle_size` int(10) NOT NULL,
-  `fle_comments` text,
   `fle_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `fle_datecreated` datetime NOT NULL,
   `fle_datemodified` datetime DEFAULT NULL,
@@ -344,7 +343,13 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (32, 'projects_members/read/any', NOW()),
 (33, 'projects_members/read/ifowner', NOW()),
 (36, 'projects_members/read/ifmember', NOW()),
-(34, 'projects_members/read/onlypublished', NOW());
+(34, 'projects_members/read/onlypublished', NOW()),
+
+(37, 'tasks/read/onlypublished', NOW()),
+(38, 'milestones/read/onlypublished', NOW()),
+(39, 'topics/read/onlypublished', NOW()),
+(40, 'notes/read/onlypublished', NOW()),
+(41, 'files/read/onlypublished', NOW());
 
 -- --------------------------------------------------------
 

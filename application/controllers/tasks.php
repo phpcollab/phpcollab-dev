@@ -105,6 +105,9 @@ class tasks extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('tasks/read/onlypublished') && $data['row']->tsk_published == 0) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('tasks').' / '.$data['row']->tsk_name);
 				$content = $this->load->view('tasks/tasks_read', $data, TRUE);
 				$content .= $this->my_model->get_logs('task', $tsk_id);

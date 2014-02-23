@@ -80,6 +80,9 @@ class milestones extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('milestones/read/onlypublished') && $data['row']->mln_published == 0) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('milestones').' / '.$data['row']->mln_name);
 				$content = $this->load->view('milestones/milestones_read', $data, TRUE);
 				$content .= $this->tasks_model->get_index_list($data['prj'], $data['row']);

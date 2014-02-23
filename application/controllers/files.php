@@ -27,7 +27,6 @@ class files extends CI_Controller {
 			$this->form_validation->set_rules('fle_owner', 'lang:fle_owner', 'required|numeric');
 			$this->form_validation->set_rules('fle_name', 'lang:fle_name', 'max_length[255]|callback_name');
 			$this->form_validation->set_rules('fle_description', 'lang:fle_description', '');
-			$this->form_validation->set_rules('fle_comments', 'lang:fle_comments', '');
 			$this->form_validation->set_rules('fle_published', 'lang:fle_published', 'numeric');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('files/files_create', $data, TRUE);
@@ -49,7 +48,6 @@ class files extends CI_Controller {
 				$this->db->set('fle_description', $this->input->post('fle_description'));
 				$this->db->set('fle_status', 1);//TODO
 				$this->db->set('fle_size', $_FILES['fle_name']['size']);
-				$this->db->set('fle_comments', $this->input->post('fle_comments'));
 				$this->db->set('fle_published', checkbox2database($this->input->post('fle_published')));
 				$this->db->set('fle_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('files');
@@ -66,9 +64,48 @@ class files extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('files/read/onlypublished') && $data['row']->fle_published == 0) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('files').' / '.$data['row']->fle_name);
 				$content = $this->load->view('files/files_read', $data, TRUE);
+				$content .= $this->my_model->get_logs('file', $fle_id);
 				$this->my_library->set_zone('content', $content);
+			} else {
+				redirect($this->my_url);
+			}
+		} else {
+			redirect($this->my_url);
+		}
+	}
+	public function update($fle_id) {
+		$this->load->library('form_validation');
+		$data = array();
+		$data['row'] = $this->files_model->get_row($fle_id);
+		if($data['row']) {
+			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
+			if($data['prj']) {
+				$this->my_library->set_title($this->lang->line('files').' / '.$data['row']->fle_name);
+				$data['dropdown_fle_owner'] = $this->files_model->dropdown_fle_owner();
+				$this->form_validation->set_rules('fle_owner', 'lang:fle_owner', 'required|numeric');
+				$this->form_validation->set_rules('fle_description', 'lang:fle_description', '');
+				$this->form_validation->set_rules('fle_published', 'lang:fle_published', 'numeric');
+				$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
+				if($this->form_validation->run() == FALSE) {
+					$content = $this->load->view('files/files_update', $data, TRUE);
+					$this->my_library->set_zone('content', $content);
+				} else {
+					$this->db->set('fle_owner', $this->input->post('fle_owner'));
+					$this->db->set('fle_description', $this->input->post('fle_description'));
+					$this->db->set('fle_published', checkbox2database($this->input->post('fle_published')));
+					$this->db->set('fle_datemodified', date('Y-m-d H:i:s'));
+					$this->db->where('fle_id', $fle_id);
+					$this->db->update('files');
+
+					$this->my_model->save_log('file', $fle_id, $data['row']);
+
+					$this->read($fle_id);
+				}
 			} else {
 				redirect($this->my_url);
 			}
@@ -116,6 +153,9 @@ class files extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('files/read/onlypublished') && $data['row']->fle_published == 0) {
+					redirect($this->my_url);
+				}
 				if(file_exists('storage/projects/'.$data['row']->prj_id.'/'.$data['row']->fle_name)) {
 					download_header($data['row']->fle_name, $data['row']->fle_size);
 					readfile('storage/projects/'.$data['row']->prj_id.'/'.$data['row']->fle_name);

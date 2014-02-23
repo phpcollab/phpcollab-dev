@@ -11,6 +11,9 @@ class Notes_model extends CI_Model {
 		$filters[$data['ref_filter'].'_nte_name'] = array('nte.nte_name', 'like');
 		$flt = $this->my_library->build_filters($filters);
 		$flt[] = 'nte.prj_id = \''.$prj->prj_id.'\'';
+		if($this->auth_library->permission('notes/read/onlypublished')) {
+			$flt[] = 'nte.nte_published = \'1\'';
+		}
 		$columns = array();
 		$columns[] = 'nte.nte_id';
 		$columns[] = 'mbr.mbr_name';
@@ -43,17 +46,6 @@ class Notes_model extends CI_Model {
 	function get_row($nte_id) {
 		$query = $this->db->query('SELECT mbr.mbr_name, nte.* FROM '.$this->db->dbprefix('notes').' AS nte LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = nte.nte_owner WHERE nte.nte_id = ? GROUP BY nte.nte_id', array($nte_id));
 		return $query->row();
-	}
-	function dropdown_prj_id() {
-		$select = array();
-		$select[''] = '-';
-		$query = $this->db->query('SELECT prj.prj_id AS field_key, prj.prj_name AS field_label FROM '.$this->db->dbprefix('projects').' AS prj GROUP BY prj.prj_id ORDER BY prj.prj_name ASC');
-		if($query->num_rows() > 0) {
-			foreach($query->result() as $row) {
-				$select[$row->field_key] = $row->field_label;
-			}
-		}
-		return $select;
 	}
 	function dropdown_nte_owner() {
 		$select = array();
