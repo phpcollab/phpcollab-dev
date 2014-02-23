@@ -159,7 +159,7 @@ label a:link, label a:visited{cursor:pointer;}
 .filters .inputsubmit, button{padding:1px 4px;}
 input:-webkit-autofill{-webkit-box-shadow:0px 0px 0px 1000px #FFFFFF inset;}
 
-tbody td .fa{color:#30353B;}
+p .fa, tbody td .fa{color:#30353B;}
 tbody th span, tbody th a:link, tbody th a:visited, article.title ul a:link, article.title ul a:visited, nav ul a:link, nav ul a:visited{background-color:#444755;border:none;border-radius:3px;color:#AEB2B7;margin:0px;padding:3px 3px 3px 3px;position:relative;text-decoration:none;vertical-align:top;}
 tbody th span.success{background-color:#94b86e;color:#FFFFFF;}
 tbody th span.info{background-color:#658db3;color:#FFFFFF;}

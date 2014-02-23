@@ -10,7 +10,7 @@
 	<?php foreach($rows as $row) { ?>
 	<article>
 		<div class="column third">
-			<p><?php echo $row->mbr_name; ?></p>
+			<p><?php if($row->pst_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?><?php echo $row->mbr_name; ?></p>
 			<p><?php echo $this->my_library->timezone_datetime($row->pst_datecreated); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->pst_datecreated); ?>"></span>)</p>
 		</div>
 		<div class="column two-thirds">
