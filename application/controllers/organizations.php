@@ -261,7 +261,7 @@ class Organizations extends CI_Controller {
 					$values[] = $row->nb;
 				}
 			}
-			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_date_start'), $values, $legend);
+			$data['tasks'] .= build_table_progression($this->lang->line('tsk_date_start'), $values, $legend);
 
 			$legend = array();
 			$values = array();

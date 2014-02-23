@@ -1,6 +1,7 @@
 <article class="title">
 	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/members') ?>"></i><?php echo $this->lang->line('members'); ?> (<?php echo $position; ?>)</h2>
 	<ul>
+	<li><a href="<?php echo $this->my_url; ?>members/statistics"><i class="fa fa-bar-chart-o"></i><?php echo $this->lang->line('statistics'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>members/create<?php if($this->router->class == 'organizations') { ?>?org_id=<?php echo $org->org_id; ?><?php } ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
 	<?php if($this->router->class != 'members') { ?>
 		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-members') || $this->input->cookie($this->router->class.'-members') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-members-collapse"><a href="#<?php echo $this->router->class; ?>-members"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>

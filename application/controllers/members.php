@@ -241,4 +241,61 @@ class members extends CI_Controller {
 		}
 		return FALSE;
 	}
+	public function statistics() {
+		$data = array();
+		$this->my_library->set_title($this->lang->line('members'));
+
+		$data['tables'] = '';
+
+		$legend = array();
+		$values = array();
+		$query = $this->db->query('SELECT org.org_name AS ref, org.org_id AS id, COUNT(DISTINCT(mbr.mbr_id)) AS nb FROM '.$this->db->dbprefix('members').' AS mbr LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr.org_id GROUP BY ref ORDER BY nb DESC');
+		if($query->num_rows() > 0) {
+			$current_month = date('Y-m');
+			foreach($query->result() as $row) {
+				$legend[] = '<a href="'.$this->my_url.'organizations/statistics/'.$row->id.'">'.$row->ref.'</a>';
+				$values[] = $row->nb;
+			}
+		}
+		$data['tables'] .= build_table_repartition($this->lang->line('organization'), $values, $legend);
+
+		$legend = array();
+		$values = array();
+		$query = $this->db->query('SELECT SUBSTRING(mbr.mbr_datecreated, 1, 7) AS ref, COUNT(DISTINCT(mbr.mbr_id)) AS nb FROM '.$this->db->dbprefix('members').' AS mbr GROUP BY ref ORDER BY ref DESC');
+		if($query->num_rows() > 0) {
+			$current_month = date('Y-m');
+			foreach($query->result() as $row) {
+				$legend[] = $row->ref;
+				$values[] = $row->nb;
+			}
+		}
+		$data['tables'] .= build_table_progression($this->lang->line('mbr_datecreated'), $values, $legend);
+
+		$legend = array();
+		$values = array();
+		$query = $this->db->query('SELECT mbr.mbr_authorized AS ref, COUNT(DISTINCT(mbr.mbr_id)) AS nb FROM '.$this->db->dbprefix('members').' AS mbr GROUP BY ref ORDER BY nb DESC');
+		if($query->num_rows() > 0) {
+			$current_month = date('Y-m');
+			foreach($query->result() as $row) {
+				$legend[] = $this->lang->line('reply_'.$row->ref);
+				$values[] = $row->nb;
+			}
+		}
+		$data['tables'] .= build_table_repartition($this->lang->line('mbr_authorized'), $values, $legend);
+
+		$legend = array();
+		$values = array();
+		$query = $this->db->query('SELECT SUBSTRING(mbr.mbr_email, LOCATE(\'@\', mbr.mbr_email) + 1) AS ref, COUNT(DISTINCT(mbr.mbr_id)) AS nb FROM '.$this->db->dbprefix('members').' AS mbr GROUP BY ref ORDER BY nb DESC');
+		if($query->num_rows() > 0) {
+			$current_month = date('Y-m');
+			foreach($query->result() as $row) {
+				$legend[] = $row->ref;
+				$values[] = $row->nb;
+			}
+		}
+		$data['tables'] .= build_table_repartition($this->lang->line('mbr_email'), $values, $legend);
+
+		$content = $this->load->view('members/members_statistics', $data, TRUE);
+		$this->my_library->set_zone('content', $content);
+	}
 }
