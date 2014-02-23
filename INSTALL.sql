@@ -114,13 +114,15 @@ CREATE TABLE IF NOT EXISTS `members` (
   `mbr_description` text,
   `mbr_email` varchar(255) NOT NULL,
   `mbr_password` char(40) NOT NULL,
+  `mbr_forgotpassword` char(40) DEFAULT NULL,
   `mbr_authorized` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `mbr_datecreated` datetime NOT NULL,
   `mbr_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`mbr_id`),
   UNIQUE KEY `mbr_email` (`mbr_email`),
+  UNIQUE KEY `mbr_forgotpassword` (`mbr_forgotpassword`),
   KEY `org_id` (`org_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=100 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=101 ;
 
 --
 -- Dumping data for table `members`
@@ -762,7 +764,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (33, 'sender/name', 'phpCollab', '2014-02-22 04:41:52'),
 (34, 'phpcollab/icons/logs', 'bookmark', '2014-02-22 04:41:52'),
 (35, 'phpcollab/icons/topics', 'comments', '2014-02-22 04:41:52'),
-(36, 'phpcollab/icons/posts', 'comments', '2014-02-22 04:41:52');
+(36, 'phpcollab/icons/posts', 'comments', '2014-02-22 04:41:52'),
+(37, 'phpcollab/enabled/notifications', '1', '2014-02-22 04:41:52');
 
 -- --------------------------------------------------------
 

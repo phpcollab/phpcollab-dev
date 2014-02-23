@@ -37,9 +37,9 @@
 			<?php if($this->auth_library->permission('organizations/index')) { ?><li><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a></li><?php } ?>
 			<?php if($this->auth_library->permission('projects/index')) { ?><li><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a></li><?php } ?>
 		</ul>
-		<h1><?php echo $this->lang->line('administrator'); ?></h1>
-		<ul>
-			<?php if($this->auth_library->role('administrator')) { ?>
+		<?php if($this->auth_library->role('administrator')) { ?>
+			<h1><?php echo $this->lang->line('administrator'); ?></h1>
+			<ul>
 				<li><a href="<?php echo $this->my_url; ?>trackers"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/trackers'); ?>"></i><?php echo $this->lang->line('trackers'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>statuses"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/statuses'); ?>"></i><?php echo $this->lang->line('statuses'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>members"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/members'); ?>"></i><?php echo $this->lang->line('members'); ?></a></li>
@@ -47,8 +47,8 @@
 				<li><a href="<?php echo $this->my_url; ?>_configuration"><i class="fa fa-gears"></i><?php echo $this->lang->line('configuration'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>_database"><i class="fa fa-hdd-o"></i><?php echo $this->lang->line('database'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>_info"><i class="fa fa-info-circle"></i><?php echo $this->lang->line('info'); ?></a></li>
-			<?php } ?>
-		</ul>
+			</ul>
+		<?php } ?>
 	<?php } ?>
 </aside>
 

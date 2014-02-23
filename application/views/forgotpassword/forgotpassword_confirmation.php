@@ -10,4 +10,6 @@
 		<?php echo $mbr_password; ?>
 		</p>
 	</div>
+	<div class="column half">
+	</div>
 </article>

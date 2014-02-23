@@ -7,4 +7,6 @@
 	<div class="column half">
 		<p>OK</p>
 	</div>
+	<div class="column half">
+	</div>
 </article>

@@ -1,4 +1,5 @@
 <?php
+$lang['direct_link'] = 'Direct link';
 $lang['topics'] = 'Topics';
 $lang['topic'] = 'Topic';
 $lang['tcs_id'] = 'Topic ID';
@@ -17,6 +18,7 @@ $lang['pst_datecreated'] = 'Date created';
 $lang['logs'] = 'Logs';
 $lang['log_comments'] = 'Log';
 $lang['log_datecreated'] = 'Date created';
+$lang['member_password_confirmation'] = 'Your new password';
 $lang['project_task_assigned'] = 'A task has been assigned to you';
 $lang['administrator'] = 'Administrator';
 $lang['already_exists'] = 'The %s field already exists';

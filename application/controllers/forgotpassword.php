@@ -10,7 +10,7 @@ class Forgotpassword extends CI_Controller {
 			redirect($this->my_url);
 		}
 
-		$this->load->library(array('form_validation', 'email_library'));
+		$this->load->library(array('form_validation'));
 
 		$this->form_validation->set_rules('mbr_email', 'lang:mbr_email', 'required|valid_email|max_length[255]|callback_email');
 
@@ -18,22 +18,19 @@ class Forgotpassword extends CI_Controller {
 			$data = array();
 			$content = $this->load->view('forgotpassword/forgotpassword_index', $data, TRUE);
 		} else {
-			$query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.mbr_email = ? GROUP BY mbr.mbr_id', array($this->input->post('mbr_email')));
+			$query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.mbr_email = ? AND mbr.mbr_authorized = ? GROUP BY mbr.mbr_id', array($this->input->post('mbr_email'), 1));
 			if($query->num_rows() > 0) {
-				$user = $query->row();
+				$data['member'] = $query->row();
 
-				$token_forgotpassword = sha1(uniqid($user->mbr_id, 1).mt_rand());
-				$this->db->set('token_forgotpassword', $token_forgotpassword);
-				$this->db->where('mbr_id', $user->mbr_id);
+				$data['mbr_forgotpassword'] = sha1(uniqid($data['member']->mbr_id, 1).mt_rand());
+				$this->db->set('mbr_forgotpassword', $data['mbr_forgotpassword']);
+				$this->db->where('mbr_id', $data['member']->mbr_id);
 				$this->db->update('members');
 
-				/*$to = $user->mbr_email;
-				$template = 'backend_forgotpassword';
-				$tags = array(
-					'[mbr_email]' => $user->mbr_email,
-					'[confirmation_url]' => $this->my_url.'forgotpassword/confirmation/'.$token_forgotpassword,
-				);
-				$this->email_library->send($to, $this->config->item('language'), $template, $tags);*/
+				$this->load->library(array('email_library'));
+				$to = $data['member']->mbr_email;
+				$message = $this->load->view('emails/member_password_confirmation', $data, TRUE);
+				$this->email_library->send($to, $message);
 
 				$data = array();
 				$content = $this->load->view('forgotpassword/forgotpassword_sent', $data, TRUE);
@@ -41,7 +38,7 @@ class Forgotpassword extends CI_Controller {
 		}
 		$this->my_library->set_zone('content', $content);
 	}
-	public function confirmation($token_forgotpassword) {
+	public function confirmation($mbr_forgotpassword) {
 		if($this->session->userdata('phpcollab_member')) {
 			redirect($this->my_url);
 		}
@@ -50,12 +47,12 @@ class Forgotpassword extends CI_Controller {
 			exit(0);
 		}
 
-		$query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.token_forgotpassword = ? GROUP BY mbr.mbr_id', array($token_forgotpassword));
+		$query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.mbr_forgotpassword = ? AND mbr.mbr_authorized = ? GROUP BY mbr.mbr_id', array($mbr_forgotpassword, 1));
 		if($query->num_rows() > 0) {
 			$member = $query->row();
 			$mbr_password = generate_string(6);
 			$this->db->set('mbr_password', $this->auth_library->salt_password($mbr_password));
-			$this->db->set('token_forgotpassword', '');
+			$this->db->set('mbr_forgotpassword', '');
 			$this->db->where('mbr_id', $member->mbr_id);
 			$this->db->update('members');
 
@@ -69,7 +66,7 @@ class Forgotpassword extends CI_Controller {
 	}
 	public function email() {
 		if($this->input->post('mbr_email')) {
-			$query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.mbr_email = ? GROUP BY mbr.mbr_id', array($this->input->post('mbr_email')));
+			$query = $this->db->query('SELECT mbr.* FROM '.$this->db->dbprefix('members').' AS mbr WHERE mbr.mbr_email = ? AND mbr.mbr_authorized = ? GROUP BY mbr.mbr_id', array($this->input->post('mbr_email'), 1));
 			if($query->num_rows() > 0) {
 				return TRUE;
 			} else {

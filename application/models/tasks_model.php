@@ -119,7 +119,7 @@ class tasks_model extends CI_Model {
 	function dropdown_tsk_assigned($prj_id) {
 		$select = array();
 		$select[''] = '-';
-		$query = $this->db->query('SELECT mbr_assigned.mbr_id AS field_key, org.org_name AS field_optgroup, mbr_assigned.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr_assigned LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr_assigned.org_id WHERE mbr_assigned.mbr_id IN(SELECT prj_mbr.mbr_id FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr WHERE prj_mbr.prj_id = ?) GROUP BY mbr_assigned.mbr_id ORDER BY org.org_name ASC, mbr_assigned.mbr_name ASC', array($prj_id));
+		$query = $this->db->query('SELECT mbr_assigned.mbr_id AS field_key, org.org_name AS field_optgroup, mbr_assigned.mbr_name AS field_label FROM '.$this->db->dbprefix('members').' AS mbr_assigned LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = mbr_assigned.org_id WHERE mbr_assigned.mbr_id IN(SELECT prj_mbr.mbr_id FROM '.$this->db->dbprefix('projects_members').' AS prj_mbr WHERE prj_mbr.prj_id = ? AND prj_mbr.prj_mbr_authorized = ?) AND mbr_assigned.mbr_authorized = ? AND org.org_authorized = ? GROUP BY mbr_assigned.mbr_id ORDER BY org.org_name ASC, mbr_assigned.mbr_name ASC', array($prj_id, 1, 1, 1));
 		if($query->num_rows() > 0) {
 			foreach($query->result() as $row) {
 				$select[$row->field_optgroup][$row->field_key] = $row->field_label;
