@@ -16,7 +16,7 @@
 		<?php echo form_input('tcs_name', set_value('tcs_name', ''), 'id="tcs_name" class="inputtext required"'); ?>
 		</p>
 		<p>
-		<?php echo form_label($this->lang->line('pst_description'), 'pst_description'); ?>
+		<?php echo form_label($this->lang->line('pst_description').' *', 'pst_description'); ?>
 		<?php echo form_textarea('pst_description', set_value('pst_description', ''), 'id="pst_description" class="textarea required"'); ?>
 		</p>
 	</div>

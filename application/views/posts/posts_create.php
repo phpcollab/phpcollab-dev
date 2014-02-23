@@ -8,7 +8,7 @@
 	<?php echo validation_errors(); ?>
 	<div class="column half">
 		<p>
-		<?php echo form_label($this->lang->line('pst_description'), 'pst_description'); ?>
+		<?php echo form_label($this->lang->line('pst_description').' *', 'pst_description'); ?>
 		<?php echo form_textarea('pst_description', set_value('pst_description', ''), 'id="pst_description" class="textarea required"'); ?>
 		</p>
 	</div>

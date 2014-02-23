@@ -181,9 +181,6 @@ class projects extends CI_Controller {
 				$this->db->delete('tasks');
 
 				$this->db->where('prj_id', $prj_id);
-				$this->db->delete('files_projects');
-
-				$this->db->where('prj_id', $prj_id);
 				$this->db->delete('topics');
 
 				$this->index();

@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `logs_details` (
 
 CREATE TABLE IF NOT EXISTS `files` (
   `fle_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `prj_id` int(10) unsigned NOT NULL,
   `fle_owner` int(10) unsigned NOT NULL,
   `fle_approver` int(10) unsigned NOT NULL,
   `fle_name` varchar(255) NOT NULL,
@@ -53,7 +54,8 @@ CREATE TABLE IF NOT EXISTS `files` (
   `fle_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `fle_datecreated` datetime NOT NULL,
   `fle_datemodified` datetime DEFAULT NULL,
-  PRIMARY KEY (`fle_id`)
+  PRIMARY KEY (`fle_id`),
+  KEY `prj_id` (`prj_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -77,25 +79,6 @@ CREATE TABLE IF NOT EXISTS `files_milestones` (
 
 --
 -- Dumping data for table `files_milestones`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `files_projects`
---
-
-CREATE TABLE IF NOT EXISTS `files_projects` (
-  `fle_prj_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `fle_id` int(10) unsigned NOT NULL,
-  `prj_id` int(10) unsigned NOT NULL,
-  `fle_prj_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`fle_prj_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `files_projects`
 --
 
 
@@ -325,11 +308,6 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (11, 'files_milestones/read/comments', '0000-00-00 00:00:00'),
 (12, 'files_milestones/update', '0000-00-00 00:00:00'),
 (13, 'files_milestones/delete', '0000-00-00 00:00:00'),
-(14, 'files_projects/index', '0000-00-00 00:00:00'),
-(15, 'files_projects/create', '0000-00-00 00:00:00'),
-(16, 'files_projects/read/comments', '0000-00-00 00:00:00'),
-(17, 'files_projects/update', '0000-00-00 00:00:00'),
-(18, 'files_projects/delete', '0000-00-00 00:00:00'),
 (19, 'files_tasks/index', '0000-00-00 00:00:00'),
 (20, 'files_tasks/create', '0000-00-00 00:00:00'),
 (21, 'files_tasks/read/comments', '0000-00-00 00:00:00'),
@@ -411,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `pst_datecreated` datetime NOT NULL,
   PRIMARY KEY (`pst_id`),
   KEY `tcs_id` (`tcs_id`),
-  KEY `mbr_id` (`mbr_id`)
+  KEY `pst_owner` (`pst_owner`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -784,7 +762,7 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (33, 'sender/name', 'phpCollab', '2014-02-22 04:41:52'),
 (34, 'phpcollab/icons/logs', 'bookmark', '2014-02-22 04:41:52'),
 (35, 'phpcollab/icons/topics', 'comments', '2014-02-22 04:41:52'),
-(35, 'phpcollab/icons/posts', 'comments', '2014-02-22 04:41:52');
+(36, 'phpcollab/icons/posts', 'comments', '2014-02-22 04:41:52');
 
 -- --------------------------------------------------------
 

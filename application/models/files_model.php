@@ -10,7 +10,7 @@ class files_model extends CI_Model {
 		$filters = array();
 		$filters[$data['ref_filter'].'_fle_name'] = array('fle.fle_name', 'like');
 		$flt = $this->my_library->build_filters($filters);
-		$flt[] = 'fle_prj.prj_id = \''.$prj->prj_id.'\'';
+		$flt[] = 'fle.prj_id = \''.$prj->prj_id.'\'';
 		$columns = array();
 		$columns[] = 'fle.fle_id';
 		$columns[] = 'mbr.mbr_name';
@@ -28,15 +28,15 @@ class files_model extends CI_Model {
 		return $content = $this->load->view('files/files_index', $data, TRUE);
 	}
 	function get_total($flt) {
-		$query = $this->db->query('SELECT COUNT(fle.fle_id) AS count FROM '.$this->db->dbprefix('files').' AS fle LEFT JOIN '.$this->db->dbprefix('files_projects').' AS fle_prj ON fle_prj.fle_id = fle.fle_id WHERE '.implode(' AND ', $flt));
+		$query = $this->db->query('SELECT COUNT(fle.fle_id) AS count FROM '.$this->db->dbprefix('files').' AS fle WHERE '.implode(' AND ', $flt));
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, fle.* FROM '.$this->db->dbprefix('files').' AS fle LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = fle.fle_owner LEFT JOIN '.$this->db->dbprefix('files_projects').' AS fle_prj ON fle_prj.fle_id = fle.fle_id WHERE '.implode(' AND ', $flt).' GROUP BY fle.fle_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT mbr.mbr_name, fle.* FROM '.$this->db->dbprefix('files').' AS fle LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = fle.fle_owner WHERE '.implode(' AND ', $flt).' GROUP BY fle.fle_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($fle_id) {
-		$query = $this->db->query('SELECT mbr.mbr_name, fle.*, fle_prj.prj_id FROM '.$this->db->dbprefix('files').' AS fle LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = fle.fle_owner LEFT JOIN '.$this->db->dbprefix('files_projects').' AS fle_prj ON fle_prj.fle_id = fle.fle_id WHERE fle.fle_id = ? GROUP BY fle.fle_id', array($fle_id));
+		$query = $this->db->query('SELECT mbr.mbr_name, fle.* FROM '.$this->db->dbprefix('files').' AS fle LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = fle.fle_owner WHERE fle.fle_id = ? GROUP BY fle.fle_id', array($fle_id));
 		return $query->row();
 	}
 	function dropdown_prj_id() {

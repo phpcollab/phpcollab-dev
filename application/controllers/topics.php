@@ -188,7 +188,7 @@ class topics extends CI_Controller {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
 				$this->my_library->set_title($this->lang->line('topics').' / '.$data['row']->tcs_name);
-				$this->form_validation->set_rules('pst_description', 'lang:pst_description', '');
+				$this->form_validation->set_rules('pst_description', 'lang:pst_description', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('posts/posts_create', $data, TRUE);
 					$content .= $this->posts_model->get_index_list($data['row']);

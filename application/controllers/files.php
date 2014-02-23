@@ -43,6 +43,7 @@ class files extends CI_Controller {
 
 				move_uploaded_file($_FILES['fle_name']['tmp_name'], 'storage/projects/'.$prj_id.'/'.$fle_name);
 
+				$this->db->set('prj_id', $prj_id);
 				$this->db->set('fle_owner', $this->input->post('fle_owner'));
 				$this->db->set('fle_name', $fle_name);
 				$this->db->set('fle_description', $this->input->post('fle_description'));
@@ -53,11 +54,6 @@ class files extends CI_Controller {
 				$this->db->set('fle_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('files');
 				$fle_id = $this->db->insert_id();
-
-				$this->db->set('fle_id', $fle_id);
-				$this->db->set('prj_id', $prj_id);
-				$this->db->insert('files_projects');
-
 				$this->read($fle_id);
 			}
 		} else {
@@ -98,9 +94,6 @@ class files extends CI_Controller {
 					}
 					$this->db->where('fle_id', $fle_id);
 					$this->db->delete('files');
-
-					$this->db->where('fle_id', $fle_id);
-					$this->db->delete('files_projects');
 
 					$this->db->where('fle_id', $fle_id);
 					$this->db->delete('files_milestones');
