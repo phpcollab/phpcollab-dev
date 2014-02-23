@@ -5,7 +5,13 @@
 		<h2><a href="<?php echo $this->my_url; ?>projects_members/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects_members'); ?>"></i><?php echo $this->lang->line('projects_members'); ?></a> (<?php echo $position; ?>)</h2>
 	<?php } ?>
 	<ul>
-	<li><a href="<?php echo $this->my_url; ?>projects_members/create/<?php echo $prj->prj_id; ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<?php if($this->auth_library->permission('projects_members/manage/any')) { ?>
+		<li><a href="<?php echo $this->my_url; ?>projects_members/create/<?php echo $prj->prj_id; ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+
+	<?php } else if($this->auth_library->permission('projects_members/manage/ifowner') && $prj->prj_owner == $this->phpcollab_member->mbr_id) { ?>
+		<li><a href="<?php echo $this->my_url; ?>projects_members/create/<?php echo $prj->prj_id; ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<?php } ?>
+
 	<?php if($this->router->class != 'projects_members') { ?>
 		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-projects_members') || $this->input->cookie($this->router->class.'-projects_members') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-projects_members-collapse"><a href="#<?php echo $this->router->class; ?>-projects_members"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
 		<li class="expand<?php if($this->input->cookie($this->router->class.'-projects_members') == 'collapse') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-projects_members-expand"><a href="#<?php echo $this->router->class; ?>-projects_members"><i class="fa fa-caret-square-o-down"></i><?php echo $this->lang->line('expand'); ?></a></li>
@@ -64,8 +70,14 @@
 			<td><?php echo $row->roles; ?></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->prj_mbr_datecreated); ?></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>projects_members/update/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<a href="<?php echo $this->my_url; ?>projects_members/delete/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php if($this->auth_library->permission('projects_members/manage/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>projects_members/update/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+				<a href="<?php echo $this->my_url; ?>projects_members/delete/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+			<?php } else if($this->auth_library->permission('projects_members/manage/ifowner') && $prj->prj_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>projects_members/update/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+				<a href="<?php echo $this->my_url; ?>projects_members/delete/<?php echo $row->prj_mbr_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

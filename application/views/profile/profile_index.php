@@ -6,10 +6,24 @@
 </article>
 <article>
 	<div class="column half">
-		<p>
-		<span class="label"><?php echo $this->lang->line('org_name'); ?></span>
-		<?php if($this->phpcollab_member->org_name) { ?><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $this->phpcollab_member->org_id; ?>"><?php echo $this->phpcollab_member->org_name; ?></a><?php } else { ?>-<?php } ?>
-		</p>
+		<?php if($this->auth_library->permission('organizations/read/any')) { ?>
+			<p>
+			<span class="label"><?php echo $this->lang->line('organization'); ?></span>
+			<?php if($this->phpcollab_member->org_name) { ?><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $this->phpcollab_member->org_id; ?>"><?php echo $this->phpcollab_member->org_name; ?></a><?php } else { ?>-<?php } ?>
+			</p>
+
+		<?php } else if($this->auth_library->permission('organizations/read/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) { ?>
+			<p>
+			<span class="label"><?php echo $this->lang->line('organization'); ?></span>
+			<?php if($this->phpcollab_member->org_name) { ?><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $this->phpcollab_member->org_id; ?>"><?php echo $this->phpcollab_member->org_name; ?></a><?php } else { ?>-<?php } ?>
+			</p>
+
+		<?php } else if($this->auth_library->permission('organizations/read/ifmember')) { ?>
+			<p>
+			<span class="label"><?php echo $this->lang->line('organization'); ?></span>
+			<?php if($this->phpcollab_member->org_name) { ?><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $this->phpcollab_member->org_id; ?>"><?php echo $this->phpcollab_member->org_name; ?></a><?php } else { ?>-<?php } ?>
+			</p>
+		<?php } ?>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_name'); ?></span>
 		<?php if($this->phpcollab_member->mbr_name) { ?><?php echo $this->phpcollab_member->mbr_name; ?><?php } else { ?>-<?php } ?>

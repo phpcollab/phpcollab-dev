@@ -43,7 +43,7 @@ class organizations_model extends CI_Model {
 		return $this->load->view('organizations/organizations_index', $data, TRUE);
 	}
 	function get_total($flt) {
-		$query = $this->db->query('SELECT COUNT(org.org_id) AS count FROM '.$this->db->dbprefix('organizations').' AS org WHERE '.implode(' AND ', $flt));
+		$query = $this->db->query('SELECT COUNT(DISTINCT(org.org_id)) AS count FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_org ON mbr_org.org_id = org.org_id AND mbr_org.mbr_authorized = ? AND mbr_org.mbr_id = ? WHERE '.implode(' AND ', $flt), array(1, $this->phpcollab_member->mbr_id));
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {

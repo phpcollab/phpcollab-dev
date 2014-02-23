@@ -13,6 +13,9 @@ class projects_members_model extends CI_Model {
 		$filters[$data['ref_filter'].'_mbr_authorized'] = array('prj_mbr.prj_mbr_authorized', 'equal');
 		$flt = $this->my_library->build_filters($filters);
 		$flt[] = 'prj_mbr.prj_id = \''.$prj->prj_id.'\'';
+		if($this->auth_library->permission('projects_members/read/onlypublished')) {
+			$flt[] = 'prj_mbr.prj_mbr_published = \'1\'';
+		}
 		$columns = array();
 		$columns[] = 'prj_mbr.prj_mbr_id';
 		$columns[] = 'org.org_name';

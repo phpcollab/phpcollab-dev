@@ -13,6 +13,12 @@ class projects_members extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
+			if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/any')) {
+			} else if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
+			} else if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/ifmember') && $data['prj']->ismember == 1) {
+			} else {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($this->lang->line('projects_members'));
 			$content = $this->projects_members_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);
@@ -24,6 +30,11 @@ class projects_members extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
+			if($this->auth_library->permission('projects_members/manage/any')) {
+			} else if($this->auth_library->permission('projects_members/manage/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
+			} else {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($this->lang->line('projects_members'));
 			$this->load->library('form_validation');
 			$data['dropdown_mbr_id'] = $this->projects_members_model->dropdown_mbr_id($prj_id);
@@ -66,6 +77,15 @@ class projects_members extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('projects_members/read/any')) {
+				} else if($this->auth_library->permission('projects_members/read/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
+				} else if($this->auth_library->permission('projects_members/read/ifmember') && $data['prj']->ismember == 1) {
+				} else {
+					redirect($this->my_url);
+				}
+				if($this->auth_library->permission('projects_members/read/onlypublished') && $data['row']->prj_mbr_published == 0) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('projects_members').' / '.$data['row']->prj_mbr_id);
 				$content = $this->load->view('projects_members/projects_members_read', $data, TRUE);
 				$content .= $this->my_model->get_logs('project_member', $prj_mbr_id);
@@ -84,6 +104,11 @@ class projects_members extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('projects_members/manage/any')) {
+				} else if($this->auth_library->permission('projects_members/manage/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
+				} else {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('projects_members').' / '.$data['row']->prj_mbr_id);
 				$this->form_validation->set_rules('prj_mbr_authorized', 'lang:prj_mbr_authorized', 'numeric');
 				$this->form_validation->set_rules('prj_mbr_published', 'lang:prj_mbr_published', 'numeric');
@@ -130,6 +155,11 @@ class projects_members extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('projects_members/manage/any')) {
+				} else if($this->auth_library->permission('projects_members/manage/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
+				} else {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('projects_members').' / '.$data['row']->prj_mbr_id);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {

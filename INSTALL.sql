@@ -334,7 +334,17 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (25, 'projects/update/date_complete', NOW()),
 (26, 'projects/update/status', NOW()),
 (27, 'projects/update/priority', NOW()),
-(28, 'projects/update/published', NOW());
+(28, 'projects/update/published', NOW()),
+
+(35, 'projects/read/onlypublished', NOW()),
+
+(29, 'projects_members/index', NOW()),
+(30, 'projects_members/manage/any', NOW()),
+(31, 'projects_members/manage/ifowner', NOW()),
+(32, 'projects_members/read/any', NOW()),
+(33, 'projects_members/read/ifowner', NOW()),
+(36, 'projects_members/read/ifmember', NOW()),
+(34, 'projects_members/read/onlypublished', NOW());
 
 -- --------------------------------------------------------
 

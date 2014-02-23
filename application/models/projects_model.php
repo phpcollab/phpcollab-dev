@@ -30,6 +30,9 @@ class projects_model extends CI_Model {
 		} else {
 			return '';
 		}
+		if($this->auth_library->permission('projects/read/onlypublished')) {
+			$flt[] = 'prj.prj_published = \'1\'';
+		}
 		$columns = array();
 		$columns[] = 'prj.prj_id';
 		if($this->router->class != 'organizations') {
@@ -54,7 +57,7 @@ class projects_model extends CI_Model {
 		return $this->load->view('projects/projects_index', $data, TRUE);
 	}
 	function get_total($flt) {
-		$query = $this->db->query('SELECT COUNT(prj.prj_id) AS count FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = prj.prj_status WHERE '.implode(' AND ', $flt));
+		$query = $this->db->query('SELECT COUNT(prj.prj_id) AS count FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = prj.prj_status LEFT JOIN '.$this->db->dbprefix('projects_members').' AS prj_mbr ON prj_mbr.prj_id = prj.prj_id AND prj_mbr.prj_mbr_authorized = ? AND prj_mbr.mbr_id = ? WHERE '.implode(' AND ', $flt), array(1, $this->phpcollab_member->mbr_id));
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
