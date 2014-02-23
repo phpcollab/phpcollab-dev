@@ -3,9 +3,10 @@
 class tasks extends CI_Controller {
 	function __construct() {
 		parent::__construct();
+		$this->load->model('members_model');
 		$this->load->model('projects_model');
 		$this->load->model('tasks_model');
-		$this->load->model('members_model');
+		$this->load->model('milestones_model');
 
 		$this->storage_table = 'tasks';
 		$this->storage_fields = array();

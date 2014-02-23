@@ -90,6 +90,22 @@ class My_model extends CI_Model {
 				if($new != '') {
 					$new = '<span class="color_percent" style="width:'.intval($new).'%;">'.intval($new).'%</span>';
 				}
+
+			} else if($field == 'mln_id') {
+				if($old != '') {
+					$old = $this->milestones_model->get_row($old)->mln_name;
+				}
+				if($new != '') {
+					$new = $this->milestones_model->get_row($new)->mln_name;
+				}
+
+			} else if(strstr($field, '_owner') || strstr($field, '_assigned') || $field == 'mbr_id') {
+				if($old != '') {
+					$old = $this->members_model->get_row($old)->mbr_name;
+				}
+				if($new != '') {
+					$new = $this->members_model->get_row($new)->mbr_name;
+				}
 			}
 
 			if($old == '') {

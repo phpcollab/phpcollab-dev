@@ -3,6 +3,7 @@
 class milestones extends CI_Controller {
 	function __construct() {
 		parent::__construct();
+		$this->load->model('members_model');
 		$this->load->model('projects_model');
 		$this->load->model('milestones_model');
 		$this->load->model('tasks_model');
