@@ -1,8 +1,17 @@
 New experimental phpCollab, not for production
 
+#####Demo
+http://sdion.net/phpcollab
+```text
+example@example.com
+example
+```
+
+#####Screenshots
 ![Screenshot](screenshot.png)
 ![Screenshot](screenshot2.png)
 
+#####Installation
 Edit [/application/config/database.php](/application/config/database.php) to define "username", "password" and "database" ("hostname" if necessary)
 
 Load SQL commands from [/INSTALL.sql](/INSTALL.sql) in your database
@@ -13,14 +22,7 @@ example@example.com
 example
 ```
 
-#####Demo
-http://sdion.net/phpcollab
-```text
-example@example.com
-example
-```
-
-###Started
+#####Started
 * Members
 * Organizations
 * Projects
@@ -34,6 +36,6 @@ example
 * Topics / Posts
 * Logs
 
-###Todo
+#####Todo
 * Notifications
 * Permissions / Roles
