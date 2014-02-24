@@ -695,7 +695,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (38, 'phpcollab/icons/owner', 'star', NOW()),
 (39, 'phpcollab/icons/published', 'exchange', NOW()),
 (40, 'phpcollab/icons/ismember', 'rocket', NOW()),
-(41, 'phpcollab/icons/notauthorized', 'lock', NOW());
+(41, 'phpcollab/icons/notauthorized', 'lock', NOW()),
+(42, 'phpcollab/icons/assigned', 'thumb-tack', NOW());
 
 -- --------------------------------------------------------
 

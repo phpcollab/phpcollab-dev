@@ -78,6 +78,7 @@
 		<tr>
 			<td>
 				<?php if($row->tsk_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->tsk_assigned == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/assigned'); ?>" title="<?php echo $this->lang->line('icon_assigned'); ?>"></i><?php } ?>
 				<?php if($row->tsk_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
 			</td>
 			<td><?php echo $row->tsk_id; ?></td>

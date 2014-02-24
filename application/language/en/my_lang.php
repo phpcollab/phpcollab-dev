@@ -1,4 +1,5 @@
 <?php
+$lang['icon_assigned'] = 'Assigned';
 $lang['icon_ismember'] = 'Member';
 $lang['icon_owner'] = 'Owner';
 $lang['icon_published'] = 'Published';
