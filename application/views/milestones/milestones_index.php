@@ -16,6 +16,10 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
+			<?php echo form_label($this->lang->line('mln_name'), 'milestones_mln_name'); ?>
+			<?php echo form_input($ref_filter.'_mln_name', set_value($ref_filter.'_mln_name', $this->session->userdata($ref_filter.'_mln_name')), 'id="milestones_mln_name" class="inputtext"'); ?>
+		</div>
+		<div>
 			<?php echo form_label($this->lang->line('stu_isclosed'), 'milestones_stu_isclosed'); ?>
 			<?php echo form_dropdown($ref_filter.'_stu_isclosed', $this->my_model->dropdown_reply(), set_value($ref_filter.'_stu_isclosed', $this->session->userdata($ref_filter.'_stu_isclosed')), 'id="milestones_stu_isclosed" class="select"'); ?>
 		</div>
@@ -39,7 +43,6 @@
 			<th>&nbsp;</th>
 			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_id')); ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_owner')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_name')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_date_start')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('mln_date_due')); ?>
@@ -58,7 +61,6 @@
 				<?php if($row->mln_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
 			</td>
 			<td><?php echo $row->mln_id; ?></td>
-			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>milestones/read/<?php echo $row->mln_id; ?>"><?php echo $row->mln_name; ?></a></td>
 			<td><?php echo $row->mln_date_start; ?></td>
 			<td><?php echo $row->mln_date_due; ?></td>

@@ -8,10 +8,6 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
-			<?php echo form_label($this->lang->line('trk_owner'), 'trackers_trk_owner'); ?>
-			<?php echo form_dropdown($this->router->class.'_trackers_trk_owner', $dropdown_trk_owner, set_value($this->router->class.'_trackers_trk_owner', $this->session->userdata($this->router->class.'_trackers_trk_owner')), 'id="trackers_trk_owner" class="select"'); ?>
-		</div>
-		<div>
 			<?php echo form_label($this->lang->line('trk_name'), 'trackers_trk_name'); ?>
 			<?php echo form_input($this->router->class.'_trackers_trk_name', set_value($this->router->class.'_trackers_trk_name', $this->session->userdata($this->router->class.'_trackers_trk_name')), 'id="trackers_trk_name" class="inputtext"'); ?>
 		</div>

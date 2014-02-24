@@ -15,6 +15,7 @@ $lang['tcs_published'] = 'Published?';
 $lang['tcs_datecreated'] = 'Date created';
 $lang['posts'] = 'Posts';
 $lang['post'] = 'Post';
+$lang['last_post'] = 'Last post';
 $lang['pst_id'] = 'pst_id';
 $lang['pst_description'] = 'Message';
 $lang['pst_published'] = 'Published?';

@@ -6,7 +6,6 @@ class organizations_model extends CI_Model {
 	}
 	function get_index_list() {
 		$filters = array();
-		$filters[$this->router->class.'_organizations_org_owner'] = array('org.org_owner', 'equal');
 		$filters[$this->router->class.'_organizations_org_name'] = array('org.org_name', 'like');
 		$filters[$this->router->class.'_organizations_org_authorized'] = array('org.org_authorized', 'equal');
 		$flt = $this->my_library->build_filters($filters);

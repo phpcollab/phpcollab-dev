@@ -6,7 +6,6 @@ class trackers_model extends CI_Model {
 	}
 	function get_index_list() {
 		$filters = array();
-		$filters[$this->router->class.'_trackers_trk_owner'] = array('trk.trk_owner', 'equal');
 		$filters[$this->router->class.'_trackers_trk_name'] = array('trk.trk_name', 'like');
 		$flt = $this->my_library->build_filters($filters);
 		$columns = array();

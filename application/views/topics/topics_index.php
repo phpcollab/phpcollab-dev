@@ -16,20 +16,16 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
-			<?php echo form_label($this->lang->line('tcs_owner'), 'tasks_tcs_owner'); ?>
-			<?php echo form_dropdown($ref_filter.'_tcs_owner', $dropdown_tcs_owner, set_value($ref_filter.'_tcs_owner', $this->session->userdata($ref_filter.'_tcs_owner')), 'id="tasks_tcs_owner" class="select"'); ?>
+			<?php echo form_label($this->lang->line('tcs_name'), 'topics_tcs_name'); ?>
+			<?php echo form_input($ref_filter.'_tcs_name', set_value($ref_filter.'_tcs_name', $this->session->userdata($ref_filter.'_tcs_name')), 'id="topics_tcs_name" class="inputtext"'); ?>
 		</div>
 		<div>
-			<?php echo form_label($this->lang->line('tcs_name'), 'tasks_tcs_name'); ?>
-			<?php echo form_input($ref_filter.'_tcs_name', set_value($ref_filter.'_tcs_name', $this->session->userdata($ref_filter.'_tcs_name')), 'id="tasks_tcs_name" class="inputtext"'); ?>
+			<?php echo form_label($this->lang->line('tcs_status'), 'topics_tcs_status'); ?>
+			<?php echo form_dropdown($ref_filter.'_tcs_status', $this->my_model->dropdown_status(), set_value($ref_filter.'_tcs_status', $this->session->userdata($ref_filter.'_tcs_status')), 'id="topics_tcs_status" class="select"'); ?>
 		</div>
 		<div>
-			<?php echo form_label($this->lang->line('tcs_status'), 'topicss_tcs_status'); ?>
-			<?php echo form_dropdown($ref_filter.'_tcs_status', $this->my_model->dropdown_status(), set_value($ref_filter.'_tcs_status', $this->session->userdata($ref_filter.'_tcs_status')), 'id="topicss_tcs_status" class="select"'); ?>
-		</div>
-		<div>
-			<?php echo form_label($this->lang->line('tcs_priority'), 'topicss_tcs_priority'); ?>
-			<?php echo form_dropdown($ref_filter.'_tcs_priority', $this->my_model->dropdown_priority(), set_value($ref_filter.'_tcs_priority', $this->session->userdata($ref_filter.'_tcs_priority')), 'id="topicss_tcs_priority" class="select"'); ?>
+			<?php echo form_label($this->lang->line('tcs_priority'), 'topics_tcs_priority'); ?>
+			<?php echo form_dropdown($ref_filter.'_tcs_priority', $this->my_model->dropdown_priority(), set_value($ref_filter.'_tcs_priority', $this->session->userdata($ref_filter.'_tcs_priority')), 'id="topics_tcs_priority" class="select"'); ?>
 		</div>
 		<div>
 			<?php echo form_submit('submit', $this->lang->line('submit'), 'class="inputsubmit"'); ?>
@@ -49,6 +45,7 @@
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_status')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_priority')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('posts')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('last_post')); ?>
 			<th>&nbsp;</th>
 		</tr>
 		</thead>
@@ -66,6 +63,7 @@
 			<td><?php echo $this->my_model->status($row->tcs_status); ?></td>
 			<td><span class="color_percent priority_<?php echo $row->tcs_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tcs_priority); ?></span></td>
 			<td><?php echo $row->count_posts; ?></td>
+			<td><?php echo $this->my_library->timezone_datetime($row->last_post); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->last_post); ?>"></span>)</td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>topics/update/<?php echo $row->tcs_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
 			<?php if($this->auth_library->permission('topics/delete/any')) { ?>

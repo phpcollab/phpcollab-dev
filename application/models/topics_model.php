@@ -8,8 +8,7 @@ class topics_model extends CI_Model {
 		$data = array();
 		$data['ref_filter'] = $this->router->class.'_topics_'.$prj->prj_id;
 		$filters = array();
-		$filters[$data['ref_filter'].'_tsk_owner'] = array('tsk.tsk_owner', 'equal');
-		$filters[$data['ref_filter'].'_tsk_name'] = array('tsk.tsk_name', 'like');
+		$filters[$data['ref_filter'].'_tcs_name'] = array('tcs.tcs_name', 'like');
 		$filters[$data['ref_filter'].'_tcs_status'] = array('tcs.tcs_status', 'equal');
 		$filters[$data['ref_filter'].'_tcs_priority'] = array('tcs.tcs_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
@@ -25,7 +24,8 @@ class topics_model extends CI_Model {
 		$columns[] = 'tcs.tcs_status';
 		$columns[] = 'tcs.tcs_priority';
 		$columns[] = 'count_posts';
-		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'tcs.tcs_name', 'ASC');
+		$columns[] = 'last_post';
+		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'last_post', 'DESC');
 		$results = $this->get_total($flt);
 		if($this->router->class == 'topics') {
 			$limit = 30;
@@ -46,7 +46,7 @@ class topics_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, tcs.*, (SELECT COUNT(pst.pst_id) FROM '.$this->db->dbprefix('posts').' AS pst WHERE pst.tcs_id = tcs.tcs_id) AS count_posts FROM '.$this->db->dbprefix('topics').' AS tcs LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tcs.tcs_owner WHERE '.implode(' AND ', $flt).' GROUP BY tcs.tcs_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT mbr.mbr_name, tcs.*, (SELECT COUNT(pst.pst_id) FROM '.$this->db->dbprefix('posts').' AS pst WHERE pst.tcs_id = tcs.tcs_id) AS count_posts, (SELECT MAX(pst.pst_datecreated) FROM '.$this->db->dbprefix('posts').' AS pst WHERE pst.tcs_id = tcs.tcs_id) AS last_post FROM '.$this->db->dbprefix('topics').' AS tcs LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tcs.tcs_owner WHERE '.implode(' AND ', $flt).' GROUP BY tcs.tcs_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($tcs_id) {

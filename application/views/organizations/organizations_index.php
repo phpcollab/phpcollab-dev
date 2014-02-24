@@ -8,10 +8,6 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
-			<?php echo form_label($this->lang->line('org_owner'), 'organizations_org_owner'); ?>
-			<?php echo form_dropdown($this->router->class.'_organizations_org_owner', $dropdown_org_owner, set_value($this->router->class.'_organizations_org_owner', $this->session->userdata($this->router->class.'_organizations_org_owner')), 'id="organizations_org_owner" class="select"'); ?>
-		</div>
-		<div>
 			<?php echo form_label($this->lang->line('org_name'), 'organizations_org_name'); ?>
 			<?php echo form_input($this->router->class.'_organizations_org_name', set_value($this->router->class.'_organizations_org_name', $this->session->userdata($this->router->class.'_organizations_org_name')), 'id="organizations_org_name" class="inputtext"'); ?>
 		</div>
