@@ -4,14 +4,14 @@ class My_model extends CI_Model {
 	function __construct() {
 		parent::__construct();
 	}
-	function save_log($type, $reference, $row) {
+	function save_log($type, $reference, $row, $additional = array()) {
 		$diff = array();
 		foreach($row as $k => $v) {
 			if($this->input->post($k) != '' && $this->input->post($k) != $v && $k != 'mbr_password') {
 				$diff[$k] = array('old' => $v, 'new' => $this->input->post($k));
 			}
 		}
-		if(count($diff) > 0 || $this->input->post('log_comments') != '') {
+		if(count($diff) > 0 || $this->input->post('log_comments') != '' || count($additional) > 0) {
 			$this->db->set('mbr_id', $this->phpcollab_member->mbr_id);
 			$this->db->set('log_type', $type);
 			$this->db->set('log_reference', $reference);
@@ -29,7 +29,16 @@ class My_model extends CI_Model {
 					$this->db->insert('logs_details');
 				}
 			}
-			return $log_id;
+
+			if(count($additional) > 0) {
+				foreach($additional as $k => $v) {
+					$this->db->set('log_id', $log_id);
+					$this->db->set('log_dls_field', $v['field']);
+					$this->db->set('log_dls_old', $v['old']);
+					$this->db->set('log_dls_new', $v['new']);
+					$this->db->insert('logs_details');
+				}
+			}
 		}
 		return false;
 	}

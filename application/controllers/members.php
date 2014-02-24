@@ -155,25 +155,10 @@ class members extends CI_Controller {
 				$this->db->where('mbr_id', $mbr_id);
 				$this->db->update('members');
 
-				$log_id = $this->my_model->save_log('member', $mbr_id, $data['row']);
-
-				//to improve => new method ("empty log")
+				$additional = array();
 				foreach($data['roles'] as $rol) {
 					if($rol->rol_saved == 0 && $this->input->post('rol_'.$rol->rol_id)) {
-						if(!$log_id) {
-							$this->db->set('mbr_id', $this->phpcollab_member->mbr_id);
-							$this->db->set('log_type', 'member');
-							$this->db->set('log_reference', $mbr_id);
-							$this->db->set('log_comments', $this->input->post('log_comments'));
-							$this->db->set('log_datecreated', date('Y-m-d H:i:s'));
-							$this->db->insert('logs');
-							$log_id = $this->db->insert_id();
-						}
-						$this->db->set('log_id', $log_id);
-						$this->db->set('log_dls_field', 'rol_id');
-						$this->db->set('log_dls_old', '');
-						$this->db->set('log_dls_new', $rol->rol_id);
-						$this->db->insert('logs_details');
+						$additional[] = array('field' => 'rol_id', 'old' => '', 'new' => $rol->rol_id);
 
 						$this->db->set('rol_id', $rol->rol_id);
 						$this->db->set('mbr_id', $mbr_id);
@@ -181,26 +166,15 @@ class members extends CI_Controller {
 						$this->db->insert('members_roles');
 					}
 					if($rol->rol_saved == 1 && !$this->input->post('rol_'.$rol->rol_id)) {
-						if(!$log_id) {
-							$this->db->set('mbr_id', $this->phpcollab_member->mbr_id);
-							$this->db->set('log_type', 'member');
-							$this->db->set('log_reference', $mbr_id);
-							$this->db->set('log_comments', $this->input->post('log_comments'));
-							$this->db->set('log_datecreated', date('Y-m-d H:i:s'));
-							$this->db->insert('logs');
-							$log_id = $this->db->insert_id();
-						}
-						$this->db->set('log_id', $log_id);
-						$this->db->set('log_dls_field', 'rol_id');
-						$this->db->set('log_dls_old', $rol->rol_id);
-						$this->db->set('log_dls_new', '');
-						$this->db->insert('logs_details');
+						$additional[] = array('field' => 'rol_id', 'old' => $rol->rol_id, 'new' => '');
 
 						$this->db->where('rol_id', $rol->rol_id);
 						$this->db->where('mbr_id', $mbr_id);
 						$this->db->delete('members_roles');
 					}
 				}
+
+				$this->my_model->save_log('member', $mbr_id, $data['row'], $additional);
 
 				redirect($this->my_url.'members/read/'.$mbr_id);
 			}
