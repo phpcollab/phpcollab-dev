@@ -74,7 +74,7 @@ class members extends CI_Controller {
 				}
 			}
 
-			$this->read($mbr_id);
+			redirect($this->my_url.'members/read/'.$mbr_id);
 		}
 	}
 	public function read($mbr_id) {
@@ -150,7 +150,6 @@ class members extends CI_Controller {
 				if($data['row']->mbr_id != $this->phpcollab_member->mbr_id) {
 					$this->db->set('mbr_authorized', checkbox2database($this->input->post('mbr_authorized')));
 				}
-				$this->db->set('mbr_datemodified', date('Y-m-d H:i:s'));
 				$this->db->where('mbr_id', $mbr_id);
 				$this->db->update('members');
 
@@ -170,7 +169,7 @@ class members extends CI_Controller {
 
 				$this->my_model->save_log('member', $mbr_id, $data['row']);
 
-				$this->read($mbr_id);
+				redirect($this->my_url.'members/read/'.$mbr_id);
 			}
 		} else {
 			$this->index();

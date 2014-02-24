@@ -17,7 +17,6 @@ CREATE TABLE IF NOT EXISTS `files` (
   `fle_size` int(10) NOT NULL,
   `fle_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `fle_datecreated` datetime NOT NULL,
-  `fle_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`fle_id`),
   KEY `prj_id` (`prj_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -126,7 +125,6 @@ CREATE TABLE IF NOT EXISTS `members` (
   `mbr_forgotpassword` char(40) DEFAULT NULL,
   `mbr_authorized` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `mbr_datecreated` datetime NOT NULL,
-  `mbr_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`mbr_id`),
   UNIQUE KEY `mbr_email` (`mbr_email`),
   UNIQUE KEY `mbr_forgotpassword` (`mbr_forgotpassword`),
@@ -137,8 +135,8 @@ CREATE TABLE IF NOT EXISTS `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`mbr_id`, `org_id`, `mbr_name`, `mbr_description`, `mbr_email`, `mbr_password`, `mbr_forgotpassword`, `mbr_authorized`, `mbr_datecreated`, `mbr_datemodified`) VALUES
-(1, 1, 'Example', NULL, 'example@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', NULL, 1, NOW(), NULL);
+INSERT INTO `members` (`mbr_id`, `org_id`, `mbr_name`, `mbr_description`, `mbr_email`, `mbr_password`, `mbr_forgotpassword`, `mbr_authorized`, `mbr_datecreated`) VALUES
+(1, 1, 'Example', NULL, 'example@example.com', 'c3499c2729730a7f807efb8676a92dcb6f8a3f8f', NULL, 1, NOW());
 
 -- --------------------------------------------------------
 
@@ -201,7 +199,6 @@ CREATE TABLE IF NOT EXISTS `milestones` (
   `mln_priority` int(10) unsigned NOT NULL,
   `mln_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `mln_datecreated` datetime NOT NULL,
-  `mln_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`mln_id`),
   KEY `prj_id` (`prj_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -226,7 +223,6 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `nte_date` date DEFAULT NULL,
   `nte_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `nte_datecreated` datetime NOT NULL,
-  `nte_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`nte_id`),
   KEY `prj_id` (`prj_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -299,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `per_datecreated` datetime NOT NULL,
   PRIMARY KEY (`per_id`),
   UNIQUE KEY `per_code` (`per_code`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
 
 --
 -- Dumping data for table `permissions`
@@ -334,9 +330,7 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (26, 'projects/update/status', NOW()),
 (27, 'projects/update/priority', NOW()),
 (28, 'projects/update/published', NOW()),
-
 (35, 'projects/read/onlypublished', NOW()),
-
 (29, 'projects_members/index', NOW()),
 (30, 'projects_members/manage/any', NOW()),
 (31, 'projects_members/manage/ifowner', NOW()),
@@ -344,7 +338,6 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (33, 'projects_members/read/ifowner', NOW()),
 (36, 'projects_members/read/ifmember', NOW()),
 (34, 'projects_members/read/onlypublished', NOW()),
-
 (37, 'tasks/read/onlypublished', NOW()),
 (38, 'milestones/read/onlypublished', NOW()),
 (39, 'topics/read/onlypublished', NOW()),
@@ -393,7 +386,6 @@ CREATE TABLE IF NOT EXISTS `projects` (
   `prj_priority` int(10) unsigned NOT NULL,
   `prj_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `prj_datecreated` datetime NOT NULL,
-  `prj_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`prj_id`),
   KEY `org_id` (`org_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -466,7 +458,7 @@ CREATE TABLE IF NOT EXISTS `roles_permissions` (
   PRIMARY KEY (`rol_per_id`),
   KEY `rol_id` (`rol_id`),
   KEY `per_id` (`per_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
 
 --
 -- Dumping data for table `roles_permissions`
@@ -507,7 +499,10 @@ INSERT INTO `roles_permissions` (`rol_per_id`, `rol_id`, `per_id`, `rol_per_date
 (32, 2, 21, NOW()),
 (33, 2, 12, NOW()),
 (34, 2, 14, NOW()),
-(35, 2, 17, NOW());
+(35, 2, 17, NOW()),
+(36, 1, 29, NOW()),
+(37, 1, 30, NOW()),
+(38, 1, 32, NOW());
 
 -- --------------------------------------------------------
 
@@ -562,7 +557,6 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `tsk_completion` int(10) unsigned NOT NULL,
   `tsk_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `tsk_datecreated` datetime NOT NULL,
-  `tsk_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`tsk_id`),
   KEY `prj_id` (`prj_id`),
   KEY `trk_id` (`trk_id`),
@@ -589,7 +583,6 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `tcs_priority` int(10) unsigned NOT NULL,
   `tcs_published` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `tcs_datecreated` datetime NOT NULL,
-  `tcs_datemodified` datetime DEFAULT NULL,
   PRIMARY KEY (`tcs_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

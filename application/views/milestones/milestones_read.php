@@ -60,9 +60,5 @@
 		<span class="label"><?php echo $this->lang->line('mln_datecreated'); ?></span>
 		<?php if($row->mln_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->mln_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('mln_datemodified'); ?></span>
-		<?php if($row->mln_datemodified) { ?><?php echo $this->my_library->timezone_datetime($row->mln_datemodified); ?><?php } else { ?>-<?php } ?>
-		</p>
 	</div>
 </article>

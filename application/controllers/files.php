@@ -52,7 +52,8 @@ class files extends CI_Controller {
 				$this->db->set('fle_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('files');
 				$fle_id = $this->db->insert_id();
-				$this->read($fle_id);
+
+				redirect($this->my_url.'files/read/'.$fle_id);
 			}
 		} else {
 			redirect($this->my_url);
@@ -98,13 +99,12 @@ class files extends CI_Controller {
 					$this->db->set('fle_owner', $this->input->post('fle_owner'));
 					$this->db->set('fle_description', $this->input->post('fle_description'));
 					$this->db->set('fle_published', checkbox2database($this->input->post('fle_published')));
-					$this->db->set('fle_datemodified', date('Y-m-d H:i:s'));
 					$this->db->where('fle_id', $fle_id);
 					$this->db->update('files');
 
 					$this->my_model->save_log('file', $fle_id, $data['row']);
 
-					$this->read($fle_id);
+					redirect($this->my_url.'files/read/'.$fle_id);
 				}
 			} else {
 				redirect($this->my_url);

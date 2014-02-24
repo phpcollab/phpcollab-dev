@@ -39,9 +39,5 @@
 		<span class="label"><?php echo $this->lang->line('tcs_datecreated'); ?></span>
 		<?php if($row->tcs_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->tcs_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('tcs_datemodified'); ?></span>
-		<?php if($row->tcs_datemodified) { ?><?php echo $this->my_library->timezone_datetime($row->tcs_datemodified); ?><?php } else { ?>-<?php } ?>
-		</p>
 	</div>
 </article>

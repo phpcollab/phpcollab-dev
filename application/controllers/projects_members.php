@@ -65,7 +65,8 @@ class projects_members extends CI_Controller {
 				$this->db->set('prj_mbr_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('projects_members');
 				$prj_mbr_id = $this->db->insert_id();
-				$this->read($prj_mbr_id);
+
+				redirect($this->my_url.'projects_members/read/'.$prj_mbr_id);
 			}
 		} else {
 			redirect($this->my_url);
@@ -139,7 +140,7 @@ class projects_members extends CI_Controller {
 
 					$this->my_model->save_log('project_member', $prj_mbr_id, $data['row']);
 
-					$this->read($prj_mbr_id);
+					redirect($this->my_url.'projects_members/read/'.$prj_mbr_id);
 				}
 			} else {
 				redirect($this->my_url);

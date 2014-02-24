@@ -46,7 +46,8 @@ class roles extends CI_Controller {
 			$this->db->set('rol_code', $this->input->post('rol_code'));
 			$this->db->insert('roles');
 			$rol_id = $this->db->insert_id();
-			$this->read($rol_id);
+
+			redirect($this->my_url.'roles/read/'.$rol_id);
 		}
 	}
 	public function read($rol_id) {
@@ -130,7 +131,7 @@ class roles extends CI_Controller {
 					}
 				}
 
-				$this->read($rol_id);
+				redirect($this->my_url.'roles/read/'.$rol_id);
 			}
 		} else {
 			$this->index();

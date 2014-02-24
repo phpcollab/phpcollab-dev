@@ -54,7 +54,8 @@ class statuses extends CI_Controller {
 			$this->db->set('stu_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('statuses');
 			$stu_id = $this->db->insert_id();
-			$this->read($stu_id);
+
+			redirect($this->my_url.'statuses/read/'.$stu_id);
 		}
 	}
 	public function read($stu_id) {
@@ -113,7 +114,8 @@ class statuses extends CI_Controller {
 				$this->db->set('stu_ordering', $this->input->post('stu_ordering'));
 				$this->db->where('stu_id', $stu_id);
 				$this->db->update('statuses');
-				$this->read($stu_id);
+
+				redirect($this->my_url.'statuses/read/'.$stu_id);
 			}
 		} else {
 			$this->index();

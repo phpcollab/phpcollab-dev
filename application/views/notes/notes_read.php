@@ -33,10 +33,6 @@
 		<span class="label"><?php echo $this->lang->line('nte_datecreated'); ?></span>
 		<?php if($row->nte_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->nte_datecreated); ?><?php } else { ?>-<?php } ?>
 		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('nte_datemodified'); ?></span>
-		<?php if($row->nte_datemodified) { ?><?php echo $this->my_library->timezone_datetime($row->nte_datemodified); ?><?php } else { ?>-<?php } ?>
-		</p>
 	</div>
 	<div class="column half">
 		<?php if($row->nte_description) { ?><?php echo $row->nte_description; ?><?php } else { ?>-<?php } ?>

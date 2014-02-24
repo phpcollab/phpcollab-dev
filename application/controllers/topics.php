@@ -134,7 +134,6 @@ class topics extends CI_Controller {
 					$this->db->set('tcs_status', $this->input->post('tcs_status'));
 					$this->db->set('tcs_priority', $this->input->post('tcs_priority'));
 					$this->db->set('tcs_published', checkbox2database($this->input->post('tcs_published')));
-					$this->db->set('tcs_datemodified', date('Y-m-d H:i:s'));
 					$this->db->where('tcs_id', $tcs_id);
 					$this->db->update('topics');
 

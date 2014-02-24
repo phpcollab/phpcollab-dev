@@ -56,7 +56,8 @@ class Organizations extends CI_Controller {
 			$this->db->set('org_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('organizations');
 			$org_id = $this->db->insert_id();
-			$this->read($org_id);
+
+			redirect($this->my_url.'organizations/read/'.$org_id);
 		}
 	}
 	public function read($org_id) {
@@ -134,7 +135,7 @@ class Organizations extends CI_Controller {
 
 				$this->my_model->save_log('organization', $org_id, $data['row']);
 
-				$this->read($org_id);
+				redirect($this->my_url.'organizations/read/'.$org_id);
 			}
 		} else {
 			$this->index();

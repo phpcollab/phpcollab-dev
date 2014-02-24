@@ -58,7 +58,8 @@ class notes extends CI_Controller {
 				$this->db->set('nte_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('notes');
 				$nte_id = $this->db->insert_id();
-				$this->read($nte_id);
+
+				redirect($this->my_url.'notes/read/'.$nte_id);
 			}
 		} else {
 			redirect($this->my_url);
@@ -122,10 +123,12 @@ class notes extends CI_Controller {
 					$this->db->set('nte_description', $this->input->post('nte_description'));
 					$this->db->set('nte_date', $this->input->post('nte_date'));
 					$this->db->set('nte_published', checkbox2database($this->input->post('nte_published')));
-					$this->db->set('nte_datemodified', date('Y-m-d H:i:s'));
 					$this->db->where('nte_id', $nte_id);
 					$this->db->update('notes');
-					$this->read($nte_id);
+
+					$this->my_model->save_log('note', $nte_id, $data['row']);
+
+					redirect($this->my_url.'notes/read/'.$nte_id);
 				}
 			} else {
 				redirect($this->my_url);

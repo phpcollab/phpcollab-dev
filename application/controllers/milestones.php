@@ -68,7 +68,8 @@ class milestones extends CI_Controller {
 				$this->db->set('mln_datecreated', date('Y-m-d H:i:s'));
 				$this->db->insert('milestones');
 				$mln_id = $this->db->insert_id();
-				$this->read($mln_id);
+
+				redirect($this->my_url.'milestones/read/'.$mln_id);
 			}
 		} else {
 			redirect($this->my_url);
@@ -143,13 +144,12 @@ class milestones extends CI_Controller {
 					$this->db->set('mln_status', $this->input->post('mln_status'));
 					$this->db->set('mln_priority', $this->input->post('mln_priority'));
 					$this->db->set('mln_published', checkbox2database($this->input->post('mln_published')));
-					$this->db->set('mln_datemodified', date('Y-m-d H:i:s'));
 					$this->db->where('mln_id', $mln_id);
 					$this->db->update('milestones');
 
 					$this->my_model->save_log('milestone', $mln_id, $data['row']);
 
-					$this->read($mln_id);
+					redirect($this->my_url.'milestones/read/'.$mln_id);
 				}
 			} else {
 				redirect($this->my_url);

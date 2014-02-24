@@ -93,7 +93,7 @@ class tasks extends CI_Controller {
 					$this->email_library->send($to, $message);
 				}
 
-				$this->read($tsk_id);
+				redirect($this->my_url.'tasks/read/'.$tsk_id);
 			}
 		} else {
 			redirect($this->my_url);
@@ -181,7 +181,6 @@ class tasks extends CI_Controller {
 					$this->db->set('tsk_parent', $this->input->post('tsk_parent'));
 					$this->db->set('tsk_completion', $this->input->post('tsk_completion'));
 					$this->db->set('tsk_published', checkbox2database($this->input->post('tsk_published')));
-					$this->db->set('tsk_datemodified', date('Y-m-d H:i:s'));
 					$this->db->where('tsk_id', $tsk_id);
 					$this->db->update('tasks');
 
@@ -195,7 +194,7 @@ class tasks extends CI_Controller {
 						$this->email_library->send($to, $message);
 					}
 
-					$this->read($tsk_id);
+					redirect($this->my_url.'tasks/read/'.$tsk_id);
 				}
 			} else {
 				redirect($this->my_url);

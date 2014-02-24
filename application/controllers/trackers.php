@@ -52,7 +52,8 @@ class trackers extends CI_Controller {
 			$this->db->set('trk_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('trackers');
 			$trk_id = $this->db->insert_id();
-			$this->read($trk_id);
+
+			redirect($this->my_url.'trackers/read/'.$trk_id);
 		}
 	}
 	public function read($trk_id) {
@@ -109,7 +110,8 @@ class trackers extends CI_Controller {
 				$this->db->set('tsk_description', $this->input->post('tsk_description'));
 				$this->db->where('trk_id', $trk_id);
 				$this->db->update('trackers');
-				$this->read($trk_id);
+
+				redirect($this->my_url.'trackers/read/'.$trk_id);
 			}
 		} else {
 			$this->index();

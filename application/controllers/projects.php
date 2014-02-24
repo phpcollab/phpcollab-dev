@@ -83,7 +83,7 @@ class projects extends CI_Controller {
 			$this->db->set('prj_mbr_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('projects_members');
 
-			$this->read($prj_id);
+			redirect($this->my_url.'projects/read/'.$prj_id);
 		}
 	}
 	public function read($prj_id) {
@@ -200,13 +200,12 @@ class projects extends CI_Controller {
 				if($this->auth_library->permission('projects/update/published')) {
 					$this->db->set('prj_published', checkbox2database($this->input->post('prj_published')));
 				}
-				$this->db->set('prj_datemodified', date('Y-m-d H:i:s'));
 				$this->db->where('prj_id', $prj_id);
 				$this->db->update('projects');
 
 				$this->my_model->save_log('project', $prj_id, $data['row']);
 
-				$this->read($prj_id);
+				redirect($this->my_url.'projects/read/'.$prj_id);
 			}
 		} else {
 			$this->index();
