@@ -148,7 +148,6 @@ class Organizations extends CI_Controller {
 		if($data['row']) {
 			if($this->auth_library->permission('organizations/delete/any')) {
 			} else if($this->auth_library->permission('organizations/delete/ifowner') && $data['row']->org_owner == $this->phpcollab_member->mbr_id) {
-			} else if($this->auth_library->permission('organizations/delete/ifmember') && $data['row']->ismember == 1) {
 			} else {
 				redirect($this->my_url);
 			}

@@ -88,9 +88,6 @@
 
 			<?php } else if($this->auth_library->permission('projects/delete/ifowner') && $row->prj_owner == $this->phpcollab_member->mbr_id) { ?>
 				<a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
-
-			<?php } else if($this->auth_library->permission('projects/delete/ifmember') && $row->ismember == 1) { ?>
-				<a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
 			<?php } ?>
 			</th>
 		</tr>

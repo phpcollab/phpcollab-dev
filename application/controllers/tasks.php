@@ -108,6 +108,9 @@ class tasks extends CI_Controller {
 				if($this->auth_library->permission('tasks/read/onlypublished') && $data['row']->tsk_published == 0) {
 					redirect($this->my_url);
 				}
+				if($this->auth_library->permission('tasks/read/onlyassigned') && $data['row']->tsk_assigned != $this->phpcollab_member->mbr_id) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('tasks').' / '.$data['row']->tsk_name);
 				$content = $this->load->view('tasks/tasks_read', $data, TRUE);
 				$content .= $this->my_model->get_logs('task', $tsk_id);
@@ -134,18 +137,34 @@ class tasks extends CI_Controller {
 				$data['dropdown_tsk_parent'] = $this->tasks_model->dropdown_tsk_parent($data['row']->prj_id);
 				$this->form_validation->set_rules('trk_id', 'lang:tracker', 'required|numeric');
 				$this->form_validation->set_rules('mln_id', 'lang:milestone', 'numeric');
-				$this->form_validation->set_rules('tsk_owner', 'lang:tsk_owner', 'required|numeric');
-				$this->form_validation->set_rules('tsk_assigned', 'lang:tsk_assigned', 'numeric');
+				if($this->auth_library->permission('tasks/update/owner')) {
+					$this->form_validation->set_rules('tsk_owner', 'lang:tsk_owner', 'required|numeric');
+				}
+				if($this->auth_library->permission('tasks/update/assigned')) {
+					$this->form_validation->set_rules('tsk_assigned', 'lang:tsk_assigned', 'numeric');
+				}
 				$this->form_validation->set_rules('tsk_name', 'lang:tsk_name', 'required|max_length[255]');
 				$this->form_validation->set_rules('tsk_description', 'lang:tsk_description', '');
-				$this->form_validation->set_rules('tsk_date_start', 'lang:tsk_date_start', '');
-				$this->form_validation->set_rules('tsk_date_due', 'lang:tsk_date_due', '');
-				$this->form_validation->set_rules('tsk_date_complete', 'lang:tsk_date_complete', '');
-				$this->form_validation->set_rules('tsk_status', 'lang:tsk_status', 'required|numeric');
-				$this->form_validation->set_rules('tsk_priority', 'lang:tsk_priority', 'required|numeric');
+				if($this->auth_library->permission('tasks/update/date_start')) {
+					$this->form_validation->set_rules('tsk_date_start', 'lang:tsk_date_start', '');
+				}
+				if($this->auth_library->permission('tasks/update/date_due')) {
+					$this->form_validation->set_rules('tsk_date_due', 'lang:tsk_date_due', '');
+				}
+				if($this->auth_library->permission('tasks/update/date_complete')) {
+					$this->form_validation->set_rules('tsk_date_complete', 'lang:tsk_date_complete', '');
+				}
+				if($this->auth_library->permission('tasks/update/status')) {
+					$this->form_validation->set_rules('tsk_status', 'lang:tsk_status', 'required|numeric');
+				}
+				if($this->auth_library->permission('tasks/update/priority')) {
+					$this->form_validation->set_rules('tsk_priority', 'lang:tsk_priority', 'required|numeric');
+				}
 				$this->form_validation->set_rules('tsk_parent', 'lang:tsk_parent', 'numeric');
 				$this->form_validation->set_rules('tsk_completion', 'lang:tsk_completion', 'required|numeric');
-				$this->form_validation->set_rules('tsk_published', 'lang:tsk_published', 'numeric');
+				if($this->auth_library->permission('tasks/update/published')) {
+					$this->form_validation->set_rules('tsk_published', 'lang:tsk_published', 'numeric');
+				}
 				$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('tasks/tasks_update', $data, TRUE);
@@ -169,18 +188,34 @@ class tasks extends CI_Controller {
 					}
 					$this->db->set('trk_id', $this->input->post('trk_id'));
 					$this->db->set('mln_id', $this->input->post('mln_id'));
-					$this->db->set('tsk_owner', $this->input->post('tsk_owner'));
-					$this->db->set('tsk_assigned', $this->input->post('tsk_assigned'));
+					if($this->auth_library->permission('tasks/update/owner')) {
+						$this->db->set('tsk_owner', $this->input->post('tsk_owner'));
+					}
+					if($this->auth_library->permission('tasks/update/assigned')) {
+						$this->db->set('tsk_assigned', $this->input->post('tsk_assigned'));
+					}
 					$this->db->set('tsk_name', $this->input->post('tsk_name'));
 					$this->db->set('tsk_description', $this->input->post('tsk_description'));
-					$this->db->set('tsk_date_start', $this->input->post('tsk_date_start'));
-					$this->db->set('tsk_date_due', $this->input->post('tsk_date_due'));
-					$this->db->set('tsk_date_complete', $this->input->post('tsk_date_complete'));
-					$this->db->set('tsk_status', $this->input->post('tsk_status'));
-					$this->db->set('tsk_priority', $this->input->post('tsk_priority'));
+					if($this->auth_library->permission('tasks/update/date_start')) {
+						$this->db->set('tsk_date_start', $this->input->post('tsk_date_start'));
+					}
+					if($this->auth_library->permission('tasks/update/date_due')) {
+						$this->db->set('tsk_date_due', $this->input->post('tsk_date_due'));
+					}
+					if($this->auth_library->permission('tasks/update/date_complete')) {
+						$this->db->set('tsk_date_complete', $this->input->post('tsk_date_complete'));
+					}
+					if($this->auth_library->permission('tasks/update/status')) {
+						$this->db->set('tsk_status', $this->input->post('tsk_status'));
+					}
+					if($this->auth_library->permission('tasks/update/priority')) {
+						$this->db->set('tsk_priority', $this->input->post('tsk_priority'));
+					}
 					$this->db->set('tsk_parent', $this->input->post('tsk_parent'));
 					$this->db->set('tsk_completion', $this->input->post('tsk_completion'));
-					$this->db->set('tsk_published', checkbox2database($this->input->post('tsk_published')));
+					if($this->auth_library->permission('tasks/update/published')) {
+						$this->db->set('tsk_published', checkbox2database($this->input->post('tsk_published')));
+					}
 					$this->db->where('tsk_id', $tsk_id);
 					$this->db->update('tasks');
 
@@ -210,6 +245,11 @@ class tasks extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if($this->auth_library->permission('tasks/delete/any')) {
+				} else if($this->auth_library->permission('tasks/delete/ifowner') && $data['row']->tsk_owner == $this->phpcollab_member->mbr_id) {
+				} else {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($this->lang->line('tasks').' / '.$data['row']->tsk_name);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {

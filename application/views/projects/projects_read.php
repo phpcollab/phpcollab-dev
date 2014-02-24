@@ -18,9 +18,6 @@
 
 	<?php } else if($this->auth_library->permission('projects/delete/ifowner') && $row->prj_owner == $this->phpcollab_member->mbr_id) { ?>
 		<li><a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
-
-	<?php } else if($this->auth_library->permission('projects/delete/ifmember') && $row->ismember == 1) { ?>
-		<li><a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
 	<?php } ?>
 
 	<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-read') || $this->input->cookie($this->router->class.'-read') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-read-collapse"><a href="#<?php echo $this->router->class; ?>-read"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>

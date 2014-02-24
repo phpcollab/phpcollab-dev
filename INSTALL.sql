@@ -312,7 +312,6 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (8, 'organizations/update/ifmember', NOW()),
 (9, 'organizations/delete/any', NOW()),
 (10, 'organizations/delete/ifowner', NOW()),
-(11, 'organizations/delete/ifmember', NOW()),
 (12, 'projects/index', NOW()),
 (13, 'projects/create', NOW()),
 (14, 'projects/read/any', NOW()),
@@ -323,7 +322,6 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (19, 'projects/update/ifmember', NOW()),
 (20, 'projects/delete/any', NOW()),
 (21, 'projects/delete/ifowner', NOW()),
-(22, 'projects/delete/ifmember', NOW()),
 (23, 'projects/update/date_start', NOW()),
 (24, 'projects/update/date_due', NOW()),
 (25, 'projects/update/date_complete', NOW()),
@@ -342,7 +340,22 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (38, 'milestones/read/onlypublished', NOW()),
 (39, 'topics/read/onlypublished', NOW()),
 (40, 'notes/read/onlypublished', NOW()),
-(41, 'files/read/onlypublished', NOW());
+(41, 'files/read/onlypublished', NOW()),
+(42, 'tasks/update/date_start', NOW()),
+(43, 'tasks/update/date_due', NOW()),
+(44, 'tasks/update/date_complete', NOW()),
+(45, 'tasks/update/status', NOW()),
+(46, 'tasks/update/priority', NOW()),
+(47, 'tasks/update/published', NOW()),
+(48, 'tasks/update/assigned', NOW()),
+(49, 'tasks/update/owner', NOW()),
+(50, 'projects/update/owner', NOW()),
+(51, 'projects/update/organization', NOW()),
+(52, 'tasks/read/onlyassigned', NOW()),
+(53, 'tasks/delete/any', NOW()),
+(54, 'tasks/delete/ifowner', NOW()),
+(55, 'milestones/delete/any', NOW()),
+(56, 'milestones/delete/ifowner', NOW());
 
 -- --------------------------------------------------------
 

@@ -25,10 +25,13 @@
 				<?php echo form_dropdown($ref_filter.'_mln_id', $dropdown_mln_id, set_value($ref_filter.'_mln_id', $this->session->userdata($ref_filter.'_mln_id')), 'id="tasks_mln_id" class="select"'); ?>
 			</div>
 		<?php } ?>
-		<div>
-			<?php echo form_label($this->lang->line('tsk_assigned'), 'tasks_tsk_assigned'); ?>
-			<?php echo form_dropdown($ref_filter.'_tsk_assigned', $dropdown_tsk_assigned, set_value($ref_filter.'_tsk_assigned', $this->session->userdata($ref_filter.'_tsk_assigned')), 'id="tasks_tsk_assigned" class="select"'); ?>
-		</div>
+		<?php if($this->auth_library->permission('tasks/read/onlyassigned')) { ?>
+		<?php } else { ?>
+			<div>
+				<?php echo form_label($this->lang->line('tsk_assigned'), 'tasks_tsk_assigned'); ?>
+				<?php echo form_dropdown($ref_filter.'_tsk_assigned', $dropdown_tsk_assigned, set_value($ref_filter.'_tsk_assigned', $this->session->userdata($ref_filter.'_tsk_assigned')), 'id="tasks_tsk_assigned" class="select"'); ?>
+			</div>
+		<?php } ?>
 		<div>
 			<?php echo form_label($this->lang->line('tsk_name'), 'tasks_tsk_name'); ?>
 			<?php echo form_input($ref_filter.'_tsk_name', set_value($ref_filter.'_tsk_name', $this->session->userdata($ref_filter.'_tsk_name')), 'id="tasks_tsk_name" class="inputtext"'); ?>
@@ -90,7 +93,12 @@
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>tasks/update/<?php echo $row->tsk_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<a href="<?php echo $this->my_url; ?>tasks/delete/<?php echo $row->tsk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php if($this->auth_library->permission('tasks/delete/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>tasks/delete/<?php echo $row->tsk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+			<?php } else if($this->auth_library->permission('tasks/delete/ifowner') && $row->tsk_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>tasks/delete/<?php echo $row->tsk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

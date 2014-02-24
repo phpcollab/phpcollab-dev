@@ -16,9 +16,6 @@
 
 	<?php } else if($this->auth_library->permission('projects/delete/ifowner') && $row->prj_owner == $this->phpcollab_member->mbr_id) { ?>
 		<li><a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
-
-	<?php } else if($this->auth_library->permission('projects/delete/ifmember') && $row->ismember == 1) { ?>
-		<li><a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
 	<?php } ?>
 	</ul>
 </article>
@@ -26,14 +23,18 @@
 	<?php echo form_open(current_url()); ?>
 	<?php echo validation_errors(); ?>
 	<div class="column half">
-		<p>
-		<?php echo form_label($this->lang->line('organization').' *', 'org_id'); ?>
-		<?php echo form_dropdown('org_id', $dropdown_org_id, set_value('org_id', $row->org_id), 'id="org_id" class="select required numeric"'); ?>
-		</p>
-		<p>
-		<?php echo form_label($this->lang->line('prj_owner').' *', 'prj_owner'); ?>
-		<?php echo form_dropdown('prj_owner', $dropdown_prj_owner, set_value('prj_owner', $row->prj_owner), 'id="prj_owner" class="select required numeric"'); ?>
-		</p>
+		<?php if($this->auth_library->permission('projects/update/organization')) { ?>
+			<p>
+			<?php echo form_label($this->lang->line('organization').' *', 'org_id'); ?>
+			<?php echo form_dropdown('org_id', $dropdown_org_id, set_value('org_id', $row->org_id), 'id="org_id" class="select required numeric"'); ?>
+			</p>
+		<?php } ?>
+		<?php if($this->auth_library->permission('projects/update/owner')) { ?>
+			<p>
+			<?php echo form_label($this->lang->line('prj_owner').' *', 'prj_owner'); ?>
+			<?php echo form_dropdown('prj_owner', $dropdown_prj_owner, set_value('prj_owner', $row->prj_owner), 'id="prj_owner" class="select required numeric"'); ?>
+			</p>
+		<?php } ?>
 		<p>
 		<?php echo form_label($this->lang->line('prj_name').' *', 'prj_name'); ?>
 		<?php echo form_input('prj_name', set_value('prj_name', $row->prj_name), 'id="prj_name" class="inputtext required"'); ?>

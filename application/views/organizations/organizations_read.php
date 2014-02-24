@@ -19,9 +19,6 @@
 
 		<?php } else if($this->auth_library->permission('organizations/delete/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) { ?>
 			<li><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
-
-		<?php } else if($this->auth_library->permission('organizations/delete/ifmember') && $row->ismember == 1) { ?>
-			<li><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
 		<?php } ?>
 	<?php } ?>
 

@@ -68,7 +68,12 @@
 			<td><?php echo $row->count_tasks; ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>milestones/update/<?php echo $row->mln_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<a href="<?php echo $this->my_url; ?>milestones/delete/<?php echo $row->mln_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php if($this->auth_library->permission('milestones/delete/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>milestones/delete/<?php echo $row->mln_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+			<?php } else if($this->auth_library->permission('milestones/delete/ifowner') && $row->mln_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>milestones/delete/<?php echo $row->mln_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

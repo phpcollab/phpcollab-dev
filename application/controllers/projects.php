@@ -135,8 +135,12 @@ class projects extends CI_Controller {
 			$this->my_library->set_title($this->lang->line('projects').' / '.$data['row']->prj_name);
 			$data['dropdown_org_id'] = $this->projects_model->dropdown_org_id();
 			$data['dropdown_prj_owner'] = $this->projects_model->dropdown_prj_owner();
-			$this->form_validation->set_rules('org_id', 'lang:organization', 'required|numeric');
-			$this->form_validation->set_rules('prj_owner', 'lang:prj_owner', 'required|numeric');
+			if($this->auth_library->permission('projects/update/organization')) {
+				$this->form_validation->set_rules('org_id', 'lang:organization', 'required|numeric');
+			}
+			if($this->auth_library->permission('projects/update/owner')) {
+				$this->form_validation->set_rules('prj_owner', 'lang:prj_owner', 'required|numeric');
+			}
 			$this->form_validation->set_rules('prj_name', 'lang:prj_name', 'required|max_length[255]');
 			$this->form_validation->set_rules('prj_description', 'lang:prj_description', '');
 			if($this->auth_library->permission('projects/update/date_start')) {
@@ -178,8 +182,12 @@ class projects extends CI_Controller {
 						}
 					}
 				}
-				$this->db->set('org_id', $this->input->post('org_id'));
-				$this->db->set('prj_owner', $this->input->post('prj_owner'));
+				if($this->auth_library->permission('projects/update/organization')) {
+					$this->db->set('org_id', $this->input->post('org_id'));
+				}
+				if($this->auth_library->permission('projects/update/owner')) {
+					$this->db->set('prj_owner', $this->input->post('prj_owner'));
+				}
 				$this->db->set('prj_name', $this->input->post('prj_name'));
 				$this->db->set('prj_description', $this->input->post('prj_description'));
 				if($this->auth_library->permission('projects/update/date_start')) {
@@ -218,7 +226,6 @@ class projects extends CI_Controller {
 		if($data['row']) {
 			if($this->auth_library->permission('projects/delete/any')) {
 			} else if($this->auth_library->permission('projects/delete/ifowner') && $data['row']->prj_owner == $this->phpcollab_member->mbr_id) {
-			} else if($this->auth_library->permission('projects/delete/ifmember') && $data['row']->ismember == 1) {
 			} else {
 				redirect($this->my_url);
 			}

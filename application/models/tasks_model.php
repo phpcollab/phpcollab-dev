@@ -18,7 +18,10 @@ class tasks_model extends CI_Model {
 		if($this->router->class != 'milestones') {
 			$filters[$data['ref_filter'].'_mln_id'] = array('tsk.mln_id', 'equal');
 		}
-		$filters[$data['ref_filter'].'_tsk_assigned'] = array('tsk.tsk_assigned', 'equal');
+		if($this->auth_library->permission('tasks/read/onlyassigned')) {
+		} else {
+			$filters[$data['ref_filter'].'_tsk_assigned'] = array('tsk.tsk_assigned', 'equal');
+		}
 		$filters[$data['ref_filter'].'_tsk_name'] = array('tsk.tsk_name', 'like');
 		$filters[$data['ref_filter'].'_stu_isclosed'] = array('stu.stu_isclosed', 'equal');
 		$filters[$data['ref_filter'].'_tsk_status'] = array('tsk.tsk_status', 'equal');
@@ -31,6 +34,9 @@ class tasks_model extends CI_Model {
 		}
 		if($this->auth_library->permission('tasks/read/onlypublished')) {
 			$flt[] = 'tsk.tsk_published = \'1\'';
+		}
+		if($this->auth_library->permission('tasks/read/onlyassigned')) {
+			$flt[] = 'tsk.tsk_assigned = \''.$this->phpcollab_member->mbr_id.'\'';
 		}
 		$columns = array();
 		$columns[] = 'tsk.tsk_id';
