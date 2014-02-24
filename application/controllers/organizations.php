@@ -24,7 +24,7 @@ class Organizations extends CI_Controller {
 		} else {
 			redirect($this->my_url);
 		}
-		$this->my_library->set_title($this->lang->line('organizations'));
+		$this->my_library->set_title($this->lang->line('organizations').' / '.$this->lang->line('create'));
 		$this->load->library('form_validation');
 		$data = array();
 		$data['dropdown_org_owner'] = $this->organizations_model->dropdown_org_owner();
@@ -70,7 +70,7 @@ class Organizations extends CI_Controller {
 			} else {
 				redirect($this->my_url);
 			}
-			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
+			$this->my_library->set_title($data['row']->org_name);
 			$content = $this->load->view('organizations/organizations_read', $data, TRUE);
 			$content .= $this->members_model->get_index_list($data['row']);
 			$content .= $this->projects_model->get_index_list($data['row']);
@@ -91,7 +91,7 @@ class Organizations extends CI_Controller {
 			} else {
 				redirect($this->my_url);
 			}
-			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
+			$this->my_library->set_title($data['row']->org_name);
 			$data['dropdown_org_owner'] = $this->organizations_model->dropdown_org_owner();
 			if($this->auth_library->permission('organizations/update/any')) {
 				$this->form_validation->set_rules('org_owner', 'lang:org_owner', 'required|numeric');
@@ -152,7 +152,7 @@ class Organizations extends CI_Controller {
 				redirect($this->my_url);
 			}
 			if($data['row']->org_system == 0) {
-				$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
+				$this->my_library->set_title($data['row']->org_name);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('organizations/organizations_delete', $data, TRUE);
@@ -180,7 +180,7 @@ class Organizations extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('organizations').' / '.$data['row']->org_name);
+			$this->my_library->set_title($data['row']->org_name);
 			$data['tasks'] = '';
 
 			$legend = array();

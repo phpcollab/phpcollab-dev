@@ -23,7 +23,7 @@ class members extends CI_Controller {
 			redirect($this->my_url);
 		}
 
-		$this->my_library->set_title($this->lang->line('members'));
+		$this->my_library->set_title($this->lang->line('members').' / '.$this->lang->line('create'));
 		$this->load->library('form_validation');
 		$data = array();
 		$data['dropdown_org_id'] = $this->members_model->dropdown_org_id();
@@ -86,7 +86,7 @@ class members extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->members_model->get_row($mbr_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('members').' / '.$data['row']->mbr_name);
+			$this->my_library->set_title($data['row']->mbr_name);
 			$content = $this->load->view('members/members_read', $data, TRUE);
 			$content .= $this->my_model->get_logs('member', $mbr_id);
 			$this->my_library->set_zone('content', $content);
@@ -103,7 +103,7 @@ class members extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->members_model->get_row($mbr_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('members').' / '.$data['row']->mbr_name);
+			$this->my_library->set_title($data['row']->mbr_name);
 			$data['dropdown_org_id'] = $this->members_model->dropdown_org_id();
 			if($data['row']->mbr_id != $this->phpcollab_member->mbr_id) {
 				$query = $this->db->query('SELECT rol.*, IF(mbr_rol.mbr_rol_id IS NOT NULL, 1, 0) AS rol_saved FROM '.$this->db->dbprefix('roles').' AS rol LEFT JOIN '.$this->db->dbprefix('members_roles').' AS mbr_rol ON mbr_rol.rol_id = rol.rol_id AND mbr_rol.mbr_id = ? GROUP BY rol.rol_id ORDER BY rol.rol_code ASC', array($mbr_id));
@@ -192,7 +192,7 @@ class members extends CI_Controller {
 		$data['row'] = $this->members_model->get_row($mbr_id);
 		if($data['row']) {
 			if($data['row']->mbr_id != $this->phpcollab_member->mbr_id) {
-				$this->my_library->set_title($this->lang->line('members').' / '.$data['row']->mbr_name);
+				$this->my_library->set_title($data['row']->mbr_name);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('members/members_delete', $data, TRUE);

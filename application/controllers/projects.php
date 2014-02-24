@@ -31,7 +31,7 @@ class projects extends CI_Controller {
 		} else {
 			redirect($this->my_url);
 		}
-		$this->my_library->set_title($this->lang->line('projects'));
+		$this->my_library->set_title($this->lang->line('projects').' / '.$this->lang->line('create'));
 		$this->load->library('form_validation');
 		$data = array();
 		$data['dropdown_org_id'] = $this->projects_model->dropdown_org_id();
@@ -99,7 +99,7 @@ class projects extends CI_Controller {
 			if($this->auth_library->permission('projects/read/onlypublished') && $data['row']->prj_published == 0) {
 				redirect($this->my_url);
 			}
-			$this->my_library->set_title($this->lang->line('projects').' / '.$data['row']->prj_name);
+			$this->my_library->set_title($data['row']->prj_name);
 			$content = $this->load->view('projects/projects_read', $data, TRUE);
 			$content .= $this->milestones_model->get_index_list($data['row']);
 			$content .= $this->tasks_model->get_index_list($data['row']);
@@ -132,7 +132,7 @@ class projects extends CI_Controller {
 			} else {
 				redirect($this->my_url);
 			}
-			$this->my_library->set_title($this->lang->line('projects').' / '.$data['row']->prj_name);
+			$this->my_library->set_title($data['row']->prj_name);
 			$data['dropdown_org_id'] = $this->projects_model->dropdown_org_id();
 			$data['dropdown_prj_owner'] = $this->projects_model->dropdown_prj_owner();
 			if($this->auth_library->permission('projects/update/organization')) {
@@ -229,7 +229,7 @@ class projects extends CI_Controller {
 			} else {
 				redirect($this->my_url);
 			}
-			$this->my_library->set_title($this->lang->line('projects').' / '.$data['row']->prj_name);
+			$this->my_library->set_title($data['row']->prj_name);
 			$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('projects/projects_delete', $data, TRUE);
@@ -270,7 +270,7 @@ class projects extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->projects_model->get_row($prj_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('projects').' / '.$data['row']->prj_name);
+			$this->my_library->set_title($data['row']->prj_name);
 
 			$data['milestones'] = '';
 

@@ -50,7 +50,12 @@
 			<td><?php echo $row->nte_date; ?></td>
 			<th>
 			<a href="<?php echo $this->my_url; ?>notes/update/<?php echo $row->nte_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<a href="<?php echo $this->my_url; ?>notes/delete/<?php echo $row->nte_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php if($this->auth_library->permission('notes/delete/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>notes/delete/<?php echo $row->nte_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+			<?php } else if($this->auth_library->permission('notes/delete/ifowner') && $row->nte_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>notes/delete/<?php echo $row->nte_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

@@ -14,7 +14,7 @@ class topics extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
-			$this->my_library->set_title($this->lang->line('topics'));
+			$this->my_library->set_title($data['prj']->prj_name.' / '.$this->lang->line('topics'));
 			$content = $this->topics_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);
 		} else {
@@ -25,7 +25,7 @@ class topics extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
-			$this->my_library->set_title($this->lang->line('topics'));
+			$this->my_library->set_title($data['prj']->prj_name.' / '.$this->lang->line('topics').' / '.$this->lang->line('create'));
 			$this->load->library('form_validation');
 			$data['dropdown_tcs_owner'] = $this->topics_model->dropdown_tcs_owner();
 			$this->form_validation->set_rules('tcs_owner', 'lang:tcs_owner', 'required|numeric');
@@ -82,7 +82,7 @@ class topics extends CI_Controller {
 				if($this->auth_library->permission('topics/read/onlypublished') && $data['row']->tcs_published == 0) {
 					redirect($this->my_url);
 				}
-				$this->my_library->set_title($this->lang->line('topics').' / '.$data['row']->tcs_name);
+				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->tcs_name);
 				$content = $this->load->view('topics/topics_read', $data, TRUE);
 				$content .= $this->posts_model->get_index_list($data['row']);
 				$content .= $this->my_model->get_logs('topic', $tcs_id);
@@ -101,7 +101,7 @@ class topics extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				$this->my_library->set_title($this->lang->line('topics').' / '.$data['row']->tcs_name);
+				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->tcs_name);
 				$data['dropdown_tcs_owner'] = $this->topics_model->dropdown_tcs_owner();
 				$this->form_validation->set_rules('tcs_owner', 'lang:tcs_owner', 'required|numeric');
 				$this->form_validation->set_rules('tcs_name', 'lang:tcs_name', 'required|max_length[255]');
@@ -155,7 +155,12 @@ class topics extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				$this->my_library->set_title($this->lang->line('topics').' / '.$data['row']->tcs_name);
+				if($this->auth_library->permission('topics/delete/any')) {
+				} else if($this->auth_library->permission('topics/delete/ifowner') && $data['row']->tcs_owner == $this->phpcollab_member->mbr_id) {
+				} else {
+					redirect($this->my_url);
+				}
+				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->tcs_name);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('topics/topics_delete', $data, TRUE);
@@ -190,7 +195,7 @@ class topics extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				$this->my_library->set_title($this->lang->line('topics').' / '.$data['row']->tcs_name);
+				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->tcs_name);
 				$this->form_validation->set_rules('pst_description', 'lang:pst_description', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('posts/posts_create', $data, TRUE);

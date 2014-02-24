@@ -67,7 +67,13 @@
 			<td><span class="color_percent priority_<?php echo $row->tcs_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tcs_priority); ?></span></td>
 			<td><?php echo $row->count_posts; ?></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>topics/delete/<?php echo $row->tcs_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<a href="<?php echo $this->my_url; ?>topics/update/<?php echo $row->tcs_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
+			<?php if($this->auth_library->permission('topics/delete/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>topics/delete/<?php echo $row->tcs_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+			<?php } else if($this->auth_library->permission('topics/delete/ifowner') && $row->tcs_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>topics/delete/<?php echo $row->tcs_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

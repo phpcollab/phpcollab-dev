@@ -15,7 +15,7 @@ class milestones extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
-			$this->my_library->set_title($this->lang->line('milestones'));
+			$this->my_library->set_title($data['prj']->prj_name.' / '.$this->lang->line('milestones'));
 			$content = $this->milestones_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);
 		} else {
@@ -26,7 +26,7 @@ class milestones extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
-			$this->my_library->set_title($this->lang->line('milestones'));
+			$this->my_library->set_title($data['prj']->prj_name.' / '.$this->lang->line('milestones').' / '.$this->lang->line('create'));
 			$this->load->library('form_validation');
 			$data['dropdown_mln_owner'] = $this->milestones_model->dropdown_mln_owner();
 			$this->form_validation->set_rules('mln_owner', 'lang:mln_owner', 'required|numeric');
@@ -84,7 +84,7 @@ class milestones extends CI_Controller {
 				if($this->auth_library->permission('milestones/read/onlypublished') && $data['row']->mln_published == 0) {
 					redirect($this->my_url);
 				}
-				$this->my_library->set_title($this->lang->line('milestones').' / '.$data['row']->mln_name);
+				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->mln_name);
 				$content = $this->load->view('milestones/milestones_read', $data, TRUE);
 				$content .= $this->tasks_model->get_index_list($data['prj'], $data['row']);
 				$content .= $this->my_model->get_logs('milestone', $mln_id);
@@ -103,7 +103,7 @@ class milestones extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				$this->my_library->set_title($this->lang->line('milestones').' / '.$data['row']->mln_name);
+				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->mln_name);
 				$data['dropdown_mln_owner'] = $this->milestones_model->dropdown_mln_owner();
 				$this->form_validation->set_rules('mln_owner', 'lang:mln_owner', 'required|numeric');
 				$this->form_validation->set_rules('mln_name', 'lang:mln_name', 'required|max_length[255]');
@@ -170,7 +170,7 @@ class milestones extends CI_Controller {
 				} else {
 					redirect($this->my_url);
 				}
-				$this->my_library->set_title($this->lang->line('milestones').' / '.$data['row']->mln_name);
+				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->mln_name);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('milestones/milestones_delete', $data, TRUE);
@@ -200,7 +200,7 @@ class milestones extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				$this->my_library->set_title($this->lang->line('milestones').' / '.$data['row']->mln_name);
+				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->mln_name);
 				$data['tasks'] = '';
 
 				$legend = array();

@@ -51,7 +51,12 @@
 			<th>
 			<a href="<?php echo $this->my_url; ?>files/download/<?php echo $row->fle_id; ?>"><i class="fa fa-cloud-download"></i><?php echo $this->lang->line('download'); ?></a>
 			<a href="<?php echo $this->my_url; ?>files/update/<?php echo $row->fle_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<a href="<?php echo $this->my_url; ?>files/delete/<?php echo $row->fle_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php if($this->auth_library->permission('files/delete/any')) { ?>
+				<a href="<?php echo $this->my_url; ?>files/delete/<?php echo $row->fle_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+
+			<?php } else if($this->auth_library->permission('files/delete/ifowner') && $row->fle_owner == $this->phpcollab_member->mbr_id) { ?>
+				<a href="<?php echo $this->my_url; ?>files/delete/<?php echo $row->fle_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+			<?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

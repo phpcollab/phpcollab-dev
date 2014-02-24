@@ -355,7 +355,13 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (53, 'tasks/delete/any', NOW()),
 (54, 'tasks/delete/ifowner', NOW()),
 (55, 'milestones/delete/any', NOW()),
-(56, 'milestones/delete/ifowner', NOW());
+(56, 'milestones/delete/ifowner', NOW()),
+(57, 'topics/delete/any', NOW()),
+(58, 'topics/delete/ifowner', NOW()),
+(59, 'notes/delete/any', NOW()),
+(60, 'notes/delete/ifowner', NOW()),
+(61, 'files/delete/any', NOW()),
+(62, 'files/delete/ifowner', NOW());
 
 -- --------------------------------------------------------
 
