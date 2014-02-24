@@ -13,6 +13,7 @@ $lang['tcs_status'] = 'Status';
 $lang['tcs_priority'] = 'Priority';
 $lang['tcs_published'] = 'Published?';
 $lang['tcs_datecreated'] = 'Date created';
+$lang['tcs_datemodified'] = 'Date modified';
 $lang['posts'] = 'Posts';
 $lang['post'] = 'Post';
 $lang['pst_id'] = 'pst_id';
