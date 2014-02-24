@@ -31,6 +31,8 @@ class Profile extends CI_Controller {
 			$this->db->where('mbr_id', $this->phpcollab_member->mbr_id);
 			$this->db->update('members');
 
+			$this->my_model->save_log('member', $this->phpcollab_member->mbr_id, $this->phpcollab_member);
+
 			$this->phpcollab_member = $this->auth_library->get();
 			$this->index();
 		}

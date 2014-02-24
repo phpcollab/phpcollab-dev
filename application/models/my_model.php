@@ -29,7 +29,9 @@ class My_model extends CI_Model {
 					$this->db->insert('logs_details');
 				}
 			}
+			return $log_id;
 		}
+		return false;
 	}
 	function get_logs($type, $reference) {
 		$data = array();
@@ -109,6 +111,15 @@ class My_model extends CI_Model {
 					$new = $this->trackers_model->get_row($new)->trk_name;
 				}
 
+			} else if($field == 'rol_id') {
+				$field = 'role';
+				if($old != '') {
+					$old = $this->roles_model->get_row($old)->rol_code;
+				}
+				if($new != '') {
+					$new = $this->roles_model->get_row($new)->rol_code;
+				}
+
 			} else if($field == 'mln_id') {
 				$field = 'milestone';
 				if($old != '') {
@@ -133,7 +144,7 @@ class My_model extends CI_Model {
 			if($new == '') {
 				$new = '-';
 			}
-			$fields[$field] = array('old' => $old, 'new' => $new);
+			$fields[] = array('field' => $field, 'old' => $old, 'new' => $new);
 		}
 		return $fields;
 	}

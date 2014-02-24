@@ -17,8 +17,8 @@
 			</div>
 			<div class="column half">
 				<table>
-				<?php foreach($fields as $field => $details) { ?>
-					<tr><td width="33%"><?php echo $this->lang->line($field); ?></td><td width="33%" style="text-decoration:line-through;"><?php echo $details['old']; ?></td><td width="33%"><?php echo $details['new']; ?></td></tr>
+				<?php foreach($fields as $k => $details) { ?>
+					<tr><td width="33%"><?php echo $this->lang->line($details['field']); ?></td><td width="33%" style="text-decoration:line-through;"><?php echo $details['old']; ?></td><td width="33%"><?php echo $details['new']; ?></td></tr>
 				<?php } ?>
 				</table>
 			</div>
