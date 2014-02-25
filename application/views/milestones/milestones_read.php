@@ -14,7 +14,7 @@
 	</ul>
 </article>
 <article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
-	<div class="column half">
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_id'); ?></span>
 		<?php if($row->mln_id) { ?><?php echo $row->mln_id; ?><?php } else { ?>-<?php } ?>
@@ -23,6 +23,8 @@
 		<span class="label"><?php echo $this->lang->line('mln_owner'); ?></span>
 		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
+	</div>
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_name'); ?></span>
 		<?php if($row->mln_name) { ?><?php echo $row->mln_name; ?><?php } else { ?>-<?php } ?>
@@ -31,8 +33,6 @@
 		<span class="label"><?php echo $this->lang->line('mln_description'); ?></span>
 		<?php if($row->mln_description) { ?><?php echo $row->mln_description; ?><?php } else { ?>-<?php } ?>
 		</p>
-	</div>
-	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_date_start'); ?></span>
 		<?php if($row->mln_date_start) { ?><?php echo $row->mln_date_start; ?><?php } else { ?>-<?php } ?>
@@ -45,6 +45,8 @@
 		<span class="label"><?php echo $this->lang->line('mln_date_complete'); ?></span>
 		<?php if($row->mln_date_complete) { ?><?php echo $row->mln_date_complete; ?><?php } else { ?>-<?php } ?>
 		</p>
+	</div>
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_status'); ?></span>
 		<?php if($row->mln_status) { ?><?php echo $this->my_model->status($row->mln_status); ?><?php } else { ?>-<?php } ?>

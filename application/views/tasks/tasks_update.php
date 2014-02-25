@@ -22,6 +22,10 @@
 		<?php echo form_label($this->lang->line('milestone'), 'mln_id'); ?>
 		<?php echo form_dropdown('mln_id', $dropdown_mln_id, set_value('trk_id', $row->mln_id), 'id="mln_id" class="select numeric"'); ?>
 		</p>
+		<p>
+		<?php echo form_label($this->lang->line('tsk_parent'), 'tsk_parent'); ?>
+		<?php echo form_dropdown('tsk_parent', $dropdown_tsk_parent, set_value('tsk_parent', $row->tsk_parent), 'id="tsk_parent" class="select numeric"'); ?>
+		</p>
 		<?php if($this->auth_library->permission('tasks/update/owner')) { ?>
 			<p>
 			<?php echo form_label($this->lang->line('tsk_owner').' *', 'tsk_owner'); ?>
@@ -74,10 +78,6 @@
 			<?php echo form_dropdown('tsk_priority', $this->my_model->dropdown_priority(), set_value('tsk_priority', $row->tsk_priority), 'id="tsk_priority" class="select required numeric"'); ?>
 			</p>
 		<?php } ?>
-		<p>
-		<?php echo form_label($this->lang->line('tsk_parent'), 'tsk_parent'); ?>
-		<?php echo form_dropdown('tsk_parent', $dropdown_tsk_parent, set_value('tsk_parent', $row->tsk_parent), 'id="tsk_parent" class="select numeric"'); ?>
-		</p>
 		<p>
 		<?php echo form_label($this->lang->line('tsk_completion').' *', 'tsk_completion'); ?>
 		<?php echo form_dropdown('tsk_completion', $this->my_model->dropdown_completion(), set_value('tsk_completion', $row->tsk_completion), 'id="tsk_completion" class="select numeric"'); ?>

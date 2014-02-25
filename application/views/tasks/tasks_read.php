@@ -13,7 +13,7 @@
 	</ul>
 </article>
 <article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
-	<div class="column half">
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_id'); ?></span>
 		<?php if($row->tsk_id) { ?><?php echo $row->tsk_id; ?><?php } else { ?>-<?php } ?>
@@ -27,6 +27,10 @@
 		<?php if($row->mln_name) { ?><a href="<?php echo $this->my_url; ?>milestones/read/<?php echo $row->mln_id; ?>"><?php echo $row->mln_name; ?></a><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
+		<span class="label"><?php echo $this->lang->line('tsk_parent'); ?></span>
+		<?php if($row->tsk_parent) { ?><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_parent; ?>"><?php echo $row->tsk_name_parent; ?></a><?php } else { ?>-<?php } ?>
+		</p>
+		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_owner'); ?></span>
 		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
@@ -34,6 +38,8 @@
 		<span class="label"><?php echo $this->lang->line('tsk_assigned'); ?></span>
 		<?php if($row->mbr_name_assigned) { ?><?php echo $row->mbr_name_assigned; ?><?php } else { ?>-<?php } ?>
 		</p>
+	</div>
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_name'); ?></span>
 		<?php if($row->tsk_name) { ?><?php echo $row->tsk_name; ?><?php } else { ?>-<?php } ?>
@@ -42,8 +48,6 @@
 		<span class="label"><?php echo $this->lang->line('tsk_description'); ?></span>
 		<?php if($row->tsk_description) { ?><?php echo $row->tsk_description; ?><?php } else { ?>-<?php } ?>
 		</p>
-	</div>
-	<div class="column half">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_date_start'); ?></span>
 		<?php if($row->tsk_date_start) { ?><?php echo $row->tsk_date_start; ?><?php } else { ?>-<?php } ?>
@@ -56,6 +60,8 @@
 		<span class="label"><?php echo $this->lang->line('tsk_date_complete'); ?></span>
 		<?php if($row->tsk_date_complete) { ?><?php echo $row->tsk_date_complete; ?><?php } else { ?>-<?php } ?>
 		</p>
+	</div>
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_status'); ?></span>
 		<?php if($row->tsk_status) { ?><?php echo $this->my_model->status($row->tsk_status); ?><?php } else { ?>-<?php } ?>
@@ -63,10 +69,6 @@
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_priority'); ?></span>
 		<?php if($row->tsk_priority) { ?><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tsk_priority); ?></span><?php } else { ?>-<?php } ?>
-		</p>
-		<p>
-		<span class="label"><?php echo $this->lang->line('tsk_parent'); ?></span>
-		<?php if($row->tsk_parent) { ?><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_parent; ?>"><?php echo $row->tsk_name_parent; ?></a><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_completion'); ?></span>
