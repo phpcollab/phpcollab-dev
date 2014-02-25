@@ -21,10 +21,10 @@ class topics_model extends CI_Model {
 		$columns[] = 'tcs.tcs_name';
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'tcs.tcs_datecreated';
+		$columns[] = 'last_post';
+		$columns[] = 'count_posts';
 		$columns[] = 'tcs.tcs_status';
 		$columns[] = 'tcs.tcs_priority';
-		$columns[] = 'count_posts';
-		$columns[] = 'last_post';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'last_post', 'DESC');
 		$results = $this->get_total($flt);
 		if($this->router->class == 'topics') {
@@ -50,8 +50,17 @@ class topics_model extends CI_Model {
 		return $query->result();
 	}
 	function get_row($tcs_id) {
-		$query = $this->db->query('SELECT mbr.mbr_name, tcs.* FROM '.$this->db->dbprefix('topics').' AS tcs LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tcs.tcs_owner WHERE tcs.tcs_id = ? GROUP BY tcs.tcs_id', array($tcs_id));
-		return $query->row();
+		$row = $this->db->query('SELECT mbr.mbr_name, tcs.* FROM '.$this->db->dbprefix('topics').' AS tcs LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tcs.tcs_owner WHERE tcs.tcs_id = ? GROUP BY tcs.tcs_id', array($tcs_id))->row();
+		if($row) {
+			if($this->auth_library->permission('topics/delete/any')) {
+				$row->action_delete = true;
+			} else if($this->auth_library->permission('topics/delete/ifowner') && $row->tcs_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_delete = true;
+			} else {
+				$row->action_delete = false;
+			}
+		}
+		return $row;
 	}
 	function dropdown_tcs_owner() {
 		$select = array();

@@ -74,10 +74,7 @@ class projects extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->projects_model->get_row($prj_id);
 		if($data['row']) {
-			if($this->auth_library->permission('projects/read/any')) {
-			} else if($this->auth_library->permission('projects/read/ifowner') && $data['row']->prj_owner == $this->phpcollab_member->mbr_id) {
-			} else if($this->auth_library->permission('projects/read/ifmember') && $data['row']->ismember == 1) {
-			} else {
+			if(!$data['row']->action_read) {
 				redirect($this->my_url);
 			}
 			if($this->auth_library->permission('projects/read/onlypublished') && $data['row']->prj_published == 0) {
@@ -110,10 +107,7 @@ class projects extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->projects_model->get_row($prj_id);
 		if($data['row']) {
-			if($this->auth_library->permission('projects/update/any')) {
-			} else if($this->auth_library->permission('projects/update/ifowner') && $data['row']->prj_owner == $this->phpcollab_member->mbr_id) {
-			} else if($this->auth_library->permission('projects/update/ifmember') && $data['row']->ismember == 1) {
-			} else {
+			if(!$data['row']->action_update) {
 				redirect($this->my_url);
 			}
 			$this->my_library->set_title($data['row']->prj_name);
@@ -192,9 +186,7 @@ class projects extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->projects_model->get_row($prj_id);
 		if($data['row']) {
-			if($this->auth_library->permission('projects/delete/any')) {
-			} else if($this->auth_library->permission('projects/delete/ifowner') && $data['row']->prj_owner == $this->phpcollab_member->mbr_id) {
-			} else {
+			if(!$data['row']->action_delete) {
 				redirect($this->my_url);
 			}
 			$this->my_library->set_title($data['row']->prj_name);

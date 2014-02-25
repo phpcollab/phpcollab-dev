@@ -46,9 +46,8 @@
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_date_start')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_date_due')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_status')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_priority')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('tsk_completion')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('tasks')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_priority')); ?>
 			<th>&nbsp;</th>
 		</tr>
 		</thead>
@@ -63,9 +62,8 @@
 			<td><?php echo $row->prj_date_start; ?></td>
 			<td><?php if($row->prj_date_due && $row->prj_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->prj_date_due; ?></strong><?php } else { ?><?php echo $row->prj_date_due; ?><?php } ?></td>
 			<td><?php echo $this->my_model->status($row->prj_status); ?></td>
-			<td><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->prj_priority); ?></span></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
-			<td><?php echo $row->count_tasks; ?></td>
+			<td style="width:100px;"><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->prj_priority); ?></span></td>
 			<th>
 				<?php if($row->prj_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
 				<?php if($row->ismember == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/ismember'); ?>" title="<?php echo $this->lang->line('icon_ismember'); ?>"></i><?php } ?>

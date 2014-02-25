@@ -48,10 +48,7 @@ class Organizations extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
-			if($this->auth_library->permission('organizations/read/any')) {
-			} else if($this->auth_library->permission('organizations/read/ifowner') && $data['row']->org_owner == $this->phpcollab_member->mbr_id) {
-			} else if($this->auth_library->permission('organizations/read/ifmember') && $data['row']->ismember == 1) {
-			} else {
+			if(!$data['row']->action_read) {
 				redirect($this->my_url);
 			}
 			$this->my_library->set_title($data['row']->org_name);
@@ -69,10 +66,7 @@ class Organizations extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
-			if($this->auth_library->permission('organizations/update/any')) {
-			} else if($this->auth_library->permission('organizations/update/ifowner') && $data['row']->org_owner == $this->phpcollab_member->mbr_id) {
-			} else if($this->auth_library->permission('organizations/update/ifmember') && $data['row']->ismember == 1) {
-			} else {
+			if(!$data['row']->action_update) {
 				redirect($this->my_url);
 			}
 			$this->my_library->set_title($data['row']->org_name);
@@ -114,9 +108,7 @@ class Organizations extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->organizations_model->get_row($org_id);
 		if($data['row']) {
-			if($this->auth_library->permission('organizations/delete/any')) {
-			} else if($this->auth_library->permission('organizations/delete/ifowner') && $data['row']->org_owner == $this->phpcollab_member->mbr_id) {
-			} else {
+			if(!$data['row']->action_delete) {
 				redirect($this->my_url);
 			}
 			if($data['row']->org_system == 0) {

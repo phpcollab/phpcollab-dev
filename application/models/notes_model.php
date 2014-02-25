@@ -44,8 +44,17 @@ class Notes_model extends CI_Model {
 		return $query->result();
 	}
 	function get_row($nte_id) {
-		$query = $this->db->query('SELECT mbr.mbr_name, nte.* FROM '.$this->db->dbprefix('notes').' AS nte LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = nte.nte_owner WHERE nte.nte_id = ? GROUP BY nte.nte_id', array($nte_id));
-		return $query->row();
+		$row = $this->db->query('SELECT mbr.mbr_name, nte.* FROM '.$this->db->dbprefix('notes').' AS nte LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = nte.nte_owner WHERE nte.nte_id = ? GROUP BY nte.nte_id', array($nte_id))->row();
+		if($row) {
+			if($this->auth_library->permission('notes/delete/any')) {
+				$row->action_delete = true;
+			} else if($this->auth_library->permission('notes/delete/ifowner') && $row->nte_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_delete = true;
+			} else {
+				$row->action_delete = false;
+			}
+		}
+		return $row;
 	}
 	function dropdown_nte_owner() {
 		$select = array();

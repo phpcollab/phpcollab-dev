@@ -50,8 +50,35 @@ class organizations_model extends CI_Model {
 		return $query->result();
 	}
 	function get_row($org_id) {
-		$query = $this->db->query('SELECT IF(mbr_org.mbr_id IS NOT NULL, 1, 0) AS ismember, mbr.mbr_name, org.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id)) AS tsk_completion FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_org ON mbr_org.org_id = org.org_id AND mbr_org.mbr_authorized = ? AND mbr_org.mbr_id = ? WHERE org.org_id = ? GROUP BY org.org_id', array(1, $this->phpcollab_member->mbr_id, $org_id));
-		return $query->row();
+		$row = $this->db->query('SELECT IF(mbr_org.mbr_id IS NOT NULL, 1, 0) AS ismember, mbr.mbr_name, org.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id IN(SELECT prj.prj_id FROM '.$this->db->dbprefix('projects').' AS prj WHERE prj.org_id = org.org_id)) AS tsk_completion FROM '.$this->db->dbprefix('organizations').' AS org LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = org.org_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_org ON mbr_org.org_id = org.org_id AND mbr_org.mbr_authorized = ? AND mbr_org.mbr_id = ? WHERE org.org_id = ? GROUP BY org.org_id', array(1, $this->phpcollab_member->mbr_id, $org_id))->row();
+		if($row) {
+			if($this->auth_library->permission('organizations/read/any')) {
+				$row->action_read = true;
+			} else if($this->auth_library->permission('organizations/read/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_read = true;
+			} else if($this->auth_library->permission('organizations/read/ifmember') && $row->ismember == 1) {
+				$row->action_read = true;
+			} else {
+				$row->action_read = false;
+			}
+			if($this->auth_library->permission('organizations/update/any')) {
+				$row->action_update = true;
+			} else if($this->auth_library->permission('organizations/update/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_update = true;
+			} else if($this->auth_library->permission('organizations/update/ifmember') && $row->ismember == 1) {
+				$row->action_update = true;
+			} else {
+				$row->action_update = false;
+			}
+			if($this->auth_library->permission('organizations/delete/any')) {
+				$row->action_delete = true;
+			} else if($this->auth_library->permission('organizations/delete/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_delete = true;
+			} else {
+				$row->action_delete = false;
+			}
+		}
+		return $row;
 	}
 	function dropdown_org_owner() {
 		$select = array();

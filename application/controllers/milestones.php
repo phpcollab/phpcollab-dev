@@ -133,9 +133,7 @@ class milestones extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				if($this->auth_library->permission('milestones/delete/any')) {
-				} else if($this->auth_library->permission('milestones/delete/ifowner') && $data['row']->mln_owner == $this->phpcollab_member->mbr_id) {
-				} else {
+				if(!$data['row']->action_delete) {
 					redirect($this->my_url);
 				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mln_name);

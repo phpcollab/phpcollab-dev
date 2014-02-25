@@ -46,8 +46,8 @@ class tasks_model extends CI_Model {
 		$columns[] = 'tsk.tsk_date_start';
 		$columns[] = 'tsk.tsk_date_due';
 		$columns[] = 'stu.stu_ordering';
-		$columns[] = 'tsk.tsk_priority';
 		$columns[] = 'tsk.tsk_completion';
+		$columns[] = 'tsk.tsk_priority';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'tsk.tsk_id', 'DESC');
 		$results = $this->get_total($flt);
 		if($this->router->class == 'tasks') {
@@ -76,8 +76,17 @@ class tasks_model extends CI_Model {
 		return $query->result();
 	}
 	function get_row($tsk_id) {
-		$query = $this->db->query('SELECT stu.stu_isclosed, prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name,  mbr_assigned.mbr_name AS mbr_name_assigned, tsk_parent.tsk_name AS tsk_name_parent, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('tasks').' AS tsk_parent ON tsk_parent.tsk_id = tsk.tsk_parent LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = tsk.tsk_status WHERE tsk.tsk_id = ? GROUP BY tsk.tsk_id', array($tsk_id));
-		return $query->row();
+		$row = $this->db->query('SELECT stu.stu_isclosed, prj.prj_name, trk.trk_name, mln.mln_name, mbr.mbr_name,  mbr_assigned.mbr_name AS mbr_name_assigned, tsk_parent.tsk_name AS tsk_name_parent, tsk.* FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = tsk.prj_id LEFT JOIN '.$this->db->dbprefix('trackers').' AS trk ON trk.trk_id = tsk.trk_id LEFT JOIN '.$this->db->dbprefix('milestones').' AS mln ON mln.mln_id = tsk.mln_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = tsk.tsk_owner LEFT JOIN '.$this->db->dbprefix('members').' AS mbr_assigned ON mbr_assigned.mbr_id = tsk.tsk_assigned LEFT JOIN '.$this->db->dbprefix('tasks').' AS tsk_parent ON tsk_parent.tsk_id = tsk.tsk_parent LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = tsk.tsk_status WHERE tsk.tsk_id = ? GROUP BY tsk.tsk_id', array($tsk_id))->row();
+		if($row) {
+			if($this->auth_library->permission('tasks/delete/any')) {
+				$row->action_delete = true;
+			} else if($this->auth_library->permission('tasks/delete/ifowner') && $row->tsk_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_delete = true;
+			} else {
+				$row->action_delete = false;
+			}
+		}
+		return $row;
 	}
 	function dropdown_trk_id() {
 		$select = array();

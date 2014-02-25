@@ -41,10 +41,10 @@
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_name')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_owner')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_datecreated')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('last_post')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('posts')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_status')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_priority')); ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('posts')); ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('last_post')); ?>
 			<th>&nbsp;</th>
 		</tr>
 		</thead>
@@ -55,10 +55,10 @@
 			<td><a href="<?php echo $this->my_url; ?>topics/read/<?php echo $row->tcs_id; ?>"><?php echo $row->tcs_name; ?></a></td>
 			<td><?php echo $row->mbr_name; ?></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->tcs_datecreated); ?></td>
-			<td><?php echo $this->my_model->status($row->tcs_status); ?></td>
-			<td><span class="color_percent priority_<?php echo $row->tcs_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tcs_priority); ?></span></td>
-			<td><?php echo $row->count_posts; ?></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->last_post); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->last_post); ?>"></span>)</td>
+			<td><?php echo $row->count_posts; ?></td>
+			<td><?php echo $this->my_model->status($row->tcs_status); ?></td>
+			<td style="width:100px;"><span class="color_percent priority_<?php echo $row->tcs_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tcs_priority); ?></span></td>
 			<th>
 				<?php if($row->tcs_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
 				<?php if($row->tcs_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>

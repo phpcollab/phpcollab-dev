@@ -39,8 +39,17 @@ class files_model extends CI_Model {
 		return $query->result();
 	}
 	function get_row($fle_id) {
-		$query = $this->db->query('SELECT mbr.mbr_name, fle.* FROM '.$this->db->dbprefix('files').' AS fle LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = fle.fle_owner WHERE fle.fle_id = ? GROUP BY fle.fle_id', array($fle_id));
-		return $query->row();
+		$row = $this->db->query('SELECT mbr.mbr_name, fle.* FROM '.$this->db->dbprefix('files').' AS fle LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = fle.fle_owner WHERE fle.fle_id = ? GROUP BY fle.fle_id', array($fle_id))->row();
+		if($row) {
+			if($this->auth_library->permission('files/delete/any')) {
+				$row->action_delete = true;
+			} else if($this->auth_library->permission('files/delete/ifowner') && $row->fle_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_delete = true;
+			} else {
+				$row->action_delete = false;
+			}
+		}
+		return $row;
 	}
 	function dropdown_fle_owner() {
 		$select = array();

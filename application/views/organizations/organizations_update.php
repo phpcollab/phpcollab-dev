@@ -1,24 +1,8 @@
 <article class="title">
 	<h2><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a> | <i class="fa fa-wrench"></i><?php echo $row->org_name; ?></h2>
 	<ul>
-	<?php if($this->auth_library->permission('organizations/read/any')) { ?>
-		<li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>
-
-	<?php } else if($this->auth_library->permission('organizations/read/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) { ?>
-		<li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>
-
-	<?php } else if($this->auth_library->permission('organizations/read/ifmember') && $row->ismember == 1) { ?>
-		<li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>
-	<?php } ?>
-
-	<?php if($row->org_system == 0) { ?>
-		<?php if($this->auth_library->permission('organizations/delete/any')) { ?>
-			<li><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
-
-		<?php } else if($this->auth_library->permission('organizations/delete/ifowner') && $row->org_owner == $this->phpcollab_member->mbr_id) { ?>
-			<li><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
-		<?php } ?>
-	<?php } ?>
+	<?php if($row->action_read) { ?><li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li><?php } ?>
+	<?php if($row->org_system == 0 && $row->action_delete) { ?><li><a href="<?php echo $this->my_url; ?>organizations/delete/<?php echo $row->org_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li><?php } ?>
 	</ul>
 </article>
 <article>
