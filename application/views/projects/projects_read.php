@@ -56,7 +56,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_date_due'); ?></span>
-		<?php if($row->prj_date_due) { ?><?php echo $row->prj_date_due; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_date_due) { ?><?php if($row->prj_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->prj_date_due; ?></strong><?php } else { ?><?php echo $row->prj_date_due; ?><?php } ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_date_complete'); ?></span>

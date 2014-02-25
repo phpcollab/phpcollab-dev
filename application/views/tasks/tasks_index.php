@@ -67,6 +67,7 @@
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_assigned')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_name')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_date_start')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_date_due')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_status')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_priority')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_completion')); ?>
@@ -89,6 +90,7 @@
 			<td><?php echo $row->mbr_name_assigned; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_id; ?>"><?php echo $row->tsk_name; ?></a></td>
 			<td><?php echo $row->tsk_date_start; ?></td>
+			<td><?php if($row->tsk_date_due && $row->tsk_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->tsk_date_due; ?></strong><?php } else { ?><?php echo $row->tsk_date_due; ?><?php } ?></td>
 			<td><?php echo $this->my_model->status($row->tsk_status); ?></td>
 			<td><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tsk_priority); ?></span></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>

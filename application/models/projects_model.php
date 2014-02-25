@@ -41,6 +41,7 @@ class projects_model extends CI_Model {
 		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'prj.prj_name';
 		$columns[] = 'prj.prj_date_start';
+		$columns[] = 'prj.prj_date_due';
 		$columns[] = 'stu.stu_ordering';
 		$columns[] = 'prj.prj_priority';
 		$columns[] = 'tsk_completion';
@@ -61,11 +62,11 @@ class projects_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT IF(prj_mbr.prj_mbr_id IS NOT NULL, 1, 0) AS ismember, org.org_name, mbr.mbr_name, prj.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id)  AS tsk_completion, (SELECT COUNT(tsk.tsk_id) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id) AS count_tasks FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = prj.org_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj.prj_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = prj.prj_status LEFT JOIN '.$this->db->dbprefix('projects_members').' AS prj_mbr ON prj_mbr.prj_id = prj.prj_id AND prj_mbr.prj_mbr_authorized = ? AND prj_mbr.mbr_id = ? WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num, array(1, $this->phpcollab_member->mbr_id));
+		$query = $this->db->query('SELECT stu.stu_isclosed, IF(prj_mbr.prj_mbr_id IS NOT NULL, 1, 0) AS ismember, org.org_name, mbr.mbr_name, prj.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id)  AS tsk_completion, (SELECT COUNT(tsk.tsk_id) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id) AS count_tasks FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = prj.org_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj.prj_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = prj.prj_status LEFT JOIN '.$this->db->dbprefix('projects_members').' AS prj_mbr ON prj_mbr.prj_id = prj.prj_id AND prj_mbr.prj_mbr_authorized = ? AND prj_mbr.mbr_id = ? WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num, array(1, $this->phpcollab_member->mbr_id));
 		return $query->result();
 	}
 	function get_row($prj_id) {
-		$query = $this->db->query('SELECT IF(prj_mbr.prj_mbr_id IS NOT NULL, 1, 0) AS ismember, org.org_name, mbr.mbr_name, prj.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id)  AS tsk_completion FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = prj.org_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj.prj_owner LEFT JOIN '.$this->db->dbprefix('projects_members').' AS prj_mbr ON prj_mbr.prj_id = prj.prj_id AND prj_mbr.prj_mbr_authorized = ? AND prj_mbr.mbr_id = ? WHERE prj.prj_id = ? GROUP BY prj.prj_id', array(1, $this->phpcollab_member->mbr_id, $prj_id));
+		$query = $this->db->query('SELECT stu.stu_isclosed, IF(prj_mbr.prj_mbr_id IS NOT NULL, 1, 0) AS ismember, org.org_name, mbr.mbr_name, prj.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.prj_id = prj.prj_id)  AS tsk_completion FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('organizations').' AS org ON org.org_id = prj.org_id LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = prj.prj_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = prj.prj_status LEFT JOIN '.$this->db->dbprefix('projects_members').' AS prj_mbr ON prj_mbr.prj_id = prj.prj_id AND prj_mbr.prj_mbr_authorized = ? AND prj_mbr.mbr_id = ? WHERE prj.prj_id = ? GROUP BY prj.prj_id', array(1, $this->phpcollab_member->mbr_id, $prj_id));
 		return $query->row();
 	}
 	function dropdown_org_id() {

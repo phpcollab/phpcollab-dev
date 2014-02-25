@@ -19,7 +19,6 @@ class milestones_model extends CI_Model {
 		}
 		$columns = array();
 		$columns[] = 'mln.mln_id';
-		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'mln.mln_name';
 		$columns[] = 'mln.mln_date_start';
 		$columns[] = 'mln.mln_date_due';
@@ -48,11 +47,11 @@ class milestones_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion, (SELECT COUNT(tsk.tsk_id) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id) AS count_tasks FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT stu.stu_isclosed, mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion, (SELECT COUNT(tsk.tsk_id) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id) AS count_tasks FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($mln_id) {
-		$query = $this->db->query('SELECT mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner WHERE mln.mln_id = ? GROUP BY mln.mln_id', array($mln_id));
+		$query = $this->db->query('SELECT stu.stu_isclosed, mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE mln.mln_id = ? GROUP BY mln.mln_id', array($mln_id));
 		return $query->row();
 	}
 	function dropdown_mln_owner() {
