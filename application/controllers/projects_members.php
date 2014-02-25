@@ -27,9 +27,7 @@ class projects_members extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
-			if($this->auth_library->permission('projects_members/manage/any')) {
-			} else if($this->auth_library->permission('projects_members/manage/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
-			} else {
+			if(!$data['prj']->action_create_team) {
 				redirect($this->my_url);
 			}
 			$this->my_library->set_title($data['prj']->prj_name.' /' .$this->lang->line('projects_members').' /' .$this->lang->line('create'));
@@ -62,10 +60,7 @@ class projects_members extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				if($this->auth_library->permission('projects_members/read/any')) {
-				} else if($this->auth_library->permission('projects_members/read/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
-				} else if($this->auth_library->permission('projects_members/read/ifmember') && $data['prj']->ismember == 1) {
-				} else {
+				if(!$data['prj']->action_read_team) {
 					redirect($this->my_url);
 				}
 				if($this->auth_library->permission('projects_members/read/onlypublished') && $data['row']->prj_mbr_published == 0) {
@@ -89,9 +84,7 @@ class projects_members extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				if($this->auth_library->permission('projects_members/manage/any')) {
-				} else if($this->auth_library->permission('projects_members/manage/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
-				} else {
+				if(!$data['prj']->action_update_team) {
 					redirect($this->my_url);
 				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mbr_name);
@@ -124,9 +117,7 @@ class projects_members extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				if($this->auth_library->permission('projects_members/manage/any')) {
-				} else if($this->auth_library->permission('projects_members/manage/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
-				} else {
+				if(!$data['prj']->action_delete_team) {
 					redirect($this->my_url);
 				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mbr_name);

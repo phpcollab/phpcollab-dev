@@ -91,6 +91,31 @@ class projects_model extends CI_Model {
 			} else {
 				$row->action_delete = false;
 			}
+
+			if($this->auth_library->permission('projects_members/read/any')) {
+				$row->action_read_team = true;
+			} else if($this->auth_library->permission('projects_members/read/ifowner') && $row->prj_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_read_team = true;
+			} else if($this->auth_library->permission('projects_members/read/ifmember') && $row->ismember == 1) {
+				$row->action_read_team = true;
+			} else {
+				$row->action_read_team = false;
+			}
+
+			if($this->auth_library->permission('projects_members/manage/any')) {
+				$row->action_create_team = true;
+				$row->action_update_team = true;
+				$row->action_delete_team = true;
+			} else if($this->auth_library->permission('projects_members/manage/ifowner') && $row->prj_owner == $this->phpcollab_member->mbr_id) {
+				$row->action_create_team = true;
+				$row->action_update_team = true;
+				$row->action_delete_team = true;
+			} else {
+				$row->action_create_team = false;
+				$row->action_update_team = false;
+				$row->action_delete_team = false;
+			}
+
 		}
 		return $row;
 	}

@@ -87,13 +87,7 @@ class projects extends CI_Controller {
 			$content .= $this->topics_model->get_index_list($data['row']);
 			$content .= $this->notes_model->get_index_list($data['row']);
 			$content .= $this->files_model->get_index_list($data['row']);
-			if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/any')) {
-				$content .= $this->projects_members_model->get_index_list($data['row']);
-
-			} else if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/ifowner') && $data['row']->prj_owner == $this->phpcollab_member->mbr_id) {
-				$content .= $this->projects_members_model->get_index_list($data['row']);
-
-			} else if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/ifmember') && $data['row']->ismember == 1) {
+			if($data['row']->action_read_team) {
 				$content .= $this->projects_members_model->get_index_list($data['row']);
 			}
 			$content .= $this->my_model->get_logs('project', $prj_id);
