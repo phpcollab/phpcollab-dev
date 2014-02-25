@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>_configuration"><i class="fa fa-gears"></i><?php echo $this->lang->line('configuration'); ?></a> / <i class="fa fa-eye"></i><?php echo $row->cfg_path; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>_configuration"><i class="fa fa-gears"></i><?php echo $this->lang->line('configuration'); ?></a> | <i class="fa fa-eye"></i><?php echo $row->cfg_path; ?></h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>_configuration/update/<?php echo $row->cfg_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>_configuration/delete/<?php echo $row->cfg_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>

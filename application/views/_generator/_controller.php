@@ -66,7 +66,7 @@ class <?php echo $table; ?> extends CI_Controller {
 		$data = array();
 		$data['row'] = $this-><?php echo $table; ?>_model->get_row($<?php echo $primary; ?>);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('<?php echo $table; ?>').' / '.$data['row']-><?php echo $main_field; ?>);
+			$this->my_library->set_title($this->lang->line('<?php echo $table; ?>').' | '.$data['row']-><?php echo $main_field; ?>);
 			$content = $this->load->view('<?php echo $table; ?>/<?php echo $table; ?>_read', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
@@ -78,7 +78,7 @@ class <?php echo $table; ?> extends CI_Controller {
 		$data = array();
 		$data['row'] = $this-><?php echo $table; ?>_model->get_row($<?php echo $primary; ?>);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('<?php echo $table; ?>').' / '.$data['row']-><?php echo $main_field; ?>);
+			$this->my_library->set_title($this->lang->line('<?php echo $table; ?>').' | '.$data['row']-><?php echo $main_field; ?>);
 <?php foreach($select as $v) { ?>			$data['dropdown_<?php echo $v; ?>'] = $this-><?php echo $table; ?>_model->dropdown_<?php echo $v; ?>();
 <?php } ?>
 			<?php foreach($save as $v) { ?>$this->form_validation->set_rules('<?php echo $v; ?>', 'lang:<?php echo $v; ?>', '<?php echo implode('|', $fields[$v]['rules_update']); ?>');
@@ -130,7 +130,7 @@ class <?php echo $table; ?> extends CI_Controller {
 		$data = array();
 		$data['row'] = $this-><?php echo $table; ?>_model->get_row($<?php echo $primary; ?>);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('<?php echo $table; ?>').' / '.$data['row']-><?php echo $main_field; ?>);
+			$this->my_library->set_title($this->lang->line('<?php echo $table; ?>').' | '.$data['row']-><?php echo $main_field; ?>);
 			$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('<?php echo $table; ?>/<?php echo $table; ?>_delete', $data, TRUE);

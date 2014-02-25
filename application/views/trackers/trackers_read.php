@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>trackers"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/trackers') ?>"></i><?php echo $this->lang->line('trackers'); ?></a> / <i class="fa fa-eye"></i><?php echo $row->trk_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>trackers"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/trackers') ?>"></i><?php echo $this->lang->line('trackers'); ?></a> | <i class="fa fa-eye"></i><?php echo $row->trk_name; ?></h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>trackers/update/<?php echo $row->trk_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>trackers/delete/<?php echo $row->trk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li>
@@ -21,7 +21,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_description'); ?></span>
-		<?php if($row->tsk_description) { ?><?php echo $row->tsk_description; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_description) { ?><?php echo nl2br($row->tsk_description); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('trk_datecreated'); ?></span>

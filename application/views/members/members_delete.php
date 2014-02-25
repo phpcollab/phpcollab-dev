@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>members"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/members') ?>"></i><?php echo $this->lang->line('members'); ?></a> / <i class="fa fa-trash-o"></i><?php echo $row->mbr_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>members"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/members') ?>"></i><?php echo $this->lang->line('members'); ?></a> | <i class="fa fa-trash-o"></i><?php echo $row->mbr_name; ?></h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>members/read/<?php echo $row->mbr_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>members/update/<?php echo $row->mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li>

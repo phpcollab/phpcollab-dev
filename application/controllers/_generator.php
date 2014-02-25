@@ -117,7 +117,7 @@ class _generator extends CI_Controller {
 
 			$query_status = $this->db->query('SHOW TABLE STATUS WHERE name = ?', array($table));
 			$content .= '<article class="title">';
-			$content .= '<h2><a href="'.$this->my_url.'_generator"><i class="fa fa-flask"></i>'.$this->lang->line('generator').'</a> / <i class="fa fa-wrench"></i>'.$table.'</h2>';
+			$content .= '<h2><a href="'.$this->my_url.'_generator"><i class="fa fa-flask"></i>'.$this->lang->line('generator').'</a> | <i class="fa fa-wrench"></i>'.$table.'</h2>';
 			$content .= '<ul>';
 			$content .= '</ul>';
 			$content .= '</article>';

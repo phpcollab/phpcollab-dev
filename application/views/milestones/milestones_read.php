@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> / <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> / <a href="<?php echo $this->my_url; ?>milestones/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/milestones'); ?>"></i><?php echo $this->lang->line('milestones'); ?></a> / <i class="fa fa-eye"></i><?php echo $row->mln_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> | <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> | <a href="<?php echo $this->my_url; ?>milestones/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/milestones'); ?>"></i><?php echo $this->lang->line('milestones'); ?></a> | <i class="fa fa-eye"></i><?php echo $row->mln_name; ?></h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>milestones/statistics/<?php echo $row->mln_id; ?>"><i class="fa fa-bar-chart-o"></i><?php echo $this->lang->line('statistics'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>milestones/update/<?php echo $row->mln_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li>
@@ -31,7 +31,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_description'); ?></span>
-		<?php if($row->mln_description) { ?><?php echo $row->mln_description; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mln_description) { ?><?php echo nl2br($row->mln_description); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 	<div class="column third">

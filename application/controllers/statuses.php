@@ -50,7 +50,7 @@ class statuses extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->statuses_model->get_row($stu_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('statuses').' / '.$data['row']->stu_name);
+			$this->my_library->set_title($this->lang->line('statuses').' | '.$data['row']->stu_name);
 			$content = $this->load->view('statuses/statuses_read', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
@@ -66,7 +66,7 @@ class statuses extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->statuses_model->get_row($stu_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('statuses').' / '.$data['row']->stu_name);
+			$this->my_library->set_title($this->lang->line('statuses').' | '.$data['row']->stu_name);
 			$data['dropdown_stu_owner'] = $this->statuses_model->dropdown_stu_owner();
 			$this->form_validation->set_rules('stu_owner', 'lang:stu_owner', 'required|numeric');
 			$this->form_validation->set_rules('stu_name', 'lang:stu_name', 'required|max_length[255]');
@@ -98,7 +98,7 @@ class statuses extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->statuses_model->get_row($stu_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('statuses').' / '.$data['row']->stu_name);
+			$this->my_library->set_title($this->lang->line('statuses').' | '.$data['row']->stu_name);
 			$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('statuses/statuses_delete', $data, TRUE);

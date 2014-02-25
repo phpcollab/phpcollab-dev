@@ -2,7 +2,7 @@
 <?php $size_extensions = array('gif', 'jpeg', 'jpg', 'png', 'swf', 'psd', 'tiff', 'bmp'); ?>
 <?php $preview_extensions = array('jpeg', 'jpg', 'png', 'swf', 'gif'); ?>
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> / <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> / <a href="<?php echo $this->my_url; ?>files/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/files'); ?>"></i><?php echo $this->lang->line('files'); ?></a> / <i class="fa fa-eye"></i><?php echo $row->fle_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> | <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> | <a href="<?php echo $this->my_url; ?>files/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/files'); ?>"></i><?php echo $this->lang->line('files'); ?></a> | <i class="fa fa-eye"></i><?php echo $row->fle_name; ?></h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>files/download/<?php echo $row->fle_id; ?>"><i class="fa fa-cloud-download"></i><?php echo $this->lang->line('download'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>files/update/<?php echo $row->fle_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li>
@@ -32,7 +32,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('fle_description'); ?></span>
-		<?php if($row->fle_description) { ?><?php echo $row->fle_description; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->fle_description) { ?><?php echo nl2br($row->fle_description); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 	<div class="column half">

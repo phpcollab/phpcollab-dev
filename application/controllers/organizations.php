@@ -21,7 +21,7 @@ class Organizations extends CI_Controller {
 		} else {
 			redirect($this->my_url);
 		}
-		$this->my_library->set_title($this->lang->line('organizations').' / '.$this->lang->line('create'));
+		$this->my_library->set_title($this->lang->line('organizations').' | '.$this->lang->line('create'));
 		$this->load->library('form_validation');
 		$data = array();
 		$data['dropdown_org_owner'] = $this->organizations_model->dropdown_org_owner();

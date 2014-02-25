@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> / <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> / <a href="<?php echo $this->my_url; ?>topics/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/topics'); ?>"></i><?php echo $this->lang->line('topics'); ?></a> / <i class="fa fa-eye"></i><?php echo $row->tcs_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> | <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> | <a href="<?php echo $this->my_url; ?>topics/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/topics'); ?>"></i><?php echo $this->lang->line('topics'); ?></a> | <i class="fa fa-eye"></i><?php echo $row->tcs_name; ?></h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>topics/update/<?php echo $row->tcs_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li>
 	<?php if($this->auth_library->permission('topics/delete/any')) { ?>
@@ -13,7 +13,7 @@
 	</ul>
 </article>
 <article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
-	<div class="column half">
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tcs_id'); ?></span>
 		<?php if($row->tcs_id) { ?><?php echo $row->tcs_id; ?><?php } else { ?>-<?php } ?>
@@ -22,12 +22,14 @@
 		<span class="label"><?php echo $this->lang->line('tcs_owner'); ?></span>
 		<?php if($row->mbr_name) { ?><?php if($row->tcs_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
+	</div>
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tcs_name'); ?></span>
 		<?php if($row->tcs_name) { ?><?php echo $row->tcs_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
-	<div class="column half">
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tcs_status'); ?></span>
 		<?php if($row->tcs_status) { ?><?php echo $this->my_model->status($row->tcs_status); ?><?php } else { ?>-<?php } ?>

@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> / <i class="fa fa-eye"></i><?php echo $row->prj_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> | <i class="fa fa-eye"></i><?php echo $row->prj_name; ?></h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>projects/statistics/<?php echo $row->prj_id; ?>"><i class="fa fa-bar-chart-o"></i><?php echo $this->lang->line('statistics'); ?></a></li>
 
@@ -46,7 +46,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_description'); ?></span>
-		<?php if($row->prj_description) { ?><?php echo $row->prj_description; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->prj_description) { ?><?php echo nl2br($row->prj_description); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 	<div class="column third">

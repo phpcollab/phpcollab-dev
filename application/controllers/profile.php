@@ -3,7 +3,7 @@
 class Profile extends CI_Controller {
 	public function index() {
 		$data = array();
-		$this->my_library->set_title($this->lang->line('profile').' / '.$this->phpcollab_member->mbr_name);
+		$this->my_library->set_title($this->lang->line('profile').' | '.$this->phpcollab_member->mbr_name);
 		$content = $this->load->view('profile/profile_index', $data, TRUE);
 		$this->my_library->set_zone('content', $content);
 	}

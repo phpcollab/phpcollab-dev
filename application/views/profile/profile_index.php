@@ -30,7 +30,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mbr_description'); ?></span>
-		<?php if($this->phpcollab_member->mbr_description) { ?><?php echo $this->phpcollab_member->mbr_description; ?><?php } else { ?>-<?php } ?>
+		<?php if($this->phpcollab_member->mbr_description) { ?><?php echo nl2br($this->phpcollab_member->mbr_description); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 	<div class="column half">

@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a> / <i class="fa fa-trash-o"></i><?php echo $row->org_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a> | <i class="fa fa-trash-o"></i><?php echo $row->org_name; ?></h2>
 	<ul>
 	<?php if($this->auth_library->permission('organizations/read/any')) { ?>
 		<li><a href="<?php echo $this->my_url; ?>organizations/read/<?php echo $row->org_id; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('read'); ?></a></li>

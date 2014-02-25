@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a> / <i class="fa fa-eye"></i><?php echo $row->org_name; ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a> | <i class="fa fa-eye"></i><?php echo $row->org_name; ?></h2>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>organizations/statistics/<?php echo $row->org_id; ?>"><i class="fa fa-bar-chart-o"></i><?php echo $this->lang->line('statistics'); ?></a></li>
 
@@ -27,7 +27,7 @@
 	</ul>
 </article>
 <article id="<?php echo $this->router->class; ?>-read"<?php if($this->input->cookie($this->router->class.'-read') == 'collapse') { ?> style="display:none;"<?php } ?>>
-	<div class="column half">
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('org_id'); ?></span>
 		<?php if($row->org_id) { ?><?php echo $row->org_id; ?><?php } else { ?>-<?php } ?>
@@ -36,16 +36,18 @@
 		<span class="label"><?php echo $this->lang->line('org_owner'); ?></span>
 		<?php if($row->mbr_name) { ?><?php if($row->org_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
+	</div>
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('org_name'); ?></span>
 		<?php if($row->org_name) { ?><?php echo $row->org_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('org_description'); ?></span>
-		<?php if($row->org_description) { ?><?php echo $row->org_description; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->org_description) { ?><?php echo nl2br($row->org_description); ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
-	<div class="column half">
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('org_authorized'); ?></span>
 		<?php echo $this->lang->line('reply_'.$row->org_authorized); ?>

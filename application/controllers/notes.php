@@ -10,7 +10,7 @@ class notes extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
-			$this->my_library->set_title($data['prj']->prj_name.' / '.$this->lang->line('notes'));
+			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('notes'));
 			$content = $this->notes_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);
 		} else {
@@ -21,7 +21,7 @@ class notes extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
-			$this->my_library->set_title($data['prj']->prj_name.' / '.$this->lang->line('notes').' / '.$this->lang->line('create'));
+			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('notes').' | '.$this->lang->line('create'));
 			$this->load->library('form_validation');
 			$data['dropdown_nte_owner'] = $this->notes_model->dropdown_nte_owner();
 			$this->form_validation->set_rules('nte_owner', 'lang:nte_owner', 'required|numeric');
@@ -58,7 +58,7 @@ class notes extends CI_Controller {
 				if($this->auth_library->permission('notes/read/onlypublished') && $data['row']->nte_published == 0) {
 					redirect($this->my_url);
 				}
-				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->nte_name);
+				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->nte_name);
 				$content = $this->load->view('notes/notes_read', $data, TRUE);
 				$content .= $this->my_model->get_logs('note', $nte_id);
 				$this->my_library->set_zone('content', $content);
@@ -76,7 +76,7 @@ class notes extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
-				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->nte_name);
+				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->nte_name);
 				$data['dropdown_nte_owner'] = $this->notes_model->dropdown_nte_owner();
 				$this->form_validation->set_rules('nte_owner', 'lang:nte_owner', 'required|numeric');
 				$this->form_validation->set_rules('nte_name', 'lang:nte_name', 'required|max_length[255]');
@@ -118,7 +118,7 @@ class notes extends CI_Controller {
 				} else {
 					redirect($this->my_url);
 				}
-				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->nte_name);
+				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->nte_name);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('notes/notes_delete', $data, TRUE);

@@ -61,7 +61,7 @@ class _configuration extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->_configuration_model->get_row($cfg_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('configuration').' / '.$data['row']->cfg_path);
+			$this->my_library->set_title($this->lang->line('configuration').' | '.$data['row']->cfg_path);
 			$content = $this->load->view('_configuration/_configuration_read', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
@@ -77,7 +77,7 @@ class _configuration extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->_configuration_model->get_row($cfg_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('configuration').' / '.$data['row']->cfg_path);
+			$this->my_library->set_title($this->lang->line('configuration').' | '.$data['row']->cfg_path);
 			$this->form_validation->set_rules('cfg_path', 'lang:cfg_path', 'callback_cfg_path['.$data['row']->cfg_path.']|required|max_length[255]');
 			$this->form_validation->set_rules('cfg_value', 'lang:cfg_value', 'max_length[255]');
 			if($this->form_validation->run() == FALSE) {
@@ -103,7 +103,7 @@ class _configuration extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->_configuration_model->get_row($cfg_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('configuration').' / '.$data['row']->cfg_path);
+			$this->my_library->set_title($this->lang->line('configuration').' | '.$data['row']->cfg_path);
 			$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('_configuration/_configuration_delete', $data, TRUE);

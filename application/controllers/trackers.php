@@ -48,7 +48,7 @@ class trackers extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->trackers_model->get_row($trk_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('trackers').' / '.$data['row']->trk_name);
+			$this->my_library->set_title($this->lang->line('trackers').' | '.$data['row']->trk_name);
 			$content = $this->load->view('trackers/trackers_read', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
@@ -64,7 +64,7 @@ class trackers extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->trackers_model->get_row($trk_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('trackers').' / '.$data['row']->trk_name);
+			$this->my_library->set_title($this->lang->line('trackers').' | '.$data['row']->trk_name);
 			$data['dropdown_trk_owner'] = $this->trackers_model->dropdown_trk_owner();
 			$this->form_validation->set_rules('trk_owner', 'lang:trk_owner', 'required|numeric');
 			$this->form_validation->set_rules('trk_name', 'lang:trk_name', 'required|max_length[255]');
@@ -94,7 +94,7 @@ class trackers extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->trackers_model->get_row($trk_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('trackers').' / '.$data['row']->trk_name);
+			$this->my_library->set_title($this->lang->line('trackers').' | '.$data['row']->trk_name);
 			$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('trackers/trackers_delete', $data, TRUE);

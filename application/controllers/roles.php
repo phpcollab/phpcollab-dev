@@ -42,7 +42,7 @@ class roles extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->roles_model->get_row($rol_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('roles').' / '.$data['row']->rol_code);
+			$this->my_library->set_title($this->lang->line('roles').' | '.$data['row']->rol_code);
 
 			$query = $this->db->query('SELECT per.*, IF(rol_per.rol_per_id IS NOT NULL, 1, 0) AS per_saved FROM '.$this->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id AND rol_per.rol_id = ? GROUP BY per.per_id ORDER BY per.per_code ASC', array($rol_id));
 			$data['permissions'] = $query->result();
@@ -63,7 +63,7 @@ class roles extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->roles_model->get_row($rol_id);
 		if($data['row']) {
-			$this->my_library->set_title($this->lang->line('roles').' / '.$data['row']->rol_code);
+			$this->my_library->set_title($this->lang->line('roles').' | '.$data['row']->rol_code);
 
 			$query = $this->db->query('SELECT per.*, IF(rol_per.rol_per_id IS NOT NULL, 1, 0) AS per_saved FROM '.$this->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id AND rol_per.rol_id = ? WHERE per.per_code NOT LIKE ? AND per.per_code NOT LIKE ? GROUP BY per.per_id ORDER BY per.per_code ASC', array($rol_id, 'roles/%', 'members/%'));
 			$data['permissions'] = $query->result();
@@ -115,7 +115,7 @@ class roles extends CI_Controller {
 		$data['row'] = $this->roles_model->get_row($rol_id);
 		if($data['row']) {
 			if($data['row']->rol_system == 0) {
-				$this->my_library->set_title($this->lang->line('roles').' / '.$data['row']->rol_code);
+				$this->my_library->set_title($this->lang->line('roles').' | '.$data['row']->rol_code);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('roles/roles_delete', $data, TRUE);

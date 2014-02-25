@@ -71,7 +71,7 @@ class projects_members extends CI_Controller {
 				if($this->auth_library->permission('projects_members/read/onlypublished') && $data['row']->prj_mbr_published == 0) {
 					redirect($this->my_url);
 				}
-				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->mbr_name);
+				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mbr_name);
 				$content = $this->load->view('projects_members/projects_members_read', $data, TRUE);
 				$content .= $this->my_model->get_logs('project_member', $prj_mbr_id);
 				$this->my_library->set_zone('content', $content);
@@ -94,7 +94,7 @@ class projects_members extends CI_Controller {
 				} else {
 					redirect($this->my_url);
 				}
-				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->mbr_name);
+				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mbr_name);
 				$this->form_validation->set_rules('prj_mbr_authorized', 'lang:prj_mbr_authorized', 'numeric');
 				$this->form_validation->set_rules('prj_mbr_published', 'lang:prj_mbr_published', 'numeric');
 				if($this->form_validation->run() == FALSE) {
@@ -129,7 +129,7 @@ class projects_members extends CI_Controller {
 				} else {
 					redirect($this->my_url);
 				}
-				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->mbr_name);
+				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mbr_name);
 				$this->form_validation->set_rules('confirm', 'lang:confirm', 'required');
 				if($this->form_validation->run() == FALSE) {
 					$content = $this->load->view('projects_members/projects_members_delete', $data, TRUE);

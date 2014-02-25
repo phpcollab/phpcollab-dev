@@ -1,5 +1,5 @@
 <article class="title">
-	<h2><a href="<?php echo $this->my_url; ?>_database"><i class="fa fa-hdd-o"></i><?php echo $this->db->database; ?></a> / <i class="fa fa-eye"></i><?php echo $table; ?><?php if($status->Comment) { ?> (<?php echo $status->Comment; ?>)<?php } ?></h2>
+	<h2><a href="<?php echo $this->my_url; ?>_database"><i class="fa fa-hdd-o"></i><?php echo $this->db->database; ?></a> | <i class="fa fa-eye"></i><?php echo $table; ?><?php if($status->Comment) { ?> (<?php echo $status->Comment; ?>)<?php } ?></h2>
 </article>
 <article>
 	<table>
