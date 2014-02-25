@@ -242,6 +242,20 @@ class projects extends CI_Controller {
 						}
 					}
 				}
+
+				$dir = './storage/projects/'.$prj_id;
+				if(is_dir($dir)) {
+					if($dh = opendir($dir)) {
+						while(($file = readdir($dh)) !== false) {
+							if($file != '.' && $file != '..') {
+								unlink($dir.'/'.$file);
+							}
+						}
+						closedir($dh);
+						rmdir($dir);
+					}
+				}
+
 				$this->db->where('prj_id', $prj_id);
 				$this->db->delete('projects');
 
@@ -256,6 +270,9 @@ class projects extends CI_Controller {
 
 				$this->db->where('prj_id', $prj_id);
 				$this->db->delete('tasks');
+
+				$this->db->where('prj_id', $prj_id);
+				$this->db->delete('files');
 
 				$this->db->where('prj_id', $prj_id);
 				$this->db->delete('topics');

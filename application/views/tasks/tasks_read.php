@@ -48,6 +48,8 @@
 		<span class="label"><?php echo $this->lang->line('tsk_description'); ?></span>
 		<?php if($row->tsk_description) { ?><?php echo $row->tsk_description; ?><?php } else { ?>-<?php } ?>
 		</p>
+	</div>
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_date_start'); ?></span>
 		<?php if($row->tsk_date_start) { ?><?php echo $row->tsk_date_start; ?><?php } else { ?>-<?php } ?>
@@ -60,8 +62,6 @@
 		<span class="label"><?php echo $this->lang->line('tsk_date_complete'); ?></span>
 		<?php if($row->tsk_date_complete) { ?><?php echo $row->tsk_date_complete; ?><?php } else { ?>-<?php } ?>
 		</p>
-	</div>
-	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_status'); ?></span>
 		<?php if($row->tsk_status) { ?><?php echo $this->my_model->status($row->tsk_status); ?><?php } else { ?>-<?php } ?>
@@ -80,7 +80,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_datecreated'); ?></span>
-		<?php if($row->tsk_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->tsk_datecreated); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->tsk_datecreated); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->tsk_datecreated); ?>"></span>)<?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

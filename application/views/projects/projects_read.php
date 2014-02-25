@@ -48,6 +48,8 @@
 		<span class="label"><?php echo $this->lang->line('prj_description'); ?></span>
 		<?php if($row->prj_description) { ?><?php echo $row->prj_description; ?><?php } else { ?>-<?php } ?>
 		</p>
+	</div>
+	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_date_start'); ?></span>
 		<?php if($row->prj_date_start) { ?><?php echo $row->prj_date_start; ?><?php } else { ?>-<?php } ?>
@@ -60,8 +62,6 @@
 		<span class="label"><?php echo $this->lang->line('prj_date_complete'); ?></span>
 		<?php if($row->prj_date_complete) { ?><?php echo $row->prj_date_complete; ?><?php } else { ?>-<?php } ?>
 		</p>
-	</div>
-	<div class="column third">
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_status'); ?></span>
 		<?php if($row->prj_status) { ?><?php echo $this->my_model->status($row->prj_status); ?><?php } else { ?>-<?php } ?>
