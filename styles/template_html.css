@@ -97,8 +97,8 @@ table th, table td{border-bottom:1px solid #E7E7E7;font-family:Helvetica,Arial,s
 thead th{white-space:nowrap;}
 thead tr th.sort_asc span, thead tr th.sort_asc a:link, thead tr th.sort_asc a:visited{background-color:#444755;color:#AEB2B7;padding:2px;text-decoration:none;}
 thead tr th.sort_desc span, thead tr th.sort_desc a:link, thead tr th.sort_desc a:visited{background-color:#444755;color:#AEB2B7;padding:2px;text-decoration:none;}
-tbody th{padding-right:0px;white-space:nowrap;}
-tbody th a:link, tbody th a:visited{margin-right:3px;}
+tbody td.id{width:1%;}
+tbody th{padding-right:0px;text-align:right;}
 tbody tr:nth-child(even) th, tbody tr:nth-child(even) td{background-color:#E7E7E7;}
 table.transparent tr:nth-child(even) th, table.transparent tr:nth-child(even) td{background-color:transparent;}
 /*table tbody tr:hover th, table tbody tr:hover td{background-color:#AEB2B7;}*/
@@ -159,7 +159,7 @@ label a:link, label a:visited{cursor:pointer;}
 .filters .inputsubmit, button{padding:1px 4px;}
 input:-webkit-autofill{-webkit-box-shadow:0px 0px 0px 1000px #FFFFFF inset;}
 
-p .fa, tbody td .fa{color:#30353B;}
+p .fa, tbody th .fa{color:#30353B;}
 tbody th span, tbody th a:link, tbody th a:visited, article.title ul a:link, article.title ul a:visited, nav ul a:link, nav ul a:visited{background-color:#444755;border:none;border-radius:3px;color:#AEB2B7;margin:0px;padding:3px 3px 3px 3px;position:relative;text-decoration:none;vertical-align:top;}
 tbody th span.success{background-color:#94b86e;color:#FFFFFF;}
 tbody th span.info{background-color:#658db3;color:#FFFFFF;}

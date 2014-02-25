@@ -13,13 +13,13 @@ class files_model extends CI_Model {
 		$flt[] = 'fle.prj_id = \''.$prj->prj_id.'\'';
 		$columns = array();
 		$columns[] = 'fle.fle_id';
-		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'fle.fle_name';
+		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'fle.fle_size';
 		if($this->auth_library->permission('files/read/onlypublished')) {
 			$flt[] = 'fle.fle_published = \'1\'';
 		}
-		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'fle.fle_name', 'ASC');
+		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'fle.fle_id', 'DESC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
 		$data['prj'] = $prj;

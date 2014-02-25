@@ -39,13 +39,12 @@
 	<table>
 		<thead>
 		<tr>
-			<th>&nbsp;</th>
 			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_id')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_name')); ?>
 			<?php if($this->router->class != 'organizations') { ?>
 				<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('organization')); ?>
 			<?php } ?>
-			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_email')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('mbr_authorized')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_members', $columns[$i++], $this->lang->line('roles')); ?>
@@ -56,21 +55,17 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
-			<td>
-				<?php if($row->mbr_authorized == 0) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notauthorized'); ?>" title="<?php echo $this->lang->line('icon_notauthorized'); ?>"></i><?php } ?>
-			</td>
-			<td><?php echo $row->mbr_id; ?></td>
+			<td class="id"><?php echo $row->mbr_id; ?></td>
+			<td><a href="<?php echo $this->my_url; ?>members/read/<?php echo $row->mbr_id; ?>"><?php echo $row->mbr_name; ?></a></td>
 			<?php if($this->router->class != 'organizations') { ?>
 				<td><?php echo $row->org_name; ?></td>
 			<?php } ?>
-			<td><a href="<?php echo $this->my_url; ?>members/read/<?php echo $row->mbr_id; ?>"><?php echo $row->mbr_name; ?></a></td>
 			<td><?php echo $row->mbr_email; ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->mbr_authorized); ?></td>
 			<td><?php echo $row->roles; ?></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->mbr_datecreated); ?></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>members/update/<?php echo $row->mbr_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<?php if($row->mbr_id != $this->phpcollab_member->mbr_id) { ?><a href="<?php echo $this->my_url; ?>members/delete/<?php echo $row->mbr_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a><?php } ?>
+				<?php if($row->mbr_authorized == 0) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notauthorized'); ?>" title="<?php echo $this->lang->line('icon_notauthorized'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

@@ -26,7 +26,7 @@ class milestones_model extends CI_Model {
 		$columns[] = 'mln.mln_priority';
 		$columns[] = 'tsk_completion';
 		$columns[] = 'count_tasks';
-		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'mln.mln_name', 'ASC');
+		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'mln.mln_id', 'DESC');
 		$results = $this->get_total($flt);
 		if($this->router->class == 'milestones') {
 			$limit = 30;

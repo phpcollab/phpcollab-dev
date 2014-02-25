@@ -40,9 +40,7 @@
 		<td class="hide-tablet"><?php echo $row->Create_time; ?></td>
 		<td class="hide-tablet"><?php echo $row->Update_time; ?></td>
 		<td><?php if($row->Comment) { ?><?php echo $row->Comment; ?><?php } else { ?>-<?php } ?></td>
-		<th>
-		<a href="<?php echo $this->my_url; ?>_database/show/<?php echo $row->Name; ?>"><i class="fa fa-eye"></i><?php echo $this->lang->line('show'); ?></a>
-		</th>
+		<th>&nbsp;</th>
 		</tr>
 		<?php } ?>
 		<tr>

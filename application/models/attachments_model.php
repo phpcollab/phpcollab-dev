@@ -13,11 +13,11 @@ class attachments_model extends CI_Model {
 		$flt[] = 'att.tsk_id = \''.$tsk->tsk_id.'\'';
 		$columns = array();
 		$columns[] = 'att.att_id';
-		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'att.att_name';
+		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'att.att_size';
 		$columns[] = 'att.att_datecreated';
-		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'att.att_datecreated', 'DESC');
+		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'att.att_id', 'DESC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 10, $data['ref_filter']);
 		$data['tsk'] = $tsk;

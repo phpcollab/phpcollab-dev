@@ -57,15 +57,11 @@
 	<table>
 		<thead>
 		<tr>
-			<th>&nbsp;</th>
 			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_id')); ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tracker')); ?>
-			<?php if($this->router->class != 'milestones') { ?>
-				<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('milestone')); ?>
-			<?php } ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_assigned')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_name')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tracker')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_assigned')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_date_start')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_date_due')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tsk_status')); ?>
@@ -77,31 +73,19 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
-			<td>
-				<?php if($row->tsk_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
-				<?php if($row->tsk_assigned == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/assigned'); ?>" title="<?php echo $this->lang->line('icon_assigned'); ?>"></i><?php } ?>
-				<?php if($row->tsk_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
-			</td>
-			<td><?php echo $row->tsk_id; ?></td>
-			<td><?php echo $row->trk_name; ?></td>
-			<?php if($this->router->class != 'milestones') { ?>
-				<td><a href="<?php echo $this->my_url; ?>milestones/read/<?php echo $row->mln_id; ?>"><?php echo $row->mln_name; ?></a></td>
-			<?php } ?>
-			<td><?php echo $row->mbr_name_assigned; ?></td>
+			<td class="id"><?php echo $row->tsk_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>tasks/read/<?php echo $row->tsk_id; ?>"><?php echo $row->tsk_name; ?></a></td>
+			<td><?php echo $row->trk_name; ?></td>
+			<td><?php echo $row->mbr_name_assigned; ?></td>
 			<td><?php echo $row->tsk_date_start; ?></td>
 			<td><?php if($row->tsk_date_due && $row->tsk_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->tsk_date_due; ?></strong><?php } else { ?><?php echo $row->tsk_date_due; ?><?php } ?></td>
 			<td><?php echo $this->my_model->status($row->tsk_status); ?></td>
 			<td><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tsk_priority); ?></span></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>tasks/update/<?php echo $row->tsk_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<?php if($this->auth_library->permission('tasks/delete/any')) { ?>
-				<a href="<?php echo $this->my_url; ?>tasks/delete/<?php echo $row->tsk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
-
-			<?php } else if($this->auth_library->permission('tasks/delete/ifowner') && $row->tsk_owner == $this->phpcollab_member->mbr_id) { ?>
-				<a href="<?php echo $this->my_url; ?>tasks/delete/<?php echo $row->tsk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
-			<?php } ?>
+				<?php if($row->tsk_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->tsk_assigned == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/assigned'); ?>" title="<?php echo $this->lang->line('icon_assigned'); ?>"></i><?php } ?>
+				<?php if($row->tsk_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

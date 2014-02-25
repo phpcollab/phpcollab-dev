@@ -18,13 +18,13 @@ class projects_members_model extends CI_Model {
 		}
 		$columns = array();
 		$columns[] = 'prj_mbr.prj_mbr_id';
-		$columns[] = 'org.org_name';
 		$columns[] = 'mbr.mbr_name';
+		$columns[] = 'org.org_name';
 		$columns[] = 'prj_mbr.prj_mbr_authorized';
 		$columns[] = 'prj_mbr.prj_mbr_published';
 		$columns[] = 'roles';
 		$columns[] = 'prj_mbr.prj_mbr_datecreated';
-		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'prj_mbr.prj_mbr_id', 'ASC');
+		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'prj_mbr.prj_mbr_id', 'DESC');
 		$results = $this->get_total($flt);
 		if($this->router->class == 'projects_members') {
 			$limit = 30;

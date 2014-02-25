@@ -28,11 +28,10 @@
 	<table>
 		<thead>
 		<tr>
-			<th>&nbsp;</th>
 			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('fle_id')); ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('fle_owner')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('fle_name')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('fle_owner')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('fle_size')); ?>
 			<th>&nbsp;</th>
 		</tr>
@@ -40,23 +39,13 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
-			<td>
-				<?php if($row->fle_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
-				<?php if($row->fle_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
-			</td>
-			<td><?php echo $row->fle_id; ?></td>
-			<td><?php echo $row->mbr_name; ?></td>
+			<td class="id"><?php echo $row->fle_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>files/read/<?php echo $row->fle_id; ?>"><?php echo $row->fle_name; ?></a></td>
+			<td><?php echo $row->mbr_name; ?></td>
 			<td><?php echo convert_size($row->fle_size); ?></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>files/download/<?php echo $row->fle_id; ?>"><i class="fa fa-cloud-download"></i><?php echo $this->lang->line('download'); ?></a>
-			<a href="<?php echo $this->my_url; ?>files/update/<?php echo $row->fle_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<?php if($this->auth_library->permission('files/delete/any')) { ?>
-				<a href="<?php echo $this->my_url; ?>files/delete/<?php echo $row->fle_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
-
-			<?php } else if($this->auth_library->permission('files/delete/ifowner') && $row->fle_owner == $this->phpcollab_member->mbr_id) { ?>
-				<a href="<?php echo $this->my_url; ?>files/delete/<?php echo $row->fle_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
-			<?php } ?>
+				<?php if($row->fle_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->fle_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

@@ -30,7 +30,7 @@ class organizations_model extends CI_Model {
 		$columns[] = 'org.org_authorized';
 		$columns[] = 'count_members';
 		$columns[] = 'count_projects';
-		$col = $this->my_library->build_columns($this->router->class.'_organizations', $columns, 'org.org_name', 'ASC');
+		$col = $this->my_library->build_columns($this->router->class.'_organizations', $columns, 'org.org_id', 'DESC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_organizations');
 		$data = array();

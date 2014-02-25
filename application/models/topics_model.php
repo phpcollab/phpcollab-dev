@@ -18,8 +18,8 @@ class topics_model extends CI_Model {
 		}
 		$columns = array();
 		$columns[] = 'tcs.tcs_id';
-		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'tcs.tcs_name';
+		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'tcs.tcs_datecreated';
 		$columns[] = 'tcs.tcs_status';
 		$columns[] = 'tcs.tcs_priority';

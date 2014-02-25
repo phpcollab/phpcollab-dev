@@ -20,15 +20,15 @@ class members_model extends CI_Model {
 		}
 		$columns = array();
 		$columns[] = 'mbr.mbr_id';
+		$columns[] = 'mbr.mbr_name';
 		if($this->router->class != 'organizations') {
 			$columns[] = 'org.org_name';
 		}
-		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'mbr.mbr_email';
 		$columns[] = 'mbr.mbr_authorized';
 		$columns[] = 'roles';
 		$columns[] = 'mbr.mbr_datecreated';
-		$col = $this->my_library->build_columns($this->router->class.'_members', $columns, 'mbr.mbr_name', 'ASC');
+		$col = $this->my_library->build_columns($this->router->class.'_members', $columns, 'mbr.mbr_id', 'DESC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_members');
 		$data['columns'] = $col;

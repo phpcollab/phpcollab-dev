@@ -30,13 +30,10 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
-			<td><?php echo $row->rol_id; ?></td>
+			<td class="id"><?php echo $row->rol_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>roles/read/<?php echo $row->rol_id; ?>"><?php echo $row->rol_code; ?></a></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->rol_datecreated); ?></td>
-			<th>
-			<a href="<?php echo $this->my_url; ?>roles/update/<?php echo $row->rol_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<?php if($row->rol_system == 0) { ?><a href="<?php echo $this->my_url; ?>roles/delete/<?php echo $row->rol_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a><?php } ?>
-			</th>
+			<th>&nbsp;</th>
 		</tr>
 		<?php } ?>
 		</tbody>

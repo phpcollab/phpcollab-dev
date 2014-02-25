@@ -20,11 +20,10 @@
 	<table>
 		<thead>
 		<tr>
-			<th>&nbsp;</th>
 			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_id')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_name')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('tsk_description')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_trackers', $columns[$i++], $this->lang->line('trk_datecreated')); ?>
 			<th>&nbsp;</th>
@@ -33,17 +32,13 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
-			<td>
-				<?php if($row->trk_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
-			</td>
-			<td><?php echo $row->trk_id; ?></td>
-			<td><?php echo $row->mbr_name; ?></td>
+			<td class="id"><?php echo $row->trk_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>trackers/read/<?php echo $row->trk_id; ?>"><?php echo $row->trk_name; ?></a></td>
+			<td><?php echo $row->mbr_name; ?></td>
 			<td><?php echo $row->tsk_description; ?></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->trk_datecreated); ?></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>trackers/update/<?php echo $row->trk_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<a href="<?php echo $this->my_url; ?>trackers/delete/<?php echo $row->trk_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+				<?php if($row->trk_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

@@ -36,11 +36,10 @@
 	<table>
 		<thead>
 		<tr>
-			<th>&nbsp;</th>
 			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_id')); ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_owner')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_name')); ?>
+			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_owner')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_datecreated')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_status')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('tcs_priority')); ?>
@@ -52,26 +51,17 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
-			<td>
-				<?php if($row->tcs_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
-				<?php if($row->tcs_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
-			</td>
-			<td><?php echo $row->tcs_id; ?></td>
-			<td><?php echo $row->mbr_name; ?></td>
+			<td class="id"><?php echo $row->tcs_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>topics/read/<?php echo $row->tcs_id; ?>"><?php echo $row->tcs_name; ?></a></td>
+			<td><?php echo $row->mbr_name; ?></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->tcs_datecreated); ?></td>
 			<td><?php echo $this->my_model->status($row->tcs_status); ?></td>
 			<td><span class="color_percent priority_<?php echo $row->tcs_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tcs_priority); ?></span></td>
 			<td><?php echo $row->count_posts; ?></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->last_post); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->last_post); ?>"></span>)</td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>topics/update/<?php echo $row->tcs_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<?php if($this->auth_library->permission('topics/delete/any')) { ?>
-				<a href="<?php echo $this->my_url; ?>topics/delete/<?php echo $row->tcs_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
-
-			<?php } else if($this->auth_library->permission('topics/delete/ifowner') && $row->tcs_owner == $this->phpcollab_member->mbr_id) { ?>
-				<a href="<?php echo $this->my_url; ?>topics/delete/<?php echo $row->tcs_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
-			<?php } ?>
+				<?php if($row->tcs_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
+				<?php if($row->tcs_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

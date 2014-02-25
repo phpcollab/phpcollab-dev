@@ -10,8 +10,8 @@ class trackers_model extends CI_Model {
 		$flt = $this->my_library->build_filters($filters);
 		$columns = array();
 		$columns[] = 'trk.trk_owner';
-		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'trk.trk_name';
+		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'trk.tsk_description';
 		$columns[] = 'trk.trk_datecreated';
 		$col = $this->my_library->build_columns($this->router->class.'_trackers', $columns, 'trk.trk_name', 'ASC');

@@ -24,11 +24,10 @@
 	<table>
 		<thead>
 		<tr>
-			<th>&nbsp;</th>
 			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_id')); ?>
-			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_name')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_isclosed')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_ordering')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_statuses', $columns[$i++], $this->lang->line('stu_datecreated')); ?>
@@ -38,18 +37,14 @@
 		<tbody>
 		<?php foreach($rows as $row) { ?>
 		<tr>
-			<td>
-				<?php if($row->stu_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
-			</td>
-			<td><?php echo $row->stu_id; ?></td>
-			<td><?php echo $row->mbr_name; ?></td>
+			<td class="id"><?php echo $row->stu_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>statuses/read/<?php echo $row->stu_id; ?>"><?php echo $row->stu_name; ?></a></td>
+			<td><?php echo $row->mbr_name; ?></td>
 			<td><?php echo $this->lang->line('reply_'.$row->stu_isclosed); ?></td>
 			<td><?php echo $row->stu_ordering; ?></td>
 			<td><?php echo $this->my_library->timezone_datetime($row->stu_datecreated); ?></td>
 			<th>
-			<a href="<?php echo $this->my_url; ?>statuses/update/<?php echo $row->stu_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a>
-			<a href="<?php echo $this->my_url; ?>statuses/delete/<?php echo $row->stu_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a>
+				<?php if($row->stu_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

@@ -16,10 +16,10 @@ class Notes_model extends CI_Model {
 		}
 		$columns = array();
 		$columns[] = 'nte.nte_id';
-		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'nte.nte_name';
+		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'nte.nte_date';
-		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'nte.nte_name', 'ASC');
+		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'nte.nte_id', 'DESC');
 		$results = $this->get_total($flt);
 		if($this->router->class == 'notes') {
 			$limit = 30;

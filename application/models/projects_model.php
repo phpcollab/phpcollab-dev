@@ -35,17 +35,17 @@ class projects_model extends CI_Model {
 		}
 		$columns = array();
 		$columns[] = 'prj.prj_id';
+		$columns[] = 'prj.prj_name';
 		if($this->router->class != 'organizations') {
 			$columns[] = 'org.org_name';
 		}
-		$columns[] = 'prj.prj_name';
 		$columns[] = 'prj.prj_date_start';
 		$columns[] = 'prj.prj_date_due';
 		$columns[] = 'stu.stu_ordering';
 		$columns[] = 'prj.prj_priority';
 		$columns[] = 'tsk_completion';
 		$columns[] = 'count_tasks';
-		$col = $this->my_library->build_columns($this->router->class.'_projects', $columns, 'prj.prj_name', 'ASC');
+		$col = $this->my_library->build_columns($this->router->class.'_projects', $columns, 'prj.prj_id', 'DESC');
 		$results = $this->get_total($flt);
 		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_projects');
 		$data['columns'] = $col;

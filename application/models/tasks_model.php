@@ -40,18 +40,15 @@ class tasks_model extends CI_Model {
 		}
 		$columns = array();
 		$columns[] = 'tsk.tsk_id';
-		$columns[] = 'trk.trk_name';
-		if($this->router->class != 'milestones') {
-			$columns[] = 'mln.mln_name';
-		}
-		$columns[] = 'mbr_name_assigned';
 		$columns[] = 'tsk.tsk_name';
+		$columns[] = 'trk.trk_name';
+		$columns[] = 'mbr_name_assigned';
 		$columns[] = 'tsk.tsk_date_start';
 		$columns[] = 'tsk.tsk_date_due';
 		$columns[] = 'stu.stu_ordering';
 		$columns[] = 'tsk.tsk_priority';
 		$columns[] = 'tsk.tsk_completion';
-		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'tsk.tsk_name', 'ASC');
+		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'tsk.tsk_id', 'DESC');
 		$results = $this->get_total($flt);
 		if($this->router->class == 'tasks') {
 			$limit = 30;
