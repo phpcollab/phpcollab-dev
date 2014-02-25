@@ -13,7 +13,7 @@
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('fle_name').' * (<em>'.ini_get('upload_max_filesize').' max.)</em>', 'fle_name'); ?>
-		<?php echo form_upload('fle_name', FALSE, 'id="fle_name" class="inputtext required"'); ?>
+		<?php echo form_upload('fle_name', FALSE, 'id="fle_name" class="inputfile required"'); ?>
 		</p>
 		<p>
 		<?php echo form_label($this->lang->line('fle_description'), 'fle_description'); ?>

@@ -8,6 +8,7 @@ class tasks extends CI_Controller {
 		$this->load->model('tasks_model');
 		$this->load->model('trackers_model');
 		$this->load->model('milestones_model');
+		$this->load->model('attachments_model');
 	}
 	public function index($prj_id) {
 		$data = array();
@@ -69,6 +70,25 @@ class tasks extends CI_Controller {
 				$this->db->insert('tasks');
 				$tsk_id = $this->db->insert_id();
 
+				if(isset($_FILES['att_name']) == 1 && $_FILES['att_name']['error'] == 0) {
+					if(!is_dir('storage/projects/'.$prj_id)) {
+						mkdir('storage/projects/'.$prj_id);
+						copy('storage/projects/index.html', 'storage/projects/'.$prj_id.'/index.html');
+					}
+
+					$att_name = clean_string($_FILES['att_name']['name']);
+					$att_name = generate_string(6).'-'.$att_name;
+
+					move_uploaded_file($_FILES['att_name']['tmp_name'], 'storage/projects/'.$prj_id.'/'.$att_name);
+
+					$this->db->set('tsk_id', $tsk_id);
+					$this->db->set('att_owner', $this->phpcollab_member->mbr_id);
+					$this->db->set('att_name', $att_name);
+					$this->db->set('att_size', $_FILES['att_name']['size']);
+					$this->db->set('att_datecreated', date('Y-m-d H:i:s'));
+					$this->db->insert('attachments');
+				}
+
 				if($this->input->post('tsk_assigned') != '' && $this->config->item('phpcollab/enabled/notifications')) {
 					$data['task'] = $this->tasks_model->get_row($tsk_id);
 					$this->load->library(array('email_library'));
@@ -97,6 +117,7 @@ class tasks extends CI_Controller {
 				}
 				$this->my_library->set_title($data['prj']->prj_name.' / '.$data['row']->tsk_name);
 				$content = $this->load->view('tasks/tasks_read', $data, TRUE);
+				$content .= $this->attachments_model->get_index_list($data['row']);
 				$content .= $this->my_model->get_logs('task', $tsk_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
@@ -186,6 +207,25 @@ class tasks extends CI_Controller {
 					}
 					$this->db->where('tsk_id', $tsk_id);
 					$this->db->update('tasks');
+
+					if(isset($_FILES['att_name']) == 1 && $_FILES['att_name']['error'] == 0) {
+						if(!is_dir('storage/projects/'.$prj_id)) {
+							mkdir('storage/projects/'.$prj_id);
+							copy('storage/projects/index.html', 'storage/projects/'.$prj_id.'/index.html');
+						}
+
+						$att_name = clean_string($_FILES['att_name']['name']);
+						$att_name = generate_string(6).'-'.$att_name;
+
+						move_uploaded_file($_FILES['att_name']['tmp_name'], 'storage/projects/'.$data['row']->prj_id.'/'.$att_name);
+
+						$this->db->set('tsk_id', $tsk_id);
+						$this->db->set('att_owner', $this->phpcollab_member->mbr_id);
+						$this->db->set('att_name', $att_name);
+						$this->db->set('att_size', $_FILES['att_name']['size']);
+						$this->db->set('att_datecreated', date('Y-m-d H:i:s'));
+						$this->db->insert('attachments');
+					}
 
 					$this->my_model->save_log('task', $tsk_id, $data['row']);
 

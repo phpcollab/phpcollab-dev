@@ -11,7 +11,7 @@
 	</ul>
 </article>
 <article>
-	<?php echo form_open(current_url()); ?>
+	<?php echo form_open_multipart(current_url()); ?>
 	<?php echo validation_errors(); ?>
 	<div class="column half">
 		<p>
@@ -91,6 +91,10 @@
 		<p>
 		<?php echo form_label($this->lang->line('log_comments'), 'log_comments'); ?>
 		<?php echo form_textarea('log_comments', set_value('log_comments', ''), 'id="log_comments" class="textarea"'); ?>
+		</p>
+		<p>
+		<?php echo form_label($this->lang->line('attachment').' (<em>'.ini_get('upload_max_filesize').' max.)</em>', 'att_name'); ?>
+		<?php echo form_upload('att_name', FALSE, 'id="att_name" class="inputfile"'); ?>
 		</p>
 		<p>
 		<span class="label">&nbsp;</span>

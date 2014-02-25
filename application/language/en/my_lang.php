@@ -1,4 +1,11 @@
 <?php
+$lang['att_id'] = 'Attachment ID';
+$lang['att_owner'] = 'Owner';
+$lang['att_name'] = 'Name';
+$lang['att_size'] = 'Size';
+$lang['att_datecreated'] = 'Date created';
+$lang['attachments'] = 'Attachments';
+$lang['attachment'] = 'Attachment';
 $lang['icon_assigned'] = 'Assigned';
 $lang['icon_ismember'] = 'Member';
 $lang['icon_owner'] = 'Owner';

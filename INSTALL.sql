@@ -1,6 +1,28 @@
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `attachments`
+--
+
+CREATE TABLE IF NOT EXISTS `attachments` (
+  `att_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tsk_id` int(10) unsigned NOT NULL,
+  `att_owner` int(10) unsigned NOT NULL,
+  `att_name` varchar(255) NOT NULL,
+  `att_size` int(10) NOT NULL,
+  `att_datecreated` datetime NOT NULL,
+  PRIMARY KEY (`att_id`),
+  KEY `tsk_id` (`tsk_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `attachments`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `files`
 --
 
@@ -23,44 +45,6 @@ CREATE TABLE IF NOT EXISTS `files` (
 
 --
 -- Dumping data for table `files`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `files_milestones`
---
-
-CREATE TABLE IF NOT EXISTS `files_milestones` (
-  `fle_mln_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `fle_id` int(10) unsigned NOT NULL,
-  `mln_id` int(10) unsigned NOT NULL,
-  `fle_mln_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`fle_mln_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `files_milestones`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `files_tasks`
---
-
-CREATE TABLE IF NOT EXISTS `files_tasks` (
-  `fle_tsk_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `fle_id` int(10) unsigned NOT NULL,
-  `tsk_id` int(10) unsigned NOT NULL,
-  `fle_tsk_datecreated` datetime NOT NULL,
-  PRIMARY KEY (`fle_tsk_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `files_tasks`
 --
 
 
