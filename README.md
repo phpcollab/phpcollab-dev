@@ -27,7 +27,7 @@ example
 * Organizations
 * Projects
 * Teams
-* Tasks
+* Tasks / Attachments
 * Milestones
 * Trackers
 * Statuses
