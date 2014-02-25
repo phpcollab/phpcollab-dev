@@ -6,9 +6,6 @@ class Organizations extends CI_Controller {
 		$this->load->model('organizations_model');
 		$this->load->model('members_model');
 		$this->load->model('projects_model');
-
-		$this->storage_table = 'organizations';
-		$this->storage_fields = array();
 	}
 	public function index() {
 		if($this->auth_library->permission('organizations/index')) {
@@ -36,19 +33,6 @@ class Organizations extends CI_Controller {
 			$content = $this->load->view('organizations/organizations_create', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
-			if(count($this->storage_fields) > 0) {
-				foreach($this->storage_fields as $field) {
-					$config = array();
-					$config['allowed_types'] = 'gif|jpg|png';
-					$config['encrypt_name'] = true;
-					$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-					$this->upload->initialize($config);
-					if($this->upload->do_upload($field)) {
-						$upload = $this->upload->data();
-						$this->db->set($field, $upload['file_name']);
-					}
-				}
-			}
 			$this->db->set('org_owner', $this->input->post('org_owner'));
 			$this->db->set('org_name', $this->input->post('org_name'));
 			$this->db->set('org_description', $this->input->post('org_description'));
@@ -106,22 +90,6 @@ class Organizations extends CI_Controller {
 				$content = $this->load->view('organizations/organizations_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						$config = array();
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['encrypt_name'] = true;
-						$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-						$this->upload->initialize($config);
-						if($this->upload->do_upload($field)) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-							$upload = $this->upload->data();
-							$this->db->set($field, $upload['file_name']);
-						}
-					}
-				}
 				if($this->auth_library->permission('organizations/update/any')) {
 					$this->db->set('org_owner', $this->input->post('org_owner'));
 				}
@@ -158,13 +126,6 @@ class Organizations extends CI_Controller {
 					$content = $this->load->view('organizations/organizations_delete', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-						}
-					}
 					$this->db->where('org_id', $org_id);
 					$this->db->delete('organizations');
 					$this->index();

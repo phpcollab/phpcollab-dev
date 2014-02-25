@@ -4,9 +4,6 @@ class statuses extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('statuses_model');
-
-		$this->storage_table = 'statuses';
-		$this->storage_fields = array();
 	}
 	public function index() {
 		if(!$this->auth_library->role('administrator')) {
@@ -34,19 +31,6 @@ class statuses extends CI_Controller {
 			$content = $this->load->view('statuses/statuses_create', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
-			if(count($this->storage_fields) > 0) {
-				foreach($this->storage_fields as $field) {
-					$config = array();
-					$config['allowed_types'] = 'gif|jpg|png';
-					$config['encrypt_name'] = true;
-					$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-					$this->upload->initialize($config);
-					if($this->upload->do_upload($field)) {
-						$upload = $this->upload->data();
-						$this->db->set($field, $upload['file_name']);
-					}
-				}
-			}
 			$this->db->set('stu_owner', $this->input->post('stu_owner'));
 			$this->db->set('stu_name', $this->input->post('stu_name'));
 			$this->db->set('stu_isclosed', checkbox2database($this->input->post('stu_isclosed')));
@@ -92,22 +76,6 @@ class statuses extends CI_Controller {
 				$content = $this->load->view('statuses/statuses_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						$config = array();
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['encrypt_name'] = true;
-						$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-						$this->upload->initialize($config);
-						if($this->upload->do_upload($field)) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-							$upload = $this->upload->data();
-							$this->db->set($field, $upload['file_name']);
-						}
-					}
-				}
 				$this->db->set('stu_owner', $this->input->post('stu_owner'));
 				$this->db->set('stu_name', $this->input->post('stu_name'));
 				$this->db->set('stu_isclosed', checkbox2database($this->input->post('stu_isclosed')));
@@ -136,13 +104,6 @@ class statuses extends CI_Controller {
 				$content = $this->load->view('statuses/statuses_delete', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-							unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-						}
-					}
-				}
 				$this->db->where('stu_id', $stu_id);
 				$this->db->delete('statuses');
 				$this->index();

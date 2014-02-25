@@ -6,9 +6,6 @@ class topics extends CI_Controller {
 		$this->load->model('projects_model');
 		$this->load->model('topics_model');
 		$this->load->model('posts_model');
-
-		$this->storage_table = 'topics';
-		$this->storage_fields = array();
 	}
 	public function index($prj_id) {
 		$data = array();
@@ -38,19 +35,6 @@ class topics extends CI_Controller {
 				$content = $this->load->view('topics/topics_create', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						$config = array();
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['encrypt_name'] = true;
-						$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-						$this->upload->initialize($config);
-						if($this->upload->do_upload($field)) {
-							$upload = $this->upload->data();
-							$this->db->set($field, $upload['file_name']);
-						}
-					}
-				}
 				$this->db->set('prj_id', $prj_id);
 				$this->db->set('tcs_owner', $this->input->post('tcs_owner'));
 				$this->db->set('tcs_name', $this->input->post('tcs_name'));
@@ -113,22 +97,6 @@ class topics extends CI_Controller {
 					$content = $this->load->view('topics/topics_update', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							$config = array();
-							$config['allowed_types'] = 'gif|jpg|png';
-							$config['encrypt_name'] = true;
-							$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-							$this->upload->initialize($config);
-							if($this->upload->do_upload($field)) {
-								if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-									unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-								}
-								$upload = $this->upload->data();
-								$this->db->set($field, $upload['file_name']);
-							}
-						}
-					}
 					$this->db->set('tcs_owner', $this->input->post('tcs_owner'));
 					$this->db->set('tcs_name', $this->input->post('tcs_name'));
 					$this->db->set('tcs_status', $this->input->post('tcs_status'));
@@ -166,13 +134,6 @@ class topics extends CI_Controller {
 					$content = $this->load->view('topics/topics_delete', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-						}
-					}
 					$this->db->where('tcs_id', $tcs_id);
 					$this->db->delete('topics');
 
@@ -202,22 +163,6 @@ class topics extends CI_Controller {
 					$content .= $this->posts_model->get_index_list($data['row']);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							$config = array();
-							$config['allowed_types'] = 'gif|jpg|png';
-							$config['encrypt_name'] = true;
-							$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-							$this->upload->initialize($config);
-							if($this->upload->do_upload($field)) {
-								if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-									unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-								}
-								$upload = $this->upload->data();
-								$this->db->set($field, $upload['file_name']);
-							}
-						}
-					}
 					$this->db->set('tcs_id', $tcs_id);
 					$this->db->set('pst_owner', $this->phpcollab_member->mbr_id);
 					$this->db->set('pst_description', $this->input->post('pst_description'));

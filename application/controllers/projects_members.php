@@ -5,9 +5,6 @@ class projects_members extends CI_Controller {
 		parent::__construct();
 		$this->load->model('projects_model');
 		$this->load->model('projects_members_model');
-
-		$this->storage_table = 'projects_members';
-		$this->storage_fields = array();
 	}
 	public function index($prj_id) {
 		$data = array();
@@ -45,19 +42,6 @@ class projects_members extends CI_Controller {
 				$content = $this->load->view('projects_members/projects_members_create', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						$config = array();
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['encrypt_name'] = true;
-						$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-						$this->upload->initialize($config);
-						if($this->upload->do_upload($field)) {
-							$upload = $this->upload->data();
-							$this->db->set($field, $upload['file_name']);
-						}
-					}
-				}
 				$this->db->set('prj_id', $prj_id);
 				$this->db->set('mbr_id', $this->input->post('mbr_id'));
 				$this->db->set('prj_mbr_authorized', checkbox2database($this->input->post('prj_mbr_authorized')));
@@ -117,22 +101,6 @@ class projects_members extends CI_Controller {
 					$content = $this->load->view('projects_members/projects_members_update', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							$config = array();
-							$config['allowed_types'] = 'gif|jpg|png';
-							$config['encrypt_name'] = true;
-							$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-							$this->upload->initialize($config);
-							if($this->upload->do_upload($field)) {
-								if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-									unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-								}
-								$upload = $this->upload->data();
-								$this->db->set($field, $upload['file_name']);
-							}
-						}
-					}
 					$this->db->set('prj_mbr_authorized', checkbox2database($this->input->post('prj_mbr_authorized')));
 					$this->db->set('prj_mbr_published', checkbox2database($this->input->post('prj_mbr_published')));
 					$this->db->where('prj_mbr_id', $prj_mbr_id);
@@ -167,13 +135,6 @@ class projects_members extends CI_Controller {
 					$content = $this->load->view('projects_members/projects_members_delete', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-						}
-					}
 					$this->db->where('prj_mbr_id', $prj_mbr_id);
 					$this->db->delete('projects_members');
 					redirect($this->my_url.'projects/read/'.$data['row']->prj_id);

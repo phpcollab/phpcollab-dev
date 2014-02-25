@@ -4,9 +4,6 @@ class roles extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('roles_model');
-
-		$this->storage_table = 'roles';
-		$this->storage_fields = array();
 	}
 	public function index() {
 		if(!$this->auth_library->role('administrator')) {
@@ -30,19 +27,6 @@ class roles extends CI_Controller {
 			$content = $this->load->view('roles/roles_create', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
-			if(count($this->storage_fields) > 0) {
-				foreach($this->storage_fields as $field) {
-					$config = array();
-					$config['allowed_types'] = 'gif|jpg|png';
-					$config['encrypt_name'] = true;
-					$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-					$this->upload->initialize($config);
-					if($this->upload->do_upload($field)) {
-						$upload = $this->upload->data();
-						$this->db->set($field, $upload['file_name']);
-					}
-				}
-			}
 			$this->db->set('rol_code', $this->input->post('rol_code'));
 			$this->db->insert('roles');
 			$rol_id = $this->db->insert_id();
@@ -96,22 +80,6 @@ class roles extends CI_Controller {
 				$this->my_library->set_zone('content', $content);
 			} else {
 				if($data['row']->rol_system == 0) {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							$config = array();
-							$config['allowed_types'] = 'gif|jpg|png';
-							$config['encrypt_name'] = true;
-							$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-							$this->upload->initialize($config);
-							if($this->upload->do_upload($field)) {
-								if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-									unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-								}
-								$upload = $this->upload->data();
-								$this->db->set($field, $upload['file_name']);
-							}
-						}
-					}
 					$this->db->set('rol_code', $this->input->post('rol_code'));
 					$this->db->where('rol_id', $rol_id);
 					$this->db->update('roles');
@@ -153,13 +121,6 @@ class roles extends CI_Controller {
 					$content = $this->load->view('roles/roles_delete', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-						}
-					}
 					$this->db->where('rol_id', $rol_id);
 					$this->db->delete('roles');
 

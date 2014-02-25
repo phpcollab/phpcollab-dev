@@ -7,9 +7,6 @@ class milestones extends CI_Controller {
 		$this->load->model('projects_model');
 		$this->load->model('milestones_model');
 		$this->load->model('tasks_model');
-
-		$this->storage_table = 'milestones';
-		$this->storage_fields = array();
 	}
 	public function index($prj_id) {
 		$data = array();
@@ -42,19 +39,6 @@ class milestones extends CI_Controller {
 				$content = $this->load->view('milestones/milestones_create', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						$config = array();
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['encrypt_name'] = true;
-						$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-						$this->upload->initialize($config);
-						if($this->upload->do_upload($field)) {
-							$upload = $this->upload->data();
-							$this->db->set($field, $upload['file_name']);
-						}
-					}
-				}
 				$this->db->set('prj_id', $prj_id);
 				$this->db->set('mln_owner', $this->input->post('mln_owner'));
 				$this->db->set('mln_name', $this->input->post('mln_name'));
@@ -119,22 +103,6 @@ class milestones extends CI_Controller {
 					$content = $this->load->view('milestones/milestones_update', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							$config = array();
-							$config['allowed_types'] = 'gif|jpg|png';
-							$config['encrypt_name'] = true;
-							$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-							$this->upload->initialize($config);
-							if($this->upload->do_upload($field)) {
-								if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-									unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-								}
-								$upload = $this->upload->data();
-								$this->db->set($field, $upload['file_name']);
-							}
-						}
-					}
 					$this->db->set('mln_owner', $this->input->post('mln_owner'));
 					$this->db->set('mln_name', $this->input->post('mln_name'));
 					$this->db->set('mln_description', $this->input->post('mln_description'));
@@ -176,13 +144,6 @@ class milestones extends CI_Controller {
 					$content = $this->load->view('milestones/milestones_delete', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-						}
-					}
 					$this->db->where('mln_id', $mln_id);
 					$this->db->delete('milestones');
 					redirect($this->my_url.'projects/read/'.$data['row']->prj_id);

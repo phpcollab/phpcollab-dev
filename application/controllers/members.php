@@ -5,9 +5,6 @@ class members extends CI_Controller {
 		parent::__construct();
 		$this->load->model('members_model');
 		$this->load->model('roles_model');
-
-		$this->storage_table = 'members';
-		$this->storage_fields = array();
 	}
 	public function index() {
 		if(!$this->auth_library->role('administrator')) {
@@ -43,19 +40,6 @@ class members extends CI_Controller {
 			$content = $this->load->view('members/members_create', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
-			if(count($this->storage_fields) > 0) {
-				foreach($this->storage_fields as $field) {
-					$config = array();
-					$config['allowed_types'] = 'gif|jpg|png';
-					$config['encrypt_name'] = true;
-					$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-					$this->upload->initialize($config);
-					if($this->upload->do_upload($field)) {
-						$upload = $this->upload->data();
-						$this->db->set($field, $upload['file_name']);
-					}
-				}
-			}
 			$this->db->set('org_id', $this->input->post('org_id'));
 			$this->db->set('mbr_name', $this->input->post('mbr_name'));
 			$this->db->set('mbr_description', $this->input->post('mbr_description'));
@@ -126,22 +110,6 @@ class members extends CI_Controller {
 				$content = $this->load->view('members/members_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						$config = array();
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['encrypt_name'] = true;
-						$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-						$this->upload->initialize($config);
-						if($this->upload->do_upload($field)) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-							$upload = $this->upload->data();
-							$this->db->set($field, $upload['file_name']);
-						}
-					}
-				}
 				$this->db->set('org_id', $this->input->post('org_id'));
 				$this->db->set('mbr_name', $this->input->post('mbr_name'));
 				$this->db->set('mbr_description', $this->input->post('mbr_description'));
@@ -198,13 +166,6 @@ class members extends CI_Controller {
 					$content = $this->load->view('members/members_delete', $data, TRUE);
 					$this->my_library->set_zone('content', $content);
 				} else {
-					if(count($this->storage_fields) > 0) {
-						foreach($this->storage_fields as $field) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-						}
-					}
 					$this->db->where('mbr_id', $mbr_id);
 					$this->db->delete('members');
 

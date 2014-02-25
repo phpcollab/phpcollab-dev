@@ -4,9 +4,6 @@ class _configuration extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('_configuration_model');
-
-		$this->storage_table = '_configuration';
-		$this->storage_fields = array();
 	}
 	public function index() {
 		if(!$this->auth_library->role('administrator')) {
@@ -48,19 +45,6 @@ class _configuration extends CI_Controller {
 			$content = $this->load->view('_configuration/_configuration_create', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
-			if(count($this->storage_fields) > 0) {
-				foreach($this->storage_fields as $field) {
-					$config = array();
-					$config['allowed_types'] = 'gif|jpg|png';
-					$config['encrypt_name'] = true;
-					$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-					$this->upload->initialize($config);
-					if($this->upload->do_upload($field)) {
-						$upload = $this->upload->data();
-						$this->db->set($field, $upload['file_name']);
-					}
-				}
-			}
 			$this->db->set('cfg_path', $this->input->post('cfg_path'));
 			$this->db->set('cfg_value', $this->input->post('cfg_value'));
 			$this->db->set('cfg_datecreated', date('Y-m-d H:i:s'));
@@ -100,22 +84,6 @@ class _configuration extends CI_Controller {
 				$content = $this->load->view('_configuration/_configuration_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						$config = array();
-						$config['allowed_types'] = 'gif|jpg|png';
-						$config['encrypt_name'] = true;
-						$config['upload_path'] = './storage/'.$this->storage_table.'/'.$field;
-						$this->upload->initialize($config);
-						if($this->upload->do_upload($field)) {
-							if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-								unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-							}
-							$upload = $this->upload->data();
-							$this->db->set($field, $upload['file_name']);
-						}
-					}
-				}
 				$this->db->set('cfg_path', $this->input->post('cfg_path'));
 				$this->db->set('cfg_value', $this->input->post('cfg_value'));
 				$this->db->where('cfg_id', $cfg_id);
@@ -141,13 +109,6 @@ class _configuration extends CI_Controller {
 				$content = $this->load->view('_configuration/_configuration_delete', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if(count($this->storage_fields) > 0) {
-					foreach($this->storage_fields as $field) {
-						if($data['row']->{$field} && file_exists('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field})) {
-							unlink('./storage/'.$this->storage_table.'/'.$field.'/'.$data['row']->{$field});
-						}
-					}
-				}
 				$this->db->where('cfg_id', $cfg_id);
 				$this->db->delete('_configuration');
 				$this->index();
