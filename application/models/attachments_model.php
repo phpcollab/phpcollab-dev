@@ -19,7 +19,7 @@ class attachments_model extends CI_Model {
 		$columns[] = 'att.att_datecreated';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'att.att_datecreated', 'DESC');
 		$results = $this->get_total($flt);
-		$build_pagination = $this->my_library->build_pagination($results->count, 30, $data['ref_filter']);
+		$build_pagination = $this->my_library->build_pagination($results->count, 10, $data['ref_filter']);
 		$data['tsk'] = $tsk;
 		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];

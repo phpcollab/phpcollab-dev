@@ -11,7 +11,7 @@
 		<?php $fields = $this->my_model->get_log_details($row->log_id); ?>
 		<article>
 			<div class="column half">
-				<p><?php echo $row->mbr_name; ?></p>
+				<p><?php if($row->mbr_id == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?><?php echo $row->mbr_name; ?></p>
 				<p><?php echo $this->my_library->timezone_datetime($row->log_datecreated); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->log_datecreated); ?>"></span>)</p>
 				<p><?php echo nl2br($row->log_comments); ?></p>
 			</div>
