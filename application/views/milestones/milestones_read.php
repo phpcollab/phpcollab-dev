@@ -21,7 +21,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_owner'); ?></span>
-		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mbr_name) { ?><?php if($row->mln_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 	<div class="column third">
