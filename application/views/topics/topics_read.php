@@ -42,7 +42,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tcs_datecreated'); ?></span>
-		<?php if($row->tcs_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->tcs_datecreated); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tcs_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->tcs_datecreated); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->tcs_datecreated); ?>"></span>)<?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>

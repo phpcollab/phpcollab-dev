@@ -40,7 +40,7 @@
 		<span class="label"><?php echo $this->lang->line('fle_size'); ?></span>
 		<?php if($row->fle_size) { ?><?php echo convert_size($row->fle_size); ?><?php } else { ?>-<?php } ?>
 		</p>
-		<?php if(in_array($extension, $size_extensions)) { ?>
+		<?php if(in_array($extension, $size_extensions) && file_exists('storage/projects/'.$prj->prj_id.'/'.$row->fle_name)) { ?>
 			<?php $dim = getimagesize('storage/projects/'.$prj->prj_id.'/'.$row->fle_name); ?>
 			<p>
 			<span class="label"><?php echo $this->lang->line('dimensions'); ?></span>
@@ -53,11 +53,11 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('fle_datecreated'); ?></span>
-		<?php if($row->fle_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->fle_datecreated); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->fle_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->fle_datecreated); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->fle_datecreated); ?>"></span>)<?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 </article>
-<?php if(in_array($extension, $preview_extensions)) { ?>
+<?php if(in_array($extension, $preview_extensions) && file_exists('storage/projects/'.$prj->prj_id.'/'.$row->fle_name)) { ?>
 <article class="title">
 	<h2><i class="fa fa-picture-o"></i><?php echo $this->lang->line('preview'); ?></h2>
 </article>

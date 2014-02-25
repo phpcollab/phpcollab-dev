@@ -29,7 +29,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('stu_datecreated'); ?></span>
-		<?php if($row->stu_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->stu_datecreated); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->stu_datecreated) { ?><?php echo $this->my_library->timezone_datetime($row->stu_datecreated); ?> (<span class="timeago" title="<?php echo $this->my_library->timezone_datetime($row->stu_datecreated); ?>"></span>)<?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 	<div class="column half">
