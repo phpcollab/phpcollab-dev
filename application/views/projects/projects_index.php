@@ -43,7 +43,6 @@
 			<?php if($this->router->class != 'organizations') { ?>
 				<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('organization')); ?>
 			<?php } ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_owner')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_name')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_date_start')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_date_due')); ?>
@@ -66,7 +65,6 @@
 			<?php if($this->router->class != 'organizations') { ?>
 				<td><?php echo $row->org_name; ?></td>
 			<?php } ?>
-			<td><?php echo $row->mbr_name; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>projects/read/<?php echo $row->prj_id; ?>"><?php echo $row->prj_name; ?></a></td>
 			<td><?php echo $row->prj_date_start; ?></td>
 			<td><?php if($row->prj_date_due && $row->prj_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->prj_date_due; ?></strong><?php } else { ?><?php echo $row->prj_date_due; ?><?php } ?></td>

@@ -38,7 +38,6 @@ class projects_model extends CI_Model {
 		if($this->router->class != 'organizations') {
 			$columns[] = 'org.org_name';
 		}
-		$columns[] = 'mbr.mbr_name';
 		$columns[] = 'prj.prj_name';
 		$columns[] = 'prj.prj_date_start';
 		$columns[] = 'prj.prj_date_due';
