@@ -19,7 +19,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('member'); ?></span>
-		<?php if($row->mbr_name) { ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mbr_name) { ?><?php if($row->prj_mbr_id == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/ismember'); ?>" title="<?php echo $this->lang->line('icon_ismember'); ?>"></i><?php } ?><?php echo $row->mbr_name; ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('prj_mbr_authorized'); ?></span>

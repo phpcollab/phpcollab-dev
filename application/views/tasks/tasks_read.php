@@ -36,7 +36,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_assigned'); ?></span>
-		<?php if($row->mbr_name_assigned) { ?><?php echo $row->mbr_name_assigned; ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mbr_name_assigned) { ?><?php if($row->tsk_assigned == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/assigned'); ?>" title="<?php echo $this->lang->line('icon_assigned'); ?>"></i><?php } ?><?php echo $row->mbr_name_assigned; ?><?php } else { ?>-<?php } ?>
 		</p>
 	</div>
 	<div class="column third">
