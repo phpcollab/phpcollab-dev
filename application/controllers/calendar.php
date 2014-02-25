@@ -33,7 +33,7 @@ class Calendar extends CI_Controller {
 		$year = date('Y');
 		$month = date('m');
 
-		$content =array(
+		$content = array(
 			array(
 				'id' => 111,
 				'title' => "Event1",
