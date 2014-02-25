@@ -266,6 +266,10 @@ class tasks extends CI_Controller {
 				} else {
 					$this->db->where('tsk_id', $tsk_id);
 					$this->db->delete('tasks');
+
+					$this->db->where('tsk_id', $tsk_id);
+					$this->db->delete('attachments');
+
 					redirect($this->my_url.'projects/read/'.$data['row']->prj_id);
 				}
 			} else {
