@@ -1,8 +1,8 @@
 <article class="title">
 	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?> (<?php echo $position; ?>)</h2>
 	<ul>
+	<li><a href="<?php echo $this->my_url; ?>projects/calendar"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/calendar'); ?>"></i><?php echo $this->lang->line('calendar'); ?></a></li>
 	<?php if($this->auth_library->permission('projects/create')) { ?><li><a href="<?php echo $this->my_url; ?>projects/create<?php if($this->router->class == 'organizations') { ?>?org_id=<?php echo $org->org_id; ?><?php } ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li><?php } ?>
-
 	<?php if($this->router->class != 'projects') { ?>
 		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-projects') || $this->input->cookie($this->router->class.'-projects') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-projects-collapse"><a href="#<?php echo $this->router->class; ?>-projects"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
 		<li class="expand<?php if($this->input->cookie($this->router->class.'-projects') == 'collapse') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-projects-expand"><a href="#<?php echo $this->router->class; ?>-projects"><i class="fa fa-caret-square-o-down"></i><?php echo $this->lang->line('expand'); ?></a></li>

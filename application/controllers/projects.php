@@ -383,4 +383,137 @@ class projects extends CI_Controller {
 			redirect($this->my_url);
 		}
 	}
+	public function calendar($prj_id = false) {
+		$data = array();
+		if(!$this->auth_library->permission('projects/index') && !$prj_id) {
+			redirect($this->my_url);
+		}
+		if($prj_id) {
+			$data['row'] = $this->projects_model->get_row($prj_id);
+			if($data['row']) {
+				if(!$data['row']->action_read) {
+					redirect($this->my_url);
+				}
+				$url = 'projects/calendar_load/'.$prj_id;
+			} else {
+				$this->index();
+			}
+		} else {
+			$url = 'projects/calendar_load';
+		}
+
+		$this->my_library->head[] = '<link href="'.base_url().'thirdparty/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css">';
+		$this->my_library->head[] = '<link href="'.base_url().'thirdparty/fullcalendar/fullcalendar.print.css" rel="stylesheet" type="text/css">';
+
+		$this->my_library->foot[] = '<script src="'.base_url().'thirdparty/fullcalendar/fullcalendar.min.js"></script>';
+
+		$this->my_library->foot[] = '<script>
+		$(document).ready(function() {
+			$(\'#calendar\').fullCalendar({
+				weekNumbers: true,
+				aspectRatio: 2,
+				events: my_url + \''.$url.'\',
+				eventRender: function(event, element) {
+					if($(element).hasClass(\'fc-event-start\')) {
+						$(element).html(\'<i class="fa fa-\' + event.icon + \'"></i>\' + event.title);
+					} else {
+						$(element).html(\'... \' + event.title);
+					}
+				},
+				loading: function(bool) {
+					if (bool) $(\'#loading\').show();
+					else $(\'#loading\').hide();
+				}
+				
+			});
+			
+		});
+		</script>';
+
+		$content = $this->load->view('projects/projects_calendar', $data, TRUE);
+		$this->my_library->set_zone('content', $content);
+	}
+	public function calendar_load($prj_id = false) {
+		$data = array();
+		if(!$this->auth_library->permission('projects/index') && !$prj_id) {
+			redirect($this->my_url);
+		}
+		if($prj_id) {
+			$data['row'] = $this->projects_model->get_row($prj_id);
+			if($data['row']) {
+				if(!$data['row']->action_read) {
+					redirect($this->my_url);
+				}
+			} else {
+				$this->index();
+			}
+		}
+
+		$this->my_library->set_template('template_json_calendar');
+		$this->my_library->set_content_type('application/json');
+
+		$start = date('Y-m-d', $this->input->get('start'));
+		$end = date('Y-m-d', $this->input->get('end'));
+
+		if(!$prj_id) {
+			$flt = array();
+			$flt[] = '1';
+			$flt[] = 'prj.prj_date_start <= \''.$end.'\'';
+			$flt[] = '(prj.prj_date_due >= \''.$start.'\' OR prj.prj_date_due IS NULL)';
+
+			if($this->auth_library->permission('projects/read/any')) {
+			} else if($this->auth_library->permission('projects/read/ifowner') && $this->auth_library->permission('projects/read/ifmember')) {
+				$flt[] = '( prj.prj_owner = \''.intval($this->phpcollab_member->mbr_id).'\' OR prj_mbr.prj_mbr_id IS NOT NULL )';
+			} else if($this->auth_library->permission('projects/read/ifowner')) {
+				$flt[] = 'prj.prj_owner = \''.intval($this->phpcollab_member->mbr_id).'\'';
+			} else if($this->auth_library->permission('projects/read/ifmember')) {
+				$flt[] = 'prj_mbr.prj_mbr_id IS NOT NULL';
+			} else {
+				return array();
+			}
+
+			if($this->auth_library->permission('projects/read/onlypublished')) {
+				$flt[] = 'prj.prj_published = \'1\'';
+			}
+
+			$icon = $this->config->item('phpcollab/icons/projects');
+			$query = $this->db->query('SELECT prj.prj_id, prj.prj_date_start, prj.prj_date_due, prj.prj_name FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('projects_members').' AS prj_mbr ON prj_mbr.prj_id = prj.prj_id AND prj_mbr.prj_mbr_authorized = ? AND prj_mbr.mbr_id = ? WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id', array(1, $this->phpcollab_member->mbr_id));
+			foreach($query->result() as $row) {
+				$content[] = array(
+					'id' => $row->prj_id,
+					'icon' => $icon,
+					'title' => $row->prj_name,
+					'start' => $row->prj_date_start,
+					'end' => $row->prj_date_due,
+					'url' => $this->my_url.'projects/read/'.$row->prj_id,
+				);
+			}
+
+		} else {
+			$flt = array();
+			$flt[] = '1';
+			$flt[] = 'mln.mln_date_start <= \''.$end.'\'';
+			$flt[] = '(mln.mln_date_due >= \''.$start.'\' OR mln.mln_date_due IS NULL)';
+
+			$flt[] = 'mln.prj_id = \''.$prj_id.'\'';
+			if($this->auth_library->permission('milestones/read/onlypublished')) {
+				$flt[] = 'mln.mln_published = \'1\'';
+			}
+
+			$icon = $this->config->item('phpcollab/icons/milestones');
+			$query = $this->db->query('SELECT mln.mln_id, mln.mln_date_start, mln.mln_date_due, mln.mln_name FROM '.$this->db->dbprefix('milestones').' AS mln WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id', array(1, $this->phpcollab_member->mbr_id));
+			foreach($query->result() as $row) {
+				$content[] = array(
+					'id' => $row->mln_id,
+					'icon' => $icon,
+					'title' => $row->mln_name,
+					'start' => $row->mln_date_start,
+					'end' => $row->mln_date_due,
+					'url' => $this->my_url.'milestones/read/'.$row->mln_id,
+				);
+			}
+		}
+
+		$this->my_library->set_zone('content', $content);
+	}
 }

@@ -341,8 +341,7 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (64, 'files/index', NOW()),
 (65, 'tasks/index', NOW()),
 (66, 'topics/index', NOW()),
-(67, 'notes/index', NOW()),
-(68, 'calendar/index', NOW());
+(67, 'notes/index', NOW()));
 
 -- --------------------------------------------------------
 
@@ -482,7 +481,6 @@ INSERT INTO `roles_permissions` (`rol_per_id`, `rol_id`, `per_id`, `rol_per_date
 (45, 1, 48, NOW()),
 (16, 1, 12, NOW()),
 (17, 1, 14, NOW()),
-(66, 1, 68, NOW()),
 (44, 1, 53, NOW()),
 (20, 1, 17, NOW()),
 (21, 1, 25, NOW()),

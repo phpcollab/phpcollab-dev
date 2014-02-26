@@ -1,6 +1,7 @@
 <article class="title">
 	<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> | <i class="fa fa-eye"></i><?php echo $row->prj_name; ?></h2>
 	<ul>
+	<li><a href="<?php echo $this->my_url; ?>projects/calendar/<?php echo $row->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/calendar'); ?>"></i><?php echo $this->lang->line('calendar'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>projects/statistics/<?php echo $row->prj_id; ?>"><i class="fa fa-bar-chart-o"></i><?php echo $this->lang->line('statistics'); ?></a></li>
 	<?php if($row->action_update) { ?><li><a href="<?php echo $this->my_url; ?>projects/update/<?php echo $row->prj_id; ?>"><i class="fa fa-wrench"></i><?php echo $this->lang->line('update'); ?></a></li><?php } ?>
 	<?php if($row->action_delete) { ?><li><a href="<?php echo $this->my_url; ?>projects/delete/<?php echo $row->prj_id; ?>"><i class="fa fa-trash-o"></i><?php echo $this->lang->line('delete'); ?></a></li><?php } ?>

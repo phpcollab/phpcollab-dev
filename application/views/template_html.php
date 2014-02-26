@@ -36,7 +36,6 @@
 		<ul>
 			<?php if($this->auth_library->permission('organizations/index')) { ?><li><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a></li><?php } ?>
 			<?php if($this->auth_library->permission('projects/index')) { ?><li><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a></li><?php } ?>
-			<?php if($this->auth_library->permission('calendar/index')) { ?><li><a href="<?php echo $this->my_url; ?>calendar"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/calendar'); ?>"></i><?php echo $this->lang->line('calendar'); ?></a></li><?php } ?>
 		</ul>
 		<?php if($this->auth_library->role('administrator')) { ?>
 			<h1><?php echo $this->lang->line('administrator'); ?></h1>
