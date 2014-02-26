@@ -16,6 +16,10 @@
 	<?php echo form_open(current_url()); ?>
 	<div class="filters">
 		<div>
+			<?php echo form_label($this->lang->line('tsk_name'), 'tasks_tsk_name'); ?>
+			<?php echo form_input($ref_filter.'_tsk_name', set_value($ref_filter.'_tsk_name', $this->session->userdata($ref_filter.'_tsk_name')), 'id="tasks_tsk_name" class="inputtext"'); ?>
+		</div>
+		<div>
 			<?php echo form_label($this->lang->line('tracker'), 'tasks_trk_id'); ?>
 			<?php echo form_dropdown($ref_filter.'_trk_id', $dropdown_trk_id, set_value($ref_filter.'_trk_id', $this->session->userdata($ref_filter.'_trk_id')), 'id="tasks_trk_id" class="select"'); ?>
 		</div>
@@ -32,10 +36,6 @@
 				<?php echo form_dropdown($ref_filter.'_tsk_assigned', $dropdown_tsk_assigned, set_value($ref_filter.'_tsk_assigned', $this->session->userdata($ref_filter.'_tsk_assigned')), 'id="tasks_tsk_assigned" class="select"'); ?>
 			</div>
 		<?php } ?>
-		<div>
-			<?php echo form_label($this->lang->line('tsk_name'), 'tasks_tsk_name'); ?>
-			<?php echo form_input($ref_filter.'_tsk_name', set_value($ref_filter.'_tsk_name', $this->session->userdata($ref_filter.'_tsk_name')), 'id="tasks_tsk_name" class="inputtext"'); ?>
-		</div>
 		<div>
 			<?php echo form_label($this->lang->line('stu_isclosed'), 'tasks_stu_isclosed'); ?>
 			<?php echo form_dropdown($ref_filter.'_stu_isclosed', $this->my_model->dropdown_reply(), set_value($ref_filter.'_stu_isclosed', $this->session->userdata($ref_filter.'_stu_isclosed')), 'id="tasks_stu_isclosed" class="select"'); ?>
