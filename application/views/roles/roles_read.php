@@ -27,23 +27,21 @@
 	<h2><?php echo $this->lang->line('permissions'); ?></h2>
 </article>
 <article>
-	<div class="column third">
+	<div style="float:left;margin-right:10px;">
 		<?php $u = 1; ?>
 		<?php $title_previous = ''; ?>
 		<?php foreach($permissions as $per) { ?>
 			<?php list($title, $nice) = explode('/', $per->per_code, 2); ?>
 			<?php if($title != $title_previous) { ?>
+				<?php if($u > 1) { ?>
+					</div>
+					<div style="float:left;margin-right:10px;">
+				<?php } ?>
 				<h3><?php echo $this->lang->line($title); ?></h3>
 				<?php $title_previous = $title; ?>
 			<?php } ?>
 			<p<?php if($per->per_saved == 0) { ?> style="font-style:italic;text-decoration:line-through;"<?php } ?>><?php echo $nice; ?></p>
-			<?php if($permissions_limit == $u) { ?>
-				</div>
-				<div class="column third">
-				<?php $u = 1; ?>
-			<?php } else { ?>
-				<?php $u++; ?>
-			<?php } ?>
+			<?php $u++; ?>
 		<?php } ?>
 	</div>
 </article>
