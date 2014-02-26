@@ -8,8 +8,7 @@ class Organizations extends CI_Controller {
 		$this->load->model('projects_model');
 	}
 	public function index() {
-		if($this->auth_library->permission('organizations/index')) {
-		} else {
+		if(!$this->auth_library->permission('organizations/index')) {
 			redirect($this->my_url);
 		}
 		$this->my_library->set_title($this->lang->line('organizations'));

@@ -65,7 +65,7 @@
 	</div>
 </article>
 
-<?php echo $this->tasks_model->get_index_list($prj, $row); ?>
+<?php if($this->auth_library->permission('tasks/index')) { ?><?php echo $this->tasks_model->get_index_list($prj, $row); ?><?php } ?>
 
 <?php echo $this->my_model->get_logs('milestone', $row->mln_id); ?>
 

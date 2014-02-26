@@ -13,6 +13,9 @@ class files extends CI_Controller {
 			if(!$data['prj']->action_read) {
 				redirect($this->my_url);
 			}
+			if(!$this->auth_library->permission('files/index')) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('files'));
 			$content = $this->files_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);

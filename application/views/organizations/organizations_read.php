@@ -47,6 +47,6 @@
 
 <?php echo $this->members_model->get_index_list($row); ?>
 
-<?php echo $this->projects_model->get_index_list($row); ?>
+<?php if($this->auth_library->permission('projects/index')) { ?><?php echo $this->projects_model->get_index_list($row); ?><?php } ?>
 
 <?php echo $this->my_model->get_logs('organization', $row->org_id); ?>

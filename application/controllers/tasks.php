@@ -17,6 +17,9 @@ class tasks extends CI_Controller {
 			if(!$data['prj']->action_read) {
 				redirect($this->my_url);
 			}
+			if(!$this->auth_library->permission('tasks/index')) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('tasks'));
 			$content = $this->tasks_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);

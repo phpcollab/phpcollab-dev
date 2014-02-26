@@ -69,15 +69,15 @@
 	</div>
 </article>
 
-<?php echo $this->milestones_model->get_index_list($row); ?>
+<?php if($this->auth_library->permission('milestones/index')) { ?><?php echo $this->milestones_model->get_index_list($row); ?><?php } ?>
 
-<?php echo $this->tasks_model->get_index_list($row); ?>
+<?php if($this->auth_library->permission('tasks/index')) { ?><?php echo $this->tasks_model->get_index_list($row); ?><?php } ?>
 
-<?php echo $this->topics_model->get_index_list($row); ?>
+<?php if($this->auth_library->permission('topics/index')) { ?><?php echo $this->topics_model->get_index_list($row); ?><?php } ?>
 
-<?php echo $this->notes_model->get_index_list($row); ?>
+<?php if($this->auth_library->permission('notes/index')) { ?><?php echo $this->notes_model->get_index_list($row); ?><?php } ?>
 
-<?php echo $this->files_model->get_index_list($row); ?>
+<?php if($this->auth_library->permission('files/index')) { ?><?php echo $this->files_model->get_index_list($row); ?><?php } ?>
 
 <?php if($row->action_read_team) { ?><?php echo $this->projects_members_model->get_index_list($row); ?><?php } ?>
 

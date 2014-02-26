@@ -14,8 +14,7 @@ class projects extends CI_Controller {
 		$this->load->model('projects_members_model');
 	}
 	public function index() {
-		if($this->auth_library->permission('projects/index')) {
-		} else {
+		if(!$this->auth_library->permission('projects/index')) {
 			redirect($this->my_url);
 		}
 
@@ -98,63 +97,35 @@ class projects extends CI_Controller {
 			$this->my_library->set_title($data['row']->prj_name);
 			$data['dropdown_org_id'] = $this->projects_model->dropdown_org_id();
 			$data['dropdown_prj_owner'] = $this->projects_model->dropdown_prj_owner();
-			if($this->auth_library->permission('projects/update/organization')) {
-				$this->form_validation->set_rules('org_id', 'lang:organization', 'required|numeric');
-			}
-			if($this->auth_library->permission('projects/update/owner')) {
+			$this->form_validation->set_rules('org_id', 'lang:organization', 'required|numeric');
+			if($this->auth_library->permission('projects/update/any')) {
 				$this->form_validation->set_rules('prj_owner', 'lang:prj_owner', 'required|numeric');
 			}
 			$this->form_validation->set_rules('prj_name', 'lang:prj_name', 'required|max_length[255]');
 			$this->form_validation->set_rules('prj_description', 'lang:prj_description', '');
-			if($this->auth_library->permission('projects/update/date_start')) {
-				$this->form_validation->set_rules('prj_date_start', 'lang:prj_date_start', 'required');
-			}
-			if($this->auth_library->permission('projects/update/date_due')) {
-				$this->form_validation->set_rules('prj_date_due', 'lang:prj_date_due', '');
-			}
-			if($this->auth_library->permission('projects/update/date_complete')) {
-				$this->form_validation->set_rules('prj_date_complete', 'lang:prj_date_complete', '');
-			}
-			if($this->auth_library->permission('projects/update/status')) {
-				$this->form_validation->set_rules('prj_status', 'lang:prj_status', 'required|numeric');
-			}
-			if($this->auth_library->permission('projects/update/priority')) {
-				$this->form_validation->set_rules('prj_priority', 'lang:prj_priority', 'required|numeric');
-			}
-			if($this->auth_library->permission('projects/update/published')) {
-				$this->form_validation->set_rules('prj_published', 'lang:prj_published', 'numeric');
-			}
+			$this->form_validation->set_rules('prj_date_start', 'lang:prj_date_start', 'required');
+			$this->form_validation->set_rules('prj_date_due', 'lang:prj_date_due', '');
+			$this->form_validation->set_rules('prj_date_complete', 'lang:prj_date_complete', '');
+			$this->form_validation->set_rules('prj_status', 'lang:prj_status', 'required|numeric');
+			$this->form_validation->set_rules('prj_priority', 'lang:prj_priority', 'required|numeric');
+			$this->form_validation->set_rules('prj_published', 'lang:prj_published', 'numeric');
 			$this->form_validation->set_rules('log_comments', 'lang:log_comments', '');
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('projects/projects_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);
 			} else {
-				if($this->auth_library->permission('projects/update/organization')) {
-					$this->db->set('org_id', $this->input->post('org_id'));
-				}
-				if($this->auth_library->permission('projects/update/owner')) {
+				$this->db->set('org_id', $this->input->post('org_id'));
+				if($this->auth_library->permission('projects/update/any')) {
 					$this->db->set('prj_owner', $this->input->post('prj_owner'));
 				}
 				$this->db->set('prj_name', $this->input->post('prj_name'));
 				$this->db->set('prj_description', $this->input->post('prj_description'));
-				if($this->auth_library->permission('projects/update/date_start')) {
-					$this->db->set('prj_date_start', $this->input->post('prj_date_start'));
-				}
-				if($this->auth_library->permission('projects/update/date_due')) {
-					$this->db->set('prj_date_due', $this->input->post('prj_date_due'));
-				}
-				if($this->auth_library->permission('projects/update/date_complete')) {
-					$this->db->set('prj_date_complete', $this->input->post('prj_date_complete'));
-				}
-				if($this->auth_library->permission('projects/update/status')) {
-					$this->db->set('prj_status', $this->input->post('prj_status'));
-				}
-				if($this->auth_library->permission('projects/update/priority')) {
-					$this->db->set('prj_priority', $this->input->post('prj_priority'));
-				}
-				if($this->auth_library->permission('projects/update/published')) {
-					$this->db->set('prj_published', checkbox2database($this->input->post('prj_published')));
-				}
+				$this->db->set('prj_date_start', $this->input->post('prj_date_start'));
+				$this->db->set('prj_date_due', $this->input->post('prj_date_due'));
+				$this->db->set('prj_date_complete', $this->input->post('prj_date_complete'));
+				$this->db->set('prj_status', $this->input->post('prj_status'));
+				$this->db->set('prj_priority', $this->input->post('prj_priority'));
+				$this->db->set('prj_published', checkbox2database($this->input->post('prj_published')));
 				$this->db->where('prj_id', $prj_id);
 				$this->db->update('projects');
 

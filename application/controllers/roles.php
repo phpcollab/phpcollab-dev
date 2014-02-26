@@ -23,13 +23,30 @@ class roles extends CI_Controller {
 		$this->load->library('form_validation');
 		$data = array();
 		$this->form_validation->set_rules('rol_code', 'lang:rol_code', 'required|max_length[255]|callback_code');
+
+		$query = $this->db->query('SELECT per.*, \'0\' AS per_saved FROM '.$this->db->dbprefix('permissions').' AS per GROUP BY per.per_id ORDER BY per.per_code ASC');
+		$data['permissions'] = $query->result();
+		foreach($data['permissions'] as $per) {
+			$this->form_validation->set_rules('per_'.$per->per_id, $per->per_code);
+		}
+
 		if($this->form_validation->run() == FALSE) {
 			$content = $this->load->view('roles/roles_create', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
 		} else {
 			$this->db->set('rol_code', $this->input->post('rol_code'));
+			$this->db->set('rol_datecreated', date('Y-m-d H:i:s'));
 			$this->db->insert('roles');
 			$rol_id = $this->db->insert_id();
+
+			foreach($data['permissions'] as $per) {
+				if($per->per_saved == 0 && $this->input->post('per_'.$per->per_id)) {
+					$this->db->set('per_id', $per->per_id);
+					$this->db->set('rol_id', $rol_id);
+					$this->db->set('rol_per_datecreated', date('Y-m-d H:i:s'));
+					$this->db->insert('roles_permissions');
+				}
+			}
 
 			redirect($this->my_url.'roles/read/'.$rol_id);
 		}
@@ -46,7 +63,6 @@ class roles extends CI_Controller {
 
 			$query = $this->db->query('SELECT per.*, IF(rol_per.rol_per_id IS NOT NULL, 1, 0) AS per_saved FROM '.$this->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id AND rol_per.rol_id = ? GROUP BY per.per_id ORDER BY per.per_code ASC', array($rol_id));
 			$data['permissions'] = $query->result();
-			$data['permissions_limit'] = ceil(count($data['permissions'])/3);
 
 			$content = $this->load->view('roles/roles_read', $data, TRUE);
 			$this->my_library->set_zone('content', $content);
@@ -65,16 +81,16 @@ class roles extends CI_Controller {
 		if($data['row']) {
 			$this->my_library->set_title($this->lang->line('roles').' | '.$data['row']->rol_code);
 
-			$query = $this->db->query('SELECT per.*, IF(rol_per.rol_per_id IS NOT NULL, 1, 0) AS per_saved FROM '.$this->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id AND rol_per.rol_id = ? WHERE per.per_code NOT LIKE ? AND per.per_code NOT LIKE ? GROUP BY per.per_id ORDER BY per.per_code ASC', array($rol_id, 'roles/%', 'members/%'));
+			if($data['row']->rol_system == 0) {
+				$this->form_validation->set_rules('rol_code', 'lang:rol_code', 'required|max_length[255]|callback_code');
+			}
+
+			$query = $this->db->query('SELECT per.*, IF(rol_per.rol_per_id IS NOT NULL, 1, 0) AS per_saved FROM '.$this->db->dbprefix('permissions').' AS per LEFT JOIN '.$this->db->dbprefix('roles_permissions').' AS rol_per ON rol_per.per_id = per.per_id AND rol_per.rol_id = ? GROUP BY per.per_id ORDER BY per.per_code ASC', array($rol_id));
 			$data['permissions'] = $query->result();
 			foreach($data['permissions'] as $per) {
 				$this->form_validation->set_rules('per_'.$per->per_id, $per->per_code);
 			}
-			$data['permissions_limit'] = ceil(count($data['permissions'])/3);
 
-			if($data['row']->rol_system == 0) {
-				$this->form_validation->set_rules('rol_code', 'lang:rol_code', 'required|max_length[255]|callback_code');
-			}
 			if($this->form_validation->run() == FALSE) {
 				$content = $this->load->view('roles/roles_update', $data, TRUE);
 				$this->my_library->set_zone('content', $content);

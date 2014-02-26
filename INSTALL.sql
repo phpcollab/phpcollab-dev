@@ -306,14 +306,7 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (19, 'projects/update/ifmember', NOW()),
 (20, 'projects/delete/any', NOW()),
 (21, 'projects/delete/ifowner', NOW()),
-(23, 'projects/update/date_start', NOW()),
-(24, 'projects/update/date_due', NOW()),
-(25, 'projects/update/date_complete', NOW()),
-(26, 'projects/update/status', NOW()),
-(27, 'projects/update/priority', NOW()),
-(28, 'projects/update/published', NOW()),
 (35, 'projects/read/onlypublished', NOW()),
-(29, 'projects_members/index', NOW()),
 (30, 'projects_members/manage/any', NOW()),
 (31, 'projects_members/manage/ifowner', NOW()),
 (32, 'projects_members/read/any', NOW()),
@@ -333,8 +326,6 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (47, 'tasks/update/published', NOW()),
 (48, 'tasks/update/assigned', NOW()),
 (49, 'tasks/update/owner', NOW()),
-(50, 'projects/update/owner', NOW()),
-(51, 'projects/update/organization', NOW()),
 (52, 'tasks/read/onlyassigned', NOW()),
 (53, 'tasks/delete/any', NOW()),
 (54, 'tasks/delete/ifowner', NOW()),
@@ -345,7 +336,12 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (59, 'notes/delete/any', NOW()),
 (60, 'notes/delete/ifowner', NOW()),
 (61, 'files/delete/any', NOW()),
-(62, 'files/delete/ifowner', NOW());
+(62, 'files/delete/ifowner', NOW()),
+(63, 'milestones/index', NOW()),
+(64, 'files/index', NOW()),
+(65, 'tasks/index', NOW()),
+(66, 'topics/index', NOW()),
+(67, 'notes/index', NOW());
 
 -- --------------------------------------------------------
 
@@ -485,7 +481,6 @@ INSERT INTO `roles_permissions` (`rol_per_id`, `rol_id`, `per_id`, `rol_per_date
 (45, 1, 48, NOW()),
 (16, 1, 12, NOW()),
 (17, 1, 14, NOW()),
-(18, 1, 16, NOW()),
 (44, 1, 53, NOW()),
 (20, 1, 17, NOW()),
 (21, 1, 25, NOW()),
@@ -511,8 +506,19 @@ INSERT INTO `roles_permissions` (`rol_per_id`, `rol_id`, `per_id`, `rol_per_date
 (41, 1, 59, NOW()),
 (51, 1, 47, NOW()),
 (52, 1, 45, NOW()),
-(53, 1, 57, NOW());
-
+(53, 1, 57, NOW()),
+(54, 9, 61, NOW()),
+(55, 9, 56, NOW()),
+(56, 9, 40, NOW()),
+(57, 9, 1, NOW()),
+(58, 9, 14, NOW()),
+(59, 9, 33, NOW()),
+(60, 9, 43, NOW()),
+(61, 1, 64, NOW()),
+(62, 1, 63, NOW()),
+(63, 1, 67, NOW()),
+(64, 1, 65, NOW()),
+(65, 1, 66, NOW());
 
 -- --------------------------------------------------------
 

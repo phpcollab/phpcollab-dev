@@ -13,10 +13,7 @@ class projects_members extends CI_Controller {
 			if(!$data['prj']->action_read) {
 				redirect($this->my_url);
 			}
-			if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/any')) {
-			} else if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/ifowner') && $data['prj']->prj_owner == $this->phpcollab_member->mbr_id) {
-			} else if($this->auth_library->permission('projects_members/index') && $this->auth_library->permission('projects_members/read/ifmember') && $data['prj']->ismember == 1) {
-			} else {
+			if(!$data['prj']->action_read_team) {
 				redirect($this->my_url);
 			}
 			$this->my_library->set_title($data['prj']->prj_name.' /' .$this->lang->line('projects_members'));

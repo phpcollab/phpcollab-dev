@@ -15,6 +15,9 @@ class milestones extends CI_Controller {
 			if(!$data['prj']->action_read) {
 				redirect($this->my_url);
 			}
+			if(!$this->auth_library->permission('milestones/index')) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('milestones'));
 			$content = $this->milestones_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);
