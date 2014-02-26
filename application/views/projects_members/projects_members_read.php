@@ -35,3 +35,5 @@
 	<div class="column half">
 	</div>
 </article>
+
+<?php echo $this->my_model->get_logs('project_member', $row->prj_mbr_id); ?>

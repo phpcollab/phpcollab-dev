@@ -43,3 +43,5 @@
 		</p>
 	</div>
 </article>
+
+<?php echo $this->my_model->get_logs('topic', $row->tcs_id); ?>

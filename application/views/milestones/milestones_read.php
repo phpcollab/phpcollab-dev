@@ -64,3 +64,8 @@
 		</p>
 	</div>
 </article>
+
+<?php echo $this->tasks_model->get_index_list($prj, $row); ?>
+
+<?php echo $this->my_model->get_logs('milestone', $row->mln_id); ?>
+

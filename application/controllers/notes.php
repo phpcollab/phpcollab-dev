@@ -60,7 +60,6 @@ class notes extends CI_Controller {
 				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->nte_name);
 				$content = $this->load->view('notes/notes_read', $data, TRUE);
-				$content .= $this->my_model->get_logs('note', $nte_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
 				redirect($this->my_url);

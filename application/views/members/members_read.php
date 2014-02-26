@@ -45,3 +45,5 @@
 		</p>
 	</div>
 </article>
+
+<?php echo $this->my_model->get_logs('member', $row->mbr_id); ?>

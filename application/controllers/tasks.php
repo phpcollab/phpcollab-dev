@@ -117,8 +117,6 @@ class tasks extends CI_Controller {
 				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->tsk_name);
 				$content = $this->load->view('tasks/tasks_read', $data, TRUE);
-				$content .= $this->attachments_model->get_index_list($data['row']);
-				$content .= $this->my_model->get_logs('task', $tsk_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
 				redirect($this->my_url);

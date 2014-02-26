@@ -38,3 +38,5 @@
 		<?php if($row->nte_description) { ?><?php echo nl2br($row->nte_description); ?><?php } else { ?>-<?php } ?>
 	</div>
 </article>
+
+<?php echo $this->my_model->get_logs('note', $row->nte_id); ?>

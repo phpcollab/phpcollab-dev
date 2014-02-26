@@ -70,8 +70,6 @@ class milestones extends CI_Controller {
 				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mln_name);
 				$content = $this->load->view('milestones/milestones_read', $data, TRUE);
-				$content .= $this->tasks_model->get_index_list($data['prj'], $data['row']);
-				$content .= $this->my_model->get_logs('milestone', $mln_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
 				redirect($this->my_url);

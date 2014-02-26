@@ -52,6 +52,7 @@
 		</p>
 	</div>
 </article>
+
 <?php if(in_array($extension, $preview_extensions) && file_exists('storage/projects/'.$prj->prj_id.'/'.$row->fle_name)) { ?>
 <article class="title">
 	<h2><i class="fa fa-picture-o"></i><?php echo $this->lang->line('preview'); ?></h2>
@@ -60,3 +61,5 @@
 	<img src="<?php echo base_url(); ?>storage/projects/<?php echo $prj->prj_id; ?>/<?php echo $row->fle_name; ?>" alt="<?php echo $row->fle_name; ?>">
 </article>
 <?php } ?>
+
+<?php echo $this->my_model->get_logs('file', $row->fle_id); ?>

@@ -44,3 +44,9 @@
 		</p>
 	</div>
 </article>
+
+<?php echo $this->members_model->get_index_list($row); ?>
+
+<?php echo $this->projects_model->get_index_list($row); ?>
+
+<?php echo $this->my_model->get_logs('organization', $row->org_id); ?>

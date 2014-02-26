@@ -79,3 +79,7 @@
 		</p>
 	</div>
 </article>
+
+<?php echo $this->attachments_model->get_index_list($row); ?>
+
+<?php echo $this->my_model->get_logs('task', $row->tsk_id); ?>

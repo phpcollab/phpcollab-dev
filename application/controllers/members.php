@@ -72,7 +72,6 @@ class members extends CI_Controller {
 		if($data['row']) {
 			$this->my_library->set_title($data['row']->mbr_name);
 			$content = $this->load->view('members/members_read', $data, TRUE);
-			$content .= $this->my_model->get_logs('member', $mbr_id);
 			$this->my_library->set_zone('content', $content);
 		} else {
 			$this->index();

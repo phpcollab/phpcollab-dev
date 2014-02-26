@@ -53,9 +53,6 @@ class Organizations extends CI_Controller {
 			}
 			$this->my_library->set_title($data['row']->org_name);
 			$content = $this->load->view('organizations/organizations_read', $data, TRUE);
-			$content .= $this->members_model->get_index_list($data['row']);
-			$content .= $this->projects_model->get_index_list($data['row']);
-			$content .= $this->my_model->get_logs('organization', $org_id);
 			$this->my_library->set_zone('content', $content);
 		} else {
 			$this->index();

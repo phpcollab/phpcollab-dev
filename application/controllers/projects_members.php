@@ -68,7 +68,6 @@ class projects_members extends CI_Controller {
 				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mbr_name);
 				$content = $this->load->view('projects_members/projects_members_read', $data, TRUE);
-				$content .= $this->my_model->get_logs('project_member', $prj_mbr_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
 				redirect($this->my_url);

@@ -69,7 +69,6 @@ class topics extends CI_Controller {
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->tcs_name);
 				$content = $this->load->view('topics/topics_read', $data, TRUE);
 				$content .= $this->posts_model->get_index_list($data['row']);
-				$content .= $this->my_model->get_logs('topic', $tcs_id);
 				$this->my_library->set_zone('content', $content);
 			} else {
 				redirect($this->my_url);

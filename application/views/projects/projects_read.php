@@ -68,3 +68,17 @@
 		</p>
 	</div>
 </article>
+
+<?php echo $this->milestones_model->get_index_list($row); ?>
+
+<?php echo $this->tasks_model->get_index_list($row); ?>
+
+<?php echo $this->topics_model->get_index_list($row); ?>
+
+<?php echo $this->notes_model->get_index_list($row); ?>
+
+<?php echo $this->files_model->get_index_list($row); ?>
+
+<?php if($row->action_read_team) { ?><?php echo $this->projects_members_model->get_index_list($row); ?><?php } ?>
+
+<?php echo $this->my_model->get_logs('project', $row->prj_id); ?>
