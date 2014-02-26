@@ -9,9 +9,9 @@ class tasks_model extends CI_Model {
 		$data['prj'] = $prj;
 		if($mln) {
 			$data['mln'] = $mln;
-			$data['ref_filter'] = $this->router->class.'_tasks_'.$mln->mln_id;
+			$data['ref_filter'] = 'tasks_milestone_'.$mln->mln_id;
 		} else {
-			$data['ref_filter'] = $this->router->class.'_tasks_'.$prj->prj_id;
+			$data['ref_filter'] = 'tasks_project_'.$prj->prj_id;
 		}
 		$filters = array();
 		$filters[$data['ref_filter'].'_trk_id'] = array('tsk.trk_id', 'equal');

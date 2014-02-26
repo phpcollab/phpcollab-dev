@@ -6,7 +6,7 @@ class milestones_model extends CI_Model {
 	}
 	function get_index_list($prj) {
 		$data = array();
-		$data['ref_filter'] = $this->router->class.'_milestones_'.$prj->prj_id;
+		$data['ref_filter'] = 'milestones_project_'.$prj->prj_id;
 		$filters = array();
 		$filters[$data['ref_filter'].'_mln_name'] = array('mln.mln_name', 'like');
 		$filters[$data['ref_filter'].'_mln_overdue'] = array('mln_overdue', 'mln_overdue');
