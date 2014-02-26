@@ -1,3 +1,4 @@
 #calendar {
 	width: 900px;
 }
+.fc-ltr .fc-event-hori.fc-event-end, .fc-rtl .fc-event-hori.fc-event-start{background-color:#444755!important;border:none;border-radius:3px;color:#AEB2B7!important;padding:3px 2px 2px 2px;text-decoration:none;}
