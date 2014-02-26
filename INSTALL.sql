@@ -341,7 +341,7 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (64, 'files/index', NOW()),
 (65, 'tasks/index', NOW()),
 (66, 'topics/index', NOW()),
-(67, 'notes/index', NOW()));
+(67, 'notes/index', NOW());
 
 -- --------------------------------------------------------
 
