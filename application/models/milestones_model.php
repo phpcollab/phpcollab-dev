@@ -9,6 +9,7 @@ class milestones_model extends CI_Model {
 		$data['ref_filter'] = $this->router->class.'_milestones_'.$prj->prj_id;
 		$filters = array();
 		$filters[$data['ref_filter'].'_mln_name'] = array('mln.mln_name', 'like');
+		$filters[$data['ref_filter'].'_mln_overdue'] = array('mln_overdue', 'mln_overdue');
 		$filters[$data['ref_filter'].'_stu_isclosed'] = array('stu.stu_isclosed', 'equal');
 		$filters[$data['ref_filter'].'_mln_status'] = array('mln.mln_status', 'equal');
 		$filters[$data['ref_filter'].'_mln_priority'] = array('mln.mln_priority', 'equal');
@@ -46,11 +47,11 @@ class milestones_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT stu.stu_isclosed, mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT IF(mln.mln_date_due IS NOT NULL AND mln.mln_date_due <= ? AND stu.stu_isclosed = ?, 1, 0) AS mln_overdue, stu.stu_isclosed, mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num, array(date('Y-m-d'), 0));
 		return $query->result();
 	}
 	function get_row($mln_id) {
-		$row = $this->db->query('SELECT stu.stu_isclosed, mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE mln.mln_id = ? GROUP BY mln.mln_id', array($mln_id))->row();
+		$row = $this->db->query('SELECT IF(mln.mln_date_due IS NOT NULL AND mln.mln_date_due <= ? AND stu.stu_isclosed = ?, 1, 0) AS mln_overdue, stu.stu_isclosed, mbr.mbr_name, mln.*, (SELECT ROUND( (SUM(tsk.tsk_completion) * 100) / (COUNT(tsk.tsk_id) * 100) ) FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE tsk.mln_id = mln.mln_id)  AS tsk_completion FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = mln.mln_owner LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE mln.mln_id = ? GROUP BY mln.mln_id', array(date('Y-m-d'), 0, $mln_id))->row();
 		if($row) {
 			if($this->auth_library->permission('milestones/delete/any')) {
 				$row->action_delete = true;

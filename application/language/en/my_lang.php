@@ -1,4 +1,8 @@
 <?php
+$lang['icon_overdue'] = 'Overdue';
+$lang['prj_overdue'] = 'Overdue?';
+$lang['mln_overdue'] = 'Overdue?';
+$lang['tsk_overdue'] = 'Overdue?';
 $lang['calendar'] = 'Calendar';
 $lang['att_id'] = 'ID';
 $lang['att_owner'] = 'Owner';

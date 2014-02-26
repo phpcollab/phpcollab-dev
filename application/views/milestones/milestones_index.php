@@ -20,6 +20,10 @@
 			<?php echo form_input($ref_filter.'_mln_name', set_value($ref_filter.'_mln_name', $this->session->userdata($ref_filter.'_mln_name')), 'id="milestones_mln_name" class="inputtext"'); ?>
 		</div>
 		<div>
+			<?php echo form_label($this->lang->line('mln_overdue'), 'milestones_mln_overdue'); ?>
+			<?php echo form_dropdown($ref_filter.'_mln_overdue', $this->my_model->dropdown_reply(), set_value($ref_filter.'_mln_overdue', $this->session->userdata($ref_filter.'_mln_overdue')), 'id="milestones_mln_overdue" class="select"'); ?>
+		</div>
+		<div>
 			<?php echo form_label($this->lang->line('stu_isclosed'), 'milestones_stu_isclosed'); ?>
 			<?php echo form_dropdown($ref_filter.'_stu_isclosed', $this->my_model->dropdown_reply(), set_value($ref_filter.'_stu_isclosed', $this->session->userdata($ref_filter.'_stu_isclosed')), 'id="milestones_stu_isclosed" class="select"'); ?>
 		</div>
@@ -57,13 +61,14 @@
 			<td class="id"><?php echo $row->mln_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>milestones/read/<?php echo $row->mln_id; ?>"><?php echo $row->mln_name; ?></a></td>
 			<td><?php echo $row->mln_date_start; ?></td>
-			<td><?php if($row->mln_date_due && $row->mln_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->mln_date_due; ?></strong><?php } else { ?><?php echo $row->mln_date_due; ?><?php } ?></td>
+			<td><?php if($row->mln_overdue == 1) { ?><strong><?php echo $row->mln_date_due; ?></strong><?php } else { ?><?php echo $row->mln_date_due; ?><?php } ?></td>
 			<td><?php echo $this->my_model->status($row->mln_status); ?></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<td style="width:100px;"><span class="color_percent priority_<?php echo $row->mln_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->mln_priority); ?></span></td>
 			<th>
 				<?php if($row->mln_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
 				<?php if($row->mln_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
+				<?php if($row->mln_overdue == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/overdue'); ?>" title="<?php echo $this->lang->line('icon_overdue'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

@@ -37,6 +37,10 @@
 			</div>
 		<?php } ?>
 		<div>
+			<?php echo form_label($this->lang->line('tsk_overdue'), 'tasks_tsk_overdue'); ?>
+			<?php echo form_dropdown($ref_filter.'_tsk_overdue', $this->my_model->dropdown_reply(), set_value($ref_filter.'_tsk_overdue', $this->session->userdata($ref_filter.'_tsk_overdue')), 'id="tasks_tsk_overdue" class="select"'); ?>
+		</div>
+		<div>
 			<?php echo form_label($this->lang->line('stu_isclosed'), 'tasks_stu_isclosed'); ?>
 			<?php echo form_dropdown($ref_filter.'_stu_isclosed', $this->my_model->dropdown_reply(), set_value($ref_filter.'_stu_isclosed', $this->session->userdata($ref_filter.'_stu_isclosed')), 'id="tasks_stu_isclosed" class="select"'); ?>
 		</div>
@@ -78,7 +82,7 @@
 			<td><?php echo $row->trk_name; ?></td>
 			<td><?php echo $row->mbr_name_assigned; ?></td>
 			<td><?php echo $row->tsk_date_start; ?></td>
-			<td><?php if($row->tsk_date_due && $row->tsk_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->tsk_date_due; ?></strong><?php } else { ?><?php echo $row->tsk_date_due; ?><?php } ?></td>
+			<td><?php if($row->tsk_overdue == 1) { ?><strong><?php echo $row->tsk_date_due; ?></strong><?php } else { ?><?php echo $row->tsk_date_due; ?><?php } ?></td>
 			<td><?php echo $this->my_model->status($row->tsk_status); ?></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<td style="width:100px;"><span class="color_percent priority_<?php echo $row->tsk_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->tsk_priority); ?></span></td>
@@ -86,6 +90,7 @@
 				<?php if($row->tsk_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
 				<?php if($row->tsk_assigned == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/assigned'); ?>" title="<?php echo $this->lang->line('icon_assigned'); ?>"></i><?php } ?>
 				<?php if($row->tsk_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
+				<?php if($row->tsk_overdue == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/overdue'); ?>" title="<?php echo $this->lang->line('icon_overdue'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

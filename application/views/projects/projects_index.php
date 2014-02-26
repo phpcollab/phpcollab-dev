@@ -17,6 +17,10 @@
 			<?php echo form_input($this->router->class.'_projects_prj_name', set_value($this->router->class.'_projects_prj_name', $this->session->userdata($this->router->class.'_projects_prj_name')), 'id="projects_prj_name" class="inputtext"'); ?>
 		</div>
 		<div>
+			<?php echo form_label($this->lang->line('prj_overdue'), 'projects_prj_overdue'); ?>
+			<?php echo form_dropdown($this->router->class.'_projects_prj_overdue', $this->my_model->dropdown_reply(), set_value($this->router->class.'_projects_prj_overdue', $this->session->userdata($this->router->class.'_projects_prj_overdue')), 'id="projects_prj_overdue" class="select"'); ?>
+		</div>
+		<div>
 			<?php echo form_label($this->lang->line('stu_isclosed'), 'projects_stu_isclosed'); ?>
 			<?php echo form_dropdown($this->router->class.'_projects_stu_isclosed', $this->my_model->dropdown_reply(), set_value($this->router->class.'_projects_stu_isclosed', $this->session->userdata($this->router->class.'_projects_stu_isclosed')), 'id="projects_stu_isclosed" class="select"'); ?>
 		</div>
@@ -60,7 +64,7 @@
 				<td><?php echo $row->org_name; ?></td>
 			<?php } ?>
 			<td><?php echo $row->prj_date_start; ?></td>
-			<td><?php if($row->prj_date_due && $row->prj_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->prj_date_due; ?></strong><?php } else { ?><?php echo $row->prj_date_due; ?><?php } ?></td>
+			<td><?php if($row->prj_overdue == 1) { ?><strong><?php echo $row->prj_date_due; ?></strong><?php } else { ?><?php echo $row->prj_date_due; ?><?php } ?></td>
 			<td><?php echo $this->my_model->status($row->prj_status); ?></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<td style="width:100px;"><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->prj_priority); ?></span></td>
@@ -68,6 +72,7 @@
 				<?php if($row->prj_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
 				<?php if($row->ismember == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/ismember'); ?>" title="<?php echo $this->lang->line('icon_ismember'); ?>"></i><?php } ?>
 				<?php if($row->prj_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
+				<?php if($row->prj_overdue == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/overdue'); ?>" title="<?php echo $this->lang->line('icon_overdue'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>

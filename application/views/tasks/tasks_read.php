@@ -51,7 +51,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_date_due'); ?></span>
-		<?php if($row->tsk_date_due) { ?><?php if($row->tsk_date_due <= date('Y-m-d') && $row->stu_isclosed == 0) { ?><strong><?php echo $row->tsk_date_due; ?></strong><?php } else { ?><?php echo $row->tsk_date_due; ?><?php } ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_date_due) { ?><?php if($row->tsk_overdue == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/overdue'); ?>" title="<?php echo $this->lang->line('icon_overdue'); ?>"></i><strong><?php echo $row->tsk_date_due; ?></strong><?php } else { ?><?php echo $row->tsk_date_due; ?><?php } ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_date_complete'); ?></span>
