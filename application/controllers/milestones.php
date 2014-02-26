@@ -290,4 +290,100 @@ class milestones extends CI_Controller {
 			redirect($this->my_url);
 		}
 	}
+	public function calendar($mln_id) {
+		$data = array();
+		$data['row'] = $this->milestones_model->get_row($mln_id);
+		if($data['row']) {
+			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
+			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
+				$url = 'milestones/calendar_load/'.$mln_id;
+
+				$this->my_library->head[] = '<link href="'.base_url().'thirdparty/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css">';
+				$this->my_library->head[] = '<link href="'.base_url().'thirdparty/fullcalendar/fullcalendar.print.css" rel="stylesheet" type="text/css">';
+
+				$this->my_library->foot[] = '<script src="'.base_url().'thirdparty/fullcalendar/fullcalendar.min.js"></script>';
+
+				$this->my_library->foot[] = '<script>
+				$(document).ready(function() {
+					$(\'#calendar\').fullCalendar({
+						weekNumbers: true,
+						aspectRatio: 2,
+						events: my_url + \''.$url.'\',
+						eventRender: function(event, element) {
+							if($(element).hasClass(\'fc-event-start\')) {
+								$(element).html(\'<i class="fa fa-\' + event.icon + \'"></i>\' + event.title);
+							} else {
+								$(element).html(\'... \' + event.title);
+							}
+						},
+						loading: function(bool) {
+							if (bool) $(\'#loading\').show();
+							else $(\'#loading\').hide();
+						}
+						
+					});
+					
+				});
+				</script>';
+
+				$content = $this->load->view('milestones/milestones_calendar', $data, TRUE);
+				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mln_name);
+				$this->my_library->set_zone('content', $content);
+			} else {
+				redirect($this->my_url);
+			}
+		} else {
+			redirect($this->my_url);
+		}
+	}
+	public function calendar_load($mln_id) {
+		$data = array();
+		$data['row'] = $this->milestones_model->get_row($mln_id);
+		if($data['row']) {
+			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
+			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
+
+				$this->my_library->set_template('template_json_calendar');
+				$this->my_library->set_content_type('application/json');
+
+				$start = date('Y-m-d', $this->input->get('start'));
+				$end = date('Y-m-d', $this->input->get('end'));
+
+				$flt = array();
+				$flt[] = '1';
+				$flt[] = 'tsk.tsk_date_start <= \''.$end.'\'';
+				$flt[] = '(tsk.tsk_date_due >= \''.$start.'\' OR tsk.tsk_date_due IS NULL)';
+
+				$flt[] = 'tsk.mln_id = \''.$mln_id.'\'';
+				if($this->auth_library->permission('tasks/read/onlypublished')) {
+					$flt[] = 'tsk.tsk_published = \'1\'';
+				}
+
+				$icon = $this->config->item('phpcollab/icons/tasks');
+				$query = $this->db->query('SELECT tsk.tsk_id, tsk.tsk_date_start, tsk.tsk_date_due, tsk.tsk_name FROM '.$this->db->dbprefix('tasks').' AS tsk WHERE '.implode(' AND ', $flt).' GROUP BY tsk.tsk_id');
+				foreach($query->result() as $row) {
+					$content[] = array(
+						'id' => $row->tsk_id,
+						'icon' => $icon,
+						'title' => $row->tsk_name,
+						'start' => $row->tsk_date_start,
+						'end' => $row->tsk_date_due,
+						'url' => $this->my_url.'tasks/read/'.$row->tsk_id,
+					);
+				}
+
+				$this->my_library->set_zone('content', $content);
+			} else {
+				redirect($this->my_url);
+			}
+		} else {
+			redirect($this->my_url);
+		}
+	}
 }

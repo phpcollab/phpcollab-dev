@@ -398,7 +398,9 @@ class projects extends CI_Controller {
 			} else {
 				$this->index();
 			}
+			$this->my_library->set_title($data['row']->prj_name);
 		} else {
+			$this->my_library->set_title($this->lang->line('projects'));
 			$url = 'projects/calendar_load';
 		}
 
@@ -501,7 +503,7 @@ class projects extends CI_Controller {
 			}
 
 			$icon = $this->config->item('phpcollab/icons/milestones');
-			$query = $this->db->query('SELECT mln.mln_id, mln.mln_date_start, mln.mln_date_due, mln.mln_name FROM '.$this->db->dbprefix('milestones').' AS mln WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id', array(1, $this->phpcollab_member->mbr_id));
+			$query = $this->db->query('SELECT mln.mln_id, mln.mln_date_start, mln.mln_date_due, mln.mln_name FROM '.$this->db->dbprefix('milestones').' AS mln WHERE '.implode(' AND ', $flt).' GROUP BY mln.mln_id');
 			foreach($query->result() as $row) {
 				$content[] = array(
 					'id' => $row->mln_id,

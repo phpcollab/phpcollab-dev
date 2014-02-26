@@ -677,7 +677,7 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (23, 'phpcollab/icons/trackers', 'bullhorn', NOW()),
 (24, 'phpcollab/icons/roles', 'shield', NOW()),
 (25, 'phpcollab/icons/members', 'users', NOW()),
-(26, 'phpcollab/icons/milestones', 'calendar', NOW()),
+(26, 'phpcollab/icons/milestones', 'asterisk', NOW()),
 (27, 'phpcollab/default/status', '1', NOW()),
 (28, 'phpcollab/default/priority', '2', NOW()),
 (29, 'phpcollab/icons/statuses', 'sun-o', NOW()),
