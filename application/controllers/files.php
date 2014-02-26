@@ -10,6 +10,9 @@ class files extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
+			if(!$data['prj']->action_read) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('files'));
 			$content = $this->files_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);
@@ -21,6 +24,9 @@ class files extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
+			if(!$data['prj']->action_read) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('files').' | '.$this->lang->line('create'));
 			$this->load->library('form_validation');
 			$data['dropdown_fle_owner'] = $this->files_model->dropdown_fle_owner();
@@ -65,6 +71,9 @@ class files extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				if($this->auth_library->permission('files/read/onlypublished') && $data['row']->fle_published == 0) {
 					redirect($this->my_url);
 				}
@@ -85,6 +94,9 @@ class files extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->fle_name);
 				$data['dropdown_fle_owner'] = $this->files_model->dropdown_fle_owner();
 				$this->form_validation->set_rules('fle_owner', 'lang:fle_owner', 'required|numeric');
@@ -119,6 +131,9 @@ class files extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				if(!$data['row']->action_delete) {
 					redirect($this->my_url);
 				}
@@ -155,6 +170,9 @@ class files extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				if($this->auth_library->permission('files/read/onlypublished') && $data['row']->fle_published == 0) {
 					redirect($this->my_url);
 				}

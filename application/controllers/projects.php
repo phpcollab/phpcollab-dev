@@ -224,6 +224,10 @@ class projects extends CI_Controller {
 		$data = array();
 		$data['row'] = $this->projects_model->get_row($prj_id);
 		if($data['row']) {
+			if(!$data['row']->action_read) {
+				redirect($this->my_url);
+			}
+
 			$this->my_library->set_title($data['row']->prj_name);
 
 			$data['milestones'] = '';

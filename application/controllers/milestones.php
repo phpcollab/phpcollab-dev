@@ -12,6 +12,9 @@ class milestones extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
+			if(!$data['prj']->action_read) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('milestones'));
 			$content = $this->milestones_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);
@@ -23,6 +26,9 @@ class milestones extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
+			if(!$data['prj']->action_read) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('milestones').' | '.$this->lang->line('create'));
 			$this->load->library('form_validation');
 			$data['dropdown_mln_owner'] = $this->milestones_model->dropdown_mln_owner();
@@ -65,6 +71,9 @@ class milestones extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				if($this->auth_library->permission('milestones/read/onlypublished') && $data['row']->mln_published == 0) {
 					redirect($this->my_url);
 				}
@@ -85,6 +94,9 @@ class milestones extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mln_name);
 				$data['dropdown_mln_owner'] = $this->milestones_model->dropdown_mln_owner();
 				$this->form_validation->set_rules('mln_owner', 'lang:mln_owner', 'required|numeric');
@@ -131,6 +143,9 @@ class milestones extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				if(!$data['row']->action_delete) {
 					redirect($this->my_url);
 				}
@@ -157,6 +172,9 @@ class milestones extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->mln_name);
 				$data['tasks'] = '';
 

@@ -15,6 +15,9 @@ class attachments extends CI_Controller {
 			if($data['tsk']) {
 				$data['prj'] = $this->projects_model->get_row($data['tsk']->prj_id);
 				if($data['prj']) {
+					if(!$data['prj']->action_read) {
+						redirect($this->my_url);
+					}
 					if(file_exists('storage/projects/'.$data['tsk']->prj_id.'/'.$data['row']->att_name)) {
 						download_header($data['row']->att_name, $data['row']->att_size);
 						readfile('storage/projects/'.$data['tsk']->prj_id.'/'.$data['row']->att_name);

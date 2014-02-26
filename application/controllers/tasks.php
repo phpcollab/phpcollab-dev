@@ -14,6 +14,9 @@ class tasks extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
+			if(!$data['prj']->action_read) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('tasks'));
 			$content = $this->tasks_model->get_index_list($data['prj']);
 			$this->my_library->set_zone('content', $content);
@@ -25,6 +28,9 @@ class tasks extends CI_Controller {
 		$data = array();
 		$data['prj'] = $this->projects_model->get_row($prj_id);
 		if($data['prj']) {
+			if(!$data['prj']->action_read) {
+				redirect($this->my_url);
+			}
 			$this->my_library->set_title($data['prj']->prj_name.' | '.$this->lang->line('tasks').' | '.$this->lang->line('create'));
 			$this->load->library('form_validation');
 			$data['dropdown_trk_id'] = $this->tasks_model->dropdown_trk_id();
@@ -109,6 +115,9 @@ class tasks extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				if($this->auth_library->permission('tasks/read/onlypublished') && $data['row']->tsk_published == 0) {
 					redirect($this->my_url);
 				}
@@ -132,6 +141,9 @@ class tasks extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				$this->my_library->set_title($data['prj']->prj_name.' | '.$data['row']->tsk_name);
 				$data['dropdown_trk_id'] = $this->tasks_model->dropdown_trk_id();
 				$data['dropdown_mln_id'] = $this->tasks_model->dropdown_mln_id($data['row']->prj_id);
@@ -251,6 +263,9 @@ class tasks extends CI_Controller {
 		if($data['row']) {
 			$data['prj'] = $this->projects_model->get_row($data['row']->prj_id);
 			if($data['prj']) {
+				if(!$data['prj']->action_read) {
+					redirect($this->my_url);
+				}
 				if(!$data['row']->action_delete) {
 					redirect($this->my_url);
 				}
