@@ -13,6 +13,10 @@ class Calendar extends CI_Controller {
 		$(document).ready(function() {
 			$(\'#calendar\').fullCalendar({
 				events: my_url + \'calendar/load\',
+				eventRender: function(event, element) {
+				debug(element);
+					$(element).html(\'<i class="fa fa-\' + event.icon + \'"></i>\' + event.title);
+				},
 				loading: function(bool) {
 					if (bool) $(\'#loading\').show();
 					else $(\'#loading\').hide();
@@ -53,16 +57,19 @@ class Calendar extends CI_Controller {
 			$flt[] = 'prj.prj_published = \'1\'';
 		}
 
+		$icon = $this->config->item('phpcollab/icons/projects');
 		$query = $this->db->query('SELECT prj.prj_id, prj.prj_date_start, prj.prj_date_due, prj.prj_name FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('projects_members').' AS prj_mbr ON prj_mbr.prj_id = prj.prj_id AND prj_mbr.prj_mbr_authorized = ? AND prj_mbr.mbr_id = ? WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id', array(1, $this->phpcollab_member->mbr_id));
 		foreach($query->result() as $row) {
 			$content[] = array(
 				'id' => $row->prj_id,
+				'icon' => $icon,
 				'title' => $row->prj_name,
 				'start' => $row->prj_date_start,
 				'end' => $row->prj_date_due,
 				'url' => $this->my_url.'projects/read/'.$row->prj_id,
 			);
 		}
+
 		$this->my_library->set_zone('content', $content);
 	}
 }
