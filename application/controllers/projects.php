@@ -487,7 +487,7 @@ class projects extends CI_Controller {
 					'title' => $row->prj_name,
 					'start' => $row->prj_date_start,
 					'end' => $row->prj_date_due,
-					'url' => $this->my_url.'projects/read/'.$row->prj_id,
+					'url' => $this->my_url.'projects/calendar/'.$row->prj_id,
 				);
 			}
 
@@ -511,7 +511,7 @@ class projects extends CI_Controller {
 					'title' => $row->mln_name,
 					'start' => $row->mln_date_start,
 					'end' => $row->mln_date_due,
-					'url' => $this->my_url.'milestones/read/'.$row->mln_id,
+					'url' => $this->my_url.'milestones/calendar/'.$row->mln_id,
 				);
 			}
 		}
