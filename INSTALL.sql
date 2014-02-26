@@ -341,7 +341,8 @@ INSERT INTO `permissions` (`per_id`, `per_code`, `per_datecreated`) VALUES
 (64, 'files/index', NOW()),
 (65, 'tasks/index', NOW()),
 (66, 'topics/index', NOW()),
-(67, 'notes/index', NOW());
+(67, 'notes/index', NOW()),
+(68, 'calendar/index', NOW());
 
 -- --------------------------------------------------------
 
@@ -481,6 +482,7 @@ INSERT INTO `roles_permissions` (`rol_per_id`, `rol_id`, `per_id`, `rol_per_date
 (45, 1, 48, NOW()),
 (16, 1, 12, NOW()),
 (17, 1, 14, NOW()),
+(66, 1, 68, NOW()),
 (44, 1, 53, NOW()),
 (20, 1, 17, NOW()),
 (21, 1, 25, NOW()),
@@ -693,7 +695,8 @@ INSERT INTO `_configuration` (`cfg_id`, `cfg_path`, `cfg_value`, `cfg_datecreate
 (39, 'phpcollab/icons/published', 'exchange', NOW()),
 (40, 'phpcollab/icons/ismember', 'rocket', NOW()),
 (41, 'phpcollab/icons/notauthorized', 'lock', NOW()),
-(42, 'phpcollab/icons/assigned', 'thumb-tack', NOW());
+(42, 'phpcollab/icons/assigned', 'thumb-tack', NOW()),
+(43, 'phpcollab/icons/calendar', 'calendar', NOW());
 
 -- --------------------------------------------------------
 

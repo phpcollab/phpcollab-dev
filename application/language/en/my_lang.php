@@ -1,4 +1,5 @@
 <?php
+$lang['calendar'] = 'Calendar';
 $lang['att_id'] = 'ID';
 $lang['att_owner'] = 'Owner';
 $lang['att_name'] = 'Name';

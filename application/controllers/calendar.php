@@ -27,30 +27,42 @@ class Calendar extends CI_Controller {
 		$this->my_library->set_zone('content', $content);
 	}
 	public function load() {
-		$this->my_library->set_template('template_json');
+		$this->my_library->set_template('template_json_calendar');
 		$this->my_library->set_content_type('application/json');
 
-		$year = date('Y');
-		$month = date('m');
+		$flt = array();
+		$flt[] = '1';
+		if($this->auth_library->permission('projects/read/any')) {
+		} else if($this->auth_library->permission('projects/read/ifowner') && $this->auth_library->permission('projects/read/ifmember')) {
+			$flt[] = '( prj.prj_owner = \''.intval($this->phpcollab_member->mbr_id).'\' OR prj_mbr.prj_mbr_id IS NOT NULL )';
+		} else if($this->auth_library->permission('projects/read/ifowner')) {
+			$flt[] = 'prj.prj_owner = \''.intval($this->phpcollab_member->mbr_id).'\'';
+		} else if($this->auth_library->permission('projects/read/ifmember')) {
+			$flt[] = 'prj_mbr.prj_mbr_id IS NOT NULL';
+		} else {
+			return array();
+		}
 
-		$content = array(
-			array(
-				'id' => 111,
-				'title' => "Event1",
-				'start' => "$year-$month-10",
-				'url' => "http://yahoo.com/"
-			),
-			
-			array(
-				'id' => 222,
-				'title' => "Event2",
-				'start' => "$year-$month-20",
-				'end' => "$year-$month-22",
-				'url' => "http://yahoo.com/"
-			)
-		
-		);
-		echo json_encode($content);exit(0);
+		$start = date('Y-m-d', $this->input->get('start'));
+		$end = date('Y-m-d', $this->input->get('end'));
+
+		$flt[] = 'prj.prj_date_start <= \''.$end.'\'';
+		$flt[] = '(prj.prj_date_due >= \''.$start.'\' OR prj.prj_date_due IS NULL)';
+
+		if($this->auth_library->permission('projects/read/onlypublished')) {
+			$flt[] = 'prj.prj_published = \'1\'';
+		}
+
+		$query = $this->db->query('SELECT prj.prj_id, prj.prj_date_start, prj.prj_date_due, prj.prj_name FROM '.$this->db->dbprefix('projects').' AS prj LEFT JOIN '.$this->db->dbprefix('projects_members').' AS prj_mbr ON prj_mbr.prj_id = prj.prj_id AND prj_mbr.prj_mbr_authorized = ? AND prj_mbr.mbr_id = ? WHERE '.implode(' AND ', $flt).' GROUP BY prj.prj_id', array(1, $this->phpcollab_member->mbr_id));
+		foreach($query->result() as $row) {
+			$content[] = array(
+				'id' => $row->prj_id,
+				'title' => $row->prj_name,
+				'start' => $row->prj_date_start,
+				'end' => $row->prj_date_due,
+				'url' => $this->my_url.'projects/read/'.$row->prj_id,
+			);
+		}
 		$this->my_library->set_zone('content', $content);
 	}
 }
