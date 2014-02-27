@@ -9,7 +9,9 @@ class projects_model extends CI_Model {
 		$filters = array();
 		$filters[$this->router->class.'_projects_prj_name'] = array('prj.prj_name', 'like');
 		$filters[$this->router->class.'_projects_prj_overdue'] = array('prj_overdue', 'prj_overdue');
-		$filters[$this->router->class.'_projects_stu_isclosed'] = array('stu.stu_isclosed', 'equal');
+		if($this->router->class != 'home') {
+			$filters[$this->router->class.'_projects_stu_isclosed'] = array('stu.stu_isclosed', 'equal');
+		}
 		$filters[$this->router->class.'_projects_prj_status'] = array('prj.prj_status', 'equal');
 		$filters[$this->router->class.'_projects_prj_priority'] = array('prj.prj_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
@@ -31,6 +33,10 @@ class projects_model extends CI_Model {
 		} else {
 			return '';
 		}
+		if($this->router->class == 'home') {
+			$flt[] = 'prj_mbr.prj_mbr_id IS NOT NULL';
+			$flt[] = 'stu.stu_isclosed = \'0\'';
+		}
 		if($this->auth_library->permission('projects/read/onlypublished')) {
 			$flt[] = 'prj.prj_published = \'1\'';
 		}
@@ -47,7 +53,12 @@ class projects_model extends CI_Model {
 		$columns[] = 'prj.prj_priority';
 		$col = $this->my_library->build_columns($this->router->class.'_projects', $columns, 'prj.prj_id', 'DESC');
 		$results = $this->get_total($flt);
-		$build_pagination = $this->my_library->build_pagination($results->count, 30, $this->router->class.'_projects');
+		if($this->router->class == 'projects') {
+			$limit = 30;
+		} else {
+			$limit = 10;
+		}
+		$build_pagination = $this->my_library->build_pagination($results->count, $limit, $this->router->class.'_projects');
 		$data['columns'] = $col;
 		$data['pagination'] = $build_pagination['output'];
 		$data['position'] = $build_pagination['position'];

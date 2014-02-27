@@ -18,7 +18,6 @@
 			<ul>
 			<li class="show-phone show-tablet"><a id="toggle-sidebar" href="#"><i class="fa fa-exchange"></i><?php echo $this->lang->line('sidebar'); ?></a></li>
 			<?php if($this->session->userdata('phpcollab_member')) { ?>
-				<li><a href="<?php echo $this->my_url; ?>"><i class="fa fa-home"></i><?php echo $this->lang->line('home'); ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>profile"><i class="fa fa-user"></i><?php echo $this->phpcollab_member->mbr_name; ?></a></li>
 				<li><a href="<?php echo $this->my_url; ?>logout"><i class="fa fa-sign-out"></i><?php echo $this->lang->line('logout'); ?></a></li>
 			<?php } else { ?>
@@ -34,6 +33,7 @@
 	<?php if($this->session->userdata('phpcollab_member')) { ?>
 		<h1><?php echo $this->config->item('phpcollab/title'); ?></h1>
 		<ul>
+			<li><a href="<?php echo $this->my_url; ?>/home"><i class="fa fa-home"></i><?php echo $this->lang->line('home'); ?></a></li>
 			<?php if($this->auth_library->permission('organizations/index')) { ?><li><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a></li><?php } ?>
 			<?php if($this->auth_library->permission('projects/index')) { ?><li><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a></li><?php } ?>
 		</ul>

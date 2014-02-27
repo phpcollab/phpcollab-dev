@@ -7,7 +7,9 @@ class tasks_model extends CI_Model {
 	function get_index_list($prj, $mln = false) {
 		$data = array();
 		$data['prj'] = $prj;
-		if($mln) {
+		if($this->router->class == 'home') {
+			$data['ref_filter'] = 'tasks_home';
+		} else if($mln) {
 			$data['mln'] = $mln;
 			$data['ref_filter'] = 'tasks_milestone_'.$mln->mln_id;
 		} else {
@@ -24,11 +26,16 @@ class tasks_model extends CI_Model {
 		}
 		$filters[$data['ref_filter'].'_tsk_name'] = array('tsk.tsk_name', 'like');
 		$filters[$data['ref_filter'].'_tsk_overdue'] = array('tsk_overdue', 'tsk_overdue');
-		$filters[$data['ref_filter'].'_stu_isclosed'] = array('stu.stu_isclosed', 'equal');
+		if($this->router->class != 'home') {
+			$filters[$data['ref_filter'].'_stu_isclosed'] = array('stu.stu_isclosed', 'equal');
+		}
 		$filters[$data['ref_filter'].'_tsk_status'] = array('tsk.tsk_status', 'equal');
 		$filters[$data['ref_filter'].'_tsk_priority'] = array('tsk.tsk_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
-		if($mln) {
+		if($this->router->class == 'home') {
+			$flt[] = 'tsk.tsk_assigned = \''.$this->phpcollab_member->mbr_id.'\'';
+			$flt[] = 'stu.stu_isclosed = \'0\'';
+		} else if($mln) {
 			$flt[] = 'tsk.mln_id = \''.$mln->mln_id.'\'';
 		} else {
 			$flt[] = 'tsk.prj_id = \''.$prj->prj_id.'\'';
@@ -42,8 +49,13 @@ class tasks_model extends CI_Model {
 		$columns = array();
 		$columns[] = 'tsk.tsk_id';
 		$columns[] = 'tsk.tsk_name';
+		if($this->router->class == 'home') {
+			$columns[] = 'prj.prj_name';
+		}
 		$columns[] = 'trk.trk_name';
-		$columns[] = 'mbr_name_assigned';
+		if($this->router->class != 'home') {
+			$columns[] = 'mbr_name_assigned';
+		}
 		$columns[] = 'tsk.tsk_date_start';
 		$columns[] = 'tsk.tsk_date_due';
 		$columns[] = 'stu.stu_ordering';
@@ -62,10 +74,10 @@ class tasks_model extends CI_Model {
 		$data['position'] = $build_pagination['position'];
 		$data['rows'] = $this->get_rows($flt, $build_pagination['limit'], $build_pagination['start'], $data['ref_filter']);
 		$data['dropdown_trk_id'] = $this->dropdown_trk_id();
-		$data['dropdown_mln_id'] = $this->dropdown_mln_id($prj->prj_id);
-		$data['dropdown_tsk_owner'] = $this->dropdown_tsk_owner();
-		$data['dropdown_tsk_assigned'] = $this->dropdown_tsk_assigned($prj->prj_id);
-		$data['dropdown_tsk_parent'] = $this->dropdown_tsk_parent($prj->prj_id);
+		if($this->router->class != 'home') {
+			$data['dropdown_mln_id'] = $this->dropdown_mln_id($prj->prj_id);
+			$data['dropdown_tsk_assigned'] = $this->dropdown_tsk_assigned($prj->prj_id);
+		}
 		return $this->load->view('tasks/tasks_index', $data, TRUE);
 	}
 	function get_total($flt) {

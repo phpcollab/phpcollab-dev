@@ -20,10 +20,12 @@
 			<?php echo form_label($this->lang->line('prj_overdue'), 'projects_prj_overdue'); ?>
 			<?php echo form_dropdown($this->router->class.'_projects_prj_overdue', $this->my_model->dropdown_reply(), set_value($this->router->class.'_projects_prj_overdue', $this->session->userdata($this->router->class.'_projects_prj_overdue')), 'id="projects_prj_overdue" class="select"'); ?>
 		</div>
-		<div>
-			<?php echo form_label($this->lang->line('stu_isclosed'), 'projects_stu_isclosed'); ?>
-			<?php echo form_dropdown($this->router->class.'_projects_stu_isclosed', $this->my_model->dropdown_reply(), set_value($this->router->class.'_projects_stu_isclosed', $this->session->userdata($this->router->class.'_projects_stu_isclosed')), 'id="projects_stu_isclosed" class="select"'); ?>
-		</div>
+		<?php if($this->router->class != 'home') { ?>
+			<div>
+				<?php echo form_label($this->lang->line('stu_isclosed'), 'projects_stu_isclosed'); ?>
+				<?php echo form_dropdown($this->router->class.'_projects_stu_isclosed', $this->my_model->dropdown_reply(), set_value($this->router->class.'_projects_stu_isclosed', $this->session->userdata($this->router->class.'_projects_stu_isclosed')), 'id="projects_stu_isclosed" class="select"'); ?>
+			</div>
+		<?php } ?>
 		<div>
 			<?php echo form_label($this->lang->line('prj_status'), 'tasks_prj_status'); ?>
 			<?php echo form_dropdown($this->router->class.'_projects_prj_status', $this->my_model->dropdown_status(), set_value($this->router->class.'_projects_prj_status', $this->session->userdata($this->router->class.'_projects_prj_status')), 'id="tasks_prj_status" class="select"'); ?>
@@ -71,9 +73,9 @@
 			<th>
 				<?php if($row->stu_isclosed == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/closed'); ?>" title="<?php echo $this->lang->line('icon_closed'); ?>"></i><?php } ?>
 				<?php if($row->prj_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
-				<?php if($row->ismember == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/ismember'); ?>" title="<?php echo $this->lang->line('icon_ismember'); ?>"></i><?php } ?>
 				<?php if($row->prj_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>
 				<?php if($row->prj_overdue == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/overdue'); ?>" title="<?php echo $this->lang->line('icon_overdue'); ?>"></i><?php } ?>
+				<?php if($row->ismember == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/ismember'); ?>" title="<?php echo $this->lang->line('icon_ismember'); ?>"></i><?php } ?>
 			</th>
 		</tr>
 		<?php } ?>
