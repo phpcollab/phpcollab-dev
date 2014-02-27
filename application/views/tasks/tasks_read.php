@@ -59,7 +59,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_status'); ?></span>
-		<?php if($row->tsk_status) { ?><?php echo $this->my_model->status($row->tsk_status); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->tsk_status) { ?><?php if($row->stu_isclosed == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/closed'); ?>" title="<?php echo $this->lang->line('icon_closed'); ?>"></i><?php } ?><?php echo $this->my_model->status($row->tsk_status); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_priority'); ?></span>

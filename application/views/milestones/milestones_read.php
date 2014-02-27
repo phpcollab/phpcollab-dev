@@ -45,7 +45,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_status'); ?></span>
-		<?php if($row->mln_status) { ?><?php echo $this->my_model->status($row->mln_status); ?><?php } else { ?>-<?php } ?>
+		<?php if($row->mln_status) { ?><?php if($row->stu_isclosed == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/closed'); ?>" title="<?php echo $this->lang->line('icon_closed'); ?>"></i><?php } ?><?php echo $this->my_model->status($row->mln_status); ?><?php } else { ?>-<?php } ?>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_priority'); ?></span>
