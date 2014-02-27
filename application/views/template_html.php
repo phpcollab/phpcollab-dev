@@ -33,9 +33,11 @@
 	<?php if($this->session->userdata('phpcollab_member')) { ?>
 		<h1><?php echo $this->config->item('phpcollab/title'); ?></h1>
 		<ul>
-			<li><a href="<?php echo $this->my_url; ?>/home"><i class="fa fa-home"></i><?php echo $this->lang->line('home'); ?></a></li>
+			<li><a href="<?php echo $this->my_url; ?>home"><i class="fa fa-home"></i><?php echo $this->lang->line('home'); ?></a></li>
 			<?php if($this->auth_library->permission('organizations/index')) { ?><li><a href="<?php echo $this->my_url; ?>organizations"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/organizations'); ?>"></i><?php echo $this->lang->line('organizations'); ?></a></li><?php } ?>
 			<?php if($this->auth_library->permission('projects/index')) { ?><li><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a></li><?php } ?>
+			<li><a href="#"><i class="fa fa-coffee"></i>Wall</a><span>+99</span></li>
+			<li><a href="#"><i class="fa fa-envelope"></i>Notifications</a><span>+99</span></li>
 		</ul>
 		<?php if($this->auth_library->role('administrator')) { ?>
 			<h1><?php echo $this->lang->line('administrator'); ?></h1>
