@@ -5,6 +5,7 @@
 		<h2><a href="<?php echo $this->my_url; ?>milestones/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/milestones'); ?>"></i><?php echo $this->lang->line('milestones'); ?></a> (<?php echo $position; ?>)</h2>
 	<?php } ?>
 	<ul>
+	<li><a href="<?php echo $this->my_url; ?>projects/calendar/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/calendar'); ?>"></i><?php echo $this->lang->line('calendar'); ?></a></li>
 	<li><a href="<?php echo $this->my_url; ?>milestones/create/<?php echo $prj->prj_id; ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
 	<?php if($this->router->class != 'milestones') { ?>
 		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-milestones') || $this->input->cookie($this->router->class.'-milestones') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-milestones-collapse"><a href="#<?php echo $this->router->class; ?>-milestones"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
