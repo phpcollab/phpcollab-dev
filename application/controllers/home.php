@@ -5,6 +5,7 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->model('projects_model');
 		$this->load->model('tasks_model');
+		$this->load->model('notes_model');
 	}
 	public function index() {
 		$data = array();

@@ -6,18 +6,31 @@ class Notes_model extends CI_Model {
 	}
 	function get_index_list($prj) {
 		$data = array();
-		$data['ref_filter'] = $this->router->class.'_notes_'.$prj->prj_id;
+		if($this->router->class == 'home') {
+			$data['ref_filter'] = 'notes_home';
+		} else {
+			$data['ref_filter'] = $this->router->class.'_notes_'.$prj->prj_id;
+		}
 		$filters = array();
 		$filters[$data['ref_filter'].'_nte_name'] = array('nte.nte_name', 'like');
 		$flt = $this->my_library->build_filters($filters);
-		$flt[] = 'nte.prj_id = \''.$prj->prj_id.'\'';
+		if($this->router->class == 'home') {
+			$flt[] = 'nte.nte_owner = \''.$this->phpcollab_member->mbr_id.'\'';
+		} else {
+			$flt[] = 'nte.prj_id = \''.$prj->prj_id.'\'';
+		}
 		if($this->auth_library->permission('notes/read/onlypublished')) {
 			$flt[] = 'nte.nte_published = \'1\'';
 		}
 		$columns = array();
 		$columns[] = 'nte.nte_id';
 		$columns[] = 'nte.nte_name';
-		$columns[] = 'mbr.mbr_name';
+		if($this->router->class == 'home') {
+			$columns[] = 'prj.prj_name';
+		}
+		if($this->router->class != 'home') {
+			$columns[] = 'mbr.mbr_name';
+		}
 		$columns[] = 'nte.nte_date';
 		$col = $this->my_library->build_columns($data['ref_filter'], $columns, 'nte.nte_id', 'DESC');
 		$results = $this->get_total($flt);
@@ -40,7 +53,7 @@ class Notes_model extends CI_Model {
 		return $query->row();
 	}
 	function get_rows($flt, $num, $offset, $column) {
-		$query = $this->db->query('SELECT mbr.mbr_name, nte.* FROM '.$this->db->dbprefix('notes').' AS nte LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = nte.nte_owner WHERE '.implode(' AND ', $flt).' GROUP BY nte.nte_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
+		$query = $this->db->query('SELECT mbr.mbr_name, prj.prj_name, nte.* FROM '.$this->db->dbprefix('notes').' AS nte LEFT JOIN '.$this->db->dbprefix('members').' AS mbr ON mbr.mbr_id = nte.nte_owner LEFT JOIN '.$this->db->dbprefix('projects').' AS prj ON prj.prj_id = nte.prj_id WHERE '.implode(' AND ', $flt).' GROUP BY nte.nte_id ORDER BY '.$this->session->userdata($column.'_col').' LIMIT '.$offset.', '.$num);
 		return $query->result();
 	}
 	function get_row($nte_id) {

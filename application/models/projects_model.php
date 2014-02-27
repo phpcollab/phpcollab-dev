@@ -34,7 +34,7 @@ class projects_model extends CI_Model {
 			return '';
 		}
 		if($this->router->class == 'home') {
-			$flt[] = 'prj_mbr.prj_mbr_id IS NOT NULL';
+			$flt[] = '(prj_mbr.prj_mbr_id IS NOT NULL OR prj.prj_owner = \''.intval($this->phpcollab_member->mbr_id).'\')';
 			$flt[] = 'stu.stu_isclosed = \'0\'';
 		}
 		if($this->auth_library->permission('projects/read/onlypublished')) {

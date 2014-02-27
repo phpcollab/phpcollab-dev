@@ -1,11 +1,15 @@
 <article class="title">
-	<?php if($this->router->class == 'notes') { ?>
+	<?php if($this->router->class == 'home') { ?>
+		<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notes'); ?>"></i><?php echo $this->lang->line('home_notes'); ?> (<?php echo $position; ?>)</h2>
+	<?php } else if($this->router->class == 'notes') { ?>
 		<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> | <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> | <i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notes'); ?>"></i><?php echo $this->lang->line('notes'); ?> (<?php echo $position; ?>)</h2>
 	<?php } else { ?>
 		<h2><a href="<?php echo $this->my_url; ?>notes/index/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/notes'); ?>"></i><?php echo $this->lang->line('notes'); ?></a> (<?php echo $position; ?>)</h2>
 	<?php } ?>
 	<ul>
-	<li><a href="<?php echo $this->my_url; ?>notes/create/<?php echo $prj->prj_id; ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<?php if($this->router->class != 'home') { ?>
+		<li><a href="<?php echo $this->my_url; ?>notes/create/<?php echo $prj->prj_id; ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li>
+	<?php } ?>
 	<?php if($this->router->class != 'notes') { ?>
 		<li class="collapse<?php if(!$this->input->cookie($this->router->class.'-notes') || $this->input->cookie($this->router->class.'-notes') == 'expand') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-notes-collapse"><a href="#<?php echo $this->router->class; ?>-notes"><i class="fa fa-caret-square-o-up"></i><?php echo $this->lang->line('collapse'); ?></a></li>
 		<li class="expand<?php if($this->input->cookie($this->router->class.'-notes') == 'collapse') { ?> enabled<?php } ?>" id="<?php echo $this->router->class; ?>-notes-expand"><a href="#<?php echo $this->router->class; ?>-notes"><i class="fa fa-caret-square-o-down"></i><?php echo $this->lang->line('expand'); ?></a></li>
@@ -31,7 +35,12 @@
 			<?php $i = 0; ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('nte_id')); ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('nte_name')); ?>
-			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('nte_owner')); ?>
+			<?php if($this->router->class == 'home') { ?>
+				<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('project')); ?>
+			<?php } ?>
+			<?php if($this->router->class != 'home') { ?>
+				<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('nte_owner')); ?>
+			<?php } ?>
 			<?php $this->my_library->display_column($ref_filter, $columns[$i++], $this->lang->line('nte_date')); ?>
 			<th>&nbsp;</th>
 		</tr>
@@ -41,7 +50,12 @@
 		<tr>
 			<td class="id"><?php echo $row->nte_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>notes/read/<?php echo $row->nte_id; ?>"><?php echo $row->nte_name; ?></a></td>
-			<td><?php echo $row->mbr_name; ?></td>
+			<?php if($this->router->class == 'home') { ?>
+				<td><a href="<?php echo $this->my_url; ?>projects/read/<?php echo $row->prj_id; ?>"><?php echo $row->prj_name; ?></a></td>
+			<?php } ?>
+			<?php if($this->router->class != 'home') { ?>
+				<td><?php echo $row->mbr_name; ?></td>
+			<?php } ?>
 			<td><?php echo $row->nte_date; ?></td>
 			<th>
 				<?php if($row->nte_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>

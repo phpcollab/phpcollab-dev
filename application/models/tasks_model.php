@@ -33,7 +33,7 @@ class tasks_model extends CI_Model {
 		$filters[$data['ref_filter'].'_tsk_priority'] = array('tsk.tsk_priority', 'equal');
 		$flt = $this->my_library->build_filters($filters);
 		if($this->router->class == 'home') {
-			$flt[] = 'tsk.tsk_assigned = \''.$this->phpcollab_member->mbr_id.'\'';
+			$flt[] = '(tsk.tsk_assigned = \''.$this->phpcollab_member->mbr_id.'\' OR tsk.tsk_owner = \''.intval($this->phpcollab_member->mbr_id).'\')';
 			$flt[] = 'stu.stu_isclosed = \'0\'';
 		} else if($mln) {
 			$flt[] = 'tsk.mln_id = \''.$mln->mln_id.'\'';

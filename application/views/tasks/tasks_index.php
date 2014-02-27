@@ -1,6 +1,6 @@
 <article class="title">
 	<?php if($this->router->class == 'home') { ?>
-		<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/tasks'); ?>"></i><?php echo $this->lang->line('tasks'); ?> (<?php echo $position; ?>)</h2>
+		<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/tasks'); ?>"></i><?php echo $this->lang->line('home_tasks'); ?> (<?php echo $position; ?>)</h2>
 	<?php } else if($this->router->class == 'tasks') { ?>
 		<h2><a href="<?php echo $this->my_url; ?>projects"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?></a> | <a href="<?php echo $this->my_url; ?>projects/read/<?php echo $prj->prj_id; ?>"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $prj->prj_name; ?></a> | <i class="fa fa-<?php echo $this->config->item('phpcollab/icons/tasks'); ?>"></i><?php echo $this->lang->line('tasks'); ?> (<?php echo $position; ?>)</h2>
 	<?php } else { ?>

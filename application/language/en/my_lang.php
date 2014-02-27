@@ -1,4 +1,7 @@
 <?php
+$lang['home_tasks'] = 'My open tasks';
+$lang['home_notes'] = 'My notes';
+$lang['home_projects'] = 'My open projects';
 $lang['icon_closed'] = 'Closed';
 $lang['icon_overdue'] = 'Overdue';
 $lang['prj_overdue'] = 'Overdue?';
