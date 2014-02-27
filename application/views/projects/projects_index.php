@@ -1,5 +1,9 @@
 <article class="title">
-	<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('home_projects'); ?> (<?php echo $position; ?>)</h2>
+	<?php if($this->router->class == 'home') { ?>
+		<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('home_projects'); ?> (<?php echo $position; ?>)</h2>
+	<?php } else { ?>
+		<h2><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/projects'); ?>"></i><?php echo $this->lang->line('projects'); ?> (<?php echo $position; ?>)</h2>
+	<?php } ?>
 	<ul>
 	<li><a href="<?php echo $this->my_url; ?>projects/calendar"><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/calendar'); ?>"></i><?php echo $this->lang->line('calendar'); ?></a></li>
 	<?php if($this->auth_library->permission('projects/create')) { ?><li><a href="<?php echo $this->my_url; ?>projects/create<?php if($this->router->class == 'organizations') { ?>?org_id=<?php echo $org->org_id; ?><?php } ?>"><i class="fa fa-plus"></i><?php echo $this->lang->line('create'); ?></a></li><?php } ?>

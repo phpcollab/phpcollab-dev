@@ -8,6 +8,7 @@ class Home extends CI_Controller {
 		$this->load->model('notes_model');
 	}
 	public function index() {
+		$this->my_library->set_title($this->lang->line('home'));
 		$data = array();
 		$content = $this->load->view('home/home_index', $data, TRUE);
 		$this->my_library->set_zone('content', $content);

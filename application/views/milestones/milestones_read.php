@@ -53,7 +53,7 @@
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('tsk_completion'); ?></span>
-		<?php if($row->tsk_completion) { ?><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span><?php } else { ?>-<?php } ?>
+		<span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span>
 		</p>
 		<p>
 		<span class="label"><?php echo $this->lang->line('mln_published'); ?></span>
