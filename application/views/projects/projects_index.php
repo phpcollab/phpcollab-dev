@@ -45,9 +45,9 @@
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_id')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_name')); ?>
 			<?php if($this->router->class != 'organizations') { ?>
-				<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('organization')); ?>
+				<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('organization'), array('hide-tablet')); ?>
 			<?php } ?>
-			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_date_start')); ?>
+			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_date_start'), array('hide-tablet')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_date_due')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('prj_status')); ?>
 			<?php $this->my_library->display_column($this->router->class.'_projects', $columns[$i++], $this->lang->line('tsk_completion')); ?>
@@ -61,14 +61,15 @@
 			<td class="id"><?php echo $row->prj_id; ?></td>
 			<td><a href="<?php echo $this->my_url; ?>projects/read/<?php echo $row->prj_id; ?>"><?php echo $row->prj_name; ?></a></td>
 			<?php if($this->router->class != 'organizations') { ?>
-				<td><?php echo $row->org_name; ?></td>
+				<td class="hide-tablet"><?php echo $row->org_name; ?></td>
 			<?php } ?>
-			<td><?php echo $row->prj_date_start; ?></td>
-			<td><?php if($row->prj_overdue == 1) { ?><strong><?php echo $row->prj_date_due; ?></strong><?php } else { ?><?php echo $row->prj_date_due; ?><?php } ?></td>
+			<td class="date hide-tablet"><?php echo $row->prj_date_start; ?></td>
+			<td class="date"><?php if($row->prj_overdue == 1) { ?><strong><?php echo $row->prj_date_due; ?></strong><?php } else { ?><?php echo $row->prj_date_due; ?><?php } ?></td>
 			<td><?php echo $this->my_model->status($row->prj_status); ?></td>
 			<td style="width:100px;"><span class="color_percent" style="width:<?php echo intval($row->tsk_completion); ?>%;"><?php echo intval($row->tsk_completion); ?>%</span></td>
 			<td style="width:100px;"><span class="color_percent priority_<?php echo $row->prj_priority; ?>" style="width:100%;"><?php echo $this->my_model->priority($row->prj_priority); ?></span></td>
 			<th>
+				<?php if($row->stu_isclosed == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/closed'); ?>" title="<?php echo $this->lang->line('icon_closed'); ?>"></i><?php } ?>
 				<?php if($row->prj_owner == $this->phpcollab_member->mbr_id) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/owner'); ?>" title="<?php echo $this->lang->line('icon_owner'); ?>"></i><?php } ?>
 				<?php if($row->ismember == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/ismember'); ?>" title="<?php echo $this->lang->line('icon_ismember'); ?>"></i><?php } ?>
 				<?php if($row->prj_published == 1) { ?><i class="fa fa-<?php echo $this->config->item('phpcollab/icons/published'); ?>" title="<?php echo $this->lang->line('icon_published'); ?>"></i><?php } ?>

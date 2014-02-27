@@ -165,6 +165,7 @@ tbody th span.success{background-color:#94b86e;color:#FFFFFF;}
 tbody th span.info{background-color:#658db3;color:#FFFFFF;}
 tbody th span.danger{background-color:#e25856;color:#FFFFFF;}
 tbody th span.warning{background-color:#F0AD4E;color:#FFFFFF;}
+tbody td.date{white-space:nowrap;}
 
 .fa{color:#FFFFFF;line-height:inherit!important;margin-right:4px;vertical-align:top;}
 

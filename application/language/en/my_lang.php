@@ -1,4 +1,5 @@
 <?php
+$lang['icon_closed'] = 'Closed';
 $lang['icon_overdue'] = 'Overdue';
 $lang['prj_overdue'] = 'Overdue?';
 $lang['mln_overdue'] = 'Overdue?';
