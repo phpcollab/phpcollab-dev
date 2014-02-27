@@ -237,6 +237,30 @@ class projects extends CI_Controller {
 
 			$legend = array();
 			$values = array();
+			$query = $this->db->query('SELECT IF(mln.mln_date_due IS NOT NULL AND mln.mln_date_due <= ? AND stu.stu_isclosed = ?, 1, 0) AS ref, COUNT(DISTINCT(mln.mln_id)) AS nb FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE mln.prj_id = ? GROUP BY ref ORDER BY nb DESC', array(date('Y-m-d'), 0, $prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = $this->lang->line('reply_'.$row->ref);
+					$values[] = $row->nb;
+				}
+			}
+			$data['milestones'] .= build_table_repartition($this->lang->line('mln_overdue'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT stu.stu_isclosed AS ref, COUNT(DISTINCT(mln.mln_id)) AS nb FROM '.$this->db->dbprefix('milestones').' AS mln LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = mln.mln_status WHERE mln.prj_id = ? GROUP BY ref ORDER BY nb DESC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = $this->lang->line('reply_'.$row->ref);
+					$values[] = $row->nb;
+				}
+			}
+			$data['milestones'] .= build_table_repartition($this->lang->line('stu_isclosed'), $values, $legend);
+
+			$legend = array();
+			$values = array();
 			$query = $this->db->query('SELECT mln.mln_status AS ref, COUNT(DISTINCT(mln.mln_id)) AS nb FROM '.$this->db->dbprefix('milestones').' AS mln WHERE mln.prj_id = ? GROUP BY ref ORDER BY nb DESC', array($prj_id));
 			if($query->num_rows() > 0) {
 				$current_month = date('Y-m');
@@ -340,6 +364,30 @@ class projects extends CI_Controller {
 				}
 			}
 			$data['tasks'] .= build_table_progression($this->lang->line('tsk_date_start'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT IF(tsk.tsk_date_due IS NOT NULL AND tsk.tsk_date_due <= ? AND stu.stu_isclosed = ?, 1, 0) AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = tsk.tsk_status WHERE tsk.prj_id = ? GROUP BY ref ORDER BY nb DESC', array(date('Y-m-d'), 0, $prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = $this->lang->line('reply_'.$row->ref);
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('tsk_overdue'), $values, $legend);
+
+			$legend = array();
+			$values = array();
+			$query = $this->db->query('SELECT stu.stu_isclosed AS ref, COUNT(DISTINCT(tsk.tsk_id)) AS nb FROM '.$this->db->dbprefix('tasks').' AS tsk LEFT JOIN '.$this->db->dbprefix('statuses').' AS stu ON stu.stu_id = tsk.tsk_status WHERE tsk.prj_id = ? GROUP BY ref ORDER BY nb DESC', array($prj_id));
+			if($query->num_rows() > 0) {
+				$current_month = date('Y-m');
+				foreach($query->result() as $row) {
+					$legend[] = $this->lang->line('reply_'.$row->ref);
+					$values[] = $row->nb;
+				}
+			}
+			$data['tasks'] .= build_table_repartition($this->lang->line('stu_isclosed'), $values, $legend);
 
 			$legend = array();
 			$values = array();

@@ -175,7 +175,7 @@ class My_library {
 						$flt[] = 'prj.prj_date_due IS NOT NULL AND prj.prj_date_due <= '.$this->CI->db->escape(date('Y-m-d')).' AND stu.stu_isclosed = 0';
 					}
 					if($value == 0) {
-						$flt[] = 'prj.prj_date_due IS NOT NULL AND prj.prj_date_due <= '.$this->CI->db->escape(date('Y-m-d')).' AND stu.stu_isclosed = 1';
+						$flt[] = '(prj.prj_date_due IS NULL OR prj.prj_date_due > '.$this->CI->db->escape(date('Y-m-d')).' OR stu.stu_isclosed = 1)';
 					}
 				}
 				if($v[1] == 'mln_overdue') {
@@ -183,7 +183,7 @@ class My_library {
 						$flt[] = 'mln.mln_date_due IS NOT NULL AND mln.mln_date_due <= '.$this->CI->db->escape(date('Y-m-d')).' AND stu.stu_isclosed = 0';
 					}
 					if($value == 0) {
-						$flt[] = 'mln.mln_date_due IS NOT NULL AND mln.mln_date_due <= '.$this->CI->db->escape(date('Y-m-d')).' AND stu.stu_isclosed = 1';
+						$flt[] = '(mln.mln_date_due IS NULL OR mln.mln_date_due > '.$this->CI->db->escape(date('Y-m-d')).' OR stu.stu_isclosed = 1)';
 					}
 				}
 				if($v[1] == 'tsk_overdue') {
@@ -191,7 +191,7 @@ class My_library {
 						$flt[] = 'tsk.tsk_date_due IS NOT NULL AND tsk.tsk_date_due <= '.$this->CI->db->escape(date('Y-m-d')).' AND stu.stu_isclosed = 0';
 					}
 					if($value == 0) {
-						$flt[] = 'tsk.tsk_date_due IS NOT NULL AND tsk.tsk_date_due <= '.$this->CI->db->escape(date('Y-m-d')).' AND stu.stu_isclosed = 1';
+						$flt[] = '(tsk.tsk_date_due IS NULL OR tsk.tsk_date_due > '.$this->CI->db->escape(date('Y-m-d')).' OR stu.stu_isclosed = 1)';
 					}
 				}
 				if($v[1] == 'compare_today') {
