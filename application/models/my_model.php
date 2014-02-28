@@ -7,7 +7,16 @@ class My_model extends CI_Model {
 	function save_log($type, $reference, $row, $additional = array()) {
 		$diff = array();
 		foreach($row as $k => $v) {
-			if($this->input->post($k) != '' && $this->input->post($k) != $v && $k != 'mbr_password') {
+			if(!$this->input->post($k) && strstr($k, '_authorized') && $v == 1) {
+				$diff[$k] = array('old' => $v, 'new' => '0');
+
+			} else if(!$this->input->post($k) && $k == 'tsk_published' && $v == 1 && $this->auth_library->permission('tasks/update/published')) {
+				$diff[$k] = array('old' => $v, 'new' => '0');
+
+			} else if(!$this->input->post($k) && strstr($k, '_published') && $v == 1) {
+				$diff[$k] = array('old' => $v, 'new' => '0');
+
+			} else if($this->input->post($k) != '' && $this->input->post($k) != $v && $k != 'mbr_password') {
 				$diff[$k] = array('old' => $v, 'new' => $this->input->post($k));
 			}
 		}
