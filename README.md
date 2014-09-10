@@ -1,3 +1,4 @@
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/phpcollab/phpcollab?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 phpCollab 3.0
 ===
 
